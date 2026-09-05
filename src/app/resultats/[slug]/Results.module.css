@@ -1,0 +1,219 @@
+.pageWrapper {
+  background: var(--bg-main);
+  min-height: 100vh;
+  color: var(--dark-ink);
+}
+
+.main {
+  padding-top: 120px;
+  padding-bottom: 8rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.backLink:hover {
+  color: var(--dark-ink);
+  transform: translateX(-3px);
+}
+
+.header {
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 0.95;
+  color: var(--dark-ink);
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  color: var(--gray-muted);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.filtersWrapper {
+  margin-bottom: 2.5rem;
+  position: sticky;
+  top: 75px;
+  z-index: 10;
+  padding: 0.75rem 0;
+  background: rgba(250, 247, 242, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filterBtn {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  color: var(--dark-ink);
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.filterBtn:hover {
+  border-color: var(--dark-ink);
+  background: var(--bg-slate);
+}
+
+.activeFilter {
+  background: var(--dark-pill) !important;
+  color: #ffffff !important;
+  border-color: var(--dark-pill) !important;
+}
+
+.distanceSection {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.distanceTitle {
+  font-family: var(--font-display);
+  color: var(--dark-ink);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.trophyIcon {
+  color: #d97706;
+}
+
+.tableContainer {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 20px;
+  overflow-x: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.resultsTable th {
+  text-align: left;
+  padding: 1.1rem 1.25rem;
+  background: #F1F3F5;
+  color: var(--dark-ink);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--border-hairline);
+}
+
+.resultsTable td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-hairline);
+  color: var(--dark-ink);
+}
+
+.resultsTable tr:hover td {
+  background: rgba(0, 0, 0, 0.015);
+}
+
+.rank {
+  font-weight: 800;
+  color: var(--dark-ink) !important;
+  width: 60px;
+}
+
+.name {
+  font-weight: 700;
+  color: var(--dark-ink) !important;
+}
+
+.runnerLink {
+  color: var(--dark-ink);
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.runnerLink:hover {
+  color: #000000 !important;
+  text-decoration: underline;
+  transform: translateX(3px);
+}
+
+.time {
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  color: var(--dark-ink) !important;
+}
+
+.club {
+  font-size: 0.8rem;
+  color: #4B5563 !important;
+  font-weight: 600;
+}
+
+.podium {
+  color: #d97706 !important;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 5rem;
+  color: var(--gray-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .resultsTable th:nth-child(4),
+  .resultsTable td:nth-child(4),
+  .resultsTable th:nth-child(5),
+  .resultsTable td:nth-child(5),
+  .resultsTable th:nth-child(8),
+  .resultsTable td:nth-child(8) {
+    display: none;
+  }
+}

@@ -1,0 +1,1130 @@
+.pageWrapper {
+  background: var(--bg-main);
+  min-height: 100vh;
+  padding: 8rem 1.5rem 5rem;
+  color: var(--dark-ink);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.02) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.headerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-ink);
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 0.92;
+  color: var(--dark-ink);
+  margin-bottom: 0.85rem;
+}
+
+.titleAccent {
+  color: #c05621;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-muted);
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+/* TABS NAVIGATION */
+.tabsNav {
+  display: flex;
+  gap: 0.75rem;
+  background: rgba(17, 20, 23, 0.04);
+  padding: 0.4rem;
+  border-radius: 16px;
+  margin-bottom: 2.5rem;
+  border: 1px solid var(--border-hairline);
+  max-width: fit-content;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: var(--gray-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: var(--dark-ink);
+}
+
+.tabBtnActive {
+  background: var(--dark-ink);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 20, 23, 0.15);
+}
+
+.tabCountBadge {
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.tabLabelMobile,
+.tabCountMobile,
+.periodLabelMobile {
+  display: none;
+}
+
+.tabLabelFull,
+.tabCountFull,
+.periodLabelFull {
+  display: inline;
+}
+
+/* SECTION CHRONOS */
+.chronoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.genderFilters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.genderBtn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid var(--border-hairline);
+  background: #ffffff;
+  color: var(--dark-ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.genderBtn:hover {
+  border-color: var(--dark-ink);
+}
+
+/* PERIOD SWITCHER */
+.periodSwitcher {
+  display: inline-flex;
+  background: #ffffff;
+  padding: 0.35rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  gap: 0.4rem;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.periodBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border: none;
+  background: transparent;
+  color: var(--gray-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.periodBtn:hover {
+  color: var(--dark-ink);
+}
+
+.periodBtnActive {
+  background: var(--dark-ink);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(17, 20, 23, 0.15);
+}
+
+.seasonBadgeLive {
+  background: #c05621;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+}
+
+/* BILAN TOP 5 CARDS */
+.bilanCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bilanCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.07);
+}
+
+.bilanHero {
+  background: linear-gradient(135deg, rgba(246, 243, 237, 0.6) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  padding: 1.25rem 1.4rem;
+  position: relative;
+}
+
+.bilanLeaderTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.bilanTimeHero {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 0.9;
+  color: var(--dark-ink);
+  margin-bottom: 0.5rem;
+}
+
+.top5List {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.top5Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(17, 20, 23, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(17, 20, 23, 0.04);
+  transition: background 0.2s ease;
+}
+
+.top5Item:hover {
+  background: rgba(17, 20, 23, 0.04);
+}
+
+.top5Rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.top5Rank2 {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.top5Rank3 {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
+.top5RankDefault {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.top5Info {
+  flex: 1;
+  min-width: 0;
+}
+
+.top5Athlete {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: var(--dark-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top5Club {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gray-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top5Meta {
+  font-size: 0.7rem;
+  color: #8c9096;
+}
+
+.top5Perf {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.top5Time {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--dark-ink);
+  line-height: 1;
+}
+
+.top5Pace {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  margin-top: 0.15rem;
+}
+
+.recordsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.recordCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 24px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.recordCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.distBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-ink);
+  background: var(--bg-vanilla);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 20, 23, 0.08);
+}
+
+.genderTag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.genderTagM {
+  background: #ebf8ff;
+  color: #2b6cb0;
+  border: 1px solid #bee3f8;
+}
+
+.genderTagF {
+  background: #fff5f7;
+  color: #b83280;
+  border: 1px solid #fed7e2;
+}
+
+.timeDisplay {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 6vw, 4.4rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  margin-bottom: 1rem;
+}
+
+.athleteRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.athleteName {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--dark-ink);
+  letter-spacing: -0.01em;
+}
+
+.clubBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  margin-bottom: 1.25rem;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 14px;
+  margin-bottom: 1.25rem;
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.metricLabel {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gray-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.metricValue {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--dark-ink);
+}
+
+.venueFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--gray-muted);
+  font-weight: 600;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-hairline);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.eventLocation {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.homologationTag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #2b6cb0;
+  background: #edf2f7;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* HOMOLOGATION BANNER */
+.infoCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  margin-top: 1rem;
+}
+
+.infoCardText h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  color: var(--dark-ink);
+}
+
+.infoCardText p {
+  font-size: 0.88rem;
+  color: var(--gray-muted);
+  line-height: 1.45;
+}
+
+.infoCardBtn {
+  white-space: nowrap;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  background: var(--dark-ink);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.infoCardBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* SECTION REGULARITE (WALL OF FAME ENGINE) */
+.regulariteIntro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.75rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-left: 4px solid #c05621;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.regulariteIntroText {
+  flex: 1;
+  min-width: 280px;
+}
+
+.regulariteSectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--dark-ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.regulariteSectionSubtitle {
+  font-size: 0.92rem;
+  color: var(--gray-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.regulariteSectionSubtitle strong {
+  color: var(--dark-ink);
+  font-weight: 800;
+}
+
+.regulariteStatsBadge {
+  background: rgba(192, 86, 33, 0.08);
+  color: #c05621;
+  border: 1px solid rgba(192, 86, 33, 0.2);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.searchContainer {
+  margin-bottom: 2.5rem;
+  position: sticky;
+  top: 75px;
+  z-index: 100;
+}
+
+.searchWrapper {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 0.25rem 1rem;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: var(--dark-ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.searchInput::placeholder {
+  color: rgba(17, 20, 23, 0.35);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.runnerCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.runnerCard:hover {
+  border-color: rgba(17, 20, 23, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.activeCard {
+  border-color: var(--dark-ink);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardMain {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.runnerInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.runnerName {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  margin: 0;
+}
+
+.gradeBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--bg-vanilla);
+  border: 1px solid var(--border-hairline);
+  color: var(--dark-ink);
+  display: inline-block;
+  margin-top: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.stats {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.statItem {
+  text-align: right;
+}
+
+.statLabel {
+  font-size: 0.68rem;
+  color: var(--gray-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--dark-ink);
+  line-height: 1;
+}
+
+.expandIcon {
+  margin-left: 1rem;
+}
+
+.details {
+  border-top: 1px solid var(--border-hairline);
+  background: #fafafa;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.viewProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--dark-ink);
+  color: #ffffff;
+  padding: 0.6rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewProfileBtn:hover {
+  background: #c05621;
+  transform: translateY(-1px);
+}
+
+.resultItem {
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed rgba(17, 20, 23, 0.08);
+}
+
+.resultItem:last-child {
+  border-bottom: none;
+}
+
+.resultInfoLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.resultDate {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--gray-muted);
+  width: 90px;
+}
+
+.raceInfoContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.resultRaceName {
+  font-weight: 800;
+  color: var(--dark-ink);
+}
+
+.resultDistance {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #edf2f7;
+  color: var(--dark-ink);
+}
+
+.resultTime {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--dark-ink);
+}
+
+.loadMore {
+  margin: 2.5rem auto 0;
+  display: block;
+  padding: 0.85rem 2rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--dark-ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.loadMore:hover {
+  background: var(--dark-ink);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.loadingContainer {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(17, 20, 23, 0.1);
+  border-top-color: var(--dark-ink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    padding: 6.5rem 1rem 4rem;
+  }
+  .title {
+    font-size: clamp(2.3rem, 9vw, 3.4rem);
+    line-height: 0.95;
+  }
+  .subtitle {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+  .tabLabelMobile,
+  .tabCountMobile,
+  .periodLabelMobile {
+    display: inline;
+  }
+  .tabLabelFull,
+  .tabCountFull,
+  .periodLabelFull {
+    display: none;
+  }
+  .tabsNav {
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem;
+    padding: 0.35rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+  }
+  .tabBtn {
+    padding: 0.7rem 0.4rem;
+    font-size: 0.74rem;
+    gap: 0.35rem;
+    justify-content: center;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .tabCountBadge {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .periodSwitcher {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem;
+    padding: 0.35rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+  .periodBtn {
+    padding: 0.6rem 0.35rem;
+    font-size: 0.74rem;
+    gap: 0.35rem;
+    justify-content: center;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .seasonBadgeLive {
+    font-size: 0.62rem;
+    padding: 0.1rem 0.35rem;
+  }
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .genderFilters {
+    width: 100%;
+    display: flex;
+    gap: 0.35rem;
+  }
+  .genderBtn {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+  .recordsGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .recordCard, .bilanCard {
+    padding: 1.25rem 1rem;
+    border-radius: 18px;
+    gap: 1rem;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .cardHeader {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .timeDisplay {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+  }
+  .athleteName {
+    font-size: 1.15rem;
+  }
+  .bilanHero {
+    padding: 1rem 0.85rem;
+    border-radius: 14px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .bilanTimeHero {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+  .top5Item {
+    padding: 0.55rem 0.65rem;
+    gap: 0.5rem;
+    border-radius: 10px;
+  }
+  .top5Info {
+    flex: 1;
+    min-width: 0;
+  }
+  .top5Athlete {
+    font-size: 0.82rem;
+    min-width: 0;
+  }
+  .top5Club {
+    font-size: 0.68rem;
+    min-width: 0;
+  }
+  .top5Meta {
+    font-size: 0.65rem;
+  }
+  .top5Time {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+  .regulariteIntro {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .regulariteStatsBadge {
+    align-self: flex-start;
+  }
+  .searchContainer {
+    margin-bottom: 1.5rem;
+  }
+  .searchWrapper {
+    padding: 0.65rem 0.75rem;
+  }
+  .searchInput {
+    font-size: 0.78rem;
+  }
+  .cardMain {
+    padding: 1rem 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+  .runnerInfo {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.85rem;
+    min-width: 0;
+  }
+  .runnerName {
+    font-size: 1.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+  }
+  .stats {
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-hairline);
+    padding-top: 0.75rem;
+    gap: 0.5rem;
+  }
+  .statValue {
+    font-size: 1.4rem;
+  }
+  .infoCard {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+  .infoCardBtn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.85rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageWrapper {
+    padding: 5.5rem 0.85rem 3rem;
+  }
+  .title {
+    font-size: clamp(2.1rem, 9vw, 2.7rem);
+  }
+  .tabBtn {
+    font-size: 0.7rem;
+    padding: 0.65rem 0.2rem;
+    gap: 0.25rem;
+  }
+  .periodBtn {
+    font-size: 0.7rem;
+    padding: 0.55rem 0.2rem;
+    gap: 0.25rem;
+  }
+  .timeDisplay {
+    font-size: clamp(2.1rem, 9vw, 2.6rem);
+  }
+  .bilanTimeHero {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+  .recordCard, .bilanCard {
+    padding: 1rem 0.75rem;
+  }
+  .cardMain {
+    padding: 0.85rem 0.75rem;
+  }
+}

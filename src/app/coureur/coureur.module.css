@@ -1,0 +1,746 @@
+.pageWrapper {
+  background: var(--bg-main, #f7f6f2);
+  min-height: 100vh;
+  padding: 7.5rem 1.5rem 5rem;
+  color: var(--dark-ink, #0f172a);
+  position: relative;
+}
+
+.loadingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  gap: 1.5rem;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(192, 86, 33, 0.2);
+  border-top-color: #c05621;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #18181b;
+  color: #fff;
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TOP BAR & AUTOCOMPLETE SEARCH */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-muted, #64748b);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.backLink:hover {
+  color: #c05621;
+  transform: translateX(-3px);
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  max-width: 460px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-muted, #64748b);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.85rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.1));
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark-ink, #0f172a);
+  outline: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: #c05621;
+  box-shadow: 0 4px 18px rgba(192, 86, 33, 0.12);
+}
+
+.suggestionsDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.12));
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  width: 100%;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background: #fdf8f4;
+}
+
+.suggestionName {
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--dark-ink, #0f172a);
+  text-transform: uppercase;
+}
+
+.suggestionMeta {
+  font-size: 0.78rem;
+  color: var(--gray-muted, #64748b);
+  margin-top: 2px;
+}
+
+/* HERO ATHLETE PROFILE CARD */
+.profileCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.1));
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+  margin-bottom: 3rem;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
+  flex-wrap: wrap;
+}
+
+.profileMain {
+  flex: 1;
+  min-width: 280px;
+}
+
+.rankBadgeHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c05621;
+  margin-bottom: 0.75rem;
+}
+
+.athleteTitle {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--dark-ink, #0f172a);
+  text-transform: uppercase;
+  margin: 0 0 0.75rem 0;
+}
+
+.clubRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  margin-bottom: 1.25rem;
+}
+
+.badgesRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.gradeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.victoryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  text-transform: uppercase;
+}
+
+.ventouxBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  text-transform: uppercase;
+}
+
+.centurionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  text-transform: uppercase;
+}
+
+.top10Badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #fdf4ff;
+  color: #a21caf;
+  border: 1px solid #f5d0fe;
+  text-transform: uppercase;
+}
+
+/* ACTIONS */
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 240px;
+}
+
+.storyBtn {
+  background: #c05621;
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(192, 86, 33, 0.25);
+}
+
+.storyBtn:hover {
+  background: #9c4215;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(192, 86, 33, 0.35);
+}
+
+.shareProfileBtn {
+  background: #ffffff;
+  color: var(--dark-ink, #0f172a);
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.15));
+  padding: 0.8rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shareProfileBtn:hover {
+  background: #f8fafc;
+  border-color: var(--dark-ink, #0f172a);
+}
+
+/* ATHLETE STATS GRID */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  padding-top: 2rem;
+}
+
+.statCard {
+  background: #fcfbf9;
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.07));
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statIconBox {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: 1.7rem;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  color: var(--dark-ink, #0f172a);
+  margin-bottom: 0.25rem;
+}
+
+.statValue small {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gray-muted, #64748b);
+  margin-left: 2px;
+}
+
+.statLabel {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-muted, #64748b);
+  line-height: 1.2;
+}
+
+/* TIMELINE / RACES HISTORY */
+.historySection {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.1));
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+  margin-bottom: 3rem;
+}
+
+.historyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.historyTitle {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--dark-ink, #0f172a);
+  margin: 0 0 0.35rem 0;
+}
+
+.historySubtitle {
+  font-size: 0.88rem;
+  color: var(--gray-muted, #64748b);
+  margin: 0;
+}
+
+.historyCountBadge {
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--dark-ink, #0f172a);
+  letter-spacing: 0.04em;
+}
+
+.racesTableWrapper {
+  overflow-x: auto;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.racesTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 780px;
+}
+
+.racesTable th {
+  padding: 0.85rem 1rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-muted, #64748b);
+  border-bottom: 2px solid var(--border-hairline, rgba(0, 0, 0, 0.1));
+}
+
+.racesTable td {
+  padding: 1.1rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.racesTable tr:last-child td {
+  border-bottom: none;
+}
+
+.racesTable tr:hover {
+  background: #fcfbfa;
+}
+
+.cellDate {
+  font-weight: 800;
+  color: var(--gray-muted, #64748b);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.cellRaceName {
+  font-weight: 800;
+  color: var(--dark-ink, #0f172a);
+}
+
+.raceTableLink {
+  color: var(--dark-ink, #0f172a);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.raceTableLink:hover {
+  color: #c05621;
+}
+
+.cellDistance {
+  white-space: nowrap;
+}
+
+.distPill {
+  display: inline-block;
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.timeVal {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--dark-ink, #0f172a);
+}
+
+.cellMetrics {
+  white-space: nowrap;
+}
+
+.paceVal {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c05621;
+}
+
+.speedVal {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gray-muted, #64748b);
+}
+
+.cellRank {
+  white-space: nowrap;
+}
+
+.podiumRankBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border: 1px solid #fde68a;
+}
+
+.regularRankBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.82rem;
+  border: 1px solid #e2e8f0;
+}
+
+.cellCat {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-muted, #64748b);
+}
+
+.cellAction {
+  text-align: right;
+}
+
+.raceDetailBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: var(--dark-ink, #0f172a);
+  transition: all 0.2s ease;
+}
+
+.raceDetailBtn:hover {
+  background: #c05621;
+  color: #ffffff;
+}
+
+/* FOOTER CALLOUT */
+.footerCallout {
+  background: #18181b;
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  color: #ffffff;
+  flex-wrap: wrap;
+}
+
+.calloutText h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem 0;
+  color: #ffffff;
+}
+
+.calloutText p {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.calloutButtons {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.calloutBtnPrimary {
+  background: #c05621;
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calloutBtnPrimary:hover {
+  background: #9c4215;
+}
+
+.calloutBtnSecondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.calloutBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pageWrapper {
+    padding: 6.5rem 1rem 3.5rem;
+  }
+
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .searchWrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+  }
+
+  .historySection {
+    padding: 1.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .profileActions {
+    width: 100%;
+  }
+
+  .footerCallout {
+    padding: 1.5rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calloutButtons {
+    flex-direction: column;
+  }
+}

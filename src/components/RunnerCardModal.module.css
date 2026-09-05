@@ -1,0 +1,358 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modalContent {
+  background: #121214;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.generatorLayout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2rem;
+  padding: 2.5rem;
+}
+
+/* THE STORY CARD */
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.storyCard {
+  width: 330px;
+  min-height: 520px;
+  background: #0d0e12;
+  border: 2px solid #27272a;
+  border-radius: 22px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  font-family: inherit;
+}
+
+.cardGlowTop {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(192, 86, 33, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 1rem;
+}
+
+.brandTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandMain {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #fff;
+  font-style: italic;
+  line-height: 1;
+}
+
+.brandReg {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #c05621;
+  margin-left: 2px;
+}
+
+.brandSub {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #c05621;
+  margin-top: 4px;
+}
+
+.rankBadge {
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #fafafa;
+}
+
+.athleteSection {
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.gradeTag {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid;
+  margin-bottom: 0.75rem;
+}
+
+.athleteName {
+  font-size: 1.85rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #fff;
+  margin: 0 0 0.4rem 0;
+  word-break: break-word;
+}
+
+.athleteClub {
+  font-size: 0.82rem;
+  color: #a1a1aa;
+  font-weight: 600;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  background: #141418;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.9rem 0.6rem;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.5rem;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.statLabel {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #71717a;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.cardFooter {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footerDomain {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #a1a1aa;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.footerDot {
+  color: #c05621;
+}
+
+.verifiedTag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #71717a;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-transform: uppercase;
+}
+
+/* CONTROLS RIGHT */
+.controlsSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.controlsTitle {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+}
+
+.controlsDesc {
+  font-size: 0.92rem;
+  color: #a1a1aa;
+  line-height: 1.5;
+  margin: 0 0 1.75rem 0;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.downloadBtn {
+  background: #c05621;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.downloadBtn:hover:not(:disabled) {
+  background: #9c4215;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(192, 86, 33, 0.4);
+}
+
+.downloadBtn:disabled,
+.shareBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.shareBtn {
+  background: #27272a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.9rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shareBtn:hover:not(:disabled) {
+  background: #3f3f46;
+}
+
+.proTip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.82rem;
+  color: #a1a1aa;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .generatorLayout {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .storyCard {
+    width: 100%;
+    min-height: 480px;
+  }
+
+  .athleteName {
+    font-size: 1.5rem;
+  }
+}

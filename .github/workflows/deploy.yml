@@ -1,0 +1,64 @@
+name: Deploy RunVaucluse to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      regenerate_fame:
+        description: 'Régénérer les statistiques des coureurs (Wall of Fame)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: production
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔄 Régénération Wall of Fame (Optionnel)
+        if: ${{ inputs.regenerate_fame == true }}
+        run: npx tsx src/scripts/generate-wall-of-fame.ts
+
+      - name: 🏗️ Build static Next.js export
+        run: npm run build
+
+      - name: 🗜️ Archive static build
+        run: tar -czf out.tar.gz -C out .
+
+      - name: 🔐 Vérification de la clé SSH
+        run: |
+          if [ -z "${{ secrets.HOSTINGER_SSH_KEY }}" ]; then
+            echo "❌ Le secret HOSTINGER_SSH_KEY n'est pas encore configuré."
+            echo "Veuillez vous rendre dans Settings > Secrets and variables > Actions pour l'ajouter."
+            exit 1
+          fi
+
+      - name: 🚀 Deploy to Hostinger
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          HOST: ${{ secrets.HOSTINGER_HOST || '89.117.169.57' }}
+          PORT: ${{ secrets.HOSTINGER_PORT || '65002' }}
+          USER: ${{ secrets.HOSTINGER_USER || 'u488549652' }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -P $PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new out.tar.gz $USER@$HOST:public_html/
+          ssh -p $PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new $USER@$HOST "cd public_html && tar -xzf out.tar.gz && rm out.tar.gz"
+          echo "✅ Déploiement réussi sur Hostinger !"

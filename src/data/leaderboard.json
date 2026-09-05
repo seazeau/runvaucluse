@@ -1,0 +1,169 @@
+[
+  {
+    "category": "Cadet H",
+    "rankings": [
+      { "name": "CORRIGNAN Yohann", "points": 300 },
+      { "name": "SALAT-LEHERPEUR Tito", "points": 265 },
+      { "name": "MICHEL Paul", "points": 200 },
+      { "name": "ESSON Matheo", "points": 185 },
+      { "name": "PINEDA-PARIS Clement", "points": 160 }
+    ]
+  },
+  {
+    "category": "Cadet F",
+    "rankings": [
+      { "name": "HAAG Pauline", "points": 300 },
+      { "name": "CHARPIN Noa", "points": 175 },
+      { "name": "VERDEAUX Chloe", "points": 100 },
+      { "name": "MUSIC ROCHE Karine", "points": 100 },
+      { "name": "BARBOSA DE ARAUJO L", "points": 90 }
+    ]
+  },
+  {
+    "category": "Junior H",
+    "rankings": [
+      { "name": "GIROUDON Noe", "points": 200 },
+      { "name": "CARATY Merlin", "points": 175 },
+      { "name": "GUICHARD Kilian", "points": 100 },
+      { "name": "DUBOULAY Mike", "points": 100 },
+      { "name": "CLARIANA Bernard", "points": 100 }
+    ]
+  },
+  {
+    "category": "Junior F",
+    "rankings": [
+      { "name": "GRANIER Lea", "points": 200 },
+      { "name": "GUYONY Faustine", "points": 100 },
+      { "name": "FAYARD-DE LOUPY Em", "points": 100 },
+      { "name": "BAILLY Faustine", "points": 100 },
+      { "name": "TROPET Eloise", "points": 90 }
+    ]
+  },
+  {
+    "category": "Espoir H",
+    "rankings": [
+      { "name": "MEURGEY Antoine", "points": 285 },
+      { "name": "PATER Paul", "points": 100 },
+      { "name": "MEZARD Enzo", "points": 100 },
+      { "name": "SILVAIN Sami", "points": 100 },
+      { "name": "AUBERGIER Lou", "points": 100 }
+    ]
+  },
+  {
+    "category": "Espoir F",
+    "rankings": [
+      { "name": "BOURMAUD Zoe", "points": 190 },
+      { "name": "AMERIGO Lauriane", "points": 100 },
+      { "name": "LIGABUE Eva", "points": 100 },
+      { "name": "PIERREBEZ Justine", "points": 100 },
+      { "name": "BOYER Amandine", "points": 100 }
+    ]
+  },
+  {
+    "category": "Sénior H",
+    "rankings": [
+      { "name": "RATRON Kevin", "points": 815 },
+      { "name": "SEVIN Cedric", "points": 390 },
+      { "name": "MIALHE Pierre", "points": 220 },
+      { "name": "JACQUET Romain", "points": 185 },
+      { "name": "CORREARD Dimitri", "points": 180 }
+    ]
+  },
+  {
+    "category": "Sénior F",
+    "rankings": [
+      { "name": "BRINDISI Sophie", "points": 540 },
+      { "name": "ROCHE Roxane", "points": 330 },
+      { "name": "MILLET Emilie", "points": 235 },
+      { "name": "CASTEX Melanie", "points": 180 },
+      { "name": "BUISINE Solene", "points": 170 }
+    ]
+  },
+  {
+    "category": "Vétéran 1 H",
+    "rankings": [
+      { "name": "PANKOW Loic", "points": 635 },
+      { "name": "DEJARDIN Guillaume", "points": 600 },
+      { "name": "EL GUENNOUNI Mohame", "points": 285 },
+      { "name": "CLAPOT Vincent", "points": 195 },
+      { "name": "POUTRE Romain", "points": 185 }
+    ]
+  },
+  {
+    "category": "Vétéran 1 F",
+    "rankings": [
+      { "name": "BRUSSET Sylvie", "points": 750 },
+      { "name": "REQUENA Elodie", "points": 510 },
+      { "name": "VERSNAEYEN Clotilde", "points": 270 },
+      { "name": "BATTAGLIA Marion", "points": 240 },
+      { "name": "BRETON Melanie", "points": 205 }
+    ]
+  },
+  {
+    "category": "Vétéran 2 H",
+    "rankings": [
+      { "name": "BRISSART Vincent", "points": 1105 },
+      { "name": "AGRICOL Jean Yves", "points": 790 },
+      { "name": "ZUNINO Frédéric", "points": 452 },
+      { "name": "LATOUR Laurent", "points": 436 },
+      { "name": "DEBANNE Yohan", "points": 275 }
+    ]
+  },
+  {
+    "category": "Vétéran 2 F",
+    "rankings": [
+      { "name": "CAMUSSI Isabelle", "points": 495 },
+      { "name": "TCHOLAKIAN Christelle", "points": 325 },
+      { "name": "RENARD Mireille", "points": 291 },
+      { "name": "CAMBE MICHEL Carole", "points": 200 },
+      { "name": "PECE Christine", "points": 190 }
+    ]
+  },
+  {
+    "category": "Vétéran 3 H",
+    "rankings": [
+      { "name": "MIALHE Bruno", "points": 880 },
+      { "name": "CHABAS Christophe", "points": 570 },
+      { "name": "RIDOLFI Georges", "points": 475 },
+      { "name": "DALLARA Bruno", "points": 431 },
+      { "name": "ESCOBAR J-Philippe", "points": 295 }
+    ]
+  },
+  {
+    "category": "Vétéran 3 F",
+    "rankings": [
+      { "name": "TORKINGTON Sally", "points": 1100 },
+      { "name": "FASOGLIO Agnes", "points": 830 },
+      { "name": "CHASTEL Brigitte", "points": 660 },
+      { "name": "PALERMINI Angele", "points": 180 },
+      { "name": "AMAURY Nadia", "points": 155 }
+    ]
+  },
+  {
+    "category": "Vétéran 4 H",
+    "rankings": [
+      { "name": "LORIDAN Dominique", "points": 990 },
+      { "name": "FASOGLIO Luigi", "points": 910 },
+      { "name": "NICOLAS Christian", "points": 710 },
+      { "name": "LUBESPERE J-Francois", "points": 330 },
+      { "name": "RUBIRA Alexandre", "points": 320 }
+    ]
+  },
+  {
+    "category": "Vétéran 4 F",
+    "rankings": [
+      { "name": "JACOB Chantal", "points": 1180 },
+      { "name": "MEURISSE Bernadette", "points": 590 },
+      { "name": "SALETTES Christine", "points": 380 },
+      { "name": "BOURNETON Marie Claire", "points": 175 },
+      { "name": "HAUDRY Françoise", "points": 90 }
+    ]
+  },
+  {
+    "category": "Vétéran 5 H",
+    "rankings": [
+      { "name": "GUERIN Claude", "points": 800 },
+      { "name": "SCHAAP Daniel", "points": 90 }
+    ]
+  }
+]

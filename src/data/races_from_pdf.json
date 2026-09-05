@@ -1,0 +1,74 @@
+[
+  {
+    "date": "2026-01-11",
+    "name": "Championnat de Vaucluse de cross",
+    "city": "VILLARS",
+    "distances": "Voir calendrier CDR",
+    "type": "Route",
+    "link": ""
+  },
+  {
+    "date": "2026-01-18",
+    "name": "LA VILLARSOISE 2026",
+    "city": "FONTAINE-DE-VAUCLUSE",
+    "distances": "Voir calendrier CDR",
+    "type": "Route",
+    "link": ""
+  },
+  {
+    "date": "2026-01-25",
+    "name": "TRAIL DE FONTAINE-DE-VAUCLUSE",
+    "city": "usalvapt@gmail.com",
+    "distances": "Voir calendrier CDR",
+    "type": "Trail",
+    "link": ""
+  },
+  {
+    "date": "2026-01-31",
+    "name": "MIRABEL (07170)",
+    "city": "terra ventoux ocres et limonS",
+    "distances": "Voir calendrier CDR",
+    "type": "Route",
+    "link": ""
+  },
+  {
+    "date": "2026-05-07",
+    "name": "robion",
+    "city": "Gwenael LOUAISEL",
+    "distances": "Voir calendrier CDR",
+    "type": "Route",
+    "link": ""
+  },
+  {
+    "date": "2026-05-01",
+    "name": "Trail de fontaine-de-vaucluse",
+    "city": "fontaine-de-vaucluse",
+    "distances": "Voir calendrier CDR",
+    "type": "Trail",
+    "link": ""
+  },
+  {
+    "date": "2026-05-08",
+    "name": "URBAN TRAIL D���orange",
+    "city": "MN DE SAINT JACQUES",
+    "distances": "Voir calendrier CDR",
+    "type": "Trail",
+    "link": ""
+  },
+  {
+    "date": "2026-05-15",
+    "name": "trail des fous romains",
+    "city": "orange",
+    "distances": "Voir calendrier CDR",
+    "type": "Trail",
+    "link": ""
+  },
+  {
+    "date": "2026-05-22",
+    "name": "COURSE des falaises",
+    "city": "vaison-la-romaine",
+    "distances": "Voir calendrier CDR",
+    "type": "Route",
+    "link": ""
+  }
+]

@@ -1,0 +1,197 @@
+.wrapper {
+  padding: 3rem 0 3.5rem;
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: 3.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flashIcon {
+  color: var(--dark-ink);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.line {
+  flex-grow: 1;
+  height: 1px;
+  background: var(--border-hairline);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+
+.raceCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 20px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.raceCard:hover {
+  border-color: rgba(17, 20, 23, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.raceInfo {
+  margin-bottom: 1.25rem;
+}
+
+.raceName {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  line-height: 1.05;
+  margin: 0 0 0.4rem 0;
+}
+
+.meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-muted);
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.eventLine {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bg-slate);
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-hairline);
+}
+
+.distanceBadge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: var(--dark-pill);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  min-width: 40px;
+  text-align: center;
+}
+
+.winnersDuo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.separator {
+  width: 1px;
+  height: 12px;
+  background: var(--border-hairline);
+  flex-shrink: 0;
+}
+
+.winnerMini {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.miniName {
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--dark-ink);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.maleIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.femaleIcon {
+  color: #db2777;
+  flex-shrink: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dark-ink);
+  background: var(--bg-main);
+  text-decoration: none;
+  border: 1px solid var(--border-hairline);
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  text-align: center;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  margin-top: auto;
+}
+
+.link:hover {
+  background: var(--dark-pill);
+  color: #ffffff;
+  border-color: var(--dark-pill);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

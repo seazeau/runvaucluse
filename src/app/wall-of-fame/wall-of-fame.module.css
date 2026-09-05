@@ -1,0 +1,257 @@
+.pageWrapper {
+  background: var(--bg-main);
+  min-height: 100vh;
+  padding: 8rem 1.5rem 5rem;
+  color: var(--dark-ink);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 0.95;
+  color: var(--dark-ink);
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.searchContainer {
+  margin-bottom: 2.5rem;
+  position: sticky;
+  top: 75px;
+  z-index: 100;
+}
+
+.searchWrapper {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  padding: 0.25rem 1rem;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: var(--dark-ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.searchInput::placeholder {
+  color: rgba(17, 20, 23, 0.35);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.runnerCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.runnerCard:hover {
+  border-color: rgba(17, 20, 23, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.activeCard {
+  border-color: var(--dark-ink);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardMain {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.runnerInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.runnerName {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  margin: 0;
+}
+
+.gradeBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--bg-vanilla);
+  border: 1px solid var(--border-hairline);
+  color: var(--dark-ink);
+  display: inline-block;
+  margin-top: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.stats {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.statItem {
+  text-align: right;
+}
+
+.statLabel {
+  font-size: 0.68rem;
+  color: var(--gray-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.statValue {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dark-ink);
+}
+
+.details {
+  border-top: 1px solid var(--border-hairline);
+  background: #F8F9FA;
+  padding: 0.75rem 0;
+}
+
+.resultItem {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.resultItem:last-child {
+  border-bottom: none;
+}
+
+.resultInfoLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.resultDate {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  min-width: 90px;
+}
+
+.raceInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-grow: 1;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+.resultRaceName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.resultDistance {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--dark-ink);
+  background: var(--bg-slate);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.resultTime {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--dark-ink);
+  min-width: 100px;
+  text-align: right;
+}
+
+.loadMore {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1.1rem;
+  background: var(--dark-pill);
+  border: none;
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(19, 23, 27, 0.15);
+}
+
+.loadMore:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(19, 23, 27, 0.25);
+}
+
+@media (max-width: 768px) {
+  .pageWrapper { padding-top: 6rem; }
+  .cardMain { flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: 1.25rem; }
+  .stats { width: 100%; justify-content: space-between; }
+  .raceInfoContainer { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  .resultRaceName { max-width: 200px; }
+  .resultTime { font-size: 1rem; }
+}

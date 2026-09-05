@@ -1,0 +1,146 @@
+.filterBar {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.5rem 0;
+  position: relative;
+  z-index: 100;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  min-width: 220px;
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 14px;
+  padding: 0.85rem 1.15rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.selectTrigger:hover {
+  border-color: rgba(17, 20, 23, 0.3);
+}
+
+.triggerActive {
+  background: #ffffff !important;
+  border-color: var(--dark-ink) !important;
+  box-shadow: 0 4px 15px rgba(17, 20, 23, 0.08);
+}
+
+.triggerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  color: var(--dark-ink);
+  opacity: 0.8;
+}
+
+.currentValue {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark-ink);
+  letter-spacing: 0;
+}
+
+.chevron {
+  color: var(--gray-muted);
+  transition: transform 0.3s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+  color: var(--dark-ink);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  z-index: 110;
+  padding: 0.5rem;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+}
+
+.option:hover {
+  background: var(--bg-slate);
+}
+
+.optionActive {
+  background: var(--bg-vanilla);
+  color: var(--dark-ink);
+  font-weight: 700;
+}
+
+.checkIcon {
+  color: var(--dark-ink);
+}
+
+/* Custom Scrollbar for dropdown */
+.dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown::-webkit-scrollbar-thumb {
+  background: rgba(17, 20, 23, 0.15);
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .filterBar {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .filterGroup {
+    flex: 1 1 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .filterGroup {
+    flex: 1 1 100%;
+  }
+}

@@ -1,0 +1,131 @@
+.pageWrapper {
+  background: var(--bg-main);
+  min-height: 100vh;
+  color: var(--dark-ink);
+}
+
+.main {
+  padding-top: 130px;
+  padding-bottom: 8rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 0.95;
+  color: var(--dark-ink);
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  color: var(--gray-muted);
+  font-size: 1rem;
+  max-width: 600px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.raceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.raceCard {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.raceCard:hover {
+  border-color: rgba(17, 20, 23, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.raceName {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--dark-ink);
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.stats {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--gray-muted);
+  font-weight: 600;
+}
+
+.stat svg {
+  color: var(--dark-ink);
+}
+
+.viewBtn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--dark-ink);
+  text-transform: uppercase;
+}
+
+.noResults {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: #ffffff;
+  border: 1px dashed var(--border-hairline);
+  border-radius: 20px;
+  color: var(--gray-muted);
+  font-weight: 600;
+}

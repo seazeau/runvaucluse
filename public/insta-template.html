@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur de Carrousel Instagram - RunVaucluse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #111;
+      color: #333;
+      font-family: 'Patrick Hand', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    h1.info {
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .carousel-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .slide {
+      width: 500px;
+      height: 500px;
+      background: #fafafa;
+      border: 8px solid #000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2rem;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-header {
+      font-family: 'Caveat', cursive;
+      font-size: 2.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+      text-align: center;
+      line-height: 1.1;
+    }
+    .illustration {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    .slide-footer {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .list-items {
+      font-size: 1.6rem;
+      text-align: center;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .list-items li {
+      margin-bottom: 0.5rem;
+    }
+    .list-items li::before {
+      content: "- ";
+    }
+  </style>
+</head>
+<body>
+  <h1 class="info">📸 Outil de capture pour votre Carrousel Instagram (Style Doodle / Minimaliste)</h1>
+  
+  <div class="carousel-container">
+    
+    <!-- SLIDE 1 -->
+    <div class="slide" id="slide1">
+      <h2 class="slide-header">RUNVAUCLUSE</h2>
+      <div class="illustration">
+        <svg width="220" height="220" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Snail shell spiral (doodle style) -->
+          <path d="M 100 110 C 60 110, 50 60, 90 50 C 130 40, 150 95, 110 115 C 80 130, 70 85, 100 80 C 120 75, 125 100, 110 102 C 100 103, 98 95, 105 93" stroke="#000" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+          <!-- Snail body -->
+          <path d="M 40 135 C 55 130, 75 125, 95 125 C 115 125, 125 105, 132 80 C 135 70, 130 50, 135 50 C 140 50, 142 65, 146 85 C 150 100, 145 120, 165 128 C 175 132, 172 138, 150 138 C 120 138, 80 138, 40 135 Z" stroke="#000" stroke-width="4.5" stroke-linecap="round" fill="#fafafa" />
+          <!-- Snail horns/eyes -->
+          <path d="M 132 80 L 130 35" stroke="#000" stroke-width="4.5" stroke-linecap="round" />
+          <circle cx="130" cy="32" r="4" fill="#000" />
+          <path d="M 138 75 L 142 30" stroke="#000" stroke-width="4.5" stroke-linecap="round" />
+          <circle cx="142" cy="27" r="4" fill="#000" />
+          <!-- Snail face -->
+          <path d="M 148 70 C 150 72, 151 72, 153 71" stroke="#000" stroke-width="3" stroke-linecap="round" />
+          <!-- Snail legs -->
+          <path d="M 80 138 L 80 160" stroke="#000" stroke-width="4.5" />
+          <path d="M 120 138 L 120 160" stroke="#000" stroke-width="4.5" />
+          <!-- Running Shoes Doodle -->
+          <!-- Left Shoe -->
+          <path d="M 70 160 H 92 V 172 H 70 Z" fill="#fafafa" stroke="#000" stroke-width="4" stroke-linejoin="round" />
+          <path d="M 70 166 H 88" stroke="#000" stroke-width="3.5" />
+          <!-- Right Shoe -->
+          <path d="M 110 160 H 132 V 172 H 110 Z" fill="#fafafa" stroke="#000" stroke-width="4" stroke-linejoin="round" />
+          <path d="M 110 166 H 128" stroke="#000" stroke-width="3.5" />
+        </svg>
+      </div>
+      <h3 class="slide-footer">MAJ // Nouvelles courses & derniers chronos ! ⚡</h3>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide2">
+      <h2 class="slide-header">INSCRIPTIONS OUVERTES</h2>
+      <div class="illustration">
+        <ul class="list-items">
+          <li>Trail du Ventouret (Bédoin)</li>
+          <li>10km du Château de Val-Seille</li>
+          <li>Ventoux by Night (Bédoin)</li>
+          <li>Trail du Ruban Doré (Sault)</li>
+        </ul>
+      </div>
+      <h3 class="slide-footer">📅 CÔTÉ CALENDRIER</h3>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide3">
+      <h2 class="slide-header">DERNIERS CHRONOS</h2>
+      <div class="illustration">
+        <ul class="list-items">
+          <li>Trail Velleron Piégros</li>
+          <li>Trail de l'Espoir (Monieux)</li>
+          <li>Wall of Fame mis à jour !</li>
+        </ul>
+      </div>
+      <h3 class="slide-footer">⏱️ CÔTÉ CHRONO // SYNCHRONISÉ</h3>
+    </div>
+
+  </div>
+</body>
+</html>
