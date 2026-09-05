@@ -52,13 +52,17 @@ jobs:
       - name: 🚀 Deploy to Hostinger
         env:
           SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
-          HOST: ${{ secrets.HOSTINGER_HOST || '89.117.169.57' }}
-          PORT: ${{ secrets.HOSTINGER_PORT || '65002' }}
-          USER: ${{ secrets.HOSTINGER_USER || 'u488549652' }}
+          HOST: ${{ secrets.HOSTINGER_HOST }}
+          PORT: ${{ secrets.HOSTINGER_PORT }}
+          USER: ${{ secrets.HOSTINGER_USER }}
         run: |
+          TARGET_HOST="${HOST:-89.117.169.57}"
+          TARGET_PORT="${PORT:-65002}"
+          TARGET_USER="${USER:-u488549652}"
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          scp -P $PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new out.tar.gz $USER@$HOST:public_html/
-          ssh -p $PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new $USER@$HOST "cd public_html && tar -xzf out.tar.gz && rm out.tar.gz"
+          scp -P $TARGET_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new out.tar.gz $TARGET_USER@$TARGET_HOST:public_html/
+          ssh -p $TARGET_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new $TARGET_USER@$TARGET_HOST "cd public_html && tar -xzf out.tar.gz && rm out.tar.gz"
           echo "✅ Déploiement réussi sur Hostinger !"
+
