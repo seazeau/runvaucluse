@@ -75,7 +75,9 @@ export default function Footer() {
               </li>
               <li><a href="https://vaucluse.athle.fr/" target="_blank" rel="noopener noreferrer">CDCHS 84 <ExternalLink size={12} /></a></li>
               <li><Link href="/#contact">Proposer une course</Link></li>
+              <li><Link href="/studio">Studio Instagram ⚡</Link></li>
               <li><Link href="/mentions-legales">Mentions Légales</Link></li>
+
             </ul>
           </div>
         </div>

@@ -89,12 +89,13 @@ export const getRacesWithResults = (): (Race & { resultCount: number })[] => {
 
 export const getLatestWinners = (limit: number = 3) => {
   const latestRaces = db.prepare(`
-    SELECT DISTINCT r.slug, r.name, r.date, r.city
+    SELECT DISTINCT r.slug, r.name, r.date, r.city, r.image_url, r.distances, r.type
     FROM races r
     INNER JOIN results res ON r.slug = res.race_slug
     ORDER BY r.date DESC
     LIMIT ?
-  `).all(limit) as { slug: string; name: string; date: string; city: string }[];
+  `).all(limit) as { slug: string; name: string; date: string; city: string; image_url?: string; distances?: string; type?: string }[];
+
 
   return latestRaces.map(race => {
     // Fetch EVERYONE who is 1st in their sex category (or rank_overall 1)
