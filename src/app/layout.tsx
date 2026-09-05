@@ -40,10 +40,14 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/icon.svg',
-    apple: '/icon.svg',
+    icon: [
+      { url: '/favicon.ico?v=2', sizes: 'any' },
+      { url: '/icon.svg?v=2', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico?v=2',
+    apple: '/apple-touch-icon.png?v=2',
   },
+
   openGraph: {
     title: "RunVaucluse | Le Calendrier Officiel des Courses en Vaucluse",
     description: "Le calendrier moderne et complet des trails et courses sur route en Vaucluse (84). Inscrivez-vous aux plus belles épreuves du Géant de Provence.",
