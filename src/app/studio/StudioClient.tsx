@@ -15,7 +15,11 @@ import {
   Timer, 
   Zap, 
   Bookmark,
-  Share2
+  Share2,
+  Upload,
+  Image as ImageIcon,
+  FileText,
+  RotateCcw
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import LogoIcon from '@/components/LogoIcon';
@@ -69,6 +73,27 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
   const [copiedCaption, setCopiedCaption] = useState(false);
+  const [imageDisplayMode, setImageDisplayMode] = useState<'poster' | 'banner'>('poster');
+  const [customImages, setCustomImages] = useState<{ [slug: string]: string }>({});
+
+  const handleFileUpload = (slug: string, file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const res = e.target?.result;
+      if (res && typeof res === 'string') {
+        setCustomImages(prev => ({ ...prev, [slug]: res }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeCustomImage = (slug: string) => {
+    setCustomImages(prev => {
+      const next = { ...prev };
+      delete next[slug];
+      return next;
+    });
+  };
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -341,6 +366,88 @@ export default function StudioClient({ races, latestWinners }: Props) {
               </>
             )}
 
+            {/* VISUAL & POSTER SETTINGS */}
+            {(mode === 'weekend' || mode === 'story') && (
+              <div className={styles.visualSettingsBox}>
+                <h3 className={styles.controlsSectionTitle}>
+                  <ImageIcon size={18} /> Rendu des Visuels
+                </h3>
+
+                {mode === 'weekend' && (
+                  <div className={styles.formGroup}>
+                    <label className={styles.label}>Format d&apos;affichage des courses</label>
+                    <div className={styles.displayModeGrid}>
+                      <button
+                        type="button"
+                        className={`${styles.displayModeBtn} ${imageDisplayMode === 'poster' ? styles.displayModeBtnActive : ''}`}
+                        onClick={() => setImageDisplayMode('poster')}
+                      >
+                        <FileText size={15} /> Affiche Verticale
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.displayModeBtn} ${imageDisplayMode === 'banner' ? styles.displayModeBtnActive : ''}`}
+                        onClick={() => setImageDisplayMode('banner')}
+                      >
+                        <ImageIcon size={15} /> Bannière Paysage
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Custom Poster Upload */}
+                {(() => {
+                  const targetSlug = mode === 'story'
+                    ? activeStoryRace.slug
+                    : (activeSlideIndex > 0 && activeSlideIndex <= selectedRaces.length 
+                        ? selectedRaces[activeSlideIndex - 1].slug 
+                        : selectedRaces[0]?.slug);
+                  
+                  const targetRace = races.find(r => r.slug === targetSlug);
+                  if (!targetRace) return null;
+
+                  const hasCustom = !!customImages[targetSlug];
+
+                  return (
+                    <div className={styles.uploadBox}>
+                      <label className={styles.label}>
+                        Affiche pour : <strong style={{ color: '#111417' }}>{targetRace.name}</strong>
+                      </label>
+                      <div className={styles.uploadBtnRow}>
+                        <label className={styles.uploadBtn}>
+                          <Upload size={14} /> {hasCustom ? 'Remplacer l’affiche' : 'Importer une affiche (JPG/PNG)'}
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            style={{ display: 'none' }}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleFileUpload(targetSlug, file);
+                            }}
+                          />
+                        </label>
+                        {hasCustom && (
+                          <button 
+                            type="button"
+                            className={styles.resetImgBtn}
+                            title="Rétablir l'image d'origine"
+                            onClick={() => removeCustomImage(targetSlug)}
+                          >
+                            <RotateCcw size={14} />
+                          </button>
+                        )}
+                      </div>
+                      {hasCustom && (
+                        <span className={styles.customActiveBadge}>
+                          <Check size={12} /> Affiche personnalisée chargée !
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
             {/* Export Buttons */}
             <div className={styles.exportBtns}>
               <button 
@@ -463,6 +570,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     {/* SLIDES 1..N: INDIVIDUAL RACE */}
                     {activeSlideIndex > 0 && activeSlideIndex <= selectedRaces.length && (() => {
                       const race = selectedRaces[activeSlideIndex - 1];
+                      const raceImage = customImages[race.slug] || race.image_url || '/images/hero-ventoux-trail.jpg';
                       return (
                         <div className={styles.raceSlideCard}>
                           <div className={styles.slideBrandHeader}>
@@ -474,34 +582,87 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             </span>
                           </div>
 
-                          <div className={styles.raceCardPosterBox}>
-                            <img 
-                              src={race.image_url || '/images/hero-ventoux-trail.jpg'} 
-                              alt={race.name}
-                              className={styles.racePosterImg}
-                            />
-                          </div>
+                          {imageDisplayMode === 'poster' ? (
+                            <div className={styles.raceSlidePosterLayout}>
+                              {/* Left Column: Framed Vertical Poster */}
+                              <div className={styles.posterFrameContainer}>
+                                <div 
+                                  className={styles.posterAmbientGlow} 
+                                  style={{ backgroundImage: `url(${raceImage})` }} 
+                                />
+                                <div className={styles.posterFrame}>
+                                  <div 
+                                    className={styles.posterFrameBackdrop} 
+                                    style={{ backgroundImage: `url(${raceImage})` }} 
+                                  />
+                                  <img 
+                                    src={raceImage} 
+                                    alt={race.name}
+                                    className={styles.posterImg}
+                                  />
+                                </div>
+                              </div>
 
-                          <div className={styles.raceSlideInfo}>
-                            <div className={styles.raceSlideMetaRow}>
-                              <Calendar size={14} />
-                              {new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}
+                              {/* Right Column: Race Details */}
+                              <div className={styles.posterInfoCol}>
+                                <div className={styles.raceSlideMetaRow}>
+                                  <Calendar size={14} />
+                                  {new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }).toUpperCase()}
+                                </div>
+
+                                <h3 className={styles.posterRaceName}>{race.name}</h3>
+
+                                <div className={styles.raceSlideCity}>
+                                  <MapPin size={15} /> {race.city} • VAUCLUSE
+                                </div>
+
+                                <div className={styles.raceSlideDistances} style={{ marginTop: '0.6rem' }}>
+                                  {race.distances.split(',').map((dist, idx) => (
+                                    <span key={idx} className={styles.raceSlideDistPill}>
+                                      {dist.trim()}
+                                    </span>
+                                  ))}
+                                </div>
+
+                                <div className={styles.posterBadges}>
+                                  <span className={styles.posterTagBadge}>
+                                    ⚡ DOSSARDS OUVERTS
+                                  </span>
+                                </div>
+                              </div>
                             </div>
+                          ) : (
+                            <>
+                              <div className={styles.raceCardPosterBox}>
+                                <img 
+                                  src={raceImage} 
+                                  alt={race.name}
+                                  className={styles.racePosterImg}
+                                />
+                              </div>
 
-                            <h3 className={styles.raceSlideName}>{race.name}</h3>
+                              <div className={styles.raceSlideInfo}>
+                                <div className={styles.raceSlideMetaRow}>
+                                  <Calendar size={14} />
+                                  {new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}
+                                </div>
 
-                            <div className={styles.raceSlideCity}>
-                              <MapPin size={15} /> {race.city} • VAUCLUSE
-                            </div>
+                                <h3 className={styles.raceSlideName}>{race.name}</h3>
 
-                            <div className={styles.raceSlideDistances} style={{ marginTop: '0.75rem' }}>
-                              {race.distances.split(',').map((dist, idx) => (
-                                <span key={idx} className={styles.raceSlideDistPill}>
-                                  {dist.trim()}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
+                                <div className={styles.raceSlideCity}>
+                                  <MapPin size={15} /> {race.city} • VAUCLUSE
+                                </div>
+
+                                <div className={styles.raceSlideDistances} style={{ marginTop: '0.75rem' }}>
+                                  {race.distances.split(',').map((dist, idx) => (
+                                    <span key={idx} className={styles.raceSlideDistPill}>
+                                      {dist.trim()}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
+                          )}
 
                           <div className={styles.coverFooter}>
                             <span>DOSSARDS & INFOS : RUNVAUCLUSE.FR</span>
@@ -673,66 +834,79 @@ export default function StudioClient({ races, latestWinners }: Props) {
                 {/* =========================================================
                     MODE 3: STORY J-7 (9:16)
                    ========================================================= */}
-                {mode === 'story' && (
-                  <>
-                    <div 
-                      className={styles.coverBackground}
-                      style={{ backgroundImage: `url(${activeStoryRace.image_url || '/images/sommet-ventoux-1080p.jpg'})` }}
-                    />
-                    <div className={styles.coverGradient} />
+                {mode === 'story' && (() => {
+                  const raceImage = customImages[activeStoryRace.slug] || activeStoryRace.image_url || '/images/sommet-ventoux-1080p.jpg';
+                  return (
+                    <>
+                      <div 
+                        className={styles.coverBackground}
+                        style={{ backgroundImage: `url(${raceImage})` }}
+                      />
+                      <div className={styles.coverGradient} />
 
-                    <div className={styles.coverContent}>
-                      <div className={styles.slideBrandHeader}>
-                        <div className={styles.slideLogo}>
-                          <LogoIcon size={36} /> RUNVAUCLUSE
+                      <div className={styles.coverContent}>
+                        <div className={styles.slideBrandHeader}>
+                          <div className={styles.slideLogo}>
+                            <LogoIcon size={32} /> RUNVAUCLUSE
+                          </div>
+                          <span className={styles.slidePillTag} style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
+                            J - 7 AVANT DÉPART ⏱️
+                          </span>
                         </div>
-                        <span className={styles.slidePillTag} style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
-                          J - 7 AVANT DÉPART ⏱️
-                        </span>
+
+                        <div style={{ textAlign: 'center', margin: '0.75rem 0' }}>
+                          <div className={styles.storyPosterBox}>
+                            <div 
+                              className={styles.storyPosterAmbient} 
+                              style={{ backgroundImage: `url(${raceImage})` }} 
+                            />
+                            <div className={styles.storyPosterFrame}>
+                              <div 
+                                className={styles.storyPosterBackdrop} 
+                                style={{ backgroundImage: `url(${raceImage})` }} 
+                              />
+                              <img 
+                                src={raceImage} 
+                                alt={activeStoryRace.name}
+                                className={styles.storyPosterImg}
+                              />
+                            </div>
+                          </div>
+
+                          <div className={styles.coverSubtitle} style={{ fontSize: '0.95rem', marginTop: '0.85rem' }}>
+                            <Calendar size={15} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
+                            {new Date(activeStoryRace.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}
+                          </div>
+                          
+                          <h2 className={styles.coverMainTitle} style={{ fontSize: '2.6rem', margin: '0.25rem 0' }}>
+                            {activeStoryRace.name}
+                          </h2>
+
+                          <div className={styles.raceSlideCity} style={{ justifyContent: 'center', fontSize: '0.92rem' }}>
+                            <MapPin size={15} /> {activeStoryRace.city} • VAUCLUSE
+                          </div>
+
+                          <div className={styles.raceSlideDistances} style={{ justifyContent: 'center', marginTop: '0.65rem' }}>
+                            {activeStoryRace.distances.split(',').map((dist, idx) => (
+                              <span key={idx} className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
+                                {dist.trim()}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div style={{ textAlign: 'center', borderTop: '1px solid rgba(250, 247, 242, 0.2)', paddingTop: '0.85rem' }}>
+                          <div className={styles.outroUrlPill} style={{ fontSize: '1.2rem', padding: '0.45rem 1.25rem', marginBottom: '0.35rem' }}>
+                            INSCRIPTION : LIEN EN BIO ↗
+                          </div>
+                          <p style={{ margin: 0, fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.7)' }}>
+                            @RUNVAUCLUSE.FR • TOUTES LES COURSES DU 84
+                          </p>
+                        </div>
                       </div>
-
-                      <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-                        <div className={styles.raceCardPosterBox} style={{ height: '320px', maxWidth: '340px', margin: '0 auto 1.5rem' }}>
-                          <img 
-                            src={activeStoryRace.image_url || '/images/sommet-ventoux-1080p.jpg'} 
-                            alt={activeStoryRace.name}
-                            className={styles.racePosterImg}
-                          />
-                        </div>
-
-                        <div className={styles.coverSubtitle} style={{ fontSize: '1.1rem' }}>
-                          <Calendar size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
-                          {new Date(activeStoryRace.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}
-                        </div>
-                        
-                        <h2 className={styles.coverMainTitle} style={{ fontSize: '3rem', margin: '0.5rem 0' }}>
-                          {activeStoryRace.name}
-                        </h2>
-
-                        <div className={styles.raceSlideCity} style={{ justifyContent: 'center', fontSize: '1rem', marginTop: '0.5rem' }}>
-                          <MapPin size={16} /> {activeStoryRace.city} • VAUCLUSE
-                        </div>
-
-                        <div className={styles.raceSlideDistances} style={{ justifyContent: 'center', marginTop: '1rem' }}>
-                          {activeStoryRace.distances.split(',').map((dist, idx) => (
-                            <span key={idx} className={styles.raceSlideDistPill} style={{ fontSize: '0.9rem', padding: '0.35rem 0.75rem' }}>
-                              {dist.trim()}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ textAlign: 'center', borderTop: '1px solid rgba(250, 247, 242, 0.2)', paddingTop: '1.25rem' }}>
-                        <div className={styles.outroUrlPill} style={{ fontSize: '1.3rem', padding: '0.5rem 1.5rem', marginBottom: '0.5rem' }}>
-                          INSCRIPTION : LIEN EN BIO ↗
-                        </div>
-                        <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(250, 247, 242, 0.7)' }}>
-                          @RUNVAUCLUSE.FR • TOUTES LES COURSES DU 84
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  );
+                })()}
 
               </div>
             </div>

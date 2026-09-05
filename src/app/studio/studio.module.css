@@ -188,6 +188,112 @@
   cursor: pointer;
 }
 
+/* Visual Settings & Custom Poster Upload */
+.visualSettingsBox {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border-hairline, rgba(17, 20, 23, 0.15));
+}
+
+.displayModeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.displayModeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.2));
+  padding: 0.6rem 0.5rem;
+  border-radius: 8px;
+  font-family: var(--font-main, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.displayModeBtn:hover {
+  border-color: #111417;
+  color: #111417;
+}
+
+.displayModeBtnActive {
+  background: #111417;
+  color: #FAF7F2;
+  border-color: #111417;
+}
+
+.uploadBox {
+  margin-top: 0.75rem;
+  background: rgba(17, 20, 23, 0.03);
+  border: 1px solid rgba(17, 20, 23, 0.08);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.uploadBtnRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.35rem;
+}
+
+.uploadBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  border: 1.5px dashed #111417;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #111417;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.uploadBtn:hover {
+  background: rgba(246, 200, 59, 0.15);
+  border-color: #F6C83B;
+}
+
+.resetImgBtn {
+  background: #ffffff;
+  border: 1px solid rgba(17, 20, 23, 0.2);
+  color: #e53e3e;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.resetImgBtn:hover {
+  background: #ffebeb;
+}
+
+.customActiveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #2e7d32;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 0.4rem;
+}
+
 /* Action Buttons */
 .exportBtns {
   display: flex;
@@ -571,6 +677,172 @@
   color: rgba(250, 247, 242, 0.75);
   font-size: 0.88rem;
   font-weight: 500;
+}
+
+/* Poster Split Layout (For Vertical Posters / Affiches) */
+.raceSlidePosterLayout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin: auto 0;
+  width: 100%;
+}
+
+.posterFrameContainer {
+  position: relative;
+  width: 215px;
+  height: 310px; /* Ratio ~1:1.44 (Standard A4 poster flyer) */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posterAmbientGlow {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(22px);
+  opacity: 0.55;
+  z-index: 1;
+  border-radius: 12px;
+}
+
+.posterFrame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid rgba(250, 247, 242, 0.25);
+  background: #181d22;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posterFrameBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) brightness(0.35);
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.posterImg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* NEVER cut off poster text or sponsors! */
+}
+
+.posterInfoCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.posterRaceName {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.2rem;
+  line-height: 0.95;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0.4rem 0 0.5rem;
+  color: #FAF7F2;
+  word-break: break-word;
+}
+
+.posterBadges {
+  margin-top: 0.75rem;
+}
+
+.posterTagBadge {
+  display: inline-block;
+  background: rgba(246, 200, 59, 0.15);
+  color: #F6C83B;
+  border: 1px solid rgba(246, 200, 59, 0.35);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* Story Poster Layout (9:16) */
+.storyPosterBox {
+  position: relative;
+  width: 250px;
+  height: 350px; /* A4 vertical proportion */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.storyPosterAmbient {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(25px);
+  opacity: 0.6;
+  z-index: 1;
+  border-radius: 12px;
+}
+
+.storyPosterFrame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(250, 247, 242, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+  background: #181d22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.storyPosterBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) brightness(0.35);
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.storyPosterImg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Full uncropped poster */
 }
 
 /* Slide Podium / Winners */
