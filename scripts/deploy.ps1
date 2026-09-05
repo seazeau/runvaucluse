@@ -1,7 +1,7 @@
 $HOST_NAME = "89.117.169.57"
 $USER_NAME = "u488549652"
-$PORT = "65002"
-$REMOTE_PATH = "public_html"
+$REMOTE_PATH = "domains/runvaucluse.fr/public_html"
+
 
 Write-Host "--- Construction du projet ---" -ForegroundColor Cyan
 npm run build

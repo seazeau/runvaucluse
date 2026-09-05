@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "next build && tar -czf out.tar.gz -C out . && scp -P 65002 -o StrictHostKeyChecking=accept-new out.tar.gz u488549652@89.117.169.57:public_html/ && ssh -p 65002 -o StrictHostKeyChecking=accept-new u488549652@89.117.169.57 \"cd public_html && tar -xzf out.tar.gz && rm out.tar.gz\"",
-    "fast-deploy": "tar -czf out.tar.gz -C out . && scp -P 65002 -o StrictHostKeyChecking=accept-new out.tar.gz u488549652@89.117.169.57:public_html/ && ssh -p 65002 -o StrictHostKeyChecking=accept-new u488549652@89.117.169.57 \"cd public_html && tar -xzf out.tar.gz && rm out.tar.gz\""
+    "deploy": "next build && tar -czf out.tar.gz -C out . && scp -P 65002 -o StrictHostKeyChecking=accept-new out.tar.gz u488549652@89.117.169.57:domains/runvaucluse.fr/public_html/ && ssh -p 65002 -o StrictHostKeyChecking=accept-new u488549652@89.117.169.57 \"cd domains/runvaucluse.fr/public_html && tar -xzf out.tar.gz && rm out.tar.gz\"",
+    "fast-deploy": "tar -czf out.tar.gz -C out . && scp -P 65002 -o StrictHostKeyChecking=accept-new out.tar.gz u488549652@89.117.169.57:domains/runvaucluse.fr/public_html/ && ssh -p 65002 -o StrictHostKeyChecking=accept-new u488549652@89.117.169.57 \"cd domains/runvaucluse.fr/public_html && tar -xzf out.tar.gz && rm out.tar.gz\""
+
   },
   "dependencies": {
     "@types/leaflet": "^1.9.21",

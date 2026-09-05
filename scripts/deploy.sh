@@ -4,7 +4,8 @@
 HOST="89.117.169.57"
 USER="u488549652"
 PORT="65002"
-REMOTE_PATH="public_html"
+REMOTE_PATH="domains/runvaucluse.fr/public_html"
+
 
 echo "🚀 Construction du projet Next.js..."
 npm run build
