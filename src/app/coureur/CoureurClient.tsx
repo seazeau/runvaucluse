@@ -90,7 +90,7 @@ export default function CoureurClient() {
 
   // Load Wall of Fame database
   useEffect(() => {
-    fetch('/data/wall-of-fame.json?v=20260907')
+    fetch('/data/wall-of-fame.json?v=20260907-grv')
       .then(res => res.json())
       .then((data: Runner[]) => {
         setRunners(data);

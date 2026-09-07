@@ -16,7 +16,7 @@ const isUnknown = (name: string): boolean => {
     n.includes('inconnu') || 
     n.includes('dossard') || 
     n.includes('non connu') || 
-    n.includes('anonyme') ||
+    n.includes('anonym') ||
     n.includes('non renseigne') ||
     n.trim().length < 3
   );

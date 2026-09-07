@@ -89,7 +89,7 @@ const RecordsContent = () => {
   const [limit, setLimit] = useState(30);
 
   useEffect(() => {
-    fetch('/data/wall-of-fame.json?v=20260907')
+    fetch('/data/wall-of-fame.json?v=20260907-grv')
       .then(res => res.json())
       .then(data => {
         setRunnersData(data);
