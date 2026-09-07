@@ -806,7 +806,25 @@
     "slug": "trail-du-ruban-dore-sault"
   },
   {
-    "id": 52,
+    "date": "2026-09-20",
+    "name": "Des Coccinelles Rouges pour Thomas",
+    "city": "Travaillan",
+    "distances": "10 km (18D+), rando 6 km",
+    "type": "Course nature",
+    "contact": "Comité des Loisirs de Travaillan & CairaNaTrail",
+    "image_url": "/images/poster-des-coccinelles-rouges-pour-thomas-travaillan.jpg",
+    "link": "https://www.helloasso.com/associations/comite-des-loisirs-travaillannais/evenements/septembre-en-or-1",
+    "label": "Septembre en Or",
+    "description": "1ère édition de la course solidaire 'Des Coccinelles Rouges pour Thomas' à Travaillan, organisée dans le cadre de Septembre en Or pour sensibiliser au cancer pédiatrique et soutenir les familles et les enfants touchés.\n\nUne journée sportive, festive et solidaire élaborée par le Comité des Loisirs de Travaillan avec l'accompagnement de l'association CairaNaTrail (Cairanne).\n\nAu programme à la Salle des Fêtes de Travaillan :\n- Course 10 km : parcours roulant avec seulement 18m de dénivelé positif, essentiellement sur route et piste à travers la campagne et le vignoble. Départ à 9h00 (Tarif : 10 €).\n- Randonnée pédestre 6 km (parcours modifié à 6 km au lieu de 5 km initialement) : départ à 9h30 (Tarif : 6 €).\n- Concours de pétanque / boules : à 14h30 (5 € / participant).\n- Restauration sur place le midi : Option repas adulte Fideua + tarte aux pommes (12 €) et Formule enfant avec sandwich saucisse grillée, chips et compote à boire (5 €).\n- Animations tout au long de la journée : balade en poneys, mini-ferme, jeux en bois traditionnels, maquillage pour enfants et espace massage pour la récupération.\n\nInscriptions à la course, à la rando et réservations des repas directement en ligne sur HelloAsso ou sur place.",
+    "facebook": "https://www.facebook.com/search/top/?q=Comit%C3%A9%20des%20Loisirs%20de%20Travaillan",
+    "registration_platform": "HelloAsso",
+    "registration_link": "https://www.helloasso.com/associations/comite-des-loisirs-travaillannais/evenements/septembre-en-or-1",
+    "website": "https://www.helloasso.com/associations/comite-des-loisirs-travaillannais/evenements/septembre-en-or-1",
+    "slug": "des-coccinelles-rouges-pour-thomas-travaillan",
+    "id": 52
+  },
+  {
+    "id": 53,
     "date": "2026-09-26",
     "name": "L'Enjambée Sorguaise",
     "city": "Sorgues",
@@ -820,7 +838,7 @@
     "slug": "lenjambee-sorguaise-sorgues"
   },
   {
-    "id": 53,
+    "id": 54,
     "date": "2026-09-27",
     "name": "Marathon d'Avignon",
     "city": "Avignon",
@@ -838,7 +856,7 @@
     "slug": "marathon-davignon-avignon"
   },
   {
-    "id": 54,
+    "id": 55,
     "date": "2026-09-27",
     "name": "Trail in Ocre",
     "city": "Gargas",
@@ -853,7 +871,7 @@
     "slug": "trail-in-ocre-gargas"
   },
   {
-    "id": 55,
+    "id": 56,
     "date": "2026-10-04",
     "name": "Les Foulées Douces",
     "city": "Montfavet",
@@ -866,7 +884,7 @@
     "slug": "les-foulees-douces-montfavet"
   },
   {
-    "id": 56,
+    "id": 57,
     "date": "2026-10-04",
     "name": "Trail de Saint-Didier",
     "city": "Saint-Didier",
@@ -883,7 +901,7 @@
     "slug": "trail-de-saint-didier-saint-didier"
   },
   {
-    "id": 57,
+    "id": 58,
     "date": "2026-10-10",
     "name": "Course de la Cité des Papes",
     "city": "Avignon",
@@ -898,7 +916,7 @@
     "slug": "course-de-la-cite-des-papes-avignon"
   },
   {
-    "id": 58,
+    "id": 59,
     "date": "2026-10-10",
     "name": "Octobre Rose à Mazan",
     "city": "Mazan",
@@ -911,7 +929,7 @@
     "slug": "octobre-rose-a-mazan-mazan"
   },
   {
-    "id": 59,
+    "id": 60,
     "date": "2026-10-18",
     "name": "La Rose Pontétienne",
     "city": "Le Pontet",
@@ -926,7 +944,7 @@
     "slug": "la-rose-pontetienne-le-pontet"
   },
   {
-    "id": 60,
+    "id": 61,
     "date": "2026-10-18",
     "name": "Les Jas du Ventoux",
     "city": "Bedoin",
@@ -940,7 +958,7 @@
     "slug": "les-jas-du-ventoux-bedoin"
   },
   {
-    "id": 61,
+    "id": 62,
     "date": "2026-10-18",
     "name": "La Tou'Run",
     "city": "La Tour d'Aigues",
@@ -954,7 +972,7 @@
     "slug": "la-tourun-la-tour-daigues"
   },
   {
-    "id": 62,
+    "id": 63,
     "date": "2026-10-25",
     "name": "La Carombaise",
     "city": "Caromb",
@@ -968,7 +986,7 @@
     "slug": "la-carombaise-caromb"
   },
   {
-    "id": 63,
+    "id": 64,
     "date": "2026-10-25",
     "name": "La Vigneronde",
     "city": "Puget",
@@ -994,10 +1012,10 @@
     "registration_link": "https://bit.ly/PernesenRose",
     "website": "https://www.viesantevaucluse.fr",
     "slug": "pernes-en-rose-pernes-les-fontaines",
-    "id": 64
+    "id": 65
   },
   {
-    "id": 65,
+    "id": 66,
     "date": "2026-11-01",
     "name": "Trail des Monts de Vaucluse",
     "city": "Saumane",
@@ -1012,7 +1030,7 @@
     "slug": "trail-des-monts-de-vaucluse-saumane"
   },
   {
-    "id": 66,
+    "id": 67,
     "date": "2026-11-08",
     "name": "La Bacchanale",
     "city": "Vaison-la-Romaine",
@@ -1027,7 +1045,7 @@
     "slug": "la-bacchanale-vaison-la-romaine"
   },
   {
-    "id": 67,
+    "id": 68,
     "date": "2026-11-08",
     "name": "Trail du Ventouret",
     "city": "Bedoin",
@@ -1044,7 +1062,7 @@
     "website": "https://ventouxtrailclub.com/trail-du-ventouret/"
   },
   {
-    "id": 68,
+    "id": 69,
     "date": "2026-11-13",
     "name": "Infinity Trail Mont Ventoux",
     "city": "Bedoin",
@@ -1058,7 +1076,7 @@
     "slug": "infinity-trail-mont-ventoux-bedoin"
   },
   {
-    "id": 69,
+    "id": 70,
     "date": "2026-11-15",
     "name": "Les 10 km d'Althen",
     "city": "Althen-des-Paluds",
@@ -1075,7 +1093,7 @@
     "slug": "les-10-km-dalthen-althen-des-paluds"
   },
   {
-    "id": 70,
+    "id": 71,
     "date": "2026-11-21",
     "name": "Trail Nocturne de Bonnieux",
     "city": "Bonnieux",
@@ -1089,7 +1107,7 @@
     "slug": "trail-nocturne-de-bonnieux-bonnieux"
   },
   {
-    "id": 71,
+    "id": 72,
     "date": "2026-11-22",
     "name": "Téléthon Running",
     "city": "Carpentras",
@@ -1100,7 +1118,7 @@
     "slug": "telethon-running-carpentras"
   },
   {
-    "id": 72,
+    "id": 73,
     "date": "2026-11-22",
     "name": "Trail les Monts de Mathias",
     "city": "Visan",
@@ -1111,7 +1129,7 @@
     "slug": "trail-les-monts-de-mathias-visan"
   },
   {
-    "id": 73,
+    "id": 74,
     "date": "2026-11-29",
     "name": "La Foulée Caumontoise",
     "city": "Caumont-sur-Durance",
@@ -1124,7 +1142,7 @@
     "slug": "la-foulee-caumontoise-caumont-sur-durance"
   },
   {
-    "id": 74,
+    "id": 75,
     "date": "2026-12-05",
     "name": "La Course à Morières",
     "city": "Morières-les-Avignon",
@@ -1138,7 +1156,7 @@
     "slug": "la-course-a-morieres-morieres-les-avignon"
   },
   {
-    "id": 75,
+    "id": 76,
     "date": "2026-12-13",
     "name": "Eco Trail de Noël",
     "city": "Cavaillon",
@@ -1152,7 +1170,7 @@
     "slug": "eco-trail-de-noel-cavaillon"
   },
   {
-    "id": 76,
+    "id": 77,
     "date": "2026-12-20",
     "name": "10 km de la Durance",
     "city": "Montfavet",
