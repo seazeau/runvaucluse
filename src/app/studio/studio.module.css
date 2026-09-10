@@ -1074,3 +1074,156 @@
   margin-top: 0.75rem;
 }
 
+/* ==========================================================================
+   MODE 5: CLUBS CAROUSEL SPECIFIC STYLES
+   ========================================================================== */
+
+.clubsCoverLogosGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1.2rem 0;
+  padding: 0.8rem;
+  background: rgba(250, 247, 242, 0.04);
+  border: 1px solid rgba(250, 247, 242, 0.1);
+  border-radius: 12px;
+}
+
+.clubLogoMiniItem {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #fff;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.clubLogoMiniImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.clubBenefitCard {
+  background: rgba(250, 247, 242, 0.05);
+  border: 1px solid rgba(250, 247, 242, 0.12);
+  border-left: 4px solid #F6C83B;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.clubBenefitIcon {
+  color: #F6C83B;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.clubBenefitTitle {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.25rem;
+  color: #FAF7F2;
+  margin: 0 0 0.2rem;
+  letter-spacing: 0.5px;
+}
+
+.clubBenefitText {
+  color: rgba(250, 247, 242, 0.8);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.clubChecklistCard {
+  background: linear-gradient(135deg, rgba(235, 94, 40, 0.1), rgba(250, 247, 242, 0.04));
+  border: 1px solid rgba(235, 94, 40, 0.3);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.clubChecklistNum {
+  background: #EB5E28;
+  color: #fff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.2rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.clubChecklistTitle {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  color: #FAF7F2;
+  margin: 0 0 0.2rem;
+  letter-spacing: 0.5px;
+}
+
+.clubChecklistText {
+  color: rgba(250, 247, 242, 0.8);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.clubContactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0.8rem 0;
+}
+
+.clubContactItem {
+  background: rgba(250, 247, 242, 0.06);
+  border: 1px solid rgba(250, 247, 242, 0.14);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clubContactLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FAF7F2;
+}
+
+.clubContactVal {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #F6C83B;
+}
+
+.clubCommunityCallout {
+  background: rgba(246, 200, 59, 0.12);
+  border: 1px dashed rgba(246, 200, 59, 0.4);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  color: #FAF7F2;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+
