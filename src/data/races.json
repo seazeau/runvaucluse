@@ -798,15 +798,18 @@
   {
     "id": 51,
     "date": "2026-09-19",
-    "name": "Urban Trail Vedénais",
+    "name": "Urban Trail de Vedène",
     "city": "Vedène",
-    "distances": "7 km (160D+)",
-    "type": "Trail",
-    "contact": "Eric Delbecque / Patrick Marthouret (06 59 13 48 79 / lafouleevedenaise@gmail.com)",
-    "image_url": "/images/poster-urban-trail-vedenais-vedene.jpg",
+    "distances": "7 km",
+    "type": "Urban Trail",
+    "contact": "La Foulée Vedénaise (06 59 13 48 79 / lafouleevedenaise@gmail.com)",
+    "image_url": "/images/poster-urban-trail-vedene.png",
     "link": "https://www.facebook.com/lafouleevdenaise/",
     "facebook": "https://www.facebook.com/lafouleevdenaise/",
-    "slug": "urban-trail-vedenais-vedene"
+    "slug": "urban-trail-vedenais-vedene",
+    "registration_link": "https://in.njuko.com/urban-trail-de-vedene-20261782321173055?currentPage=select-competition",
+    "registration_platform": "Njuko",
+    "description": "L'Urban Trail de Vedène (UTV) est organisé par La Foulée Vedénaise. Épreuve de 7 km entre village et colline avec départ à 18h00. Récompenses : scratch Hommes / Femmes, habitants de Vedène, challenge du nombre (groupes) et 5 dossards par tirage au sort. Course solidaire dont les fonds sont reversés à l'association « Ensemble avec Daniel »."
   },
   {
     "id": 52,
