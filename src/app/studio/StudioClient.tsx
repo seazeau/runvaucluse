@@ -1135,7 +1135,16 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     MODE 5: APPEL AUX CLUBS CAROUSEL SLIDES (4 SLIDES)
                    ========================================================= */}
                 {mode === 'clubs' && (() => {
-                  const previewClubs = clubsData.filter(c => c.image_url).slice(0, 8);
+                  const previewClubs = [
+                    clubsData.find(c => c.name.includes("Team PAPA")),
+                    clubsData.find(c => c.name.includes("Loriolade")),
+                    clubsData.find(c => c.name.includes("Carpentras") || c.name.includes("U.A.C")),
+                    clubsData.find(c => c.name.includes("Ménerbes")),
+                    clubsData.find(c => c.name.includes("Le Pontet") || c.name.includes("USPA")),
+                    clubsData.find(c => c.name.includes("Vaison")),
+                    clubsData.find(c => c.name.includes("Courthézon") || c.name.includes("5 Pas")),
+                    clubsData.find(c => c.name.includes("CS AMA") || c.name.includes("Montfavet")),
+                  ].filter(Boolean) as typeof clubsData;
 
                   return (
                     <>

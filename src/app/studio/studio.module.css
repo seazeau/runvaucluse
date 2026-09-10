@@ -1079,28 +1079,29 @@
    ========================================================================== */
 
 .clubsCoverLogosGrid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  justify-items: center;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  margin: 1.2rem 0;
-  padding: 0.8rem;
+  margin: 1.1rem auto;
+  max-width: 320px;
+  padding: 0.85rem;
   background: rgba(250, 247, 242, 0.04);
-  border: 1px solid rgba(250, 247, 242, 0.1);
-  border-radius: 12px;
+  border: 1px solid rgba(250, 247, 242, 0.12);
+  border-radius: 14px;
 }
 
 .clubLogoMiniItem {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
   background: #fff;
-  padding: 3px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .clubLogoMiniImg {
