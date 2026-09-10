@@ -20,7 +20,7 @@ export default function RaceCard({ race, index }: RaceCardProps) {
   return (
     <motion.div 
       id={`race-${race.id}`}
-      className={styles.card}
+      className={`${styles.card} ${race.is_cancelled ? styles.cardCancelled : ''}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -51,11 +51,17 @@ export default function RaceCard({ race, index }: RaceCardProps) {
           <span className={styles.month}>{monthStr}</span>
         </div>
         <div className={styles.typeOverlay}>{race.type}</div>
+        {race.is_cancelled && (
+          <div className={styles.cancelledOverlay}>ANNULÉE EN 2026</div>
+        )}
       </Link>
 
       <div className={styles.content}>
         <div className={styles.mainInfo}>
-          {race.label && <span className={styles.labelTag}>{race.label}</span>}
+          <div className={styles.tagRow}>
+            {race.is_cancelled && <span className={styles.cancelledTag}>ANNULÉE</span>}
+            {race.label && <span className={styles.labelTag}>{race.label}</span>}
+          </div>
           <Link href={`/race/${race.slug}`}>
             <h3 className={styles.name}>{race.name}</h3>
           </Link>

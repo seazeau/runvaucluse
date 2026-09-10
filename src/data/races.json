@@ -1023,7 +1023,9 @@
     "image_url": "/images/poster-la-carombaise-caromb.jpg",
     "link": "https://www.facebook.com/lacarombaise/",
     "facebook": "https://www.facebook.com/lacarombaise/",
-    "slug": "la-carombaise-caromb"
+    "slug": "la-carombaise-caromb",
+    "is_cancelled": true,
+    "description": "L'édition 2026 de La Carombaise est officiellement annulée. Rendez-vous pour la prochaine édition !"
   },
   {
     "id": 65,

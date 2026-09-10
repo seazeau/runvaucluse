@@ -19,6 +19,7 @@ export interface Race {
   website?: string;
   pdf_link?: string;
   parcours_link?: string;
+  is_cancelled?: boolean | number;
 }
 
 export interface RaceResult {

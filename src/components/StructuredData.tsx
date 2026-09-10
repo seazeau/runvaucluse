@@ -20,7 +20,7 @@ export default function StructuredData({ race }: { race: Race }) {
     description: description,
     startDate: race.date,
     endDate: race.date,
-    eventStatus: 'https://schema.org/EventScheduled',
+    eventStatus: race.is_cancelled ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',

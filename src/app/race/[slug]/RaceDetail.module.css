@@ -105,6 +105,18 @@
   letter-spacing: 0.05em;
 }
 
+.cancelledBadge {
+  background: #dc2626;
+  color: #ffffff;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+}
+
 .title {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 6vw, 4.8rem);
@@ -303,6 +315,32 @@
   text-align: center;
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.cancelledAlertBox {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cancelledAlertTitle {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #dc2626;
+  letter-spacing: 0.5px;
+}
+
+.cancelledAlertText {
+  color: var(--dark-ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
 }
 
 .socialRow {

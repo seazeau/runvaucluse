@@ -23,8 +23,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const seoDescription = race.description || 
     `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city}. Retrouvez les distances (${race.distances}), les infos d'inscription et le calendrier complet des courses en Vaucluse 2026 sur RunVaucluse.`;
 
+  const pageTitle = race.is_cancelled
+    ? `[ANNULÉE] ${race.name} - ${race.city} | RunVaucluse 2026`
+    : `${race.name} - ${race.city} | RunVaucluse 2026`;
+
   return {
-    title: `${race.name} - ${race.city} | RunVaucluse 2026`,
+    title: pageTitle,
     description: seoDescription,
     keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses 2026`, `trail vaucluse`, `running paca`],
     openGraph: {
@@ -98,6 +102,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
             <div className={styles.infoSection}>
               <div className={styles.header}>
                 <div className={styles.badgeRow}>
+                  {race.is_cancelled && (
+                    <span className={styles.cancelledBadge}>ÉDITION 2026 ANNULÉE</span>
+                  )}
                   <span className={styles.typeBadge}>{race.type}</span>
                   {race.label && <span className={styles.labelBadge}>{race.label}</span>}
                 </div>
@@ -178,7 +185,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               </div>
 
               <div className={styles.actionRow}>
-                {race.registration_link ? (
+                {race.is_cancelled ? (
+                  <div className={styles.cancelledAlertBox}>
+                    <div className={styles.cancelledAlertTitle}>⚠️ ÉPREUVE ANNULÉE EN 2026</div>
+                    <p className={styles.cancelledAlertText}>
+                      L&apos;édition 2026 de cette course a été officiellement annulée par l&apos;organisation. Les inscriptions ne seront pas ouvertes pour cette année.
+                    </p>
+                  </div>
+                ) : race.registration_link ? (
                   <a href={race.registration_link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
                     S'INSCRIRE
                   </a>
@@ -190,7 +204,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   <div className={styles.pendingMsg}>Les inscriptions ne sont pas encore ouvertes.</div>
                 )}
                 
-                <CyberCardGenerator race={race} />
+                {!race.is_cancelled && <CyberCardGenerator race={race} />}
               </div>
 
               <div className={styles.socialRow}>
