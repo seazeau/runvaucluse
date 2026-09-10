@@ -1,7 +1,7 @@
 import { Race } from '@/lib/types';
 import racesData from '@/data/races.json';
 import styles from './RaceDetail.module.css';
-import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download } from 'lucide-react';
+import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import StructuredData from '@/components/StructuredData';
@@ -134,6 +134,17 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                         <Download size={16} /> {gpx.label}
                       </a>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {race.pdf_link && (
+                <div className={styles.gpxContainer}>
+                  <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
+                  <div className={styles.gpxGrid}>
+                    <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
+                      <FileText size={16} /> VOIR LE PLAN DU PARCOURS (PDF)
+                    </a>
                   </div>
                 </div>
               )}

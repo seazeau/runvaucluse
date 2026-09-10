@@ -847,14 +847,19 @@
     "date": "2026-09-26",
     "name": "L'Enjambée Sorguaise",
     "city": "Sorgues",
-    "distances": "14 km, 6 km",
+    "distances": "13 km, 7 km",
     "type": "Course nature",
     "contact": "Lionel Lacotte (06 76 40 36 69 / sorguesathle84@gmail.com)",
     "image_url": "/images/poster-lenjambee-sorguaise-sorgues.jpg",
     "link": "https://www.sorgues.fr",
     "facebook": "https://www.facebook.com/villedesorgues",
     "instagram": "https://www.instagram.com/villedesorgues",
-    "slug": "lenjambee-sorguaise-sorgues"
+    "slug": "lenjambee-sorguaise-sorgues",
+    "registration_link": "https://in.njuko.com/enjambee-sorguaise-20261783616036915?currentPage=select-competition",
+    "registration_platform": "Njuko",
+    "pdf_link": "/plan-enjambee-sorguaise.pdf",
+    "website": "https://www.sorgues.fr",
+    "description": "4e édition de l'Enjambée Sorguaise au Parc municipal de Sorgues. Au programme : 13 km (départ à 16h00, dès 18 ans) et 7 km (départ à 16h15, dès 16 ans). Inscriptions ouvertes sur Njuko et plan officiel des parcours disponible en téléchargement."
   },
   {
     "id": 55,
