@@ -1143,14 +1143,18 @@
     "date": "2026-11-21",
     "name": "Trail Nocturne de Bonnieux",
     "city": "Bonnieux",
-    "distances": "43 km (2100D+), 25 km (1400D+), 12 km (400D+)",
+    "distances": "43 km (2100D+), 25 km (1200D+), 12 km (450D+)",
     "type": "Trail",
-    "contact": "bonnieux.runandbike@neuf.fr",
+    "contact": "Bonnieux Run and Bike (bonnieux.runandbike@neuf.fr)",
     "image_url": "/images/poster-trail-nocturne-de-bonnieux-bonnieux.jpg",
     "link": "https://trailnocturnebonnieux.com/",
     "facebook": "https://www.facebook.com/trailnocturnebonnieux/",
     "instagram": "https://www.instagram.com/trailnocturnebonnieux/",
-    "slug": "trail-nocturne-de-bonnieux-bonnieux"
+    "slug": "trail-nocturne-de-bonnieux-bonnieux",
+    "registration_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_bonnieux.php",
+    "registration_platform": "JF-Chronotrail",
+    "website": "https://bonnieuxrunandbike.fr/trail-nocturne-bonnieux",
+    "description": "13ème édition du Trail Nocturne de Bonnieux organisée par Bonnieux Run and Bike. Au programme : 43 km (2 100m D+ départ 15h00), 25 km (1 200m D+ départ 17h30) et 12 km (450m D+ départ 18h30). Course engagée pour la biodiversité : 1€ par dossard reversé à la LPO (Ligue pour la Protection des Oiseaux - Centre de sauvegarde PACA)."
   },
   {
     "id": 73,
