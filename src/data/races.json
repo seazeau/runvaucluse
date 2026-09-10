@@ -1030,16 +1030,20 @@
   {
     "id": 65,
     "date": "2026-10-25",
-    "name": "La Vigneronde",
-    "city": "Puget",
-    "distances": "13 km (390D+), 8 km (290D+)",
-    "type": "Course nature",
+    "name": "Trail La Vigneronde",
+    "city": "Puget-sur-Durance",
+    "distances": "13 km (400D+), 8 km (290D+)",
+    "type": "Trail",
     "contact": "Laurence Sejeau (06 51 10 09 37 / lavigneronde84@gmail.com)",
     "image_url": "/images/poster-la-vigneronde-puget.jpg",
     "link": "https://lavigneronde1.wordpress.com",
     "facebook": "https://www.facebook.com/lavigneronde1",
     "instagram": "https://www.instagram.com/lavigneronde1",
-    "slug": "la-vigneronde-puget"
+    "slug": "la-vigneronde-puget",
+    "registration_link": "https://in.njuko.com/trail-de-la-vigneronde-20261777456956012?currentPage=select-competition",
+    "registration_platform": "Njuko",
+    "website": "https://lavigneronde1.wordpress.com/",
+    "description": "Le Trail La Vigneronde à Puget-sur-Durance est une course solidaire au profit de la lutte contre la maladie de Charcot (en soutien à l'ARSLA). Au programme : 13 km (400m D+) et 8 km (290m D+) au cœur des collines, vignobles et sentiers du sud Luberon."
   },
   {
     "date": "2026-10-25",
