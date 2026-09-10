@@ -70,7 +70,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // New Race Carrousel State
   const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
-    return races.find(r => r.slug === 'les-jas-du-ventoux-bedoin')?.slug || races.find(r => r.slug === 'urban-trail-vedenais-vedene')?.slug || races[0]?.slug || '';
+    return races.find(r => r.slug === 'la-tourun-la-tour-daigues')?.slug || races.find(r => r.slug === 'les-jas-du-ventoux-bedoin')?.slug || races[0]?.slug || '';
   });
 
   // Clubs Call Carrousel State

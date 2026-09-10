@@ -998,14 +998,18 @@
     "date": "2026-10-18",
     "name": "La Tou'Run",
     "city": "La Tour d'Aigues",
-    "distances": "21 km (530D+), 16 km (370D+), 10 km (190D+)",
+    "distances": "25 km, 16 km, 11 km, Marche 10 km, Marche 6 km",
     "type": "Course nature",
     "contact": "Magali Ferrat (latourun84@gmail.com)",
     "image_url": "/images/poster-la-tourun-la-tour-daigues.jpg",
     "link": "https://www.facebook.com/latourun84/",
     "facebook": "https://www.facebook.com/latourun84/",
     "instagram": "https://www.instagram.com/latourun84/",
-    "slug": "la-tourun-la-tour-daigues"
+    "slug": "la-tourun-la-tour-daigues",
+    "label": "UTMB Index / Challenge Pays d'Aigues",
+    "registration_link": "https://www.kms.fr/v5/public/course/5320",
+    "registration_platform": "KMS",
+    "description": "3ème édition de La Tou'Run à La Tour d'Aigues, pour courir ensemble au profit d'Octobre Rose & Movember (en soutien à l'ISMP - Institut du Sein Marseille Provence). Au programme : 3 courses nature (25 km 755D+ départ 9h00 index UTMB 20K M, 16 km 385D+ départ 9h00, 11 km 245D+ départ 9h15) et 2 marches solidaires (10 km et 6 km départs 9h20). Épreuve au Challenge du Pays d'Aigues. Cadeau L'Occitane en Provence offert à tous et casquettes CIMALP pour les 30 premiers."
   },
   {
     "id": 64,
