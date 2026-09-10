@@ -18,6 +18,7 @@ export interface Race {
   registration_link?: string;
   website?: string;
   pdf_link?: string;
+  parcours_link?: string;
 }
 
 export interface RaceResult {

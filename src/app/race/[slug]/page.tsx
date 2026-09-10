@@ -138,13 +138,20 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {race.pdf_link && (
+              {(race.pdf_link || race.parcours_link) && (
                 <div className={styles.gpxContainer}>
                   <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
                   <div className={styles.gpxGrid}>
-                    <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
-                      <FileText size={16} /> VOIR LE PLAN DU PARCOURS (PDF)
-                    </a>
+                    {race.pdf_link && (
+                      <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
+                        <FileText size={16} /> VOIR LE PLAN DU PARCOURS (PDF)
+                      </a>
+                    )}
+                    {race.parcours_link && (
+                      <a href={race.parcours_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
+                        <FileText size={16} /> VOIR LE PLAN & PROFIL DU PARCOURS
+                      </a>
+                    )}
                   </div>
                 </div>
               )}
