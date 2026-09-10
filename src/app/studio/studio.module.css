@@ -1078,7 +1078,21 @@
    MODE 5: CLUBS CAROUSEL SPECIFIC STYLES
    ========================================================================== */
 
-.clubsCoverLogosGrid {
+.clubsCoverLogosGridAll {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.8rem auto;
+  max-width: 440px;
+  padding: 0.75rem;
+  background: rgba(250, 247, 242, 0.04);
+  border: 1px solid rgba(250, 247, 242, 0.12);
+  border-radius: 14px;
+}
+
+.clubsCoverLogosGridFeatured {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
@@ -1092,7 +1106,20 @@
   border-radius: 14px;
 }
 
-.clubLogoMiniItem {
+.clubLogoMiniItemAll {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #fff;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.clubLogoMiniItemFeatured {
   width: 58px;
   height: 58px;
   border-radius: 10px;

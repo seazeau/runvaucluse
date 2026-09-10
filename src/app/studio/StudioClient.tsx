@@ -76,6 +76,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   // Clubs Call Carrousel State
   const [clubContactEmail, setClubContactEmail] = useState('contact@runvaucluse.fr');
   const [clubInstagramTag, setClubInstagramTag] = useState('@runvaucluse.fr');
+  const [clubsCoverMode, setClubsCoverMode] = useState<'all' | 'featured'>('all');
 
   // Story State
   const [selectedStorySlug, setSelectedStorySlug] = useState<string>(
@@ -415,6 +416,26 @@ export default function StudioClient({ races, latestWinners }: Props) {
                   <p style={{ color: 'rgba(250, 247, 242, 0.7)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>
                     Ce carrousel 4 slides invite tous les clubs et associations running du 84 à compléter leur fiche officielle sur RunVaucluse.fr.
                   </p>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Affichage des logos sur la Cover</label>
+                  <div className={styles.displayModeGrid}>
+                    <button
+                      type="button"
+                      className={`${styles.displayModeBtn} ${clubsCoverMode === 'all' ? styles.displayModeBtnActive : ''}`}
+                      onClick={() => setClubsCoverMode('all')}
+                    >
+                      <Users size={15} /> Les 27 clubs (Mosaïque)
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.displayModeBtn} ${clubsCoverMode === 'featured' ? styles.displayModeBtnActive : ''}`}
+                      onClick={() => setClubsCoverMode('featured')}
+                    >
+                      <Trophy size={15} /> 8 clubs en vedette
+                    </button>
+                  </div>
                 </div>
 
                 <div className={styles.formGroup}>
@@ -1135,7 +1156,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     MODE 5: APPEL AUX CLUBS CAROUSEL SLIDES (4 SLIDES)
                    ========================================================= */}
                 {mode === 'clubs' && (() => {
-                  const previewClubs = [
+                  const featuredClubs = [
                     clubsData.find(c => c.name.includes("Team PAPA")),
                     clubsData.find(c => c.name.includes("Loriolade")),
                     clubsData.find(c => c.name.includes("Carpentras") || c.name.includes("U.A.C")),
@@ -1145,6 +1166,9 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     clubsData.find(c => c.name.includes("Courthézon") || c.name.includes("5 Pas")),
                     clubsData.find(c => c.name.includes("CS AMA") || c.name.includes("Montfavet")),
                   ].filter(Boolean) as typeof clubsData;
+
+                  const allClubs = clubsData.filter(c => c.image_url);
+                  const displayClubs = clubsCoverMode === 'all' ? allClubs : featuredClubs;
 
                   return (
                     <>
@@ -1156,7 +1180,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             <span className={styles.slidePillTag}>COMMUNAUTÉ 84 🤝</span>
                           </div>
 
-                          <div style={{ margin: '0.6rem 0 0.2rem' }}>
+                          <div style={{ margin: clubsCoverMode === 'all' ? '0.4rem 0 0.1rem' : '0.6rem 0 0.2rem' }}>
                             <span style={{ 
                               fontFamily: 'var(--font-mono, monospace)', 
                               fontSize: '0.85rem', 
@@ -1169,10 +1193,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             </span>
                             <h2 style={{ 
                               fontFamily: 'var(--font-display, sans-serif)', 
-                              fontSize: '2.8rem', 
+                              fontSize: clubsCoverMode === 'all' ? '2.6rem' : '2.8rem', 
                               lineHeight: '0.95', 
                               color: '#FAF7F2', 
-                              margin: '0.5rem 0 0.6rem',
+                              margin: '0.4rem 0 0.5rem',
                               letterSpacing: '1px',
                               textTransform: 'uppercase'
                             }}>
@@ -1180,8 +1204,8 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             </h2>
                             <p style={{ 
                               color: 'rgba(250, 247, 242, 0.8)', 
-                              fontSize: '0.9rem', 
-                              lineHeight: '1.4', 
+                              fontSize: '0.88rem', 
+                              lineHeight: '1.35', 
                               margin: 0 
                             }}>
                               Faites briller vos couleurs et attirez de nouveaux coureurs pour la saison sur <strong>RunVaucluse.fr</strong>.
@@ -1189,9 +1213,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
                           </div>
 
                           {/* Clubs preview logos */}
-                          <div className={styles.clubsCoverLogosGrid}>
-                            {previewClubs.map((club, idx) => (
-                              <div key={idx} className={styles.clubLogoMiniItem} title={club.name}>
+                          <div className={clubsCoverMode === 'all' ? styles.clubsCoverLogosGridAll : styles.clubsCoverLogosGridFeatured}>
+                            {displayClubs.map((club, idx) => (
+                              <div 
+                                key={idx} 
+                                className={clubsCoverMode === 'all' ? styles.clubLogoMiniItemAll : styles.clubLogoMiniItemFeatured} 
+                                title={club.name}
+                              >
                                 <img src={club.image_url} alt={club.name} className={styles.clubLogoMiniImg} />
                               </div>
                             ))}
@@ -1201,10 +1229,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             display: 'flex', 
                             justifyContent: 'center', 
                             gap: '0.5rem', 
-                            marginBottom: '0.5rem' 
+                            marginBottom: '0.4rem' 
                           }}>
                             <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem' }}>
-                              ⚡ +25 CLUBS RÉFÉRENCÉS
+                              {clubsCoverMode === 'all' ? '⚡ LES 27 CLUBS DU VAUCLUSE' : '⚡ +25 CLUBS RÉFÉRENCÉS'}
                             </span>
                             <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem', background: '#EB5E28' }}>
                               🆓 100% GRATUIT
