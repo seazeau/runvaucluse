@@ -49,7 +49,7 @@ interface Props {
 }
 
 export default function StudioClient({ races, latestWinners }: Props) {
-  const [mode, setMode] = useState<'weekend' | 'podiums' | 'story'>('weekend');
+  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'story'>('weekend');
   
   // Weekend Carrousel State
   const [selectedRaceSlugs, setSelectedRaceSlugs] = useState<string[]>(() => {
@@ -63,6 +63,11 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [selectedResultSlug, setSelectedResultSlug] = useState<string>(
     latestWinners[0]?.slug || ''
   );
+
+  // New Race Carrousel State
+  const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
+    return races.find(r => r.slug === 'la-run-des-filles-lisle-sur-la-sorgue')?.slug || races[0]?.slug || '';
+  });
 
   // Story State
   const [selectedStorySlug, setSelectedStorySlug] = useState<string>(
@@ -100,13 +105,16 @@ export default function StudioClient({ races, latestWinners }: Props) {
   // Reset slide index when changing mode
   useEffect(() => {
     setActiveSlideIndex(0);
-  }, [mode, selectedResultSlug, selectedStorySlug]);
+  }, [mode, selectedResultSlug, selectedStorySlug, selectedNewRaceSlug]);
 
   // Selected races for Weekend Mode
   const selectedRaces = races.filter(r => selectedRaceSlugs.includes(r.slug));
   
   // Selected race for Podiums Mode
   const activePodiumRace = latestWinners.find(r => r.slug === selectedResultSlug) || latestWinners[0];
+
+  // Selected race for New Race Mode
+  const activeNewRace = races.find(r => r.slug === selectedNewRaceSlug) || races[0];
 
   // Selected race for Story Mode
   const activeStoryRace = races.find(r => r.slug === selectedStorySlug) || races[0];
@@ -124,6 +132,8 @@ export default function StudioClient({ races, latestWinners }: Props) {
     });
     const eventCount = Object.keys(eventGroups).length;
     totalSlides = 1 + (eventCount > 0 ? eventCount : 1) + 1;
+  } else if (mode === 'new_race') {
+    totalSlides = 4; // Cover + Formats + Présentation + CTA
   } else if (mode === 'story') {
     totalSlides = 1;
   }
@@ -199,6 +209,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
         .map(w => `🥇 ${w.name} (${w.event_name}) en ${w.time}${w.club ? ' - ' + w.club : ''}`)
         .join('\n');
       return `🏆 LES RÉSULTATS DU WEEK-END // ${activePodiumRace?.name.toUpperCase()}\n\nBravo à tous les finishers de cette magnifique édition à ${activePodiumRace?.city} !\n\nFélicitations aux vainqueurs du jour :\n${winnerLines}\n\n📊 Tous les résultats officiels, chronos, allures et fiches coureurs complètes sont en ligne sur :\n👉 WWW.RUNVAUCLUSE.FR/RESULTATS\n\nIdentifiez vos potes finishers en commentaire ! 👇\n\n#runvaucluse #resultatsrunning #runningvaucluse #trailvaucluse #podium #finisher #vaucluse`;
+    } else if (mode === 'new_race') {
+      const race = activeNewRace;
+      const dateFormatted = new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      return `✨ NOUVEAU DOSSARD EN VAUCLUSE // ${race.name.toUpperCase()} !\n\nUne nouvelle course vient d'être ajoutée au calendrier officiel sur RUNVAUCLUSE.FR 🏃‍♂️⚡\n\n📅 Date : ${dateFormatted}\n📍 Lieu : ${race.city} (Vaucluse)\n📏 Formats : ${race.distances}\n${race.label ? `🏷️ Label : ${race.label}\n` : ''}${race.contact ? `👥 Organisation : ${race.contact}\n` : ''}\n${race.description ? `${race.description.slice(0, 280)}...\n\n` : ''}👉 Retrouvez la fiche complète, le parcours et le lien direct d'inscription officielle sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien en bio)\n\n💾 Enregistrez ce post pour votre calendrier de courses et taguez vos amis partants ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #${race.city.toLowerCase().replace(/[^a-z0-9]/g, '')} #courseapied #dossard #vaucluse #provence #calendriercourses`;
     } else {
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     }
@@ -252,6 +266,12 @@ export default function StudioClient({ races, latestWinners }: Props) {
               onClick={() => { setMode('podiums'); setActiveSlideIndex(0); }}
             >
               <Trophy size={18} /> Carrousel "Podiums & Résultats"
+            </button>
+            <button 
+              className={`${styles.tabBtn} ${mode === 'new_race' ? styles.tabBtnActive : ''}`}
+              onClick={() => { setMode('new_race'); setActiveSlideIndex(0); }}
+            >
+              <Sparkles size={18} /> Carrousel "Nouvelle Course"
             </button>
             <button 
               className={`${styles.tabBtn} ${mode === 'story' ? styles.tabBtnActive : ''}`}
@@ -342,6 +362,30 @@ export default function StudioClient({ races, latestWinners }: Props) {
               </>
             )}
 
+            {/* NEW RACE MODE CONTROLS */}
+            {mode === 'new_race' && (
+              <>
+                <h3 className={styles.controlsSectionTitle}>
+                  <Sparkles size={18} /> Présentation Nouvelle Course
+                </h3>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Choisir la course ajoutée</label>
+                  <select 
+                    className={styles.selectInput}
+                    value={selectedNewRaceSlug}
+                    onChange={(e) => setSelectedNewRaceSlug(e.target.value)}
+                  >
+                    {races.map(race => (
+                      <option key={race.slug} value={race.slug}>
+                        {race.name} ({race.city}) — {race.date}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
             {/* STORY MODE CONTROLS */}
             {mode === 'story' && (
               <>
@@ -367,15 +411,15 @@ export default function StudioClient({ races, latestWinners }: Props) {
             )}
 
             {/* VISUAL & POSTER SETTINGS */}
-            {(mode === 'weekend' || mode === 'story') && (
+            {(mode === 'weekend' || mode === 'story' || mode === 'new_race') && (
               <div className={styles.visualSettingsBox}>
                 <h3 className={styles.controlsSectionTitle}>
                   <ImageIcon size={18} /> Rendu des Visuels
                 </h3>
 
-                {mode === 'weekend' && (
+                {(mode === 'weekend' || mode === 'new_race') && (
                   <div className={styles.formGroup}>
-                    <label className={styles.label}>Format d&apos;affichage des courses</label>
+                    <label className={styles.label}>Format d&apos;affichage de l&apos;affiche</label>
                     <div className={styles.displayModeGrid}>
                       <button
                         type="button"
@@ -399,9 +443,11 @@ export default function StudioClient({ races, latestWinners }: Props) {
                 {(() => {
                   const targetSlug = mode === 'story'
                     ? activeStoryRace.slug
-                    : (activeSlideIndex > 0 && activeSlideIndex <= selectedRaces.length 
-                        ? selectedRaces[activeSlideIndex - 1].slug 
-                        : selectedRaces[0]?.slug);
+                    : mode === 'new_race'
+                      ? activeNewRace.slug
+                      : (activeSlideIndex > 0 && activeSlideIndex <= selectedRaces.length 
+                          ? selectedRaces[activeSlideIndex - 1].slug 
+                          : selectedRaces[0]?.slug);
                   
                   const targetRace = races.find(r => r.slug === targetSlug);
                   if (!targetRace) return null;
@@ -830,6 +876,205 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     )}
                   </>
                 )}
+
+                {/* =========================================================
+                    MODE 4: NOUVELLE COURSE CAROUSEL SLIDES (4 SLIDES)
+                   ========================================================= */}
+                {mode === 'new_race' && (() => {
+                  const race = activeNewRace || races[0];
+                  if (!race) return null;
+                  const raceImage = customImages[race.slug] || race.image_url || '/images/sommet-ventoux-1080p.jpg';
+                  const dateFormatted = new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+                  const distList = race.distances ? race.distances.split(',').map(d => d.trim()).filter(Boolean) : [];
+
+                  return (
+                    <>
+                      {/* SLIDE 0: COVER ANNONCE */}
+                      {activeSlideIndex === 0 && (
+                        <div className={styles.raceSlideCard}>
+                          <div className={styles.slideBrandHeader}>
+                            <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                            <span className={styles.slidePillTag}>NOUVEAU SUR LE SITE ✨</span>
+                          </div>
+
+                          {imageDisplayMode === 'poster' ? (
+                            <div className={styles.raceSlidePosterLayout}>
+                              <div className={styles.posterFrameContainer}>
+                                <div className={styles.posterAmbientGlow} style={{ backgroundImage: `url(${raceImage})` }} />
+                                <div className={styles.posterFrame}>
+                                  <div className={styles.posterFrameBackdrop} style={{ backgroundImage: `url(${raceImage})` }} />
+                                  <img src={raceImage} alt={race.name} className={styles.posterImg} />
+                                </div>
+                              </div>
+                              <div className={styles.posterInfoCol}>
+                                <div className={styles.raceSlideMetaRow}>
+                                  <Calendar size={14} /> {dateFormatted}
+                                </div>
+                                <h3 className={styles.posterRaceName}>{race.name}</h3>
+                                <div className={styles.raceSlideCity}>
+                                  <MapPin size={15} /> {race.city} • VAUCLUSE
+                                </div>
+                                <div className={styles.raceSlideDistances} style={{ marginTop: '0.6rem' }}>
+                                  {distList.map((dist, idx) => (
+                                    <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
+                                  ))}
+                                </div>
+                                {race.label && (
+                                  <div className={styles.posterBadges}>
+                                    <span className={styles.posterTagBadge}>🏷️ {race.label.toUpperCase()}</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                              <div className={styles.raceCardPosterBox}>
+                                <img src={raceImage} alt={race.name} className={styles.racePosterImg} />
+                              </div>
+                              <div className={styles.raceSlideInfo}>
+                                <div className={styles.raceSlideMetaRow}>
+                                  <Calendar size={14} /> {dateFormatted}
+                                </div>
+                                <h3 className={styles.raceSlideName}>{race.name}</h3>
+                                <div className={styles.raceSlideCity}>
+                                  <MapPin size={15} /> {race.city} • VAUCLUSE
+                                </div>
+                                <div className={styles.raceSlideDistances} style={{ marginTop: '0.75rem' }}>
+                                  {distList.map((dist, idx) => (
+                                    <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
+                          )}
+
+                          <div className={styles.coverFooter}>
+                            <span>PROGRAMME & DÉTAILS</span>
+                            <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SLIDE 1: FORMATS & INFOS CLÉS */}
+                      {activeSlideIndex === 1 && (
+                        <div className={styles.raceSlideCard}>
+                          <div className={styles.slideBrandHeader}>
+                            <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                            <span className={styles.slidePillTag}>AU PROGRAMME 📅</span>
+                          </div>
+
+                          <div style={{ margin: '0.8rem 0 0.4rem' }}>
+                            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#FAF7F2", margin: 0, letterSpacing: "1px" }}>
+                              LES ÉPREUVES DU JOUR
+                            </h3>
+                            <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
+                              {race.name} ({race.city})
+                            </p>
+                          </div>
+
+                          <div 
+                            className={styles.newRaceDistRow}
+                            style={distList.length > 2 ? { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' } : undefined}
+                          >
+                            {distList.map((dist, idx) => (
+                              <div 
+                                key={idx} 
+                                className={styles.newRaceDistCard}
+                                style={distList.length > 2 ? { padding: '0.65rem 0.85rem' } : undefined}
+                              >
+                                <span 
+                                  className={styles.newRaceDistName}
+                                  style={distList.length > 2 ? { fontSize: '1.25rem' } : undefined}
+                                >
+                                  {dist}
+                                </span>
+                                <span className={styles.newRaceDistPillBadge}>OUVERT</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className={styles.newRaceFactsGrid}>
+                            <div className={styles.newRaceFactCard}>
+                              <span className={styles.newRaceFactLabel}><Calendar size={13} /> DATE</span>
+                              <span className={styles.newRaceFactVal}>{new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                            </div>
+                            <div className={styles.newRaceFactCard}>
+                              <span className={styles.newRaceFactLabel}><MapPin size={13} /> LIEU</span>
+                              <span className={styles.newRaceFactVal}>{race.city}</span>
+                            </div>
+                            <div className={styles.newRaceFactCard}>
+                              <span className={styles.newRaceFactLabel}><Zap size={13} /> TYPE</span>
+                              <span className={styles.newRaceFactVal}>{race.type || 'Course'}</span>
+                            </div>
+                            <div className={styles.newRaceFactCard}>
+                              <span className={styles.newRaceFactLabel}><Timer size={13} /> INSCRIPTION</span>
+                              <span className={styles.newRaceFactVal}>{race.registration_platform || 'En ligne'}</span>
+                            </div>
+                          </div>
+
+                          <div className={styles.coverFooter}>
+                            <span>L'ESPRIT DU DÉFI</span>
+                            <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SLIDE 2: PRÉSENTATION & AMBIANCE */}
+                      {activeSlideIndex === 2 && (
+                        <div className={styles.raceSlideCard}>
+                          <div className={styles.slideBrandHeader}>
+                            <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                            <span className={styles.slidePillTag}>L'EXPÉRIENCE 🌟</span>
+                          </div>
+
+                          <div style={{ margin: '0.8rem 0 0.4rem' }}>
+                            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#F6C83B", margin: 0, letterSpacing: "1px" }}>
+                              POURQUOI S'INSCRIRE ?
+                            </h3>
+                            <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
+                              {race.name}
+                            </p>
+                          </div>
+
+                          <div className={styles.newRaceDescCard}>
+                            <p className={styles.newRaceDescText}>
+                              {race.description || "Une expérience sportive et humaine incontournable au cœur des paysages du Vaucluse. Venez relever le défi et partager une journée conviviale avec tous les passionnés de course à pied de la région."}
+                            </p>
+                            {race.contact && (
+                              <div className={styles.newRaceContactPill}>
+                                👥 Organisation : {race.contact}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className={styles.coverFooter}>
+                            <span>COMMENT PARTICIPER</span>
+                            <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SLIDE 3: CTA FINAL */}
+                      {activeSlideIndex === 3 && (
+                        <div className={styles.outroCard}>
+                          <LogoIcon size={52} />
+                          <h2 className={styles.outroBigTitle}>
+                            INSCRIPTIONS OUVERTES !
+                          </h2>
+                          <p className={styles.outroDesc}>
+                            Retrouvez tous les détails, le règlement officiel et le lien d'inscription directe pour <strong>{race.name}</strong> sur :
+                          </p>
+                          <div className={styles.outroUrlPill}>
+                            RUNVAUCLUSE.FR
+                          </div>
+                          <div className={styles.savePostReminder}>
+                            <Bookmark size={18} /> Enregistre ce post pour ton prochain dossard !
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
 
                 {/* =========================================================
                     MODE 3: STORY J-7 (9:16)

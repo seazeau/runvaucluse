@@ -962,3 +962,115 @@
   font-weight: 600;
   color: #FAF7F2;
 }
+
+/* =========================================================
+   MODE 4: NOUVELLE COURSE CAROUSEL STYLES
+   ========================================================= */
+
+.newRaceFactsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.newRaceFactCard {
+  background: rgba(250, 247, 242, 0.08);
+  border: 1px solid rgba(250, 247, 242, 0.14);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.newRaceFactLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #F6C83B;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.newRaceFactVal {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FAF7F2;
+  line-height: 1.2;
+}
+
+.newRaceDistRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.newRaceDistCard {
+  background: linear-gradient(135deg, rgba(235, 94, 40, 0.15), rgba(250, 247, 242, 0.06));
+  border: 1px solid rgba(235, 94, 40, 0.35);
+  border-radius: 12px;
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newRaceDistName {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.6rem;
+  color: #FAF7F2;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.newRaceDistPillBadge {
+  background: #EB5E28;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+}
+
+.newRaceDescCard {
+  background: rgba(250, 247, 242, 0.08);
+  border: 1px solid rgba(250, 247, 242, 0.14);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  max-height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.newRaceDescText {
+  color: rgba(250, 247, 242, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.newRaceContactPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(246, 200, 59, 0.15);
+  border: 1px solid rgba(246, 200, 59, 0.3);
+  color: #F6C83B;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-top: 0.75rem;
+}
+
