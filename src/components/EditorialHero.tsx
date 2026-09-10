@@ -44,6 +44,15 @@ const ALL_FEATURED_RACES = [
   },
   {
     date: '2026-09-12',
+    slug: 'la-run-des-filles-lisle-sur-la-sorgue',
+    name: 'LA RUN DES FILLES',
+    badge: "12 SEPTEMBRE • L'ISLE-SUR-LA-SORGUE",
+    distBadge: 'SOLIDAIRE • 5 KM & 2,5 KM',
+    meta: "Course et marche festives au Parc Gautier au profit de la Fondation Gaillanne.",
+    image: '/images/la-run-des-filles.png'
+  },
+  {
+    date: '2026-09-12',
     slug: 'ventoux-by-night-bedoin',
     name: 'VENTOUX BY NIGHT',
     badge: '12 SEPTEMBRE • BÉDOIN',

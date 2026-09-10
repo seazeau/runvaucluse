@@ -761,6 +761,25 @@
     "slug": "ventoux-by-night-bedoin"
   },
   {
+    "date": "2026-09-12",
+    "name": "La Run des Filles",
+    "city": "L'Isle-sur-la-Sorgue",
+    "distances": "5 km, 2,5 km, Course enfants",
+    "type": "Course nature",
+    "contact": "Agence BAM (contact@bamsudest.com)",
+    "image_url": "/images/la-run-des-filles.png",
+    "link": "https://in.njuko.com/la-run-des-filles---la-lisloise-20261770804651826",
+    "label": "Solidaire & Festive",
+    "description": "La Run des Filles (La L'Isloise) revient pour son édition 2026 le samedi 12 septembre au superbe Parc Gautier à L'Isle-sur-la-Sorgue, organisée par l'agence BAM !\n\nC’est une course 100% plaisir, sans classement ni chronomètre, conçue pour un moment familial, festif et solidaire : 1 euro par dossard est reversé à la Fondation Frédéric Gaillanne pour l'éducation de chiens guides destinés aux enfants malvoyants.\n\nPROGRAMME DU SAMEDI 12 SEPTEMBRE 2026 :\n- 16h00 : Ouverture du village Sport - Santé - Bien-être au Parc Gautier (partenaires, détente et stands)\n- 18h00 : Course enfants mixte (Inscriptions : 5 € avec 1 € reversé à la fondation)\n- 19h15 : Échauffement collectif en musique\n- 19h30 : Départ des courses et marches (au choix 1 boucle de 2,5 km ou 2 boucles pour 5 km) :\n  • Marche et course en équipe (2 à 5 personnes) : 10 € par personne\n  • Marche et course individuelle : 10 €\n- 20h30 : Détente, plaisir, buvette et ambiance musicale !\n\nInscriptions ouvertes en ligne sur Njuko pour vivre une soirée inoubliable au bord de la Sorgue.",
+    "facebook": "https://www.facebook.com/bamsudest/",
+    "instagram": "https://www.instagram.com/bamsudest/",
+    "registration_platform": "Njuko",
+    "registration_link": "https://in.njuko.com/la-run-des-filles---la-lisloise-20261770804651826",
+    "website": "https://in.njuko.com/la-run-des-filles---la-lisloise-20261770804651826",
+    "slug": "la-run-des-filles-lisle-sur-la-sorgue",
+    "id": 49
+  },
+  {
     "date": "2026-09-13",
     "name": "La Raid'Splendi Family",
     "city": "Camaret-sur-Aigues",
@@ -774,10 +793,10 @@
     "registration_link": "https://kms.fr/v5/public/course/5406",
     "website": "https://lesraidsplendissan.wixsite.com/raidsplendissantes",
     "slug": "la-raidsplendi-family-camaret-sur-aigues",
-    "id": 49
+    "id": 50
   },
   {
-    "id": 50,
+    "id": 51,
     "date": "2026-09-19",
     "name": "Urban Trail Vedénais",
     "city": "Vedène",
@@ -790,7 +809,7 @@
     "slug": "urban-trail-vedenais-vedene"
   },
   {
-    "id": 51,
+    "id": 52,
     "date": "2026-09-20",
     "name": "Trail du Ruban Doré",
     "city": "Sault",
@@ -821,10 +840,10 @@
     "registration_link": "https://www.helloasso.com/associations/comite-des-loisirs-travaillannais/evenements/septembre-en-or-1",
     "website": "https://www.helloasso.com/associations/comite-des-loisirs-travaillannais/evenements/septembre-en-or-1",
     "slug": "des-coccinelles-rouges-pour-thomas-travaillan",
-    "id": 52
+    "id": 53
   },
   {
-    "id": 53,
+    "id": 54,
     "date": "2026-09-26",
     "name": "L'Enjambée Sorguaise",
     "city": "Sorgues",
@@ -838,7 +857,7 @@
     "slug": "lenjambee-sorguaise-sorgues"
   },
   {
-    "id": 54,
+    "id": 55,
     "date": "2026-09-27",
     "name": "Marathon d'Avignon",
     "city": "Avignon",
@@ -856,7 +875,7 @@
     "slug": "marathon-davignon-avignon"
   },
   {
-    "id": 55,
+    "id": 56,
     "date": "2026-09-27",
     "name": "Trail in Ocre",
     "city": "Gargas",
@@ -871,7 +890,7 @@
     "slug": "trail-in-ocre-gargas"
   },
   {
-    "id": 56,
+    "id": 57,
     "date": "2026-10-04",
     "name": "Les Foulées Douces",
     "city": "Montfavet",
@@ -884,7 +903,7 @@
     "slug": "les-foulees-douces-montfavet"
   },
   {
-    "id": 57,
+    "id": 58,
     "date": "2026-10-04",
     "name": "Trail de Saint-Didier",
     "city": "Saint-Didier",
@@ -901,7 +920,7 @@
     "slug": "trail-de-saint-didier-saint-didier"
   },
   {
-    "id": 58,
+    "id": 59,
     "date": "2026-10-10",
     "name": "Course de la Cité des Papes",
     "city": "Avignon",
@@ -916,7 +935,7 @@
     "slug": "course-de-la-cite-des-papes-avignon"
   },
   {
-    "id": 59,
+    "id": 60,
     "date": "2026-10-10",
     "name": "Octobre Rose à Mazan",
     "city": "Mazan",
@@ -929,7 +948,7 @@
     "slug": "octobre-rose-a-mazan-mazan"
   },
   {
-    "id": 60,
+    "id": 61,
     "date": "2026-10-18",
     "name": "La Rose Pontétienne",
     "city": "Le Pontet",
@@ -944,7 +963,7 @@
     "slug": "la-rose-pontetienne-le-pontet"
   },
   {
-    "id": 61,
+    "id": 62,
     "date": "2026-10-18",
     "name": "Les Jas du Ventoux",
     "city": "Bedoin",
@@ -958,7 +977,7 @@
     "slug": "les-jas-du-ventoux-bedoin"
   },
   {
-    "id": 62,
+    "id": 63,
     "date": "2026-10-18",
     "name": "La Tou'Run",
     "city": "La Tour d'Aigues",
@@ -972,7 +991,7 @@
     "slug": "la-tourun-la-tour-daigues"
   },
   {
-    "id": 63,
+    "id": 64,
     "date": "2026-10-25",
     "name": "La Carombaise",
     "city": "Caromb",
@@ -986,7 +1005,7 @@
     "slug": "la-carombaise-caromb"
   },
   {
-    "id": 64,
+    "id": 65,
     "date": "2026-10-25",
     "name": "La Vigneronde",
     "city": "Puget",
@@ -1012,10 +1031,10 @@
     "registration_link": "https://bit.ly/PernesenRose",
     "website": "https://www.viesantevaucluse.fr",
     "slug": "pernes-en-rose-pernes-les-fontaines",
-    "id": 65
+    "id": 66
   },
   {
-    "id": 66,
+    "id": 67,
     "date": "2026-11-01",
     "name": "Trail des Monts de Vaucluse",
     "city": "Saumane",
@@ -1030,7 +1049,7 @@
     "slug": "trail-des-monts-de-vaucluse-saumane"
   },
   {
-    "id": 67,
+    "id": 68,
     "date": "2026-11-08",
     "name": "La Bacchanale",
     "city": "Vaison-la-Romaine",
@@ -1045,7 +1064,7 @@
     "slug": "la-bacchanale-vaison-la-romaine"
   },
   {
-    "id": 68,
+    "id": 69,
     "date": "2026-11-08",
     "name": "Trail du Ventouret",
     "city": "Bedoin",
@@ -1062,7 +1081,7 @@
     "website": "https://ventouxtrailclub.com/trail-du-ventouret/"
   },
   {
-    "id": 69,
+    "id": 70,
     "date": "2026-11-13",
     "name": "Infinity Trail Mont Ventoux",
     "city": "Bedoin",
@@ -1076,7 +1095,7 @@
     "slug": "infinity-trail-mont-ventoux-bedoin"
   },
   {
-    "id": 70,
+    "id": 71,
     "date": "2026-11-15",
     "name": "Les 10 km d'Althen",
     "city": "Althen-des-Paluds",
@@ -1093,7 +1112,7 @@
     "slug": "les-10-km-dalthen-althen-des-paluds"
   },
   {
-    "id": 71,
+    "id": 72,
     "date": "2026-11-21",
     "name": "Trail Nocturne de Bonnieux",
     "city": "Bonnieux",
@@ -1107,7 +1126,7 @@
     "slug": "trail-nocturne-de-bonnieux-bonnieux"
   },
   {
-    "id": 72,
+    "id": 73,
     "date": "2026-11-22",
     "name": "Téléthon Running",
     "city": "Carpentras",
@@ -1118,7 +1137,7 @@
     "slug": "telethon-running-carpentras"
   },
   {
-    "id": 73,
+    "id": 74,
     "date": "2026-11-22",
     "name": "Trail les Monts de Mathias",
     "city": "Visan",
@@ -1129,7 +1148,7 @@
     "slug": "trail-les-monts-de-mathias-visan"
   },
   {
-    "id": 74,
+    "id": 75,
     "date": "2026-11-29",
     "name": "La Foulée Caumontoise",
     "city": "Caumont-sur-Durance",
@@ -1142,7 +1161,7 @@
     "slug": "la-foulee-caumontoise-caumont-sur-durance"
   },
   {
-    "id": 75,
+    "id": 76,
     "date": "2026-12-05",
     "name": "La Course à Morières",
     "city": "Morières-les-Avignon",
@@ -1156,7 +1175,7 @@
     "slug": "la-course-a-morieres-morieres-les-avignon"
   },
   {
-    "id": 76,
+    "id": 77,
     "date": "2026-12-13",
     "name": "Eco Trail de Noël",
     "city": "Cavaillon",
@@ -1170,7 +1189,7 @@
     "slug": "eco-trail-de-noel-cavaillon"
   },
   {
-    "id": 77,
+    "id": 78,
     "date": "2026-12-20",
     "name": "10 km de la Durance",
     "city": "Montfavet",
