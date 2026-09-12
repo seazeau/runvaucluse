@@ -70,6 +70,46 @@ async function importNikrome(url: string, race_slug: string) {
         }
       });
 
+      if (tableResults.length === 0) {
+        console.log(`No rows in HTML table for ${event_name}, checking Nikrome get_results_page.php API...`);
+        const eventIdMatch = url.match(/event_id=(\d+)/);
+        if (eventIdMatch) {
+          const event_id = eventIdMatch[1];
+          let start = 0;
+          const length = 100;
+          let draw = 1;
+          let totalRecords: number | null = null;
+          while (totalRecords === null || start < totalRecords) {
+            const apiUrl = `https://www.nikrome.com/php/get_results_page.php?event_id=${event_id}&epreuve=${id}&start=${start}&length=${length}&draw=${draw}`;
+            const apiRes = await fetch(apiUrl);
+            if (!apiRes.ok) break;
+            const json: any = await apiRes.json();
+            totalRecords = json.recordsTotal;
+            if (!json.data || json.data.length === 0) break;
+            for (const item of json.data) {
+              const cells = item.cells || [];
+              const rank = parseInt(cells[0], 10);
+              if (isNaN(rank)) continue;
+              tableResults.push({
+                race_slug,
+                event_name,
+                rank_overall: rank,
+                bib: String(cells[1] || '').trim(),
+                name: String(cells[2] || '').trim(),
+                rank_sex: String(cells[3] || '').trim(),
+                rank_cat: String(cells[4] || '').trim(),
+                time: String(cells[5] || '').trim(),
+                podium: String(cells[6] || '').trim() || null,
+                speed: String(item.club || '').trim() || null,
+                club: String(cells[7] || '').trim() || null,
+              });
+            }
+            start += length;
+            draw++;
+          }
+        }
+      }
+
       if (tableResults.length > 0) {
         const stmt = db.prepare(`
           INSERT INTO results (race_slug, event_name, rank_overall, bib, name, rank_sex, rank_cat, time, podium, speed, club)
