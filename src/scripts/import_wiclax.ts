@@ -40,6 +40,20 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
             if (id && name) races[id] = name;
         });
 
+        if (Object.keys(races).length === 0) {
+            let defaultName = 'Course';
+            const dist = $('Etape').attr('distance');
+            if (dist) {
+                const km = parseInt(dist, 10) / 1000;
+                defaultName = `${km} km`;
+            } else {
+                const epNom = $('Epreuve').attr('nom');
+                const kmMatch = epNom?.match(/(\d+\s*km)/i);
+                if (kmMatch) defaultName = kmMatch[1].toLowerCase();
+            }
+            races['default'] = defaultName;
+        }
+
         // Clear existing for this race
         db.prepare('DELETE FROM results WHERE race_slug = ?').run(race_slug);
         let totalImported = 0;
@@ -52,21 +66,16 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
             const bib = $el.attr('d');
             if (bib) {
                 competitors[bib] = {
-                    name: ($el.attr('n') || '').replace(/&#xa0;/g, ' ').replace(/\u00A0/g, ' ').trim(),
-                    sex: $el.attr('xx') || $el.attr('x') || '',
+                    name: ($el.attr('n') || '').replace(/[\u00A0\s]+/g, ' ').trim(),
+                    sex: ($el.attr('xx') || $el.attr('x') || 'M').toUpperCase(),
                     cat: $el.attr('ca') || '',
-                    club: $el.attr('c') || '',
-                    parcours: $el.attr('p') || ''
+                    club: ($el.attr('c') || '').trim(),
+                    parcours: $el.attr('p') || 'default'
                 };
             }
         });
 
         // 3. Extract results and merge
-        // R nodes seem to be ordered by rank, or we can order them by time if needed.
-        // Usually, Wiclax groups <R> inside <ClassementsAnnexes> or <Etapes>.
-        // Let's assume order of appearance within a specific race context is the rank.
-        
-        // Let's group results by parcours (race) to calculate ranks properly
         const resultsByParcours: { [p: string]: any[] } = {};
 
         $('R').each((_, el) => {
@@ -75,12 +84,12 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
             if (!bib || !competitors[bib]) return;
 
             const comp = competitors[bib];
-            const p = comp.parcours;
+            const p = comp.parcours || 'default';
             if (!resultsByParcours[p]) resultsByParcours[p] = [];
 
-            // Replace Wiclax time format "00h10'55" -> "00:10:55"
             let timeStr = $el.attr('t') || '';
             timeStr = timeStr.replace('h', ':').replace("'", ':');
+            if (timeStr.length === 7) timeStr = '0' + timeStr;
 
             let speedStr = $el.attr('m') || '';
             speedStr = speedStr.replace(',', '.');
@@ -90,22 +99,18 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
                 name: comp.name,
                 sex: comp.sex,
                 cat: comp.cat,
-                club: comp.club,
+                club: comp.club || null,
                 time: timeStr,
                 speed: speedStr ? `${speedStr} km/h` : null,
-                rawTime: $el.attr('b') || timeStr // fallback for sorting if needed
+                rawTime: $el.attr('b') || timeStr
             });
         });
 
         // Insert into DB
         for (const [p, results] of Object.entries(resultsByParcours)) {
             const event_name = races[p] || p || 'Course';
-            
-            // Sort by time just in case they aren't ordered
-            // (Assuming timeStr is sortable, but rawTime is better if present)
             results.sort((a, b) => a.time.localeCompare(b.time));
 
-            // Calculate ranks
             let currentRank = 1;
             const catRanks: { [key: string]: number } = {};
             const sexRanks: { [key: string]: number } = {};
@@ -117,16 +122,17 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
                 tableResults.push({
                     race_slug,
                     event_name,
-                    rank_overall: currentRank++,
+                    rank_overall: currentRank,
                     bib: res.bib,
                     name: res.name,
-                    rank_sex: `${sexRanks[res.sex]++}`,
-                    rank_cat: `${catRanks[res.cat]++}`,
+                    rank_sex: `${sexRanks[res.sex]++}.(${res.sex})`,
+                    rank_cat: `${catRanks[res.cat]++}.(${res.cat})`,
                     time: res.time,
                     speed: res.speed,
                     club: res.club,
-                    podium: null
+                    podium: currentRank <= 3 ? `${currentRank}` : null
                 });
+                currentRank++;
             }
         }
 
