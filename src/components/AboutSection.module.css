@@ -1,0 +1,397 @@
+.aboutSection {
+  padding: 6rem 0;
+  background: #0d0f12;
+  color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.aboutSection::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(246, 200, 59, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.aboutSection::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.headerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f6c83b;
+  margin-bottom: 1.25rem;
+  backdrop-blur: 8px;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f6c83b;
+  box-shadow: 0 0 8px #f6c83b;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* LEFT COLUMN - PORTRAIT & QUICK STATS */
+.portraitCard {
+  background: #14171d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.portraitCard:hover {
+  border-color: rgba(246, 200, 59, 0.4);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background: #1a1e27;
+  overflow: hidden;
+}
+
+.coachImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.5s ease;
+}
+
+.portraitCard:hover .coachImage {
+  transform: scale(1.03);
+}
+
+.imageGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #14171d 0%, rgba(20, 23, 29, 0.2) 60%, transparent 100%);
+}
+
+.imageOverlayBadge {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(13, 15, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coachIdentity {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+}
+
+.coachName {
+  font-family: var(--font-display, inherit);
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+}
+
+.coachRole {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+}
+
+.quickCredentials {
+  padding: 1.25rem 1.5rem;
+  background: #14171d;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.credentialPill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.credentialIcon {
+  color: #f6c83b;
+  flex-shrink: 0;
+}
+
+/* RIGHT COLUMN - CONTENT & STORY */
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.title {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+.titleHighlight {
+  color: #f6c83b;
+  display: block;
+}
+
+.leadText {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.leadText strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.storyParagraph {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.storyParagraph strong {
+  color: #f1f5f9;
+}
+
+/* PILLARS / HIGHLIGHTS GRID */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.pillarCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.25rem;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.pillarCard:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(246, 200, 59, 0.3);
+}
+
+.pillarHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.pillarIconWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(246, 200, 59, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f6c83b;
+  flex-shrink: 0;
+}
+
+.pillarTitle {
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.pillarDesc {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ACTIONS */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #f6c83b;
+  color: #000000;
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(246, 200, 59, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primaryCta:hover {
+  background: #ffdb60;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(246, 200, 59, 0.35);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.guaranteeNote {
+  font-size: 0.78rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .portraitCard {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .imageWrapper {
+    height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  .aboutSection {
+    padding: 4.5rem 0;
+  }
+
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .quickCredentials {
+    grid-template-columns: 1fr;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryCta, .secondaryCta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .imageWrapper {
+    height: 360px;
+  }
+}

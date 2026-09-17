@@ -38,6 +38,7 @@ export default function Navbar() {
           <Link href="/resultats" className={`${styles.navLink} ${pathname.startsWith('/resultats') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>RÉSULTATS</Link>
           <Link href="/records" className={`${styles.navLink} ${pathname.startsWith('/records') || pathname.startsWith('/wall-of-fame') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>RECORDS</Link>
           <Link href={isHome ? "#clubs" : "/#clubs"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Clubs</Link>
+          <Link href={isHome ? "#a-propos" : "/#a-propos"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>À propos</Link>
           <Link href={isHome ? "#contact" : "/#contact"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
         </div>
 

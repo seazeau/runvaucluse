@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './Footer.module.css';
 import LogoIcon from './LogoIcon';
-import { Mail, ExternalLink, Calendar, MapPin, Trophy, Users, ChevronRight, Award } from 'lucide-react';
+import { Mail, ExternalLink, Calendar, MapPin, Trophy, Users, ChevronRight, Award, UserCheck } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -49,6 +49,7 @@ export default function Footer() {
               <li><Link href="/records"><Award size={14} /> Records & Palmarès</Link></li>
               <li><Link href="/resultats"><Trophy size={14} /> Résultats Officiels</Link></li>
               <li><Link href="/#clubs"><Users size={14} /> Clubs & Associations</Link></li>
+              <li><Link href="/#a-propos"><UserCheck size={14} /> À propos & Fondateur</Link></li>
             </ul>
           </div>
 
@@ -73,6 +74,7 @@ export default function Footer() {
                   Boutique Top4Running <ExternalLink size={12} />
                 </a>
               </li>
+              <li><a href="https://vincentbuisson.fr" target="_blank" rel="noopener noreferrer">Coaching Vincent Buisson <ExternalLink size={12} /></a></li>
               <li><a href="https://vaucluse.athle.fr/" target="_blank" rel="noopener noreferrer">CDCHS 84 <ExternalLink size={12} /></a></li>
               <li><Link href="/#contact">Proposer une course</Link></li>
               <li><Link href="/studio">Studio Instagram ⚡</Link></li>

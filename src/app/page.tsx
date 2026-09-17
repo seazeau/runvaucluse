@@ -3,6 +3,7 @@ import ClubsGrid from '@/components/ClubsGrid';
 import ContactForm from '@/components/ContactForm';
 import EditorialHero from '@/components/EditorialHero';
 import FAQSection from '@/components/FAQSection';
+import AboutSection from '@/components/AboutSection';
 import SEOSection from '@/components/SEOSection';
 import { Race } from '@/lib/types';
 import styles from './page.module.css';
@@ -46,6 +47,9 @@ export default async function Home() {
       <section id="clubs">
         <ClubsGrid />
       </section>
+
+      {/* ABOUT & COACHING SECTION */}
+      <AboutSection />
 
       {/* FAQ SECTION WITH GOOGLE FAQPAGE SCHEMA */}
       <FAQSection />
