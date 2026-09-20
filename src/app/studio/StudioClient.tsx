@@ -63,10 +63,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [weekendTitle, setWeekendTitle] = useState('LES DOSSARDS DU WEEK-END');
   const [weekendDates, setWeekendDates] = useState('SAMEDI 12 & DIMANCHE 13 SEPTEMBRE');
 
-  // Podiums Carrousel State
-  const [selectedResultSlug, setSelectedResultSlug] = useState<string>(
-    latestWinners[0]?.slug || ''
-  );
+  // Podiums Carrousel State (Multi-race support)
+  const [selectedPodiumSlugs, setSelectedPodiumSlugs] = useState<string[]>(() => {
+    // Default to the first 2 races from latestWinners (e.g. Trail du Ruban Doré & Urban Trail de Vedène)
+    return latestWinners.slice(0, 2).map(r => r.slug);
+  });
+  const [podiumTitle, setPodiumTitle] = useState('LES PODIUMS DU WEEK-END');
+  const [podiumDates, setPodiumDates] = useState('SAMEDI 19 & DIMANCHE 20 SEPTEMBRE');
 
   // New Race Carrousel State
   const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
@@ -111,16 +114,32 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  // Reset slide index when changing mode
+  // Reset slide index when changing mode or selection
   useEffect(() => {
     setActiveSlideIndex(0);
-  }, [mode, selectedResultSlug, selectedStorySlug, selectedNewRaceSlug]);
+  }, [mode, selectedPodiumSlugs, selectedStorySlug, selectedNewRaceSlug]);
 
   // Selected races for Weekend Mode
   const selectedRaces = races.filter(r => selectedRaceSlugs.includes(r.slug));
   
-  // Selected race for Podiums Mode
-  const activePodiumRace = latestWinners.find(r => r.slug === selectedResultSlug) || latestWinners[0];
+  // Selected races for Podiums Mode (Multi-race support)
+  const selectedPodiumRaces = latestWinners.filter(r => selectedPodiumSlugs.includes(r.slug));
+
+  // Flat list of podium events across all selected races
+  const allPodiumItems = (() => {
+    const items: { race: LatestWinnerRace; eventName: string; winners: typeof latestWinners[0]['winners'] }[] = [];
+    selectedPodiumRaces.forEach(race => {
+      const groups: { [key: string]: typeof race.winners } = {};
+      race.winners.forEach(w => {
+        if (!groups[w.event_name]) groups[w.event_name] = [];
+        groups[w.event_name].push(w);
+      });
+      Object.entries(groups).forEach(([eventName, winners]) => {
+        items.push({ race, eventName, winners });
+      });
+    });
+    return items;
+  })();
 
   // Selected race for New Race Mode
   const activeNewRace = races.find(r => r.slug === selectedNewRaceSlug) || races[0];
@@ -133,14 +152,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   if (mode === 'weekend') {
     totalSlides = 1 + selectedRaces.length + 1; // Cover + races + CTA
   } else if (mode === 'podiums') {
-    // Group winners by event_name
-    const eventGroups: { [key: string]: typeof activePodiumRace.winners } = {};
-    activePodiumRace?.winners.forEach(w => {
-      if (!eventGroups[w.event_name]) eventGroups[w.event_name] = [];
-      eventGroups[w.event_name].push(w);
-    });
-    const eventCount = Object.keys(eventGroups).length;
-    totalSlides = 1 + (eventCount > 0 ? eventCount : 1) + 1;
+    totalSlides = 1 + (allPodiumItems.length > 0 ? allPodiumItems.length : 1) + 1; // Cover + all event slides + Outro CTA
   } else if (mode === 'new_race') {
     totalSlides = 4; // Cover + Formats + Présentation + CTA
   } else if (mode === 'clubs') {
@@ -152,6 +164,19 @@ export default function StudioClient({ races, latestWinners }: Props) {
   // Toggle race selection in Weekend Mode
   const toggleRace = (slug: string) => {
     setSelectedRaceSlugs(prev => {
+      if (prev.includes(slug)) {
+        if (prev.length === 1) return prev; // Keep at least one
+        return prev.filter(s => s !== slug);
+      } else {
+        if (prev.length >= 6) return prev; // Limit to 6
+        return [...prev, slug];
+      }
+    });
+  };
+
+  // Toggle race selection in Podiums Mode
+  const togglePodiumRace = (slug: string) => {
+    setSelectedPodiumSlugs(prev => {
       if (prev.includes(slug)) {
         if (prev.length === 1) return prev; // Keep at least one
         return prev.filter(s => s !== slug);
@@ -216,10 +241,22 @@ export default function StudioClient({ races, latestWinners }: Props) {
         .join('\n');
       return `🏃‍♂️ LE MENU DU WEEK-END EN VAUCLUSE !\n\nPrêt à épingler votre dossard ce week-end ? Voici les épreuves au programme dans le 84 :\n\n${raceLines}\n\n👉 Retrouvez les parcours détaillés, les profils de dénivelé et les liens d'inscriptions officiels sur le lien en bio ou sur WWW.RUNVAUCLUSE.FR !\n\n💾 Enregistrez ce post pour ne rien oublier ce week-end !\n\n#runvaucluse #runningvaucluse #trailvaucluse #montventoux #trailventoux #vaucluse #provence #stravafrance #calendriercourses #runningfrance`;
     } else if (mode === 'podiums') {
-      const winnerLines = activePodiumRace?.winners.slice(0, 4)
-        .map(w => `🥇 ${w.name} (${w.event_name}) en ${w.time}${w.club ? ' - ' + w.club : ''}`)
-        .join('\n');
-      return `🏆 LES RÉSULTATS DU WEEK-END // ${activePodiumRace?.name.toUpperCase()}\n\nBravo à tous les finishers de cette magnifique édition à ${activePodiumRace?.city} !\n\nFélicitations aux vainqueurs du jour :\n${winnerLines}\n\n📊 Tous les résultats officiels, chronos, allures et fiches coureurs complètes sont en ligne sur :\n👉 WWW.RUNVAUCLUSE.FR/RESULTATS\n\nIdentifiez vos potes finishers en commentaire ! 👇\n\n#runvaucluse #resultatsrunning #runningvaucluse #trailvaucluse #podium #finisher #vaucluse`;
+      if (selectedPodiumRaces.length > 1) {
+        const raceBlocks = selectedPodiumRaces.map(race => {
+          const winnerLines = race.winners.slice(0, 4)
+            .map(w => `  🥇 ${w.name} (${w.event_name}) en ${w.time}${w.club ? ' - ' + w.club : ''}`)
+            .join('\n');
+          return `📍 ${race.name.toUpperCase()} (${race.city}) :\n${winnerLines}`;
+        }).join('\n\n');
+
+        return `🏆 LES RÉSULTATS DU WEEK-END EN VAUCLUSE !\n\nBravo à tous les courageux finishers qui ont bravé les sentiers et le bitume ce week-end dans le 84 ! 🏃‍♂️🏃‍♀️🌿\n\nFélicitations à tous les vainqueurs du jour :\n\n${raceBlocks}\n\n📊 Tous les résultats officiels, chronos, allures et fiches coureurs complètes sont en ligne sur :\n👉 WWW.RUNVAUCLUSE.FR/RESULTATS\n\nIdentifiez vos potes finishers en commentaire ! 👇\n\n#runvaucluse #resultatsrunning #runningvaucluse #trailvaucluse #podium #finisher #vaucluse #courseapied`;
+      } else {
+        const race = selectedPodiumRaces[0];
+        const winnerLines = race?.winners.slice(0, 4)
+          .map(w => `🥇 ${w.name} (${w.event_name}) en ${w.time}${w.club ? ' - ' + w.club : ''}`)
+          .join('\n');
+        return `🏆 LES RÉSULTATS DU WEEK-END // ${race?.name.toUpperCase()}\n\nBravo à tous les finishers de cette magnifique édition à ${race?.city} !\n\nFélicitations aux vainqueurs du jour :\n${winnerLines}\n\n📊 Tous les résultats officiels, chronos, allures et fiches coureurs complètes sont en ligne sur :\n👉 WWW.RUNVAUCLUSE.FR/RESULTATS\n\nIdentifiez vos potes finishers en commentaire ! 👇\n\n#runvaucluse #resultatsrunning #runningvaucluse #trailvaucluse #podium #finisher #vaucluse`;
+      }
     } else if (mode === 'new_race') {
       const race = activeNewRace;
       const dateFormatted = new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
@@ -236,17 +273,6 @@ export default function StudioClient({ races, latestWinners }: Props) {
     setCopiedCaption(true);
     setTimeout(() => setCopiedCaption(false), 2000);
   };
-
-  // Group winners for active podium race
-  const podiumEvents = (() => {
-    if (!activePodiumRace) return [];
-    const groups: { [key: string]: typeof activePodiumRace.winners } = {};
-    activePodiumRace.winners.forEach(w => {
-      if (!groups[w.event_name]) groups[w.event_name] = [];
-      groups[w.event_name].push(w);
-    });
-    return Object.entries(groups);
-  })();
 
   return (
     <div className={styles.studioWrapper}>
@@ -361,22 +387,69 @@ export default function StudioClient({ races, latestWinners }: Props) {
             {mode === 'podiums' && (
               <>
                 <h3 className={styles.controlsSectionTitle}>
-                  <Trophy size={18} /> Sélection des Résultats
+                  <Trophy size={18} /> Configuration des Podiums
                 </h3>
 
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Course récemment courue</label>
-                  <select 
-                    className={styles.selectInput}
-                    value={selectedResultSlug}
-                    onChange={(e) => setSelectedResultSlug(e.target.value)}
-                  >
+                  <label className={styles.label}>Titre de la Couverture</label>
+                  <input 
+                    type="text" 
+                    className={styles.textInput}
+                    value={podiumTitle}
+                    onChange={(e) => setPodiumTitle(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Dates affichées</label>
+                  <input 
+                    type="text" 
+                    className={styles.textInput}
+                    value={podiumDates}
+                    onChange={(e) => setPodiumDates(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <label className={styles.label} style={{ margin: 0 }}>
+                      Courses à regrouper ({selectedPodiumSlugs.length}/6 max)
+                    </label>
+                    <div style={{ display: 'flex', gap: '0.4rem' }}>
+                      <button 
+                        type="button"
+                        onClick={() => setSelectedPodiumSlugs(latestWinners.slice(0, 2).map(r => r.slug))}
+                        style={{ fontSize: '0.72rem', background: 'rgba(255,255,255,0.1)', border: 'none', color: '#FAF7F2', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                      >
+                        Ce week-end (2)
+                      </button>
+                      <button 
+                        type="button"
+                        onClick={() => setSelectedPodiumSlugs([latestWinners[0]?.slug || ''])}
+                        style={{ fontSize: '0.72rem', background: 'rgba(255,255,255,0.1)', border: 'none', color: '#FAF7F2', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                      >
+                        Dernière seule
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className={styles.raceChecklist}>
                     {latestWinners.map(race => (
-                      <option key={race.slug} value={race.slug}>
-                        {race.name} ({race.city}) — {race.date}
-                      </option>
+                      <label key={race.slug} className={styles.raceCheckItem}>
+                        <input 
+                          type="checkbox" 
+                          checked={selectedPodiumSlugs.includes(race.slug)}
+                          onChange={() => togglePodiumRace(race.slug)}
+                        />
+                        <span>
+                          <strong>{race.name}</strong> ({race.city})<br/>
+                          <small style={{ color: '#888' }}>
+                            {new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })} • {race.distances} • {race.winners.length} vainqueurs
+                          </small>
+                        </span>
+                      </label>
                     ))}
-                  </select>
+                  </div>
                 </div>
               </>
             )}
@@ -827,7 +900,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                       <>
                         <div 
                           className={styles.coverBackground}
-                          style={{ backgroundImage: `url(${activePodiumRace?.image_url || '/images/sommet-ventoux-1080p.jpg'})` }}
+                          style={{ backgroundImage: `url(${selectedPodiumRaces[0]?.image_url || '/images/sommet-ventoux-1080p.jpg'})` }}
                         />
                         <div className={styles.coverGradient} />
 
@@ -836,24 +909,36 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             <div className={styles.slideLogo}>
                               <LogoIcon size={32} /> RUNVAUCLUSE
                             </div>
-                            <span className={styles.slidePillTag}>RÉSULTATS 2026</span>
+                            <span className={styles.slidePillTag}>RÉSULTATS 2026 🏆</span>
                           </div>
 
                           <div>
                             <div className={styles.coverSubtitle}>
                               <Trophy size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
-                              LES PODIUMS DU WEEK-END
+                              {podiumDates || 'LES PODIUMS DU WEEK-END'}
                             </div>
-                            <h2 className={styles.coverMainTitle}>
-                              {activePodiumRace?.name}
+                            <h2 className={styles.coverMainTitle} style={selectedPodiumRaces.length > 1 ? { fontSize: '2.8rem', lineHeight: '1.05' } : undefined}>
+                              {podiumTitle}
                             </h2>
-                            <div className={styles.coverTeaserPill}>
-                              {activePodiumRace?.city} • {new Date(activePodiumRace?.date || '').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}
-                            </div>
+
+                            {selectedPodiumRaces.length > 1 ? (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '1.2rem' }}>
+                                {selectedPodiumRaces.map(r => (
+                                  <div key={r.slug} className={styles.coverTeaserPill} style={{ textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0.9rem' }}>
+                                    <span>📍 <strong>{r.name}</strong> ({r.city})</span>
+                                    <span style={{ color: '#F6C83B', fontSize: '0.78rem', fontWeight: 800 }}>{r.distances}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className={styles.coverTeaserPill}>
+                                {selectedPodiumRaces[0]?.city} • {new Date(selectedPodiumRaces[0]?.date || '').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}
+                              </div>
+                            )}
                           </div>
 
                           <div className={styles.coverFooter}>
-                            <span>DÉCOUVREZ LES VAINQUEURS</span>
+                            <span>DÉCOUVREZ TOUS LES PODIUMS</span>
                             <span className={styles.swipeArrow}>
                               SWIPE <ChevronRight size={18} />
                             </span>
@@ -862,9 +947,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
                       </>
                     )}
 
-                    {/* SLIDES 1..N: PODIUM PER EVENT/DISTANCE */}
-                    {activeSlideIndex > 0 && activeSlideIndex <= podiumEvents.length && (() => {
-                      const [eventName, winners] = podiumEvents[activeSlideIndex - 1];
+                    {/* SLIDES 1..N: PODIUM PER EVENT/DISTANCE ACROSS ALL SELECTED RACES */}
+                    {activeSlideIndex > 0 && activeSlideIndex <= allPodiumItems.length && (() => {
+                      const item = allPodiumItems[activeSlideIndex - 1];
+                      const { race, eventName, winners } = item;
                       const menWinner = winners.find(w => w.rank_sex?.includes('M') || w.rank_overall === 1);
                       const womenWinner = winners.find(w => w.rank_sex?.includes('F') || w.rank_sex?.includes('Fem'));
 
@@ -874,21 +960,37 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             <div className={styles.slideLogo}>
                               <LogoIcon size={24} /> RUNVAUCLUSE
                             </div>
-                            <span className={styles.slidePillTag}>{eventName.toUpperCase()}</span>
+                            <span className={styles.slidePillTag}>
+                              {selectedPodiumRaces.length > 1 ? `${race.city.toUpperCase()} • ` : ''}{eventName.toUpperCase()}
+                            </span>
                           </div>
 
-                          <div style={{ margin: '1rem 0' }}>
+                          <div style={{ margin: '0.8rem 0' }}>
+                            <div style={{ 
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.35rem',
+                              color: 'rgba(250, 247, 242, 0.75)',
+                              fontSize: '0.85rem',
+                              fontWeight: 700,
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em',
+                              marginBottom: '0.2rem'
+                            }}>
+                              <MapPin size={13} color="#F6C83B" /> {race.name} ({race.city})
+                            </div>
                             <h3 style={{ 
                               fontFamily: "var(--font-display)", 
-                              fontSize: "2.2rem", 
+                              fontSize: "2.4rem", 
                               color: "#F6C83B", 
-                              margin: "0 0 0.5rem",
-                              letterSpacing: "1px" 
+                              margin: "0 0 0.2rem",
+                              letterSpacing: "1px",
+                              lineHeight: 1
                             }}>
                               LES VAINQUEURS SCRATCH
                             </h3>
-                            <p style={{ margin: 0, color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
-                              {activePodiumRace?.name} ({activePodiumRace?.city})
+                            <p style={{ margin: 0, color: "rgba(250, 247, 242, 0.65)", fontSize: "0.85rem" }}>
+                              Épreuve {eventName} • {new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </p>
                           </div>
 
@@ -902,7 +1004,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                               <h4 className={styles.winnerName}>{menWinner.name}</h4>
                               <div className={styles.winnerMetaRow}>
                                 <span className={styles.winnerClub}>{menWinner.club || 'Individuel'}</span>
-                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>Rang: #{menWinner.rank_overall}</span>
+                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>Rang scratch : #{menWinner.rank_overall}</span>
                               </div>
                             </div>
                           )}
@@ -917,13 +1019,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
                               <h4 className={styles.winnerName}>{womenWinner.name}</h4>
                               <div className={styles.winnerMetaRow}>
                                 <span className={styles.winnerClub}>{womenWinner.club || 'Individuel'}</span>
-                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>Rang: #{womenWinner.rank_overall}</span>
+                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>Rang scratch : #{womenWinner.rank_overall}</span>
                               </div>
                             </div>
                           )}
 
                           <div className={styles.coverFooter}>
-                            <span>CLASSEMENT : RUNVAUCLUSE.FR</span>
+                            <span>CLASSEMENT COMPLET : RUNVAUCLUSE.FR</span>
                             <span className={styles.swipeArrow}>
                               SWIPE <ChevronRight size={18} />
                             </span>
@@ -933,14 +1035,22 @@ export default function StudioClient({ races, latestWinners }: Props) {
                     })()}
 
                     {/* SLIDE FINAL: CTA */}
-                    {activeSlideIndex === podiumEvents.length + 1 && (
+                    {activeSlideIndex === allPodiumItems.length + 1 && (
                       <div className={styles.outroCard}>
                         <Trophy size={52} color="#F6C83B" />
                         <h2 className={styles.outroBigTitle}>
                           TOUS LES CHRONOS SONT EN LIGNE !
                         </h2>
                         <p className={styles.outroDesc}>
-                          Retrouvez votre temps officiel, votre allure, votre classement par catégorie et votre fiche coureur sur :
+                          {selectedPodiumRaces.length > 1 ? (
+                            <>
+                              Retrouvez tous les résultats de <strong>{selectedPodiumRaces.map(r => r.name).join(' & ')}</strong>, vos temps officiels, allures et classements sur :
+                            </>
+                          ) : (
+                            <>
+                              Retrouvez votre temps officiel, votre allure, votre classement par catégorie et votre fiche coureur sur :
+                            </>
+                          )}
                         </p>
                         <div className={styles.outroUrlPill}>
                           RUNVAUCLUSE.FR
