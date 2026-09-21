@@ -148,18 +148,18 @@ export default function AvignonMarathonDossier() {
   }, [gpxFile, isMounted]);
 
   return (
-    <div className={styles.dossierWrapper}>
+    <div id="dossier-marathon" className={styles.dossierWrapper}>
       {/* 1. HERO BANNER */}
       <section className={styles.heroBanner}>
         <div className={styles.heroContent}>
           <div className={styles.badgeRow}>
-            <span className={styles.badgePink}>
+            <span className={styles.badgeBlack}>
               <Sparkles size={14} /> ÉDITION INAUGURALE 2026
             </span>
             <span className={styles.badgeGold}>
               <Award size={14} /> LABEL RÉGIONAL FFA
             </span>
-            <span className={styles.badgeCyan}>
+            <span className={styles.badgeSlate}>
               <Zap size={14} /> QUALIFICATIF CHAMPIONNATS DE FRANCE
             </span>
           </div>
@@ -287,7 +287,7 @@ export default function AvignonMarathonDossier() {
           <div className={styles.mapCard}>
             <div className={styles.mapCardHeader}>
               <div className={styles.mapTitleGroup}>
-                <Compass size={22} color="#ec4899" />
+                <Compass size={22} color="#111417" />
                 <h3 className={styles.mapTitle}>
                   TRACÉ GPX OFFICIEL - {selectedRace === 'marathon' ? 'MARATHON (42,195 KM)' : 'SEMI-MARATHON (21,1 KM)'}
                 </h3>
@@ -315,12 +315,12 @@ export default function AvignonMarathonDossier() {
                   <ChangeView bounds={bounds} />
                   <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                   />
                   {positions.length > 0 && (
                     <Polyline
                       positions={positions}
-                      color={selectedRace === 'marathon' ? '#ec4899' : '#38bdf8'}
+                      color={selectedRace === 'marathon' ? '#D97706' : '#1E3A8A'}
                       weight={4}
                       opacity={0.9}
                     />
@@ -337,7 +337,7 @@ export default function AvignonMarathonDossier() {
             <div className={styles.profileSection}>
               <div className={styles.profileHeader}>
                 <div className={styles.profileTitle}>
-                  <TrendingUp size={16} color="#facc15" /> Profil Altimétrique Interactif
+                  <TrendingUp size={16} color="#D97706" /> Profil Altimétrique Interactif
                 </div>
                 <div className={styles.profileStats}>
                   Altitude min: 16 m • max: 39 m • 100% bitume et voies carrossables
@@ -349,25 +349,25 @@ export default function AvignonMarathonDossier() {
                   <AreaChart data={elevationData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="elevGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={selectedRace === 'marathon' ? '#ec4899' : '#38bdf8'} stopOpacity={0.8} />
-                        <stop offset="95%" stopColor={selectedRace === 'marathon' ? '#ec4899' : '#38bdf8'} stopOpacity={0} />
+                        <stop offset="5%" stopColor={selectedRace === 'marathon' ? '#D97706' : '#1E3A8A'} stopOpacity={0.4} />
+                        <stop offset="95%" stopColor={selectedRace === 'marathon' ? '#D97706' : '#1E3A8A'} stopOpacity={0.02} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
                     <XAxis
                       dataKey="dist"
-                      tick={{ fill: '#9ca3af', fontSize: 10 }}
-                      label={{ value: 'Distance (km)', position: 'insideBottomRight', offset: -5, fill: '#9ca3af', fontSize: 10 }}
+                      tick={{ fill: '#6B7280', fontSize: 11 }}
+                      label={{ value: 'Distance (km)', position: 'insideBottomRight', offset: -5, fill: '#6B7280', fontSize: 11 }}
                     />
                     <YAxis
                       domain={['dataMin - 5', 'dataMax + 10']}
-                      tick={{ fill: '#9ca3af', fontSize: 10 }}
-                      label={{ value: 'Alt (m)', angle: -90, position: 'insideLeft', fill: '#9ca3af', fontSize: 10 }}
+                      tick={{ fill: '#6B7280', fontSize: 11 }}
+                      label={{ value: 'Alt (m)', angle: -90, position: 'insideLeft', fill: '#6B7280', fontSize: 11 }}
                     />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#111827', border: '1px solid #374151', borderRadius: '8px' }}
-                      itemStyle={{ color: '#facc15', fontWeight: 'bold' }}
-                      labelStyle={{ color: '#9ca3af' }}
+                      contentStyle={{ backgroundColor: '#ffffff', border: '1px solid rgba(17, 20, 23, 0.12)', borderRadius: '12px', color: '#111417', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+                      itemStyle={{ color: '#D97706', fontWeight: 'bold' }}
+                      labelStyle={{ color: '#6B7280' }}
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       formatter={(val: any) => [`${val} m`, 'Altitude']}
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -376,7 +376,7 @@ export default function AvignonMarathonDossier() {
                     <Area
                       type="monotone"
                       dataKey="elev"
-                      stroke={selectedRace === 'marathon' ? '#ec4899' : '#38bdf8'}
+                      stroke={selectedRace === 'marathon' ? '#D97706' : '#1E3A8A'}
                       strokeWidth={2.5}
                       fill="url(#elevGradient)"
                     />
@@ -389,7 +389,7 @@ export default function AvignonMarathonDossier() {
           {/* Course Breakdown Section */}
           <section className={styles.sectionBlock}>
             <div className={styles.sectionHeader}>
-              <Layers size={24} color="#ec4899" />
+              <Layers size={24} color="#111417" />
               <h2 className={styles.sectionTitle}>
                 DÉCOUPAGE STRATÉGIQUE TRONÇON PAR TRONÇON
               </h2>
@@ -798,16 +798,16 @@ export default function AvignonMarathonDossier() {
                 </p>
                 <ul className={styles.logisticsList}>
                   <li>
-                    <Calendar size={14} color="#ec4899" /> <strong>Vendredi 25 septembre :</strong> 16h00 à 20h00
+                    <Calendar size={14} color="#D97706" /> <strong>Vendredi 25 septembre :</strong> 16h00 à 20h00
                   </li>
                   <li>
-                    <Calendar size={14} color="#ec4899" /> <strong>Samedi 26 septembre :</strong> 10h00 à 20h00
+                    <Calendar size={14} color="#D97706" /> <strong>Samedi 26 septembre :</strong> 10h00 à 20h00
                   </li>
                   <li>
-                    <CheckCircle2 size={14} color="#ec4899" /> <strong>Pièces requises :</strong> QR Code de retrait + pièce d&apos;identité (dossier validé sur Finishers avec PPS ou licence FFA).
+                    <CheckCircle2 size={14} color="#D97706" /> <strong>Pièces requises :</strong> QR Code de retrait + pièce d&apos;identité (dossier validé sur Finishers avec PPS ou licence FFA).
                   </li>
                   <li>
-                    <ShoppingBag size={14} color="#ec4899" /> <strong>T-shirt manche longue offert :</strong> à retirer en boutique chez <strong>STATION STORE</strong> dans Avignon.
+                    <ShoppingBag size={14} color="#D97706" /> <strong>T-shirt manche longue offert :</strong> à retirer en boutique chez <strong>STATION STORE</strong> dans Avignon.
                   </li>
                 </ul>
                 <div className={styles.logisticsAlert}>
@@ -836,13 +836,13 @@ export default function AvignonMarathonDossier() {
                     <strong>7h30 :</strong> Ouverture des SAS Semi (Porte de la République / Cours Jean Jaurès).
                   </li>
                   <li>
-                    <strong>8h00 :</strong> <span style={{ color: '#38bdf8', fontWeight: 800 }}>DÉPART DU SEMI-MARATHON</span> (Gare Centre).
+                    <strong>8h00 :</strong> <span style={{ color: '#1E3A8A', fontWeight: 800 }}>DÉPART DU SEMI-MARATHON</span> (Gare Centre).
                   </li>
                   <li>
                     <strong>8h30 :</strong> Ouverture des SAS Marathon (Porte de la République).
                   </li>
                   <li>
-                    <strong>9h00 :</strong> <span style={{ color: '#ec4899', fontWeight: 800 }}>DÉPART DU MARATHON</span> (Gare Centre).
+                    <strong>9h00 :</strong> <span style={{ color: '#D97706', fontWeight: 800 }}>DÉPART DU MARATHON</span> (Gare Centre).
                   </li>
                   <li>
                     <strong>10h45 :</strong> Dernière arrivée Semi (Barrière 2h45).
@@ -934,10 +934,10 @@ export default function AvignonMarathonDossier() {
           {/* Parking & Transportation Guide */}
           <div className={styles.parkingGuide}>
             <div className={styles.sectionHeader}>
-              <Car size={24} color="#38bdf8" />
+              <Car size={24} color="#111417" />
               <h3 className={styles.sectionTitle}>GUIDE DU STATIONNEMENT LE DIMANCHE 27 SEPTEMBRE</h3>
             </div>
-            <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '1rem' }}>
+            <p style={{ color: '#5E6973', fontSize: '0.9rem', marginBottom: '1rem' }}>
               Plusieurs ponts et axes routiers seront fermés dès 7h15 pour la sécurité des coureurs. Anticipez votre arrivée !
             </p>
 
@@ -1028,10 +1028,10 @@ export default function AvignonMarathonDossier() {
       {activeTab === 'equipement' && (
         <div className={styles.gearSection}>
           <div className={styles.sectionHeader}>
-            <ShoppingBag size={24} color="#ec4899" />
+            <ShoppingBag size={24} color="#111417" />
             <h3 className={styles.sectionTitle}>SÉLECTION MATÉRIEL & CHAUSSURES RECOMMANDÉES</h3>
           </div>
-          <p style={{ color: '#d1d5db', fontSize: '0.95rem', lineHeight: 1.6 }}>
+          <p style={{ color: '#4B5563', fontSize: '0.95rem', lineHeight: 1.6 }}>
             Avec son profil ultra-plat (+80m D+ sur le marathon) et 100% de bitume et chemins carrossables réguliers, 
             le Marathon d&apos;Avignon est le terrain de prédilection des <strong>chaussures de compétition à plaque de carbone</strong>. 
             Découvrez nos recommandations techniques pour performer sur ce tracé :
@@ -1082,7 +1082,7 @@ export default function AvignonMarathonDossier() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.affiliateBtn}
-                style={{ background: 'linear-gradient(135deg, #059669, #047857)' }}
+                style={{ background: '#059669', color: '#ffffff' }}
               >
                 Découvrir la nutrition Nutripure <ExternalLink size={14} />
               </a>

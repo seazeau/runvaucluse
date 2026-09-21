@@ -27,18 +27,20 @@ export const metadata: Metadata = {
 
 export default function MarathonAvignonPage() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#030712', paddingTop: '2rem', paddingBottom: '4rem' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main, #FAF7F2)', paddingTop: '7rem', paddingBottom: '5rem' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
           <Link
             href="/#calendrier"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              color: '#9ca3af',
-              fontSize: '0.85rem',
+              color: 'var(--gray-muted, #5E6973)',
+              fontSize: '0.8rem',
               fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
               textDecoration: 'none',
               transition: 'color 0.2s ease',
             }}

@@ -108,6 +108,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   )}
                   <span className={styles.typeBadge}>{race.type}</span>
                   {race.label && <span className={styles.labelBadge}>{race.label}</span>}
+                  {slug === 'marathon-davignon-avignon' && (
+                    <span className={styles.dossierBadge}>⭐ DOSSIER OFFICIEL COUREUR</span>
+                  )}
                 </div>
                 <h1 className={styles.title}>{race.name}</h1>
                 <div className={styles.location}>
@@ -166,7 +169,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
 
               <div className={styles.description}>
                 <h3>À PROPOS DE L&apos;ÉVÈNEMENT</h3>
-                {race.description ? (
+                {slug === 'marathon-davignon-avignon' ? (
+                  <p>
+                    <strong>Dimanche 27 septembre 2026 :</strong> courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse ! 
+                    Parcours ultra-plat (+80m D+), labellisé régional FFA et qualificatif pour les Championnats de France. 
+                    Retrouvez ci-dessous le dossier officiel complet : <strong>tracés GPX téléchargeables</strong>, profil altimétrique interactif, 
+                    <strong>découpage km par km</strong>, allures cibles des meneurs d&apos;allure, ravitaillements et <strong>conseils tactiques de Vincent Buisson (Diplômé STAPS)</strong>.
+                  </p>
+                ) : race.description ? (
                   <p>{race.description}</p>
                 ) : (
                   <p>
@@ -205,6 +215,12 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   <div className={styles.pendingMsg}>Les inscriptions ne sont pas encore ouvertes.</div>
                 )}
                 
+                {slug === 'marathon-davignon-avignon' && (
+                  <a href="#dossier-marathon" className={styles.dossierScrollBtn}>
+                    VOIR LE DOSSIER & GPX ↓
+                  </a>
+                )}
+
                 {!race.is_cancelled && <CyberCardGenerator race={race} />}
               </div>
 

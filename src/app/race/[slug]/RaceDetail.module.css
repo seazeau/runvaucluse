@@ -426,3 +426,37 @@
     padding: 1.5rem;
   }
 }
+
+.dossierScrollBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--dark-pill);
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(19, 23, 27, 0.2);
+  cursor: pointer;
+}
+
+.dossierScrollBtn:hover {
+  background: #2b333c;
+  transform: translateY(-2px);
+}
+
+.dossierBadge {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

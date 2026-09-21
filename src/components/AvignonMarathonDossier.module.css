@@ -1,21 +1,20 @@
-/* Avignon Marathon Dossier Styles */
+/* Avignon Marathon Dossier - Direction Artistique RunVaucluse */
 
 .dossierWrapper {
   width: 100%;
-  color: #f3f4f6;
-  font-family: inherit;
+  color: var(--dark-ink, #111417);
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
   margin-top: 2rem;
   margin-bottom: 4rem;
 }
 
-/* Header Banner */
+/* 1. HERO BANNER - Style Éditorial RunVaucluse */
 .heroBanner {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #111827 0%, #1e1b4b 50%, #311042 100%);
-  border: 1px solid rgba(236, 72, 153, 0.25);
-  box-shadow: 0 10px 30px -10px rgba(236, 72, 153, 0.2);
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
   padding: 2.5rem 2rem;
   margin-bottom: 2rem;
 }
@@ -23,248 +22,225 @@
 .heroContent {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 950px;
 }
 
 .badgeRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
 }
 
-.badgePink {
-  background: rgba(236, 72, 153, 0.2);
-  color: #f472b6;
-  border: 1px solid rgba(236, 72, 153, 0.4);
-  font-size: 0.75rem;
+.badgeBlack {
+  background: var(--dark-pill, #13171B);
+  color: #ffffff;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 
 .badgeGold {
-  background: rgba(250, 204, 21, 0.15);
-  color: #facc15;
-  border: 1px solid rgba(250, 204, 21, 0.3);
-  font-size: 0.75rem;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.badgeCyan {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  font-size: 0.75rem;
+.badgeSlate {
+  background: var(--bg-slate, #E2E8EE);
+  color: var(--dark-ink, #111417);
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 
 .heroTitle {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 900;
-  font-style: italic;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  letter-spacing: 1px;
+  line-height: 0.95;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #ffffff, #f472b6 60%, #fbbf24 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--dark-ink, #111417);
 }
 
 .heroSubtitle {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
-  color: #d1d5db;
-  margin-bottom: 1.5rem;
+  color: var(--gray-muted, #5E6973);
+  margin-bottom: 2rem;
 }
 
 /* Main Navigation Subtabs */
 .navTabs {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #1f2937;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  padding-top: 1.5rem;
 }
 
 .navTab {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
   font-weight: 700;
-  color: #9ca3af;
-  background: #111827;
-  border: 1px solid #1f2937;
+  color: var(--gray-muted, #5E6973);
+  background: var(--bg-slate, #E2E8EE);
+  border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   transition: all 0.2s ease;
 }
 
 .navTab:hover {
-  color: #f3f4f6;
-  background: #1f2937;
-  border-color: #374151;
+  color: var(--dark-ink, #111417);
+  background: #d8e0e8;
 }
 
 .navTabActive {
   color: #ffffff;
-  background: linear-gradient(135deg, #ec4899, #be185d);
-  border-color: #f472b6;
-  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+  background: var(--dark-pill, #13171B);
+  box-shadow: 0 4px 14px rgba(19, 23, 27, 0.25);
 }
 
-/* Distance Switcher Toggle */
+/* 2. DISTANCE SWITCHER TOGGLE */
 .distanceSwitcher {
-  display: flex;
-  background: #111827;
+  display: inline-flex;
+  background: var(--bg-slate, #E2E8EE);
   padding: 0.35rem;
-  border-radius: 14px;
-  border: 1px solid #1f2937;
+  border-radius: 999px;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
   margin-bottom: 2rem;
   gap: 0.35rem;
 }
 
 .distBtn {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
+  padding: 0.65rem 1.75rem;
+  border-radius: 999px;
   background: transparent;
-  border: none;
+  color: var(--gray-muted, #5E6973);
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #9ca3af;
-}
-
-.distBtn:hover {
-  color: #f3f4f6;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.distBtnActive {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
-.distBtnActiveMarathon {
-  background: linear-gradient(135deg, #ec4899, #9d174d);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
 }
 
 .distBtnTitle {
-  font-size: 1.15rem;
-  font-weight: 800;
-  font-style: italic;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 .distBtnSub {
-  font-size: 0.75rem;
-  font-weight: 600;
-  opacity: 0.85;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   margin-top: 0.2rem;
 }
 
-/* Key Metrics Grid */
+.distBtnActiveMarathon,
+.distBtnActive {
+  background: #ffffff;
+  color: var(--dark-ink, #111417);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* 3. KEY METRICS GRID */
 .metricsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 1rem;
   margin-bottom: 2.5rem;
 }
 
 .metricCard {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 12px;
-  padding: 1.25rem 1rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.metricCard:hover {
-  transform: translateY(-2px);
-  border-color: #374151;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .metricHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: #9ca3af;
-  font-size: 0.75rem;
-  font-weight: 700;
+  color: var(--gray-muted, #5E6973);
+  font-size: 0.72rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
 }
 
 .metricValue {
-  font-size: 1.8rem;
-  font-weight: 900;
-  font-style: italic;
-  color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 0.25rem;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--dark-ink, #111417);
+  letter-spacing: 0.5px;
+  line-height: 0.95;
+  margin-bottom: 0.35rem;
 }
 
 .metricSub {
-  font-size: 0.8rem;
-  color: #9ca3af;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  color: var(--gray-muted, #5E6973);
 }
 
-/* Map & GPX Section */
+/* 4. MAP & PROFILE CARD */
 .mapCard {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 24px;
   overflow: hidden;
-  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  margin-bottom: 3rem;
 }
 
 .mapCardHeader {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 1.75rem;
+  background: #FAF7F2;
+  border-bottom: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid #1f2937;
-  background: #0f172a;
 }
 
 .mapTitleGroup {
@@ -274,31 +250,31 @@
 }
 
 .mapTitle {
-  font-size: 1.2rem;
-  font-weight: 800;
-  font-style: italic;
-  text-transform: uppercase;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin: 0;
 }
 
 .gpxDownloadBtn {
+  background: var(--dark-pill, #13171B);
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1rem;
-  background: #facc15;
-  color: #111827;
-  font-size: 0.85rem;
-  font-weight: 800;
-  border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(250, 204, 21, 0.3);
 }
 
 .gpxDownloadBtn:hover {
-  background: #fde047;
+  background: #2b333c;
   transform: translateY(-1px);
 }
 
@@ -310,24 +286,25 @@
 }
 
 .profileSection {
-  padding: 1.5rem;
-  background: #0b0f19;
-  border-top: 1px solid #1f2937;
+  padding: 1.5rem 1.75rem;
+  background: #ffffff;
+  border-top: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
 }
 
 .profileHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
 .profileTitle {
-  font-size: 0.9rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #d1d5db;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -335,10 +312,11 @@
 
 .profileStats {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--gray-muted, #5E6973);
+  font-family: var(--font-mono, monospace);
 }
 
-/* Sections / Tronçons */
+/* 5. SECTIONS / TRONÇONS */
 .sectionBlock {
   margin-bottom: 3rem;
 }
@@ -351,11 +329,10 @@
 }
 
 .sectionTitle {
-  font-size: 1.6rem;
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.2rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin: 0;
 }
 
@@ -366,21 +343,23 @@
 }
 
 .tronconCard {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 20px;
   overflow: hidden;
-  transition: border-color 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tronconCard:hover {
-  border-color: #374151;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
 .tronconHeader {
-  padding: 1.25rem 1.5rem;
-  background: #182234;
-  border-bottom: 1px solid #1f2937;
+  padding: 1.25rem 1.75rem;
+  background: #FAF7F2;
+  border-bottom: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -389,40 +368,41 @@
 }
 
 .tronconKmBadge {
-  background: #ec4899;
+  background: var(--dark-pill, #13171B);
   color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 900;
-  font-style: italic;
-  padding: 0.35rem 0.8rem;
-  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
   letter-spacing: 0.05em;
 }
 
 .tronconKmBadgeSemi {
-  background: #2563eb;
+  background: #1e3a8a;
   color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 900;
-  font-style: italic;
-  padding: 0.35rem 0.8rem;
-  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
   letter-spacing: 0.05em;
 }
 
 .tronconName {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin: 0;
   flex: 1;
 }
 
 .tronconBody {
-  padding: 1.5rem;
+  padding: 1.75rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -432,15 +412,19 @@
 }
 
 .tronconDesc {
-  color: #d1d5db;
+  color: #374151;
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+.tronconDesc strong {
+  color: var(--dark-ink, #111417);
 }
 
 .tronconKeyPoints {
   list-style: none;
   padding: 0;
-  margin: 0.75rem 0 0 0;
+  margin: 1rem 0 0 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -448,104 +432,112 @@
 
 .tronconKeyPoints li {
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: var(--gray-muted, #5E6973);
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
 }
 
+.tronconKeyPoints li strong {
+  color: var(--dark-ink, #111417);
+}
+
 .tronconKeyPoints li svg {
   flex-shrink: 0;
   margin-top: 0.2rem;
-  color: #facc15;
+  color: #D97706;
 }
 
 .coachAdviceBox {
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.25) 0%, rgba(17, 24, 39, 0.8) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  position: relative;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 4px solid #D97706;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .coachAdviceHeader {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #60a5fa;
-  font-size: 0.8rem;
+  color: #B45309;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.5rem;
 }
 
 .coachAdviceText {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #e2e8f0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #78350F;
   font-style: italic;
   margin: 0;
 }
 
-/* Coach Vincent Buisson STAPS Feature Block */
+/* 6. COACH VINCENT BUISSON STAPS FEATURE BLOCK */
 .coachProfileCard {
-  background: linear-gradient(135deg, #111827 0%, #1e1b4b 60%, #172554 100%);
-  border: 1px solid rgba(59, 130, 246, 0.4);
-  border-radius: 16px;
-  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
   margin-bottom: 3rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
 }
 
 .coachProfileHeader {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
   padding-bottom: 1.5rem;
 }
 
 .coachAvatar {
-  width: 70px;
-  height: 70px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  border: 2px solid #60a5fa;
-  background: #1e293b;
+  border: 2px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  background: var(--bg-slate, #E2E8EE);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #60a5fa;
-  font-size: 1.8rem;
-  font-weight: 900;
+  color: var(--dark-ink, #111417);
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.2rem;
   overflow: hidden;
 }
 
 .coachInfo h3 {
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin: 0 0 0.25rem 0;
 }
 
 .coachTagline {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #93c5fd;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #B45309;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .coachBio {
-  color: #cbd5e1;
+  color: #4B5563;
   font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
 }
 
 .coachStrategyGrid {
@@ -561,16 +553,17 @@
 }
 
 .strategyItem {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 12px;
+  background: #FAF7F2;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 16px;
   padding: 1.25rem;
 }
 
 .strategyItemTitle {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #facc15;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -578,33 +571,33 @@
 }
 
 .strategyItemText {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #94a3b8;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #4B5563;
   margin: 0;
 }
 
-/* Pacing Table */
+/* 7. PACING TABLE */
 .pacingSection {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
-  padding: 1.75rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
   margin-bottom: 3rem;
 }
 
 .pacingTitle {
-  font-size: 1.3rem;
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin-bottom: 0.5rem;
 }
 
 .pacingDesc {
-  color: #9ca3af;
-  font-size: 0.9rem;
+  color: var(--gray-muted, #5E6973);
+  font-size: 0.95rem;
   margin-bottom: 1.5rem;
 }
 
@@ -620,37 +613,38 @@
 }
 
 .pacingTable th {
-  background: #182234;
-  color: #f3f4f6;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  padding: 0.85rem 1rem;
-  border-bottom: 2px solid #374151;
+  background: #FAF7F2;
+  color: var(--dark-ink, #111417);
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 2px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
 }
 
 .pacingTable td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #1f2937;
-  color: #cbd5e1;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  color: #374151;
 }
 
 .pacingTable tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
+  background: #fafafa;
 }
 
 .targetTime {
   font-weight: 800;
-  color: #facc15;
+  color: var(--dark-ink, #111417);
+  font-family: var(--font-mono, monospace);
 }
 
 .targetPace {
   font-weight: 700;
-  color: #38bdf8;
+  color: #B45309;
+  font-family: var(--font-mono, monospace);
 }
 
-/* Logistics & Practical Guide */
+/* 8. LOGISTICS & PRACTICAL GUIDE */
 .logisticsGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -665,17 +659,18 @@
 }
 
 .logisticsCard {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 14px;
-  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 20px;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logisticsCardHighlight {
-  border-color: rgba(236, 72, 153, 0.4);
-  background: linear-gradient(135deg, #111827 0%, #201026 100%);
+  border-color: #FDE68A;
+  background: #FFFDF7;
 }
 
 .logisticsHeader {
@@ -686,39 +681,42 @@
 }
 
 .logisticsIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #1f2937;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--bg-slate, #E2E8EE);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ec4899;
+  color: var(--dark-ink, #111417);
 }
 
 .logisticsIconCyan {
-  color: #38bdf8;
+  color: #1e3a8a;
+  background: #eff6ff;
 }
 
 .logisticsIconGold {
-  color: #facc15;
+  color: #b45309;
+  background: #fef3c7;
 }
 
 .logisticsTitle {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin: 0;
 }
 
 .logisticsContent {
-  font-size: 0.9rem;
-  color: #cbd5e1;
+  font-size: 0.92rem;
+  color: #4B5563;
   line-height: 1.6;
 }
 
 .logisticsContent strong {
-  color: #ffffff;
+  color: var(--dark-ink, #111417);
 }
 
 .logisticsList {
@@ -734,15 +732,16 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
+  color: #4B5563;
 }
 
 .logisticsAlert {
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 8px;
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 10px;
   padding: 0.75rem 1rem;
-  color: #fca5a5;
+  color: #991B1B;
   font-size: 0.85rem;
   font-weight: 700;
   margin-top: 1rem;
@@ -760,30 +759,31 @@
 }
 
 .ravitoPill {
-  background: #1f2937;
-  border: 1px solid #374151;
-  border-radius: 8px;
-  padding: 0.4rem 0.65rem;
-  font-size: 0.8rem;
+  background: #FAF7F2;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: #e5e7eb;
+  color: var(--dark-ink, #111417);
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
 }
 
 .ravitoPillSpecial {
-  background: rgba(236, 72, 153, 0.15);
-  border-color: rgba(236, 72, 153, 0.4);
-  color: #f472b6;
+  background: #FEF3C7;
+  border-color: #FDE68A;
+  color: #92400E;
 }
 
-/* Parking & Transportation Guide */
+/* 9. PARKING & TRANSPORTATION GUIDE */
 .parkingGuide {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
-  padding: 1.75rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
   margin-bottom: 3rem;
 }
 
@@ -801,9 +801,9 @@
 }
 
 .parkingItem {
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
+  background: #FAF7F2;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 16px;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -817,52 +817,55 @@
 }
 
 .parkingItemTitle {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
 }
 
 .parkingItemBadge {
   font-size: 0.7rem;
   font-weight: 800;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .badgeFree {
-  background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #BBF7D0;
 }
 
 .badgePaid {
-  background: rgba(234, 179, 8, 0.2);
-  color: #facc15;
-  border: 1px solid rgba(234, 179, 8, 0.3);
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
 }
 
 .parkingItemDesc {
-  font-size: 0.85rem;
-  color: #94a3b8;
+  font-size: 0.88rem;
+  color: #4B5563;
   line-height: 1.5;
   margin: 0 0 0.75rem 0;
 }
 
 .parkingDetail {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--gray-muted, #5E6973);
   margin-top: auto;
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
   padding-top: 0.5rem;
 }
 
-/* Equipment & Top4Running Affiliation */
+/* 10. EQUIPMENT & TOP4RUNNING AFFILIATION */
 .gearSection {
-  background: linear-gradient(135deg, #111827 0%, #1e1b4b 100%);
-  border: 1px solid rgba(236, 72, 153, 0.3);
-  border-radius: 16px;
-  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
   margin-bottom: 3rem;
 }
 
@@ -880,26 +883,27 @@
 }
 
 .gearCard {
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: #FAF7F2;
+  border: 1px solid var(--border-hairline, rgba(17, 20, 23, 0.12));
+  border-radius: 18px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
 
 .gearCardTitle {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink, #111417);
   margin-bottom: 0.5rem;
 }
 
 .gearCardText {
-  font-size: 0.85rem;
-  color: #94a3b8;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  color: #4B5563;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
 }
 
 .affiliateBtn {
@@ -908,48 +912,52 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #ec4899, #be185d);
+  padding: 0.75rem 1.25rem;
+  background: var(--dark-pill, #13171B);
   color: #ffffff;
   font-weight: 800;
-  font-size: 0.85rem;
-  border-radius: 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
 }
 
 .affiliateBtn:hover {
-  background: linear-gradient(135deg, #f472b6, #db2777);
+  background: #2b333c;
   transform: translateY(-2px);
 }
 
-/* Call to Action Final */
+/* 11. FINAL CTA */
 .finalCta {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
+  background: var(--dark-pill, #13171B);
+  border-radius: 24px;
+  padding: 3.5rem 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #ffffff;
 }
 
 .finalCtaTitle {
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  font-weight: 900;
-  font-style: italic;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 400;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 0.95;
   color: #ffffff;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .finalCtaDesc {
-  font-size: 1rem;
-  color: #9ca3af;
+  font-size: 1.05rem;
+  color: #9CA3AF;
   max-width: 650px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .finalCtaButtons {
@@ -963,20 +971,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.75rem;
-  background: #facc15;
-  color: #111827;
-  font-weight: 900;
-  font-style: italic;
+  padding: 0.85rem 2rem;
+  background: #F6C83B;
+  color: var(--dark-ink, #111417);
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 999px;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.35);
+  box-shadow: 0 4px 14px rgba(246, 200, 59, 0.35);
 }
 
 .btnPrimary:hover {
-  background: #fde047;
+  background: #fcd34d;
   transform: translateY(-2px);
 }
 
@@ -984,19 +993,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.75rem;
-  background: #1f2937;
-  color: #f3f4f6;
-  font-weight: 800;
+  padding: 0.85rem 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 999px;
   text-decoration: none;
-  border: 1px solid #374151;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.2s ease;
 }
 
 .btnSecondary:hover {
-  background: #374151;
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   transform: translateY(-2px);
 }
