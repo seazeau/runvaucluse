@@ -6,6 +6,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import StructuredData from '@/components/StructuredData';
 import CyberCardGenerator from '@/components/CyberCardGenerator';
+import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -235,6 +236,8 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               </div>
             </div>
           </div>
+
+          {slug === 'marathon-davignon-avignon' && <AvignonMarathonDossier />}
 
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>
