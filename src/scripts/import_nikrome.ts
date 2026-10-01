@@ -100,8 +100,8 @@ async function importNikrome(url: string, race_slug: string) {
                 rank_cat: String(cells[4] || '').trim(),
                 time: String(cells[5] || '').trim(),
                 podium: String(cells[6] || '').trim() || null,
-                speed: String(item.club || '').trim() || null,
-                club: String(cells[7] || '').trim() || null,
+                speed: String(cells[7] || '').trim() || null,
+                club: String(item.club || '').trim() || null,
               });
             }
             start += length;
