@@ -1189,25 +1189,96 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
                           {race.slug === 'utlm-backyard-ultra-monteux' ? (
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem', margin: '0.8rem 0' }}>
-                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
-                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>BOUCLE OFFICIELLE</span>
-                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>6,706 KM</span>
-                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Moins d&apos;1h par boucle</span>
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.16), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(235, 94, 40, 0.35)',
+                                borderRadius: '12px',
+                                padding: '0.85rem 0.95rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                justifyContent: 'center',
+                                gap: '0.2rem',
+                                textAlign: 'left'
+                              }}>
+                                <span style={{ fontSize: '0.68rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                                  BOUCLE OFFICIELLE
+                                </span>
+                                <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.65rem', fontWeight: 900, color: '#FAF7F2', lineHeight: 1.1, margin: '0.1rem 0' }}>
+                                  6,706 KM
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.75)', lineHeight: 1.2 }}>
+                                  Moins d&apos;1h par tour
+                                </span>
                               </div>
-                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
-                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>LE SIGNAL</span>
-                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>À LA CLOCHE</span>
-                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Départ toutes les heures</span>
+
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.16), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(235, 94, 40, 0.35)',
+                                borderRadius: '12px',
+                                padding: '0.85rem 0.95rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                justifyContent: 'center',
+                                gap: '0.2rem',
+                                textAlign: 'left'
+                              }}>
+                                <span style={{ fontSize: '0.68rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                                  LE SIGNAL
+                                </span>
+                                <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.65rem', fontWeight: 900, color: '#FAF7F2', lineHeight: 1.1, margin: '0.1rem 0' }}>
+                                  À LA CLOCHE
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.75)', lineHeight: 1.2 }}>
+                                  Départ toutes les heures
+                                </span>
                               </div>
-                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
-                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>RÈGLE IMPITOYABLE</span>
-                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>1 SEUL FINISHER</span>
-                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Tous les autres DNF</span>
+
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.16), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(235, 94, 40, 0.35)',
+                                borderRadius: '12px',
+                                padding: '0.85rem 0.95rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                justifyContent: 'center',
+                                gap: '0.2rem',
+                                textAlign: 'left'
+                              }}>
+                                <span style={{ fontSize: '0.68rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                                  RÈGLE IMPITOYABLE
+                                </span>
+                                <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.65rem', fontWeight: 900, color: '#FAF7F2', lineHeight: 1.1, margin: '0.1rem 0' }}>
+                                  1 FINISHER
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.75)', lineHeight: 1.2 }}>
+                                  Tous les autres DNF
+                                </span>
                               </div>
-                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
-                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>PELOTON 2026</span>
-                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>130 COUREURS</span>
-                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Édition complète</span>
+
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.16), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(235, 94, 40, 0.35)',
+                                borderRadius: '12px',
+                                padding: '0.85rem 0.95rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                justifyContent: 'center',
+                                gap: '0.2rem',
+                                textAlign: 'left'
+                              }}>
+                                <span style={{ fontSize: '0.68rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                                  PELOTON 2026
+                                </span>
+                                <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.65rem', fontWeight: 900, color: '#FAF7F2', lineHeight: 1.1, margin: '0.1rem 0' }}>
+                                  130 COUREURS
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.75)', lineHeight: 1.2 }}>
+                                  Édition 100% complète
+                                </span>
                               </div>
                             </div>
                           ) : (
