@@ -53,7 +53,7 @@ interface Props {
 }
 
 export default function StudioClient({ races, latestWinners }: Props) {
-  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story'>('weekend');
+  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story'>('new_race');
   
   // Weekend Carrousel State
   const [selectedRaceSlugs, setSelectedRaceSlugs] = useState<string[]>(() => {
@@ -73,7 +73,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // New Race Carrousel State
   const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
-    return races.find(r => r.slug === 'trail-nocturne-de-bonnieux-bonnieux')?.slug || races.find(r => r.slug === 'la-vigneronde-puget')?.slug || races[0]?.slug || '';
+    return races.find(r => r.slug === 'utlm-backyard-ultra-monteux')?.slug || races.find(r => r.slug === 'trail-nocturne-de-bonnieux-bonnieux')?.slug || races.find(r => r.slug === 'la-vigneronde-puget')?.slug || races[0]?.slug || '';
   });
 
   // Clubs Call Carrousel State
@@ -83,7 +83,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // Story State
   const [selectedStorySlug, setSelectedStorySlug] = useState<string>(
-    races[0]?.slug || ''
+    races.find(r => r.slug === 'utlm-backyard-ultra-monteux')?.slug || races[0]?.slug || ''
   );
 
   // Carousel Pagination State
@@ -259,6 +259,9 @@ export default function StudioClient({ races, latestWinners }: Props) {
       }
     } else if (mode === 'new_race') {
       const race = activeNewRace;
+      if (race.slug === 'utlm-backyard-ultra-monteux') {
+        return `🔔 TOP DÉPART // UTLM BACKYARD ULTRA 2026 ! ⏳🔥\n\nC'est parti aujourd'hui à 14h00 au Domaine de Beauregard (Lac de Monteux) pour la 5ème édition de l'Ultra Tour du Lac de Monteux Backyard Ultra !\n\nLe concept officiel « Last One Standing » créé par Lazarus Lake :\n🔄 Une boucle de 6,706 km (18m D+) avec vue sur le Mont Ventoux et les Dentelles\n⏱️ Moins d'une heure pour boucler chaque tour\n🔔 Nouveau départ toutes les heures à la cloche, sans aucun retard toléré\n🛌 Le temps restant sert à manger, soigner ses pieds, dormir 10 minutes... ou douter !\n🏆 Règle absolue : il n'y a qu'UN SEUL finisher et unique vainqueur. Tous les autres coureurs finissent DNF (Did Not Finish).\n\n130 guerriers et guerrières prennent le départ cet après-midi. Qui sera le dernier homme ou la dernière femme debout ? Combien de boucles seront courues ? 24h (100 miles) ? 36h ? 48h+ ?\n\n👉 Retrouvez la présentation de l'épreuve et les actualités sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien en bio)\n\n💬 À vos pronostics en commentaire : combien de tours pour le vainqueur selon vous ? 👇\n\n#runvaucluse #utlm #utlmby #backyardultra #lastonestanding #lazaruslake #monteux #vaucluse #runningvaucluse #trailvaucluse #ultratrail #courseapied #ultraendurance #defi #lacdemonteux`;
+      }
       if (race.slug === 'marathon-davignon-avignon') {
         return `🔥 DOSSIER SPÉCIAL // SEMI & MARATHON D'AVIGNON 2026 ! 🏃‍♂️⚡\n\nLe 27 septembre 2026, la Cité des Papes accueille la première édition de son grand Marathon et Semi-Marathon officiel ! 🏰🏅\n\nAvec moins de 80m de dénivelé positif, un tracé somptueux entre remparts du XIVe siècle, Palais des Papes et vergers de la Barthelasse, c'est LE parcours idéal pour décrocher votre record personnel ou vous qualifier pour les Championnats de France FFA.\n\nSur RUNVAUCLUSE.FR, nous venons de mettre en ligne le DOSSIER COMPLET & L'ANALYSE TACTIQUE DU COACH :\n\n📍 Tracés GPX officiels téléchargeables (42,195 km & 21,0975 km)\n📈 Profil altimétrique interactif km par km\n⏱️ Grille des 6 meneurs d'allures officiels (de 3h00 à 4h30 sur marathon, 1h20 à 2h00 sur semi)\n🧠 Conseils tactiques du coach Vincent Buisson (Diplômé STAPS, +100 athlètes suivis) : gestion du vent sur le Rhône, piège des pavés intra-muros, régularité d'allure\n⚡ Stratégie nutrition : les recommandations de son partenaire @nutripurefr (boisson d'effort 60g & gels énergétiques pour éviter le mur)\n🚗 Guide logistique complet : retrait dossards, consignes, sas de départ et parkings gratuits (Piot, Italiens, St-Chamand)\n\n👉 Retrouvez le dossier interactif dès maintenant sur le site :\n🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio !)\n\n💾 Enregistrez ce post pour votre prépa et identifiez vos potes qui cherchent leur prochain défi ! 👇\n\n#runvaucluse #marathonavignon #semimarathonavignon #avignon #vaucluse #runningvaucluse #courseapied #marathon #semimarathon #ffa #nutripure #top4running #stravafrance #runningfrance #course2026`;
       }
@@ -267,6 +270,9 @@ export default function StudioClient({ races, latestWinners }: Props) {
     } else if (mode === 'clubs') {
       return `📢 APPEL À TOUS LES CLUBS & ASSOCIATIONS DU VAUCLUSE ! 🏃‍♂️🏃‍♀️\n\nLe Vaucluse regorge de clubs passionnés, de groupes d’entraînement chaleureux et de coachs engagés.\n\nSur RUNVAUCLUSE.FR, nous voulons offrir à chaque coureur vauclusien — qu’il soit débutant, traileur ou compétiteur — un annuaire complet et précis pour trouver le club qui lui correspond.\n\n👉 Responsables, coachs ou coureurs : aidez-nous à compléter la fiche de votre club !\n\nEnvoyez-nous simplement :\n1️⃣ Une courte présentation de votre club (l’esprit, vos spécialités : route, trail, piste, loisir, jeunes…)\n2️⃣ Vos créneaux et horaires d’entraînement (jours, heures et lieux de rendez-vous)\n3️⃣ Vos liens d’inscriptions et contacts officiels (site, mail, réseaux)\n\n📩 Pour nous les envoyer :\n• En message privé directement ici (${clubInstagramTag})\n• Par mail à : ${clubContactEmail}\n\nC’est 100% gratuit et ouvert à toutes les structures du département (FFA, FSGT, UFOLEP ou assos running indépendantes).\n\n👇 Tague ton club, ton président ou tes partenaires d’entraînement en commentaire pour qu’ils ne manquent pas le train !\n\n---\n#runvaucluse #runningvaucluse #trailvaucluse #athlevaucluse #clubathletisme #clubrunning #vaucluse #avignon #carpentras #cavaillon #orange #apt #bollene #islesurlasorgue #courirconvivialite #courseapied`;
     } else {
+      if (activeStoryRace.slug === 'utlm-backyard-ultra-monteux') {
+        return `🔔 TOP DÉPART : UTLM BACKYARD ULTRA AU LAC DE MONTEUX !\n\n130 coureurs au départ, boucle de 6,706 km chaque heure. 1 seul finisher, tous les autres DNF !\n\n👉 Retrouvez toutes les infos sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #utlm #backyardultra #lastonestanding #monteux #courseapied`;
+      }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     }
   };
@@ -1083,7 +1089,9 @@ export default function StudioClient({ races, latestWinners }: Props) {
                         <div className={styles.raceSlideCard}>
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
-                            <span className={styles.slidePillTag}>NOUVEAU SUR LE SITE ✨</span>
+                            <span className={styles.slidePillTag}>
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART AUJOURD\'HUI 🔔' : 'NOUVEAU SUR LE SITE ✨'}
+                            </span>
                           </div>
 
                           {imageDisplayMode === 'poster' ? (
@@ -1097,22 +1105,30 @@ export default function StudioClient({ races, latestWinners }: Props) {
                               </div>
                               <div className={styles.posterInfoCol}>
                                 <div className={styles.raceSlideMetaRow}>
-                                  <Calendar size={14} /> {dateFormatted}
+                                  <Calendar size={14} /> {race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : dateFormatted}
                                 </div>
                                 <h3 className={styles.posterRaceName}>{race.name}</h3>
                                 <div className={styles.raceSlideCity}>
                                   <MapPin size={15} /> {race.city} • VAUCLUSE
                                 </div>
                                 <div className={styles.raceSlideDistances} style={{ marginTop: '0.6rem' }}>
-                                  {distList.map((dist, idx) => (
-                                    <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
-                                  ))}
+                                  {race.slug === 'utlm-backyard-ultra-monteux' ? (
+                                    <>
+                                      <span className={styles.raceSlideDistPill}>6,706 KM / HEURE</span>
+                                      <span className={styles.raceSlideDistPill}>LAST ONE STANDING</span>
+                                      <span className={styles.raceSlideDistPill}>1 SEUL FINISHER</span>
+                                    </>
+                                  ) : (
+                                    distList.map((dist, idx) => (
+                                      <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
+                                    ))
+                                  )}
                                 </div>
-                                {race.label && (
-                                  <div className={styles.posterBadges}>
-                                    <span className={styles.posterTagBadge}>🏷️ {race.label.toUpperCase()}</span>
-                                  </div>
-                                )}
+                                <div className={styles.posterBadges}>
+                                  <span className={styles.posterTagBadge}>
+                                    {race.slug === 'utlm-backyard-ultra-monteux' ? '🔥 5ÈME ÉDITION' : (race.label ? `🏷️ ${race.label.toUpperCase()}` : '📍 COURSE VAUCLUSE')}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           ) : (
@@ -1122,23 +1138,31 @@ export default function StudioClient({ races, latestWinners }: Props) {
                               </div>
                               <div className={styles.raceSlideInfo}>
                                 <div className={styles.raceSlideMetaRow}>
-                                  <Calendar size={14} /> {dateFormatted}
+                                  <Calendar size={14} /> {race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : dateFormatted}
                                 </div>
                                 <h3 className={styles.raceSlideName}>{race.name}</h3>
                                 <div className={styles.raceSlideCity}>
                                   <MapPin size={15} /> {race.city} • VAUCLUSE
                                 </div>
                                 <div className={styles.raceSlideDistances} style={{ marginTop: '0.75rem' }}>
-                                  {distList.map((dist, idx) => (
-                                    <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
-                                  ))}
+                                  {race.slug === 'utlm-backyard-ultra-monteux' ? (
+                                    <>
+                                      <span className={styles.raceSlideDistPill}>6,706 KM / HEURE</span>
+                                      <span className={styles.raceSlideDistPill}>LAST ONE STANDING</span>
+                                      <span className={styles.raceSlideDistPill}>1 SEUL FINISHER</span>
+                                    </>
+                                  ) : (
+                                    distList.map((dist, idx) => (
+                                      <span key={idx} className={styles.raceSlideDistPill}>{dist}</span>
+                                    ))
+                                  )}
                                 </div>
                               </div>
                             </>
                           )}
 
                           <div className={styles.coverFooter}>
-                            <span>PROGRAMME & DÉTAILS</span>
+                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT & LES RÈGLES' : 'PROGRAMME & DÉTAILS'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -1149,43 +1173,70 @@ export default function StudioClient({ races, latestWinners }: Props) {
                         <div className={styles.raceSlideCard}>
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
-                            <span className={styles.slidePillTag}>AU PROGRAMME 📅</span>
+                            <span className={styles.slidePillTag}>
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT OFFICIEL 🔔' : 'AU PROGRAMME 📅'}
+                            </span>
                           </div>
 
                           <div style={{ margin: '0.8rem 0 0.4rem' }}>
                             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#FAF7F2", margin: 0, letterSpacing: "1px" }}>
-                              LES ÉPREUVES DU JOUR
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LAST ONE STANDING' : 'LES ÉPREUVES DU JOUR'}
                             </h3>
                             <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
                               {race.name} ({race.city})
                             </p>
                           </div>
 
-                          <div 
-                            className={styles.newRaceDistRow}
-                            style={distList.length > 2 ? { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' } : undefined}
-                          >
-                            {distList.map((dist, idx) => (
-                              <div 
-                                key={idx} 
-                                className={styles.newRaceDistCard}
-                                style={distList.length > 2 ? { padding: '0.65rem 0.85rem' } : undefined}
-                              >
-                                <span 
-                                  className={styles.newRaceDistName}
-                                  style={distList.length > 2 ? { fontSize: '1.25rem' } : undefined}
-                                >
-                                  {dist}
-                                </span>
-                                <span className={styles.newRaceDistPillBadge}>OUVERT</span>
+                          {race.slug === 'utlm-backyard-ultra-monteux' ? (
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem', margin: '0.8rem 0' }}>
+                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
+                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>BOUCLE OFFICIELLE</span>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>6,706 KM</span>
+                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Moins d&apos;1h par boucle</span>
                               </div>
-                            ))}
-                          </div>
+                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
+                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>LE SIGNAL</span>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>À LA CLOCHE</span>
+                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Départ toutes les heures</span>
+                              </div>
+                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
+                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>RÈGLE IMPITOYABLE</span>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>1 SEUL FINISHER</span>
+                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Tous les autres DNF</span>
+                              </div>
+                              <div className={styles.newRaceDistCard} style={{ padding: '0.8rem 0.95rem', textAlign: 'left' }}>
+                                <span style={{ fontSize: '0.72rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '0.5px' }}>PELOTON 2026</span>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'block', margin: '0.2rem 0' }}>130 COUREURS</span>
+                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Édition complète</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div 
+                              className={styles.newRaceDistRow}
+                              style={distList.length > 2 ? { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' } : undefined}
+                            >
+                              {distList.map((dist, idx) => (
+                                <div 
+                                  key={idx} 
+                                  className={styles.newRaceDistCard}
+                                  style={distList.length > 2 ? { padding: '0.65rem 0.85rem' } : undefined}
+                                >
+                                  <span 
+                                    className={styles.newRaceDistName}
+                                    style={distList.length > 2 ? { fontSize: '1.25rem' } : undefined}
+                                  >
+                                    {dist}
+                                  </span>
+                                  <span className={styles.newRaceDistPillBadge}>OUVERT</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
 
                           <div className={styles.newRaceFactsGrid}>
                             <div className={styles.newRaceFactCard}>
                               <span className={styles.newRaceFactLabel}><Calendar size={13} /> DATE</span>
-                              <span className={styles.newRaceFactVal}>{new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                              <span className={styles.newRaceFactVal}>{race.slug === 'utlm-backyard-ultra-monteux' ? '1er oct. 14h' : new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
                             </div>
                             <div className={styles.newRaceFactCard}>
                               <span className={styles.newRaceFactLabel}><MapPin size={13} /> LIEU</span>
@@ -1196,13 +1247,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
                               <span className={styles.newRaceFactVal}>{race.type || 'Course'}</span>
                             </div>
                             <div className={styles.newRaceFactCard}>
-                              <span className={styles.newRaceFactLabel}><Timer size={13} /> INSCRIPTION</span>
-                              <span className={styles.newRaceFactVal}>{race.registration_platform || 'En ligne'}</span>
+                              <span className={styles.newRaceFactLabel}><Timer size={13} /> FINISHER</span>
+                              <span className={styles.newRaceFactVal}>{race.slug === 'utlm-backyard-ultra-monteux' ? '1 Unique' : (race.registration_platform || 'En ligne')}</span>
                             </div>
                           </div>
 
                           <div className={styles.coverFooter}>
-                            <span>L'ESPRIT DU DÉFI</span>
+                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'L\'ÉPREUVE MENTALE' : 'L\'ESPRIT DU DÉFI'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -1213,12 +1264,14 @@ export default function StudioClient({ races, latestWinners }: Props) {
                         <div className={styles.raceSlideCard}>
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
-                            <span className={styles.slidePillTag}>L'EXPÉRIENCE 🌟</span>
+                            <span className={styles.slidePillTag}>
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'DÉFI MENTAL EXTRÊME ⚡' : 'L\'EXPÉRIENCE 🌟'}
+                            </span>
                           </div>
 
                           <div style={{ margin: '0.8rem 0 0.4rem' }}>
                             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#F6C83B", margin: 0, letterSpacing: "1px" }}>
-                              POURQUOI S'INSCRIRE ?
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LA GUERRE D\'USURE' : 'POURQUOI S\'INSCRIRE ?'}
                             </h3>
                             <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
                               {race.name}
@@ -1227,17 +1280,19 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
                           <div className={styles.newRaceDescCard}>
                             <p className={styles.newRaceDescText}>
-                              {race.description || "Une expérience sportive et humaine incontournable au cœur des paysages du Vaucluse. Venez relever le défi et partager une journée conviviale avec tous les passionnés de course à pied de la région."}
+                              {race.slug === 'utlm-backyard-ultra-monteux'
+                                ? "Imaginé par Lazarus Lake, le format Backyard Ultra pousse le corps et l'esprit au-delà de leurs limites. 6,7 km par heure paraît accessible, mais la nuit, le froid, la fatigue cumulée et la cloche qui sonne inlassablement transforment chaque départ en épreuve de volonté. Tant qu'il reste 2 coureurs en lice, la course ne s'arrête jamais !"
+                                : (race.description || "Une expérience sportive et humaine incontournable au cœur des paysages du Vaucluse. Venez relever le défi et partager une journée conviviale avec tous les passionnés de course à pied de la région.")}
                             </p>
-                            {race.contact && (
-                              <div className={styles.newRaceContactPill}>
-                                👥 Organisation : {race.contact}
-                              </div>
-                            )}
+                            <div className={styles.newRaceContactPill}>
+                              {race.slug === 'utlm-backyard-ultra-monteux'
+                                ? '📍 Domaine de Beauregard • Vue sur le Mont Ventoux'
+                                : (race.contact ? `👥 Organisation : ${race.contact}` : '📍 Vaucluse (84)')}
+                            </div>
                           </div>
 
                           <div className={styles.coverFooter}>
-                            <span>COMMENT PARTICIPER</span>
+                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'PRONOSTIC & SUIVI' : 'COMMENT PARTICIPER'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -1248,16 +1303,20 @@ export default function StudioClient({ races, latestWinners }: Props) {
                         <div className={styles.outroCard}>
                           <LogoIcon size={52} />
                           <h2 className={styles.outroBigTitle}>
-                            INSCRIPTIONS OUVERTES !
+                            {race.slug === 'utlm-backyard-ultra-monteux' ? 'QUE LE MEILLEUR GAGNE !' : 'INSCRIPTIONS OUVERTES !'}
                           </h2>
                           <p className={styles.outroDesc}>
-                            Retrouvez tous les détails, le règlement officiel et le lien d'inscription directe pour <strong>{race.name}</strong> sur :
+                            {race.slug === 'utlm-backyard-ultra-monteux'
+                              ? "Suivez l'évolution des rescapés, les infos officielles et les chronos de l'épreuve sur :"
+                              : <>Retrouvez tous les détails, le règlement officiel et le lien d'inscription directe pour <strong>{race.name}</strong> sur :</>}
                           </p>
                           <div className={styles.outroUrlPill}>
-                            RUNVAUCLUSE.FR
+                            {race.slug === 'utlm-backyard-ultra-monteux' ? 'WWW.RUNVAUCLUSE.FR' : 'RUNVAUCLUSE.FR'}
                           </div>
                           <div className={styles.savePostReminder}>
-                            <Bookmark size={18} /> Enregistre ce post pour ton prochain dossard !
+                            {race.slug === 'utlm-backyard-ultra-monteux'
+                              ? '💬 Pronostic en commentaire : combien de tours selon vous ?'
+                              : <><Bookmark size={18} /> Enregistre ce post pour ton prochain dossard !</>}
                           </div>
                         </div>
                       )}
@@ -1545,7 +1604,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             <LogoIcon size={32} /> RUNVAUCLUSE
                           </div>
                           <span className={styles.slidePillTag} style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
-                            J - 7 AVANT DÉPART ⏱️
+                            {activeStoryRace.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART 14H00 🔔' : 'J - 7 AVANT DÉPART ⏱️'}
                           </span>
                         </div>
 
@@ -1570,7 +1629,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
                           <div className={styles.coverSubtitle} style={{ fontSize: '0.95rem', marginTop: '0.85rem' }}>
                             <Calendar size={15} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
-                            {new Date(activeStoryRace.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}
+                            {activeStoryRace.slug === 'utlm-backyard-ultra-monteux' ? "AUJOURD'HUI • JEUDI 1ER OCTOBRE 14H00" : new Date(activeStoryRace.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}
                           </div>
                           
                           <h2 className={styles.coverMainTitle} style={{ fontSize: '2.6rem', margin: '0.25rem 0' }}>
@@ -1582,17 +1641,28 @@ export default function StudioClient({ races, latestWinners }: Props) {
                           </div>
 
                           <div className={styles.raceSlideDistances} style={{ justifyContent: 'center', marginTop: '0.65rem' }}>
-                            {activeStoryRace.distances.split(',').map((dist, idx) => (
-                              <span key={idx} className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
-                                {dist.trim()}
-                              </span>
-                            ))}
+                            {activeStoryRace.slug === 'utlm-backyard-ultra-monteux' ? (
+                              <>
+                                <span className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
+                                  6,706 KM / HEURE
+                                </span>
+                                <span className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
+                                  LAST ONE STANDING
+                                </span>
+                              </>
+                            ) : (
+                              activeStoryRace.distances.split(',').map((dist, idx) => (
+                                <span key={idx} className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
+                                  {dist.trim()}
+                                </span>
+                              ))
+                            )}
                           </div>
                         </div>
 
                         <div style={{ textAlign: 'center', borderTop: '1px solid rgba(250, 247, 242, 0.2)', paddingTop: '0.85rem' }}>
                           <div className={styles.outroUrlPill} style={{ fontSize: '1.2rem', padding: '0.45rem 1.25rem', marginBottom: '0.35rem' }}>
-                            INSCRIPTION : LIEN EN BIO ↗
+                            {activeStoryRace.slug === 'utlm-backyard-ultra-monteux' ? 'SUIVRE LA COURSE : RUNVAUCLUSE.FR' : 'INSCRIPTION : LIEN EN BIO ↗'}
                           </div>
                           <p style={{ margin: 0, fontSize: '0.78rem', color: 'rgba(250, 247, 242, 0.7)' }}>
                             @RUNVAUCLUSE.FR • TOUTES LES COURSES DU 84

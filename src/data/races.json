@@ -912,6 +912,25 @@
     "slug": "les-foulees-douces-montfavet"
   },
   {
+    "id": 79,
+    "date": "2026-10-01",
+    "name": "UTLM Backyard Ultra",
+    "city": "Monteux",
+    "distances": "Boucle 6,706 km / heure (Last One Standing)",
+    "type": "Backyard Ultra",
+    "label": "Backyard Ultra Officiel",
+    "contact": "Organisation UTLM (contact@utlmby.fr)",
+    "image_url": "/images/poster-utlm-backyard-ultra-monteux.jpg",
+    "link": "https://www.utlmby.fr",
+    "facebook": "https://www.facebook.com/UTLMBY",
+    "instagram": "https://www.instagram.com/utlmonteuxbackyardultra/",
+    "slug": "utlm-backyard-ultra-monteux",
+    "registration_link": "https://www.utlmby.fr/inscription/",
+    "registration_platform": "utlmby.fr",
+    "website": "https://www.utlmby.fr",
+    "description": "5ème édition de l'Ultra Tour du Lac de Monteux (UTLM) Backyard Ultra au Domaine de Beauregard. Format officiel 'Last One Standing' créé par Lazarus Lake : boucle de 6,706 km (+18m D+) à parcourir en moins d'une heure. Départ toutes les heures à la cloche jusqu'à ce qu'il ne reste qu'un seul finisher vainqueur. 130 coureurs au départ !"
+  },
+  {
     "id": 58,
     "date": "2026-10-04",
     "name": "Trail de Saint-Didier",
