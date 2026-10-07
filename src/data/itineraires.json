@@ -641,5 +641,20 @@
     "gpxLink": "/itineraires/VillessurAuzon_Trail_CombeErmitage.gpx",
     "description": "Découvrez l'itinéraire \"Villessur Auzon Trail Combe Ermitage\". Un parcours de 14.0 km avec 479m de dénivelé positif à travers les paysages de Villessur Auzon et du Vaucluse.",
     "advice": "Prévoyez de l'eau et vérifiez la météo avant de partir."
+  },
+  {
+    "slug": "trail-les-monts-de-mathias",
+    "title": "Trail Les Monts de Mathias",
+    "location": "Visan",
+    "distance": "13.0 km",
+    "elevation": "330m D+",
+    "difficulty": "Modéré",
+    "image": "/images/poster-trail-les-monts-de-mathias-visan.jpg",
+    "allImages": [
+      "/images/poster-trail-les-monts-de-mathias-visan.jpg"
+    ],
+    "gpxLink": "/itineraires/les-monts-de-mathias.gpx",
+    "description": "Itinéraire officiel du Trail « Les Monts de Mathias » à Visan (Enclave des Papes). Une boucle dynamique de 13 km (330m D+) sillonnant les vignobles réputés, les sentiers forestiers et les collines de l'Enclave, offrant de superbes points de vue sur le Mont Ventoux.",
+    "advice": "Attention aux portions caillouteuses en sous-bois et aux relances dans les vignes. Des chaussures de trail avec un bon cramponnage sont conseillées."
   }
 ]

@@ -37,6 +37,7 @@ db.exec(`
     website TEXT,
     pdf_link TEXT,
     parcours_link TEXT,
+    gpx_link TEXT,
     is_cancelled INTEGER DEFAULT 0
   )
 `);
@@ -52,8 +53,8 @@ db.exec(`
 
 // Insert Races
 const insertRace = db.prepare(`
-  INSERT INTO races (slug, date, name, city, distances, type, link, is_featured, image_url, label, contact, description, facebook, instagram, registration_platform, registration_link, website, pdf_link, parcours_link, is_cancelled)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  INSERT INTO races (slug, date, name, city, distances, type, link, is_featured, image_url, label, contact, description, facebook, instagram, registration_platform, registration_link, website, pdf_link, parcours_link, gpx_link, is_cancelled)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 // Insert Clubs
@@ -84,6 +85,7 @@ const syncDatabase = db.transaction(() => {
         race.website || null,
         (race as any).pdf_link || null,
         (race as any).parcours_link || null,
+        (race as any).gpx_link || null,
         (race as any).is_cancelled ? 1 : 0
     );
   }

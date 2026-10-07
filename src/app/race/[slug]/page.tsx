@@ -149,10 +149,15 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {(race.pdf_link || race.parcours_link) && (
+              {(race.pdf_link || race.parcours_link || race.gpx_link) && (
                 <div className={styles.gpxContainer}>
                   <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
                   <div className={styles.gpxGrid}>
+                    {race.gpx_link && (
+                      <a href={race.gpx_link} download className={styles.gpxBtn}>
+                        <Download size={16} /> TÉLÉCHARGER LE TRACÉ GPX
+                      </a>
+                    )}
                     {race.pdf_link && (
                       <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
                         <FileText size={16} /> VOIR LE PLAN DU PARCOURS (PDF)
