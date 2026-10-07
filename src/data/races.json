@@ -899,19 +899,6 @@
     "slug": "trail-in-ocre-gargas"
   },
   {
-    "id": 57,
-    "date": "2026-10-04",
-    "name": "Les Foulées Douces",
-    "city": "Montfavet",
-    "distances": "11 km, 5,5 km",
-    "type": "Course sur route FFA",
-    "contact": "Emmanuelle Faure (emmanuelle.faure@ch-montfavet.fr)",
-    "image_url": "/images/fouléesdouces.jpg",
-    "link": "https://www.ch-montfavet.fr",
-    "instagram": "https://www.instagram.com/chmontfavet/",
-    "slug": "les-foulees-douces-montfavet"
-  },
-  {
     "id": 79,
     "date": "2026-10-01",
     "name": "UTLM Backyard Ultra",
@@ -981,6 +968,25 @@
     "facebook": "https://www.facebook.com/octobrerosemazan",
     "description": "Octobre Run 2026 à Mazan dans le cadre d'Octobre Rose, organisé par E.P.S. au profit de la lutte contre le cancer. Rassemblement et départs à 10h00 Place de la Mairie. Épreuves ouvertes à tous : 12 km (15 €), 5 km (7 €) et 1 km gratuit pour les enfants. Sport, dépassement et solidarité !",
     "slug": "octobre-rose-a-mazan-mazan"
+  },
+  {
+    "id": 57,
+    "date": "2026-10-11",
+    "name": "Les Foulées Douces",
+    "city": "Montfavet",
+    "distances": "10 km, 5 km, marche 5 km",
+    "type": "Course solidaire",
+    "contact": "CLSM Avignon (clsm@ch-montfavet.fr)",
+    "image_url": "/images/poster-les-foulees-douces-montfavet.jpg",
+    "link": "https://www.ch-montfavet.fr/actualites/les-foulees-douces-11-octobre-2026/",
+    "website": "https://www.ch-montfavet.fr",
+    "facebook": "https://www.facebook.com/profile.php?id=100092553550295",
+    "instagram": "https://www.instagram.com/centre_hospitalier_montfavet/",
+    "registration_platform": "JF Chronotrail",
+    "registration_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_foulees_douces.php",
+    "pdf_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/documents/REGLEMENT_FOULEES_DOUCES_2026.pdf",
+    "description": "3ème édition des Foulées Douces au Centre Hospitalier de Montfavet (Avignon) dans le cadre des Semaines d'Information sur la Santé Mentale (SISM). Course solidaire, inclusive et ouverte à tous dans le parc arboré de 70 hectares du centre hospitalier et Agroparc. Épreuves : Course 10 km (11 € - départ 9h00), Course 5 km solo ou Duo (9 € / 11 € - départ 9h15) et Marche 5 km (6 € - départ 9h30). Retrait des dossards dès 7h30, village santé & prévention, et stands de convivialité.",
+    "slug": "les-foulees-douces-montfavet"
   },
   {
     "id": 61,
