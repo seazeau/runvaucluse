@@ -82,6 +82,16 @@
   color: var(--accent-yellow);
 }
 
+.year {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1;
+  margin-top: 3px;
+  letter-spacing: 0.5px;
+}
+
 .typeOverlay {
   position: absolute;
   top: 1rem;

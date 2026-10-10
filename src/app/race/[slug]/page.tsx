@@ -21,17 +21,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     year: 'numeric'
   });
 
+  const raceYear = raceDate.getFullYear();
+
   const seoDescription = race.description || 
-    `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city}. Retrouvez les distances (${race.distances}), les infos d'inscription et le calendrier complet des courses en Vaucluse 2026 sur RunVaucluse.`;
+    `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city}. Retrouvez les distances (${race.distances}), les infos d'inscription et le calendrier complet des courses en Vaucluse sur RunVaucluse.`;
 
   const pageTitle = race.is_cancelled
-    ? `[ANNULÉE] ${race.name} - ${race.city} | RunVaucluse 2026`
-    : `${race.name} - ${race.city} | RunVaucluse 2026`;
+    ? `[ANNULÉE] ${race.name} - ${race.city} | RunVaucluse ${raceYear}`
+    : `${race.name} - ${race.city} | RunVaucluse ${raceYear}`;
 
   return {
     title: pageTitle,
     description: seoDescription,
-    keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses 2026`, `trail vaucluse`, `running paca`],
+    keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses ${raceYear}`, `trail vaucluse`, `running paca`],
     openGraph: {
       title: `${race.name} - ${race.city}`,
       description: seoDescription,

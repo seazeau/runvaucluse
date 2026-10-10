@@ -49,6 +49,7 @@ export default function RaceCard({ race, index }: RaceCardProps) {
         <div className={styles.dateBadge}>
           <span className={styles.day}>{dayNum}</span>
           <span className={styles.month}>{monthStr}</span>
+          <span className={styles.year}>{year}</span>
         </div>
         <div className={styles.typeOverlay}>{race.type}</div>
         {race.is_cancelled && (

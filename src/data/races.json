@@ -15,22 +15,23 @@
   },
   {
     "id": 2,
-    "date": "2026-01-18",
-    "name": "Terra Ventoux Ocres et Limons",
+    "date": "2027-01-17",
+    "name": "Trail Ocres et Limons – Terra Ventoux",
     "city": "Mormoiron",
     "distances": "24 km (900D+), 13 km (400D+)",
-    "type": "Course sur route FFA",
+    "type": "Trail",
     "contact": "Alexandre Salmeron (06 11 73 45 76 / ocresetlimons@gmail.com)",
-    "image_url": "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=800",
+    "image_url": "/images/poster-terra-ventoux-ocres-et-limons-mormoiron.png",
     "link": "https://www.jf-chronotrail.fr/pages/mormoiron_2026.html",
     "facebook": "https://www.facebook.com/ocresetlimons/",
     "instagram": "https://www.instagram.com/ocresetlimons/",
-    "slug": "terra-ventoux-ocres-et-limons-mormoiron"
+    "slug": "terra-ventoux-ocres-et-limons-mormoiron",
+    "description": "17ème édition le dimanche 17 janvier 2027 à Mormoiron. Épreuves trail de 24 km (900m D+) et 13 km (400m D+) entre ocres et limons au pied du Ventoux. Chronométrage JF Chronotrail."
   },
   {
     "id": 3,
-    "date": "2026-01-25",
-    "name": "La Villarsoise 2026",
+    "date": "2027-01-24",
+    "name": "Courses du Pays d'Apt : La Villarsoise",
     "city": "Villars",
     "distances": "28 km (1200D+), 12,5 km (400D+), 7 km (150D+), marche 7 km",
     "type": "Course nature",
@@ -40,11 +41,12 @@
     "link": "https://www.ikinoa.com",
     "facebook": "https://www.facebook.com/lavillarsoise/",
     "instagram": "https://www.instagram.com/la_villarsoise/",
-    "slug": "la-villarsoise-2026-villars"
+    "slug": "la-villarsoise-2026-villars",
+    "description": "Courses du Pays d'Apt à Villars le 24 janvier 2027. Épreuves nature de 28 km (1200m D+), 12,5 km (400m D+), 7 km (150m D+) et marche 7 km."
   },
   {
     "id": 4,
-    "date": "2026-01-31",
+    "date": "2027-01-30",
     "name": "Trail de Fontaine-de-Vaucluse (KV)",
     "city": "Fontaine-de-Vaucluse",
     "distances": "Demi KV (2,2 km / 500D+), Quart KV (1,6 km / 250D+)",
@@ -54,21 +56,25 @@
     "link": "https://luberonterrederaid.webador.fr/trail-de-fontaine-de-vaucluse",
     "facebook": "https://www.facebook.com/luberonterrederaid/",
     "instagram": "https://www.instagram.com/luberonterrederaid/",
-    "slug": "trail-de-fontaine-de-vaucluse-kv-fontaine-de-vaucluse"
+    "slug": "trail-de-fontaine-de-vaucluse-kv-fontaine-de-vaucluse",
+    "website": "https://www.luberonterrederaid.fr",
+    "description": "Samedi 30 janvier 2027 : Quart de KV (1,6 km / 250D+) et Demi KV (2,2 km / 500D+). Week-end Trail de Fontaine-de-Vaucluse."
   },
   {
     "id": 5,
-    "date": "2026-02-01",
+    "date": "2027-01-31",
     "name": "Trail de Fontaine-de-Vaucluse",
     "city": "Fontaine-de-Vaucluse",
-    "distances": "24 km (1300D+), 14 km (780D+), 8 km (350D+), marche 8 km",
+    "distances": "25 km, 14 km, 7 km, 5 km",
     "type": "Trail",
     "contact": "Luuk Chambeyron (06 82 74 79 02 / luuk.chambeyron@outlook.fr)",
     "image_url": "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=800",
     "link": "https://luberonterrederaid.webador.fr/trail-de-fontaine-de-vaucluse",
     "facebook": "https://www.facebook.com/luberonterrederaid/",
     "instagram": "https://www.instagram.com/luberonterrederaid/",
-    "slug": "trail-de-fontaine-de-vaucluse-fontaine-de-vaucluse"
+    "slug": "trail-de-fontaine-de-vaucluse-fontaine-de-vaucluse",
+    "website": "https://www.luberonterrederaid.fr",
+    "description": "Dimanche 31 janvier 2027 : 19ème édition avec trails de 25 km, 14 km, 7 km et 5 km. 1ère manche des KOOKABARRA TRAIL SERIES by LUBERON TERRE DE RAID (infos sur www.luberonterrederaid.fr)."
   },
   {
     "id": 6,
@@ -100,7 +106,7 @@
   },
   {
     "id": 8,
-    "date": "2026-02-15",
+    "date": "2027-02-14",
     "name": "Trail des Fous Romains",
     "city": "Vaison-la-Romaine",
     "distances": "25 km (1100D+), 15 km (550D+)",
@@ -110,7 +116,8 @@
     "link": "https://www.facebook.com/traildesfousromains/",
     "facebook": "https://www.facebook.com/traildesfousromains/",
     "instagram": "https://www.instagram.com/traildesfousromains/",
-    "slug": "trail-des-fous-romains-vaison-la-romaine"
+    "slug": "trail-des-fous-romains-vaison-la-romaine",
+    "description": "6ème Édition pour ce trail organisé par la Foulée Romaine à Vaison-la-Romaine. Parcours de 15 km (550m D+) et 25 km (1100m D+). Attention : pas d'inscription sur place !"
   },
   {
     "id": 9,
@@ -186,14 +193,14 @@
   },
   {
     "id": 14,
-    "date": "2026-03-28",
-    "name": "Trail du Ventoux / Chpt de France",
+    "date": "2027-03-19",
+    "name": "Trail du Ventoux – Au Vieux Campeur",
     "city": "Bedoin",
     "distances": "75 km, 65 km, 50,6 km, 29 km, 28,5 km",
     "type": "Trail",
     "label": "LA",
     "image_url": "https://images.unsplash.com/photo-1530143311094-34d802ca9993?auto=format&fit=crop&q=100&w=2000",
-    "description": "Championnats de France de Trail Court et Long. L'épreuve reine du Vaucluse.",
+    "description": "L'épreuve reine du Vaucluse au départ de Bédoin les 19, 20 et 21 mars 2027, en partenariat avec Au Vieux Campeur.",
     "contact": "Christine Grouiller (07 87 58 19 75 / c.grouiller@orange.fr)",
     "link": "https://www.nikrome.com",
     "registration_platform": "Nikrome",
@@ -331,13 +338,13 @@
   },
   {
     "id": 23,
-    "date": "2026-04-24",
-    "name": "Grand Raid Ventoux by UTMB",
+    "date": "2027-04-23",
+    "name": "Grand Raid Ventoux par UTMB",
     "city": "Malaucène",
     "distances": "123 km, 82 km, 52 km, 25 km",
-    "type": "Course sur route FFA",
+    "type": "Trail",
     "image_url": "/images/grv.png",
-    "description": "L'aventure ultime by UTMB au Mont Ventoux.",
+    "description": "L'aventure ultime au Mont Ventoux du 23 au 25 avril 2027. Épreuve officielle UTMB World Series.",
     "contact": "Laurent Belmont / Pieryves Coudray (teamsports84@gmail.com)",
     "link": "https://ventoux.utmb.world/fr",
     "facebook": "https://www.facebook.com/GrandRaidVentouxbyUTMB/",
@@ -432,19 +439,21 @@
   },
   {
     "id": 29,
-    "date": "2026-05-10",
+    "date": "2027-05-09",
     "name": "Semi-Marathon des Gorges de la Nesque",
     "city": "Villes-sur-Auzon",
-    "distances": "21,2 km (480D+)",
+    "distances": "21 km (Semi-Marathon)",
     "type": "Course sur route FFA",
     "contact": "Florence Bocceda (04 90 61 78 85 / communication@ccvs84.fr)",
-    "image_url": "/images/gorgesdelanesque.jpg",
+    "image_url": "/images/poster-semi-marathon-des-gorges-de-la-nesque.png",
     "link": "https://www.jf-chronotrail.fr/jf_chrono_pages/resultats/semi_nesque/2026/resultats_semi.pdf",
     "facebook": "https://www.facebook.com/semidelanesque/",
     "instagram": "https://www.instagram.com/semidelanesque/",
     "registration_link": "https://www.jf-chronotrail.fr/inscription_nesque_2026/nesque_2026/liste_inscrits.php",
     "registration_platform": "JF Chronotrail",
-    "slug": "semi-marathon-des-gorges-de-la-nesque-villes-sur-auzon"
+    "slug": "semi-marathon-des-gorges-de-la-nesque-villes-sur-auzon",
+    "website": "https://ccventouxsud.wixsite.com/semidelanesque",
+    "description": "Édition 2027 le dimanche 9 mai dans le cadre majestueux des Gorges de la Nesque (21 km). Organisé par la Communauté de Communes Ventoux Sud."
   },
   {
     "id": 30,
@@ -585,7 +594,7 @@
   },
   {
     "id": 38,
-    "date": "2026-06-06",
+    "date": "2027-06-05",
     "name": "Traversée des Dentelles",
     "city": "Gigondas",
     "distances": "42 km, 21 km, 11 km, 5 km, marche 11 km",
@@ -596,7 +605,8 @@
     "link": "https://www.traverseedesdentelles.com",
     "facebook": "https://www.facebook.com/traverseedesdentelles",
     "instagram": "https://www.instagram.com/traverseedesdentelles",
-    "slug": "traversee-des-dentelles-gigondas"
+    "slug": "traversee-des-dentelles-gigondas",
+    "description": "Au cœur du massif des Dentelles de Montmirail à Gigondas. Édition 2027 les 5 et 6 juin 2027."
   },
   {
     "id": 39,
@@ -695,14 +705,14 @@
   },
   {
     "id": 45,
-    "date": "2026-07-05",
+    "date": "2027-07-04",
     "name": "Semi-Marathon du Ventoux Kookabarra",
     "city": "Bedoin",
     "distances": "21,6 km (1610D+)",
     "type": "Course sur route FFA",
     "is_featured": 1,
     "image_url": "/images/semiduventoux.jpg",
-    "description": "L'ascension légendaire par la route.",
+    "description": "L'ascension mythique du sommet du Mont Ventoux par la route (21,6 km / 1610m D+). Édition 2027 le dimanche 4 juillet.",
     "contact": "Bertrand Delhomme (06 29 92 61 96 / contact@semi-montventoux.com)",
     "link": "https://www.finishers.com/course/semi-marathon-du-mont-ventoux",
     "facebook": "https://www.facebook.com/semimarathonventoux",
@@ -1280,5 +1290,33 @@
     "registration_link": "https://www.kms.fr",
     "website": "https://www.csama.fr",
     "slug": "10-km-de-la-durance-montfavet"
+  },
+  {
+    "id": 80,
+    "date": "2026-12-06",
+    "name": "La Nocturne de Saint-Didier",
+    "city": "Saint-Didier",
+    "distances": "8 km (Solo ou Duo), marche 5 km",
+    "type": "Course nature",
+    "contact": "Les Mollets Pétillants (contact@mollets-petillants.fr) / Comité des Fêtes Saint-Didier",
+    "image_url": "/images/poster-la-nocturne-de-saint-didier.jpg",
+    "link": "https://www.jf-chronotrail.fr",
+    "description": "La Nocturne de Saint-Didier le 6 décembre 2026 (départ 18h) : 8 km course nature en solo ou duo, et 5 km marche nature à allure libre. Organisé par Les Mollets Pétillants et le Comité des Fêtes de Saint-Didier.",
+    "slug": "la-nocturne-de-saint-didier-saint-didier"
+  },
+  {
+    "id": 81,
+    "date": "2027-05-16",
+    "name": "La Luberonde",
+    "city": "Oppède",
+    "distances": "25 km (1500D+), 10 km (240D+)",
+    "type": "Trail",
+    "contact": "contact@jf-chronotrail.fr",
+    "image_url": "/images/poster-la-luberonde-oppede.jpg",
+    "link": "https://www.jf-chronotrail.fr",
+    "website": "https://www.jf-chronotrail.fr",
+    "registration_platform": "JF Chronotrail",
+    "description": "Venez défier la nature, vivez La Luberonde à Oppède le 16 mai 2027 ! Deux épreuves de 25 km (1500m D+) et 10 km (240m D+) au cœur du Luberon. Chronométrage et inscriptions sur JF Chronotrail.",
+    "slug": "la-luberonde-oppede"
   }
 ]

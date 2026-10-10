@@ -17,7 +17,7 @@ interface FilterBarProps {
   selectedMonth: string;
   selectedType: string;
   selectedDistance: string;
-  availableMonths?: string[];
+  availableMonths?: FilterOption[] | string[];
 }
 
 const MONTHS: FilterOption[] = [
@@ -135,9 +135,15 @@ export default function FilterBar({
     if (!availableMonths || availableMonths.length === 0) {
       return MONTHS;
     }
+    if (typeof availableMonths[0] === 'object') {
+      return [
+        { value: 'all', label: 'Toutes les dates' },
+        ...(availableMonths as FilterOption[])
+      ];
+    }
     return [
       { value: 'all', label: 'Toutes les dates' },
-      ...MONTHS.filter(m => m.value !== 'all' && availableMonths.includes(m.value))
+      ...MONTHS.filter(m => m.value !== 'all' && (availableMonths as string[]).includes(m.value))
     ];
   }, [availableMonths]);
 

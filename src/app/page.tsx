@@ -18,7 +18,7 @@ export default async function Home() {
       
       {/* Hidden H1 for SEO but present for Google - Essential for 'course vaucluse' ranking */}
       <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}>
-        RunVaucluse | Le Calendrier Officiel des Courses en Vaucluse 2026
+        RunVaucluse | Le Calendrier Officiel des Courses en Vaucluse 2026 - 2027
       </h1>
 
       <EditorialHero />
@@ -29,7 +29,7 @@ export default async function Home() {
           <header className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
               <Calendar size={24} className={styles.headerIcon} />
-              <h2 className={styles.sectionTitle}>CALENDRIER 2026</h2>
+              <h2 className={styles.sectionTitle}>CALENDRIER 2026 - 2027</h2>
             </div>
             <p className={styles.sectionDesc}>
               Toutes les prochaines épreuves officielles en Vaucluse. Consultez les parcours, dates et préparez vos dossards.

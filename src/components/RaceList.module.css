@@ -103,3 +103,98 @@
   font-size: 0.95rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
+
+.yearSwitcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #ffffff;
+  padding: 0.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.yearBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.yearBtn:hover {
+  color: var(--dark-ink);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.yearBtnActive {
+  background: var(--dark-pill) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(17, 20, 23, 0.15);
+}
+
+.yearBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+}
+
+.yearBtnActive .yearBadge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.yearDivider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
+}
+
+.yearDividerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-hairline), transparent);
+}
+
+.yearDividerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.25rem;
+  background: linear-gradient(135deg, #111417, #1f2937);
+  color: #ffffff;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.yearDividerSparkle {
+  color: var(--accent-yellow);
+}

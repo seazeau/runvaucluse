@@ -5,12 +5,12 @@ import Link from 'next/link';
 import { getRacesWithResults, getLatestWinners } from '@/lib/db';
 
 export const metadata = {
-  title: "Résultats & Classements des Courses en Vaucluse 2026 | RunVaucluse",
+  title: "Résultats & Classements des Courses en Vaucluse 2026 - 2027 | RunVaucluse",
   description: "Consultez tous les résultats officiels, chronos et classements des courses sur route et trails en Vaucluse (84) : 10 km, semi, marathon et trails du Ventoux.",
   keywords: [
     "résultats course vaucluse",
     "classement course 84",
-    "résultats trail vaucluse 2026",
+    "résultats trail vaucluse",
     "chronos course à pied vaucluse",
     "classement trail ventoux"
   ],
@@ -18,7 +18,7 @@ export const metadata = {
     canonical: 'https://runvaucluse.fr/resultats/',
   },
   openGraph: {
-    title: "Résultats & Classements des Courses en Vaucluse 2026 | RunVaucluse",
+    title: "Résultats & Classements des Courses en Vaucluse 2026 - 2027 | RunVaucluse",
     description: "Consultez les résultats officiels et classements de toutes les courses à pied du 84.",
     url: 'https://runvaucluse.fr/resultats/',
     type: 'website',

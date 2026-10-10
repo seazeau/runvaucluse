@@ -79,20 +79,20 @@ export const getResultsBySlug = (slug: string): RaceResult[] => {
 
 export const getRacesWithResults = (): (Race & { resultCount: number })[] => {
   return db.prepare(`
-    SELECT r.*, COUNT(res.id) as resultCount
+    SELECT r.*, COALESCE(MAX(res.race_date), r.date) as date, COUNT(res.id) as resultCount
     FROM races r
     INNER JOIN results res ON r.slug = res.race_slug
     GROUP BY r.slug
-    ORDER BY r.date DESC
+    ORDER BY COALESCE(MAX(res.race_date), r.date) DESC
   `).all() as (Race & { resultCount: number })[];
 };
 
 export const getLatestWinners = (limit: number = 3) => {
   const latestRaces = db.prepare(`
-    SELECT DISTINCT r.slug, r.name, r.date, r.city, r.image_url, r.distances, r.type
+    SELECT DISTINCT r.slug, r.name, COALESCE(res.race_date, r.date) as date, r.city, r.image_url, r.distances, r.type
     FROM races r
     INNER JOIN results res ON r.slug = res.race_slug
-    ORDER BY r.date DESC
+    ORDER BY COALESCE(res.race_date, r.date) DESC
     LIMIT ?
   `).all(limit) as { slug: string; name: string; date: string; city: string; image_url?: string; distances?: string; type?: string }[];
 
@@ -125,11 +125,11 @@ export const getRaceBySlug = (slug: string): Race | null => {
 // Runner Profile functions
 export const getRunnerResults = (name: string): RunnerResult[] => {
   return db.prepare(`
-    SELECT res.*, r.name as race_name, r.date as race_date
+    SELECT res.*, r.name as race_name, COALESCE(res.race_date, r.date) as race_date
     FROM results res
     JOIN races r ON res.race_slug = r.slug
     WHERE LOWER(res.name) = LOWER(?)
-    ORDER BY r.date DESC
+    ORDER BY COALESCE(res.race_date, r.date) DESC
   `).all(name) as RunnerResult[];
 };
 

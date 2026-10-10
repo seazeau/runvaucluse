@@ -12,16 +12,16 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "RunVaucluse | Course Vaucluse, Running & Calendrier 2026",
+    default: "RunVaucluse | Course Vaucluse, Running & Calendrier 2026 - 2027",
     template: "%s | RunVaucluse"
   },
-  description: "Le guide ultime de la course à pied en Vaucluse (84). Calendrier complet 2026 des trails, marathons et running. Résultats, clubs et itinéraires en Provence.",
+  description: "Le guide ultime de la course à pied en Vaucluse (84). Calendrier officiel 2026 - 2027 des trails, marathons et running. Résultats, clubs et itinéraires en Provence.",
   keywords: [
     "course vaucluse", 
     "running vaucluse", 
     "course à pied vaucluse", 
-    "trail vaucluse 2026", 
-    "calendrier running 84", 
+    "trail vaucluse", 
+    "calendrier courses 2027", 
     "marathon vaucluse", 
     "trail ventoux", 
     "challenge vauclusien", 
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "RunVaucluse | Courses & Trails en Vaucluse",
-    description: "Le calendrier 2026 des plus belles épreuves de course à pied du Vaucluse.",
+    description: "Le calendrier officiel 2026 - 2027 des plus belles épreuves de course à pied du Vaucluse.",
     images: ['/images/og-image.jpg'],
   },
   robots: {

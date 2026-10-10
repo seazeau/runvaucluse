@@ -11,9 +11,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!race) return { title: 'Résultats non trouvés' };
 
+  const results = getResultsBySlug(slug);
+  const resultDate = (results.length > 0 && (results[0] as any).race_date) 
+    ? (results[0] as any).race_date 
+    : race.date;
+  const year = new Date(resultDate).getFullYear();
+
   return {
-    title: `Résultats : ${race.name} 2026 | RunVaucluse`,
-    description: `Classement complet et temps officiels de la course ${race.name} qui a eu lieu le ${new Date(race.date).toLocaleDateString('fr-FR')}.`,
+    title: `Résultats : ${race.name} ${year} | RunVaucluse`,
+    description: `Classement complet et temps officiels de la course ${race.name} qui a eu lieu le ${new Date(resultDate).toLocaleDateString('fr-FR')}.`,
   };
 }
 
@@ -31,11 +37,15 @@ export default async function RaceResultsPage({ params }: { params: Promise<{ sl
 
   if (!race) return <div className={styles.noResults}>Course non trouvée</div>;
 
+  const resultDate = (results.length > 0 && (results[0] as any).race_date) 
+    ? (results[0] as any).race_date 
+    : race.date;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
     "name": race.name,
-    "startDate": race.date,
+    "startDate": resultDate,
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "Place",
@@ -65,7 +75,7 @@ export default async function RaceResultsPage({ params }: { params: Promise<{ sl
           <div className={styles.header}>
             <h1 className={styles.title}>{race.name}</h1>
             <p className={styles.subtitle}>
-              {new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} — {results.length} Finisseurs
+              {new Date(resultDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} — {results.length} Finisseurs
             </p>
           </div>
 
