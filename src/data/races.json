@@ -31,18 +31,20 @@
   {
     "id": 3,
     "date": "2027-01-24",
-    "name": "Courses du Pays d'Apt : La Villarsoise",
+    "name": "Courses du Pays d'Apt : La Villarsoise et ses Ocres",
     "city": "Villars",
-    "distances": "28 km (1200D+), 12,5 km (400D+), 7 km (150D+), marche 7 km",
+    "distances": "28 km (1050D+), 14 km (310D+), 8 km (150D+), marche 8 km",
     "type": "Course nature",
     "label": "CV",
     "contact": "usalvapt@gmail.com",
-    "image_url": "https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=800",
-    "link": "https://www.ikinoa.com",
+    "image_url": "/images/poster-la-villarsoise-et-ses-ocres-2027.png",
+    "link": "https://www.nikrome.com",
     "facebook": "https://www.facebook.com/lavillarsoise/",
     "instagram": "https://www.instagram.com/la_villarsoise/",
     "slug": "la-villarsoise-2026-villars",
-    "description": "Courses du Pays d'Apt à Villars le 24 janvier 2027. Épreuves nature de 28 km (1200m D+), 12,5 km (400m D+), 7 km (150m D+) et marche 7 km."
+    "description": "Dimanche 24 janvier 2027 : La Villarsoise et ses Ocres à Villars. 4 parcours nature au cœur du Luberon (28 km / 1050m D+, 14 km / 310m D+, 8 km / 150m D+ et marche 8 km) + course enfants gratuite à 11h30. Inscriptions en ligne sur nikrome.com.",
+    "registration_link": "https://www.nikrome.com",
+    "registration_platform": "Nikrome"
   },
   {
     "id": 4,
