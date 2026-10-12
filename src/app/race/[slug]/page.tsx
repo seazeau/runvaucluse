@@ -1,9 +1,10 @@
 import { Race } from '@/lib/types';
 import racesData from '@/data/races.json';
 import styles from './RaceDetail.module.css';
-import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText } from 'lucide-react';
+import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getResultsBySlug } from '@/lib/db';
 import StructuredData from '@/components/StructuredData';
 import CyberCardGenerator from '@/components/CyberCardGenerator';
 import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
@@ -56,6 +57,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
   if (!race) {
     return <div>Course non trouvée</div>;
   }
+
+  const results = getResultsBySlug(slug);
+  const hasResults = results.length > 0;
 
   const raceDate = new Date(race.date);
   const formattedDate = raceDate.toLocaleDateString('fr-FR', {
@@ -203,6 +207,12 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               </div>
 
               <div className={styles.actionRow}>
+                {hasResults && (
+                  <Link href={`/resultats/${slug}`} className={styles.resultsBtn}>
+                    <Trophy size={18} /> VOIR LES RÉSULTATS OFFICIELS
+                  </Link>
+                )}
+
                 {race.is_cancelled ? (
                   <div className={styles.cancelledAlertBox}>
                     <div className={styles.cancelledAlertTitle}>⚠️ ÉPREUVE ANNULÉE EN 2026</div>
@@ -210,17 +220,17 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                       L&apos;édition 2026 de cette course a été officiellement annulée par l&apos;organisation. Les inscriptions ne seront pas ouvertes pour cette année.
                     </p>
                   </div>
-                ) : race.registration_link ? (
+                ) : !hasResults && race.registration_link ? (
                   <a href={race.registration_link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
                     S'INSCRIRE
                   </a>
-                ) : race.link ? (
+                ) : !hasResults && race.link ? (
                   <a href={race.link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
                     S'INSCRIRE
                   </a>
-                ) : (
+                ) : !hasResults ? (
                   <div className={styles.pendingMsg}>Les inscriptions ne sont pas encore ouvertes.</div>
-                )}
+                ) : null}
                 
                 {slug === 'marathon-davignon-avignon' && (
                   <a href="#dossier-marathon" className={styles.dossierScrollBtn}>

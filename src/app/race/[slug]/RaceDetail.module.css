@@ -258,6 +258,30 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
+.resultsBtn {
+  background: #e02424;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 1.15rem 2rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px rgba(224, 36, 36, 0.25);
+}
+
+.resultsBtn:hover {
+  background: #c81e1e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(224, 36, 36, 0.35);
+}
+
 .primaryBtn {
   background: var(--dark-pill);
   color: #ffffff;
