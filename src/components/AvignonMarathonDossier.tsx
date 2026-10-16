@@ -154,24 +154,26 @@ export default function AvignonMarathonDossier() {
         <div className={styles.heroContent}>
           <div className={styles.badgeRow}>
             <span className={styles.badgeBlack}>
-              <Sparkles size={14} /> ÉDITION INAUGURALE 2026
+              <Sparkles size={14} /> 2ÈME ÉDITION • 14 MARS 2027
             </span>
             <span className={styles.badgeGold}>
-              <Award size={14} /> LABEL RÉGIONAL FFA
+              <Award size={14} /> LABELLISÉ FFA SUR LES 2 DISTANCES
             </span>
             <span className={styles.badgeSlate}>
-              <Zap size={14} /> QUALIFICATIF CHAMPIONNATS DE FRANCE
+              <Zap size={14} /> 6 000 DOSSARDS (3 000 SEMI / 3 000 MARATHON)
             </span>
           </div>
 
           <h1 className={styles.heroTitle}>
-            DOSSIER SPÉCIAL : SEMI & MARATHON D&apos;AVIGNON
+            DOSSIER SPÉCIAL : SEMI & MARATHON D&apos;AVIGNON 2027
           </h1>
 
           <p className={styles.heroSubtitle}>
-            Dimanche 27 septembre 2026 : courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse. 
-            Retrouvez l&apos;analyse tactique du coach STAPS, les traces GPX interactives, les repères de ravitaillement 
-            et toutes les informations logistiques officielles extraites du Guide Coureur.
+            Dimanche 14 mars 2027 : 2ème édition du grand Marathon & Semi-Marathon d&apos;Avignon ! 
+            Courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse sur un parcours ultra-plat (+80m D+), 
+            labellisé FFA sur les deux épreuves et qualificatif pour les Championnats de France. 
+            6 000 dossards disponibles (3 000 semi / 3 000 marathon). Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la plateforme unique Finishers. 
+            Partenaires majeurs : NGE et Ville d&apos;Avignon. Retrouvez ici l&apos;analyse tactique du coach STAPS, les traces GPX interactives et le guide coureur officiel.
           </p>
 
           {/* Subtabs for navigation */}
@@ -200,6 +202,55 @@ export default function AvignonMarathonDossier() {
             >
               <ShoppingBag size={16} /> Chaussures & Matériel
             </button>
+          </div>
+
+          {/* 2027 Official Announcement Banner */}
+          <div style={{
+            marginTop: '1.75rem',
+            padding: '1.25rem 1.5rem',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(249, 115, 22, 0.08) 100%)',
+            border: '1.5px solid rgba(236, 72, 153, 0.35)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '0.95rem', color: '#DB2777', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <Sparkles size={16} /> 2ème Édition • Dimanche 14 Mars 2027
+              </div>
+              <div style={{ marginTop: '0.35rem', fontSize: '0.9rem', color: 'var(--dark-ink, #111417)', lineHeight: 1.5 }}>
+                <strong>6 000 dossards au total</strong> (3 000 marathon / 3 000 semi-marathon) • <strong>Parcours labellisés FFA sur les 2 distances</strong> • Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la <strong>plateforme unique Finishers</strong>.
+              </div>
+              <div style={{ marginTop: '0.4rem', fontSize: '0.82rem', color: '#5E6973', fontWeight: 600 }}>
+                Partenaires majeurs : <strong style={{ color: '#111417' }}>NGE</strong> & <strong style={{ color: '#111417' }}>Ville d&apos;Avignon</strong>
+              </div>
+            </div>
+            <a
+              href="https://www.finishers.com/course/marathon-d-avignon"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: '#E11D48',
+                color: '#ffffff',
+                padding: '0.75rem 1.25rem',
+                borderRadius: '999px',
+                fontWeight: 800,
+                fontSize: '0.85rem',
+                textDecoration: 'none',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                boxShadow: '0 4px 14px rgba(225, 29, 72, 0.3)',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              S&apos;INSCRIRE SUR FINISHERS <ExternalLink size={14} />
+            </a>
           </div>
         </div>
       </section>
@@ -599,7 +650,7 @@ export default function AvignonMarathonDossier() {
 
             <p className={styles.coachBio}>
               Spécialiste de la préparation athlétique et du demi-fond/fond, Vincent accompagne plus de 100 athlètes 
-              (sur route et en trail). Pour cette première édition du Marathon et Semi-Marathon d&apos;Avignon, 
+              (sur route et en trail). Pour cette 2ème édition du Marathon et Semi-Marathon d&apos;Avignon, 
               voici l&apos;analyse scientifique des leviers de performance sur ce parcours d&apos;une planéité remarquable.
             </p>
 
@@ -798,16 +849,16 @@ export default function AvignonMarathonDossier() {
                 </p>
                 <ul className={styles.logisticsList}>
                   <li>
-                    <Calendar size={14} color="#D97706" /> <strong>Vendredi 25 septembre :</strong> 16h00 à 20h00
+                    <Calendar size={14} color="#D97706" /> <strong>Vendredi 12 mars 2027 :</strong> 16h00 à 20h00
                   </li>
                   <li>
-                    <Calendar size={14} color="#D97706" /> <strong>Samedi 26 septembre :</strong> 10h00 à 20h00
+                    <Calendar size={14} color="#D97706" /> <strong>Samedi 13 mars 2027 :</strong> 10h00 à 20h00
                   </li>
                   <li>
                     <CheckCircle2 size={14} color="#D97706" /> <strong>Pièces requises :</strong> QR Code de retrait + pièce d&apos;identité (dossier validé sur Finishers avec PPS ou licence FFA).
                   </li>
                   <li>
-                    <ShoppingBag size={14} color="#D97706" /> <strong>T-shirt manche longue offert :</strong> à retirer en boutique chez <strong>STATION STORE</strong> dans Avignon.
+                    <ShoppingBag size={14} color="#D97706" /> <strong>T-shirt manche longue offert :</strong> à retirer en boutique partenaire dans Avignon.
                   </li>
                 </ul>
                 <div className={styles.logisticsAlert}>
@@ -822,7 +873,7 @@ export default function AvignonMarathonDossier() {
                 <div className={`${styles.logisticsIcon} ${styles.logisticsIconCyan}`}>
                   <Clock size={20} />
                 </div>
-                <h3 className={styles.logisticsTitle}>Programme du Dimanche 27 Septembre</h3>
+                <h3 className={styles.logisticsTitle}>Programme du Dimanche 14 Mars 2027 (Horaires indicatifs)</h3>
               </div>
               <div className={styles.logisticsContent}>
                 <ul className={styles.logisticsList}>
@@ -935,7 +986,7 @@ export default function AvignonMarathonDossier() {
           <div className={styles.parkingGuide}>
             <div className={styles.sectionHeader}>
               <Car size={24} color="#111417" />
-              <h3 className={styles.sectionTitle}>GUIDE DU STATIONNEMENT LE DIMANCHE 27 SEPTEMBRE</h3>
+              <h3 className={styles.sectionTitle}>GUIDE DU STATIONNEMENT LE DIMANCHE 14 MARS 2027</h3>
             </div>
             <p style={{ color: '#5E6973', fontSize: '0.9rem', marginBottom: '1rem' }}>
               Plusieurs ponts et axes routiers seront fermés dès 7h15 pour la sécurité des coureurs. Anticipez votre arrivée !
@@ -1095,17 +1146,17 @@ export default function AvignonMarathonDossier() {
       <section className={styles.finalCta}>
         <h3 className={styles.finalCtaTitle}>PRÊT À MARQUER L&apos;HISTOIRE EN VAUCLUSE ?</h3>
         <p className={styles.finalCtaDesc}>
-          Rejoignez des milliers de coureurs pour la première édition du Marathon et Semi-Marathon d&apos;Avignon 
-          le dimanche 27 septembre 2026. Les inscriptions sont ouvertes sur le site officiel !
+          Rejoignez 6 000 coureurs pour la 2ème édition du Marathon et Semi-Marathon d&apos;Avignon 
+          le dimanche 14 mars 2027. Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la plateforme unique Finishers !
         </p>
         <div className={styles.finalCtaButtons}>
           <a
-            href="https://www.avignon-marathon.com/"
+            href="https://www.finishers.com/course/marathon-d-avignon"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.btnPrimary}
           >
-            S&apos;INSCRIRE SUR LE SITE OFFICIEL <ExternalLink size={16} />
+            S&apos;INSCRIRE SUR FINISHERS <ExternalLink size={16} />
           </a>
           <Link href="/#calendrier" className={styles.btnSecondary}>
             VOIR TOUT LE CALENDRIER VAUCLUSE

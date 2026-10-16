@@ -4,11 +4,12 @@ import { ArrowLeft } from 'lucide-react';
 import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
 
 export const metadata: Metadata = {
-  title: "Marathon & Semi-Marathon d'Avignon 2026 - Présentation & Analyse Complète | RunVaucluse",
-  description: "Dossier officiel et analyse tactique complète du Marathon et Semi-Marathon d'Avignon (27 Septembre 2026) : tracés GPX téléchargeables, profils altimétriques, conseils de coach STAPS, tableau des allures et guide logistique du coureur.",
+  title: "Marathon & Semi-Marathon d'Avignon 2027 - Présentation & Analyse Complète | RunVaucluse",
+  description: "Dossier officiel et analyse tactique complète de la 2ème édition du Marathon et Semi-Marathon d'Avignon (Dimanche 14 Mars 2027) : 6 000 dossards, labellisé FFA sur les 2 distances, inscriptions Finishers, tracés GPX téléchargeables, profils altimétriques et conseils coach STAPS.",
   keywords: [
-    "marathon avignon 2026",
-    "semi-marathon avignon",
+    "marathon avignon 2027",
+    "semi-marathon avignon 2027",
+    "finishers marathon avignon",
     "gpx marathon avignon",
     "parcours marathon avignon",
     "guide coureur marathon avignon",
@@ -18,9 +19,9 @@ export const metadata: Metadata = {
     "vincent buisson coach"
   ],
   openGraph: {
-    title: "Marathon & Semi-Marathon d'Avignon 2026 - Analyse & Guide Officiel | RunVaucluse",
-    description: "Tracés GPX officiels, dénivelé, conseils coach STAPS, grille des meneurs d'allure et infos dossards pour le Marathon d'Avignon.",
-    images: ['/images/marathonavignon.jpg'],
+    title: "Marathon & Semi-Marathon d'Avignon 2027 - Analyse & Guide Officiel | RunVaucluse",
+    description: "2ème édition le 14 mars 2027 : 6 000 dossards, label FFA, inscriptions Finishers, tracés GPX officiels, dénivelé et conseils coach STAPS.",
+    images: ['/images/poster-marathon-davignon-2027.png'],
     type: 'article',
   }
 };

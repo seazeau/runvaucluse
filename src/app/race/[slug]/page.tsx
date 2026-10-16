@@ -1,7 +1,7 @@
 import { Race } from '@/lib/types';
 import racesData from '@/data/races.json';
 import styles from './RaceDetail.module.css';
-import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy } from 'lucide-react';
+import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getResultsBySlug } from '@/lib/db';
@@ -60,6 +60,10 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
 
   const results = getResultsBySlug(slug);
   const hasResults = results.length > 0;
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const isUpcoming = race.date >= todayStr;
 
   const raceDate = new Date(race.date);
   const formattedDate = raceDate.toLocaleDateString('fr-FR', {
@@ -182,10 +186,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 <h3>À PROPOS DE L&apos;ÉVÈNEMENT</h3>
                 {slug === 'marathon-davignon-avignon' ? (
                   <p>
-                    <strong>Dimanche 27 septembre 2026 :</strong> courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse ! 
-                    Parcours ultra-plat (+80m D+), labellisé régional FFA et qualificatif pour les Championnats de France. 
+                    <strong>Dimanche 14 mars 2027 :</strong> 2ème édition du grand Marathon & Semi-Marathon d&apos;Avignon ! 
+                    Courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse sur un parcours ultra-plat (+80m D+), 
+                    <strong>labellisé FFA sur les 2 distances</strong> et qualificatif pour les Championnats de France. 
+                    <strong>6 000 dossards au total</strong> (3 000 sur le semi / 3 000 sur le marathon). 
+                    Ouverture des inscriptions <strong>avant la fin du mois d&apos;octobre</strong> sur la plateforme unique <strong>Finishers</strong>. 
+                    Partenaires majeurs : <strong>NGE</strong> et <strong>Ville d&apos;Avignon</strong>. 
                     Retrouvez ci-dessous le dossier officiel complet : <strong>tracés GPX téléchargeables</strong>, profil altimétrique interactif, 
-                    <strong>découpage km par km</strong>, allures cibles des meneurs d&apos;allure, ravitaillements et <strong>conseils tactiques de Vincent Buisson (Diplômé STAPS)</strong>.
+                    <strong>découpage km par km</strong>, ravitaillements et <strong>conseils tactiques de Vincent Buisson (Diplômé STAPS)</strong>.
                   </p>
                 ) : race.description ? (
                   <p>{race.description}</p>
@@ -207,29 +215,44 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               </div>
 
               <div className={styles.actionRow}>
+                {slug === 'marathon-davignon-avignon' && (
+                  <div className={styles.announcementBox}>
+                    <div className={styles.announcementTitle}>
+                      <Sparkles size={16} /> 2ÈME ÉDITION • 14 MARS 2027 • 6 000 DOSSARDS
+                    </div>
+                    <p className={styles.announcementText}>
+                      Ouverture des inscriptions <strong>avant fin octobre</strong> sur la plateforme unique <strong>Finishers</strong> (3 000 marathon / 3 000 semi-marathon). Parcours labellisés FFA sur les 2 distances. Partenaires majeurs : <strong>NGE</strong> & <strong>Ville d&apos;Avignon</strong>.
+                    </p>
+                  </div>
+                )}
+
                 {hasResults && (
                   <Link href={`/resultats/${slug}`} className={styles.resultsBtn}>
-                    <Trophy size={18} /> VOIR LES RÉSULTATS OFFICIELS
+                    <Trophy size={18} /> {isUpcoming ? 'VOIR LES RÉSULTATS (ÉDITION PRÉCÉDENTE)' : 'VOIR LES RÉSULTATS OFFICIELS'}
                   </Link>
                 )}
 
                 {race.is_cancelled ? (
                   <div className={styles.cancelledAlertBox}>
-                    <div className={styles.cancelledAlertTitle}>⚠️ ÉPREUVE ANNULÉE EN 2026</div>
+                    <div className={styles.cancelledAlertTitle}>⚠️ ÉPREUVE ANNULÉE EN {raceDate.getFullYear()}</div>
                     <p className={styles.cancelledAlertText}>
-                      L&apos;édition 2026 de cette course a été officiellement annulée par l&apos;organisation. Les inscriptions ne seront pas ouvertes pour cette année.
+                      L&apos;édition {raceDate.getFullYear()} de cette course a été officiellement annulée par l&apos;organisation. Les inscriptions ne seront pas ouvertes pour cette année.
                     </p>
                   </div>
-                ) : !hasResults && race.registration_link ? (
-                  <a href={race.registration_link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
-                    S'INSCRIRE
-                  </a>
-                ) : !hasResults && race.link ? (
-                  <a href={race.link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
-                    S'INSCRIRE
-                  </a>
+                ) : isUpcoming ? (
+                  race.registration_link ? (
+                    <a href={race.registration_link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
+                      {race.registration_platform ? `S'INSCRIRE SUR ${race.registration_platform.toUpperCase()}` : "S'INSCRIRE"}
+                    </a>
+                  ) : race.link ? (
+                    <a href={race.link} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
+                      S'INSCRIRE
+                    </a>
+                  ) : (
+                    <div className={styles.pendingMsg}>Les inscriptions ne sont pas encore ouvertes.</div>
+                  )
                 ) : !hasResults ? (
-                  <div className={styles.pendingMsg}>Les inscriptions ne sont pas encore ouvertes.</div>
+                  <div className={styles.pendingMsg}>Épreuve terminée.</div>
                 ) : null}
                 
                 {slug === 'marathon-davignon-avignon' && (

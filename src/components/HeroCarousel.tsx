@@ -24,12 +24,12 @@ const CAROUSEL_RACES = [
     image: "/images/10kmalthen.jpg",
   },
   {
-    id: 53,
+    id: 55,
     slug: "marathon-davignon-avignon",
     name: "MARATHON D'AVIGNON",
     city: "Avignon",
-    description: "Un tracé somptueux et plat le long du Rhône, des remparts historiques et du Palais des Papes.",
-    image: "/images/marathonavignon.jpg",
+    description: "2ème édition le 14 mars 2027 ! 6 000 dossards (semi & marathon), parcours ultra-plat labellisé FFA. Inscriptions bientôt sur Finishers.",
+    image: "/images/poster-marathon-davignon-2027.png",
   },
   {
     id: 56,

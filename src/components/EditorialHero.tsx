@@ -25,13 +25,13 @@ const ALL_FEATURED_RACES = [
     image: '/images/pernesenrose.png'
   },
   {
-    date: '2026-09-27',
+    date: '2027-03-14',
     slug: 'marathon-davignon-avignon',
     name: "MARATHON D'AVIGNON",
-    badge: '27 SEPTEMBRE • AVIGNON',
-    distBadge: '42,2 KM & 21,1 KM',
-    meta: 'Le long du Rhône et du Palais des Papes. Le grand marathon historique de Provence.',
-    image: '/images/marathonavignon.jpg'
+    badge: '14 MARS 2027 • AVIGNON',
+    distBadge: '42,2 KM & 21,1 KM • FFA',
+    meta: '2ème édition : 6 000 dossards (semi & marathon). Tracé ultra-plat au cœur de la Cité des Papes, label FFA.',
+    image: '/images/poster-marathon-davignon-2027.png'
   },
   {
     date: '2026-10-04',
