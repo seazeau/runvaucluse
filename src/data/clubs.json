@@ -18,7 +18,23 @@
   { "name": "Orange Sports Athlé Nature (SAN)", "image_url": "/images/liste_clubs_et_sites.pdf-image-015.jpg", "website": "https://www.facebook.com/p/Orange-Sports-Athl%C3%A9-Nature-100063538720612/" },
   { "name": "Entente Sportive Nord Vaucluse (ESNV)", "image_url": "/images/liste_clubs_et_sites.pdf-image-016.jpg", "website": "https://www.osan.fr/page/1773125-entente-sportive-nord-vaucluse" },
   { "name": "La Loriolade", "image_url": "/images/liste_clubs_et_sites.pdf-image-017.jpg", "website": "https://www.facebook.com/p/Loriolade-LA-100010717621149/" },
-  { "name": "Ménerbes Running", "image_url": "/images/liste_clubs_et_sites.pdf-image-019.jpg", "website": "https://www.menerbesrunning.fr/" },
+  {
+    "name": "Ménerbes Running",
+    "city": "Ménerbes",
+    "image_url": "/images/menerbe.png",
+    "website": "https://www.menerbesrunning.fr/",
+    "facebook": "https://www.facebook.com/MenerbesRunning/",
+    "instagram": "https://www.instagram.com/menerbesrunning/",
+    "disciplines": ["Route", "Trail", "Section Marche", "Affilié FFA", "Loisir & Performance"],
+    "description": "Créé en 2016 et affilié à la Fédération Française d'Athlétisme (FFA) depuis 2021, le club propose des entraînements route et trail ainsi qu'une section marche.\n\nDans une ambiance conviviale, le club réunit tous les passionnés de course à pied et de marche, que ce soit pour le loisir ou la recherche de performance.",
+    "schedule": [
+      { "title": "Lundi soir", "days": "Renforcement musculaire à la salle polyvalente de Ménerbes" },
+      { "title": "Mercredi soir", "days": "Entraînement course & marche (lieux de RDV tournants)" },
+      { "title": "Samedi matin", "days": "Sortie nature course & marche (lieux de RDV tournants)" }
+    ],
+    "coach": "Séances variées de renforcement musculaire et sorties encadrées par les animateurs du club.",
+    "notes": "Affilié FFA depuis 2021. Les points de rendez-vous changent pour varier les terrains et découvrir les sentiers du Luberon. Retrouvez toutes les infos sur menerbesrunning.fr."
+  },
   { "name": "Running Orange Club 84 (ROC)", "image_url": "/images/liste_clubs_et_sites.pdf-image-018.jpg", "website": "https://www.facebook.com/p/ROC-84-Running-Orange-Club-100083187227961/?locale=fr_FR" },
   { "name": "Athlé Vaison Ventoux", "image_url": "/images/liste_clubs_et_sites.pdf-image-020.jpg" },
   { "name": "Ventoux Organisation", "image_url": "/images/liste_clubs_et_sites.pdf-image-021.png" },
