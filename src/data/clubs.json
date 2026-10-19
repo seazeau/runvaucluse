@@ -67,5 +67,22 @@
     "disciplines": ["Trail", "Compétition", "Affilié FFA"],
     "description": "Nouveau club basé sur Entraigues-sur-la-Sorgue et affilié à la Fédération Française d'Athlétisme (FFA).\n\nPetit club dynamique à vocation trail et compétition, axé sur le partage, le dépassement de soi et les épreuves de pleine nature (trail, course sur route et ultra-distance).",
     "notes": "Club officiel affilié FFA. Retrouvez les actualités, récits de courses, traces GPX et informations sur leur site officiel ovtln.com et sur Instagram @teamovtln."
+  },
+  {
+    "name": "La Foulée Montilienne",
+    "city": "Monteux",
+    "image_url": "/images/fouleemontilienne.png",
+    "email": "lafouleemontilienne@gmail.com",
+    "website": "https://www.facebook.com/lafouleemontilienne/",
+    "facebook": "https://www.facebook.com/lafouleemontilienne/",
+    "instagram": "https://www.instagram.com/lafouleemontilienne_monteux/",
+    "disciplines": ["Trail", "Course sur route", "Renfo & VMA", "Tous niveaux"],
+    "description": "Association de trail et course à pied située à Monteux, accessible à tous les niveaux.\n\nObjectifs : Se faire plaisir, progresser et convivialité. Chez nous, c'est surtout chacun son rythme et ses objectifs !\n\nSéances variées sur piste, au lac de Monteux, en ville ou en sorties délocalisées en pleine nature selon les inspirations des coachs.",
+    "schedule": [
+      { "title": "Mardi (18h15 Renfo & 18h45 VMA)", "days": "Piste du Vieux Moulin à Monteux" },
+      { "title": "Jeudi (18h30)", "days": "Sur piste, au Lac, dans Monteux ou en délocalisé" }
+    ],
+    "coach": "Séances de renforcement musculaire, travail de VMA et sorties encadrées par les coachs du club.",
+    "notes": "Accessible à tous les niveaux. Contactez le club directement par email (lafouleemontilienne@gmail.com) ou sur leurs réseaux sociaux."
   }
 ]

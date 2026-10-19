@@ -13,7 +13,8 @@ import {
   Mountain,
   Compass,
   CheckCircle2,
-  Phone
+  Phone,
+  Mail
 } from 'lucide-react';
 import { Club } from '@/lib/types';
 import styles from './ClubModal.module.css';
@@ -203,6 +204,16 @@ export default function ClubModal({ club, isOpen, onClose }: ClubModalProps) {
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                   </svg>
                   <span>Instagram</span>
+                </a>
+              )}
+              {club.email && (
+                <a 
+                  href={`mailto:${club.email}`}
+                  className={styles.emailBtn}
+                  aria-label="Envoyer un email au club"
+                >
+                  <Mail size={15} />
+                  <span>Email</span>
                 </a>
               )}
               <button className={styles.closeModalBtn} onClick={onClose}>

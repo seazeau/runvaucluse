@@ -50,6 +50,7 @@ export interface Club {
   website?: string;
   instagram?: string;
   facebook?: string;
+  email?: string;
   contact?: string;
   city?: string;
   disciplines?: string[];

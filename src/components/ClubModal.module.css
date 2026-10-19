@@ -341,6 +341,31 @@
   box-shadow: 0 8px 18px rgba(24, 119, 242, 0.3);
 }
 
+.emailBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: var(--bg-slate);
+  color: var(--dark-ink);
+  border: 1px solid var(--border-hairline);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.emailBtn:hover {
+  background: var(--dark-ink);
+  color: #ffffff;
+  border-color: var(--dark-ink);
+  transform: translateY(-2px);
+}
+
 .closeModalBtn {
   background: #ffffff;
   border: 1px solid var(--border-hairline);
