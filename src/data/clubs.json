@@ -1,5 +1,33 @@
 [
-  { "name": "ACEP Valréas", "image_url": "/images/liste_clubs_et_sites.pdf-image-000.jpg", "website": "https://www.facebook.com/AthletismeValreas/" },
+  {
+    "name": "ACEP Valréas",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-000.jpg",
+    "website": "https://www.facebook.com/AthletismeValreas/",
+    "city": "Valréas (Enclave des Papes)",
+    "facebook": "https://www.facebook.com/AthletismeValreas/",
+    "instagram": "https://www.instagram.com/acep_valreas84/",
+    "email": "contactacep@gmail.com",
+    "contact": "06 34 54 47 75",
+    "disciplines": [
+      "Course sur route",
+      "Trail",
+      "Cross-country",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Club historique de l'Enclave des Papes à Valréas, l'ACEP réunit passionnés de course à pied, coureurs sur route, trailers et jeunes athlètes.\n\nLe club propose un esprit d'équipe chaleureux et convivial, tout en encourageant la progression et le plaisir de courir ensemble dans les magnifiques paysages de l'Enclave et de la Drôme provençale.",
+    "schedule": [
+      {
+        "title": "Adultes (Route, Trail & Cross)",
+        "days": "Séances collectives en semaine et sorties nature le week-end"
+      },
+      {
+        "title": "École d'Athlétisme & Jeunes",
+        "days": "Mercredi après-midi & Samedi matin"
+      }
+    ],
+    "notes": "Séances d'essai gratuites en début de saison. Rendez-vous au complexe sportif de Valréas."
+  },
   {
     "name": "CS Avignon Montfavet Athlétisme (CS AMA)",
     "city": "Avignon & Montfavet",
@@ -9,36 +37,598 @@
     "instagram": "https://www.instagram.com/csama_athletisme/",
     "email": "csamathletisme@gmail.com",
     "contact": "07 81 40 71 87 / 07 62 96 51 37",
-    "disciplines": ["Athlétisme", "Piste & Sauts & Lancers", "Demi-Fond & Cross", "Hors Stade & Running", "Loisir", "École d'Athlé", "Affilié FFA"],
+    "disciplines": [
+      "Athlétisme",
+      "Piste & Sauts & Lancers",
+      "Demi-Fond & Cross",
+      "Hors Stade & Running",
+      "Loisir",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
     "description": "Fondé en 1978, le Club Sportif Avignon-Montfavet Athlétisme (CSAMA) réunit près de 100 passionnés autour des valeurs du sport, du dépassement de soi et de la convivialité.\n\nAffilié à la Fédération Française d'Athlétisme (FFA), le club propose un encadrement complet de l'école d'athlétisme (dès 3 ans) jusqu'aux catégories Masters : piste, sauts, lancers, demi-fond, cross-country, running hors-stade (10 km, semi, marathon) et section loisirs running.\n\nLe CSAMA est également l'organisateur des 10 km de la Durance, course sur route officielle à label qualificatif à Montfavet.",
     "schedule": [
-      { "title": "Loisir & Running (Adultes)", "days": "Mardi 18h30 - 20h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)" },
-      { "title": "Demi-Fond, Cross & Hors Stade", "days": "Du Lundi au Vendredi 18h30 - 20h30 & Samedi matin (Stade Gillardeaux)" },
-      { "title": "Piste, Sauts & Lancers (Cadets à Masters)", "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)" },
-      { "title": "École d'Athlétisme (Éveil & Poussins)", "days": "Mercredi 14h30 - 16h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)" },
-      { "title": "Baby Athlé (3 à 5 ans)", "days": "Samedi 10h30 - 12h00 (Stade de la Martelle)" },
-      { "title": "Benjamins & Minimes", "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)" }
+      {
+        "title": "Loisir & Running (Adultes)",
+        "days": "Mardi 18h30 - 20h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)"
+      },
+      {
+        "title": "Demi-Fond, Cross & Hors Stade",
+        "days": "Du Lundi au Vendredi 18h30 - 20h30 & Samedi matin (Stade Gillardeaux)"
+      },
+      {
+        "title": "Piste, Sauts & Lancers (Cadets à Masters)",
+        "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)"
+      },
+      {
+        "title": "École d'Athlétisme (Éveil & Poussins)",
+        "days": "Mercredi 14h30 - 16h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)"
+      },
+      {
+        "title": "Baby Athlé (3 à 5 ans)",
+        "days": "Samedi 10h30 - 12h00 (Stade de la Martelle)"
+      },
+      {
+        "title": "Benjamins & Minimes",
+        "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)"
+      }
     ],
     "coach": "Moussa (responsable piste & section loisir running), Fadil Saber (responsable demi-fond & cross) et Julien Dupont (Président du club).",
     "notes": "Lieux d'entraînements : Complexe Sportif de la Martelle à Montfavet (à côté de la piscine Jean Clément) et Stade Gillardeaux à Avignon. Inscriptions en ligne ouvertes sur Sports'N Connect. Organisation annuelle des 10 km de la Durance."
   },
-  { "name": "BC Isle sur la Sorgue", "image_url": "/images/liste_clubs_et_sites.pdf-image-002.png", "website": "https://athletisme-isle-sur-la-sorgue.fr/" },
-  { "name": "AS Cavaillon Athletic", "image_url": "/images/liste_clubs_et_sites.pdf-image-003.jpg", "website": "https://ascavaillon.com/" },
-  { "name": "CAS Avignon (CASA / Avignonnais)", "image_url": "/images/liste_clubs_et_sites.pdf-image-004.jpg", "website": "http://www.casavignon.net/" },
-  { "name": "Bollène Athlétique Club (BAC)", "image_url": "/images/liste_clubs_et_sites.pdf-image-005.jpg", "website": "https://uahvbollene.athle.fr/" },
-  { "name": "US Le Pontet (USPA)", "image_url": "/images/liste_clubs_et_sites.pdf-image-006.jpg", "website": "https://www.uslepontetathletisme.com/" },
-  { "name": "UA Carpentras (U.A.C)", "image_url": "/images/liste_clubs_et_sites.pdf-image-010.png", "website": "https://www.ua-carpentras.fr/" },
-  { "name": "CAP Bollène", "image_url": "/images/liste_clubs_et_sites.pdf-image-007.png", "website": "https://www.facebook.com/p/Cap-Boll%C3%A8ne-100069136507115/?locale=fr_FR" },
-  { "name": "Sorgues Athlé 84", "image_url": "/images/liste_clubs_et_sites.pdf-image-008.jpg", "website": "https://www.facebook.com/sorguesathle84/mentions/?_rdr" },
-  { "name": "Grand Avignon Mistral Athlé (GAMA)", "image_url": "/images/liste_clubs_et_sites.pdf-image-009.jpg", "website": "https://www.instagram.com/gamathle/" },
-  { "name": "Union Sport Apt (USPORTAT)", "image_url": "/images/liste_clubs_et_sites.pdf-image-011.jpg" },
-  { "name": "UA Orange Haut Vaucluse (UAOHV)", "image_url": "/images/liste_clubs_et_sites.pdf-image-012.jpg", "website": "https://athletisme-orange-haut-vaucluse.athle.fr/accueil.aspx" },
-  { "name": "Terra Sport Ventoux (Dinguo-Beur)", "image_url": "/images/liste_clubs_et_sites.pdf-image-013.jpg", "website": "https://www.dinguedeboue.com/" },
-  { "name": "U Sault Apt Luberon Ventoux", "image_url": "/images/liste_clubs_et_sites.pdf-image-014.jpg", "website": "https://www.facebook.com/p/Apt-Athl%C3%A9tisme-100057520544731/?locale=fr_FR" },
-  { "name": "ASVA Villeneuve les Avignon", "image_url": "/images/liste_clubs_et_sites.pdf-image-014.jpg", "website": "https://asvathletisme.athle.fr/" },
-  { "name": "Orange Sports Athlé Nature (SAN)", "image_url": "/images/liste_clubs_et_sites.pdf-image-015.jpg", "website": "https://www.facebook.com/p/Orange-Sports-Athl%C3%A9-Nature-100063538720612/" },
-  { "name": "Entente Sportive Nord Vaucluse (ESNV)", "image_url": "/images/liste_clubs_et_sites.pdf-image-016.jpg", "website": "https://www.osan.fr/page/1773125-entente-sportive-nord-vaucluse" },
-  { "name": "La Loriolade", "image_url": "/images/liste_clubs_et_sites.pdf-image-017.jpg", "website": "https://www.facebook.com/p/Loriolade-LA-100010717621149/" },
+  {
+    "name": "BC Isle sur la Sorgue (BCI Athlétisme)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-002.png",
+    "website": "https://athletisme-isle-sur-la-sorgue.fr/",
+    "city": "L'Isle-sur-la-Sorgue",
+    "facebook": "https://www.facebook.com/p/BCI-Athlétisme-100057424160416/",
+    "instagram": "https://www.instagram.com/bci_athletisme/",
+    "email": "bci@athletisme-isle-sur-la-sorgue.fr",
+    "contact": "07 55 64 06 98 / 04 90 38 62 50",
+    "disciplines": [
+      "Trail",
+      "Course sur route",
+      "Piste",
+      "Demi-fond",
+      "Marche Nordique",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Le Boxeland Club Islois (BCI Athlétisme) est le club de référence de L'Isle-sur-la-Sorgue et des Monts de Vaucluse.\n\nAffilié à la FFA, le club accueille tous les profils dès le plus jeune âge jusqu'aux masters, avec un groupe trail et course hors-stade particulièrement actif.\n\nLe BCI est également l'organisateur du réputé Trail des Monts de Vaucluse (TMV).",
+    "schedule": [
+      {
+        "title": "Minimes à Masters & Demi-Fond / Trail",
+        "days": "Lundi, Mercredi et Vendredi 18h00 - 20h00"
+      },
+      {
+        "title": "Poussins (U12)",
+        "days": "Samedi 9h30 - 11h30"
+      },
+      {
+        "title": "Benjamins (U14)",
+        "days": "Samedi 10h30 - 12h30"
+      },
+      {
+        "title": "Éveils Athlétiques (U10)",
+        "days": "Mercredi 14h00 - 15h00"
+      }
+    ],
+    "coach": "Entraîneurs diplômés FFA pour les jeunes, la piste, le demi-fond et les groupes hors-stade / trail.",
+    "notes": "Lieu : Stade d'Athlétisme Roger Boudin (Avenue Jean Bouin, L'Isle-sur-la-Sorgue). Organisation annuelle du Trail des Monts de Vaucluse (TMV)."
+  },
+  {
+    "name": "AS Cavaillon Athletic (ASC)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-003.jpg",
+    "website": "https://ascavaillon.com/",
+    "city": "Cavaillon",
+    "email": "pascal.teranne@gmail.com",
+    "contact": "Pascal Teranne (Président) : 06 20 14 97 34",
+    "disciplines": [
+      "Piste & Concours",
+      "Demi-fond",
+      "Running",
+      "Trail",
+      "Marche Nordique",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Fondé au cœur du Luberon, l'Athlétic Sport Cavaillonnais (ASC) offre une formation complète à toutes les disciplines de l'athlétisme moderne.\n\nDu Baby Athlé aux Masters, le club concilie la recherche de performance en compétition avec une pratique loisir et santé conviviale (running, trail, cross, marche nordique et PPG).",
+    "schedule": [
+      {
+        "title": "Demi-Fond, Hors-Stade & Running",
+        "days": "Mardi & Vendredi 18h00 - 20h00 (Stade Pagnetti)"
+      },
+      {
+        "title": "Piste / Cadets à Masters",
+        "days": "Mercredi & Vendredi 18h00 - 20h00 (Stade Pagnetti / Lycée Dauphin)"
+      },
+      {
+        "title": "École d'Athlé (Éveil, Poussins, Benjamins)",
+        "days": "Mercredi 14h00 - 16h00 (Stade Pagnetti)"
+      },
+      {
+        "title": "Baby Athlé (3-5 ans)",
+        "days": "Mercredi 14h30 - 16h00 (Lycée Ismaël Dauphin)"
+      },
+      {
+        "title": "Renforcement Musculaire (PPG)",
+        "days": "Lundi 18h00 - 20h00 (Gymnase Saint-Charles)"
+      }
+    ],
+    "coach": "Équipe d'entraîneurs qualifiés sous la présidence de Pascal Teranne.",
+    "notes": "Infrastructures principales : Stade Pagnetti (Complexe sportif du Grenouillet, 58 av. Villevieille, Cavaillon)."
+  },
+  {
+    "name": "CAS Avignon (CASA / Avignonnais)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-004.jpg",
+    "website": "http://www.casavignon.net/",
+    "city": "Avignon",
+    "email": "casavignon@outlook.fr",
+    "contact": "06 76 73 21 10 / 04 90 88 47 59",
+    "disciplines": [
+      "Piste (Sprint, Sauts, Lancers)",
+      "Demi-Fond",
+      "Running & Hors Stade",
+      "Cross-Country",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Le Club Athlétic Sport Avignonnais (CASA) est l'un des piliers historiques de l'athlétisme en Vaucluse.\n\nInstallé au Stade Lucien Gillardeaux, le club forme des athlètes de tous âges sur piste, en cross et sur route, avec un fort attachement aux valeurs d'émulation sportive, d'accessibilité et de dépassement de soi.",
+    "schedule": [
+      {
+        "title": "Piste, Sprint, Sauts & Demi-Fond",
+        "days": "Du Lundi au Vendredi tous les soirs dès 18h00"
+      },
+      {
+        "title": "École d'Athlé & Jeunes",
+        "days": "Mercredi après-midi et Samedi matin"
+      },
+      {
+        "title": "Running Loisir & Compétition",
+        "days": "Mardi et Jeudi soirs & sorties le week-end"
+      }
+    ],
+    "coach": "Encadrement technique qualifié pour chaque famille d'épreuves (sprint, sauts, lancers, demi-fond).",
+    "notes": "Lieu : Stade Lucien Gillardeaux, 140 Route de Tarascon, 84000 Avignon. Séances d'essai gratuites en début de saison."
+  },
+  {
+    "name": "Bollène Athlétique Club (BAC)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-005.jpg",
+    "website": "https://uahvbollene.athle.fr/",
+    "city": "Bollène",
+    "email": "athletismebollene@gmail.com",
+    "contact": "Clément Gouyer : 06 84 20 57 33 / Séverine Sanguinetti : 06 81 18 99 53",
+    "disciplines": [
+      "Piste & Lancers",
+      "Demi-Fond",
+      "Hors-Stade & Trail",
+      "Marche Nordique",
+      "Remise en forme",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Le Bollène Athlétique Club (BAC) anime la vie sportive du Nord Vaucluse depuis de nombreuses décennies.\n\nAffilié à la FFA, le club réunit coureurs hors-stade, trailers, adeptes de la marche nordique et athlètes sur piste, avec une dynamique école d'athlétisme reconnue.",
+    "schedule": [
+      {
+        "title": "Demi-Fond & Running",
+        "days": "Jeudi 18h00 - 20h00"
+      },
+      {
+        "title": "Benjamins / Minimes",
+        "days": "Lundi 18h00 - 20h00"
+      },
+      {
+        "title": "Minimes & Catégories Supérieures",
+        "days": "Mardi 18h00 - 20h00"
+      },
+      {
+        "title": "Lancers & Spécialités",
+        "days": "Mercredi après-midi"
+      },
+      {
+        "title": "École d'Athlétisme (EA / PO)",
+        "days": "Samedi 10h00 - 12h00"
+      }
+    ],
+    "coach": "Encadrement diplômé FFA sous la présidence de Clément Gouyer.",
+    "notes": "Lieu : Stade Jacques Anquetil (Rue René Louis Lafforgue, 84500 Bollène). 3 séances d'essai gratuites proposées."
+  },
+  {
+    "name": "US Le Pontet (USPA)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-006.jpg",
+    "website": "https://www.uslepontetathletisme.com/",
+    "city": "Le Pontet",
+    "email": "uspontet.athle@gmail.com",
+    "contact": "06 35 66 36 16 / 06 29 85 69 46",
+    "disciplines": [
+      "Piste (Sauts, Lancers, Sprint)",
+      "Running & Hors Stade",
+      "Demi-Fond",
+      "Cross",
+      "Baby Athlé",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "L'Union Sportive Le Pontet Athlétisme (USPA) dispose d'infrastructures de premier ordre au Stade de Fargues.\n\nLe club propose une offre complète adaptée à toutes les générations : de l'éveil baby-athlé jusqu'au groupe running adultes loisir/performance, avec une salle de musculation dédiée et des sautoirs complets.",
+    "schedule": [
+      {
+        "title": "Running / Hors Stade Adultes",
+        "days": "Lundi, Mercredi et Vendredi 18h00 - 19h30"
+      },
+      {
+        "title": "Baby Athlé (U7)",
+        "days": "Samedi 10h30 - 11h45"
+      },
+      {
+        "title": "Éveil Athlétique (U10)",
+        "days": "Mercredi 14h00 - 16h00"
+      },
+      {
+        "title": "Poussins (U12)",
+        "days": "Mercredi 16h00 - 18h00"
+      },
+      {
+        "title": "Benjamins à Masters (Piste & Concours)",
+        "days": "Séances en soirée du lundi au vendredi"
+      }
+    ],
+    "coach": "Julien Fayolle (hors-stade/running) et équipe d'entraîneurs qualifiés USPA.",
+    "notes": "Lieu : Stade de Fargues (Piste Jean Joachim, 7 Avenue Pierre de Coubertin, 84130 Le Pontet)."
+  },
+  {
+    "name": "UA Carpentras (U.A.C)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-010.png",
+    "website": "https://www.ua-carpentras.fr/",
+    "city": "Carpentras",
+    "email": "uacarpentras@gmail.com",
+    "contact": "06 83 35 14 68 / 07 86 28 56 54",
+    "disciplines": [
+      "Piste (Sprint, Concours)",
+      "Demi-Fond",
+      "Running & Trail",
+      "Marche Nordique",
+      "Remise en forme / Pilates",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "L'Union Athlétique Carpentras (UAC) fait vivre l'athlétisme et le running au pied du Mont Ventoux.\n\nAvec une palette très riche allant de la piste aux sorties trail en nature, en passant par la marche nordique et les cours Activ'Form (pilates/renfo), l'UAC accueille chacun selon ses envies et ses objectifs.",
+    "schedule": [
+      {
+        "title": "Running & Demi-Fond (Piste)",
+        "days": "Mardi et Jeudi 19h00 - 20h30 (Stade Sedaine)"
+      },
+      {
+        "title": "Running & Trail (Sorties Nature)",
+        "days": "Vendredi 18h30 - 20h00"
+      },
+      {
+        "title": "Marche Nordique",
+        "days": "Samedi 9h30 - 11h30 (Pleine nature)"
+      },
+      {
+        "title": "Piste / Cadets à Masters",
+        "days": "Lundi, Mercredi et Vendredi 18h00 - 20h00"
+      },
+      {
+        "title": "École d'Athlé (Éveil & Poussins)",
+        "days": "Mercredi 14h00 - 15h30 ou Samedi 10h00 - 11h30"
+      },
+      {
+        "title": "Baby Athlé (3-5 ans)",
+        "days": "Samedi 10h00 - 11h00"
+      }
+    ],
+    "notes": "Lieu : Stade d'athlétisme Sedaine (Complexe sportif Coubertin, 891 av. Pierre de Coubertin, Carpentras). Parking gratuit."
+  },
+  {
+    "name": "CAP Bollène",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-007.png",
+    "website": "https://www.facebook.com/p/Cap-Boll%C3%A8ne-100069136507115/?locale=fr_FR",
+    "city": "Bollène",
+    "facebook": "https://www.facebook.com/p/Cap-Boll%C3%A8ne-100069136507115/?locale=fr_FR",
+    "email": "athletismebollene@gmail.com",
+    "contact": "06 84 20 57 33 / 06 81 18 99 53",
+    "disciplines": [
+      "Course à pied",
+      "Trail",
+      "Cross-country",
+      "Marche nordique",
+      "PPG & Renfo"
+    ],
+    "description": "Club de course à pied et de pleine nature de Bollène, le CAP Bollène réunit une communauté passionnée de coureurs sur route et trailers.\n\nDes sorties régulières sont organisées dans les massifs environnants de la Drôme provençale, des Gorges de l'Ardèche et du Nord Vaucluse.",
+    "schedule": [
+      {
+        "title": "Entraînements VMA & Seuil",
+        "days": "Séances en soirée au Stade Anquetil"
+      },
+      {
+        "title": "Sorties Trail & Nature",
+        "days": "Le week-end sur les sentiers et massifs régionaux"
+      }
+    ],
+    "notes": "Séances d'essai gratuites. Rendez-vous au Stade Anquetil à Bollène."
+  },
+  {
+    "name": "Sorgues Athlé 84",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-008.jpg",
+    "website": "https://www.facebook.com/sorguesathle84/mentions/?_rdr",
+    "city": "Sorgues",
+    "facebook": "https://www.facebook.com/sorguesathle84/mentions/?_rdr",
+    "email": "sorguesathle84@gmail.com",
+    "contact": "Lionel Lacotte (Président)",
+    "disciplines": [
+      "Piste (Sprint, Sauts, Lancers)",
+      "Demi-Fond",
+      "Running & Hors-Stade",
+      "Trail",
+      "Marche Nordique",
+      "École d'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "Sorgues Athlé 84 est le club d'athlétisme officiel de la ville de Sorgues, affilié à la FFA.\n\nLe club propose un accompagnement chaleureux et structuré pour tous les publics, depuis la découverte en école d'athlétisme jusqu'au perfectionnement sur piste, route et trail.",
+    "schedule": [
+      {
+        "title": "Entraînements Piste & Hors-Stade",
+        "days": "Séances en soirée en semaine au stade de Sorgues"
+      },
+      {
+        "title": "École d'Athlétisme & Jeunes",
+        "days": "Mercredi après-midi & Samedi"
+      },
+      {
+        "title": "Sorties Trail & Running",
+        "days": "Sorties en nature le week-end"
+      }
+    ],
+    "notes": "Installations : Stade municipal de Sorgues (Avenue Jules Ladoumègue). Renseignements par e-mail : sorguesathle84@gmail.com."
+  },
+  {
+    "name": "Grand Avignon Mistral Athlé (GAMA)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-009.jpg",
+    "website": "https://www.instagram.com/gamathle/",
+    "city": "Avignon (Grand Avignon)",
+    "instagram": "https://www.instagram.com/gamathle/",
+    "disciplines": [
+      "Athlétisme Élite & Compétition",
+      "Piste",
+      "Demi-Fond",
+      "Cross-Country",
+      "Hors-Stade",
+      "Affilié FFA"
+    ],
+    "description": "Grand Avignon Mistral Athlé (GAMA) est la grande entente sportive de haut niveau de l'agglomération d'Avignon.\n\nFédérant plusieurs sections locales, le GAMA permet aux meilleurs athlètes du territoire de briller aux championnats départementaux, régionaux et nationaux sous une même bannière.",
+    "schedule": [
+      {
+        "title": "Séances Piste & Élite",
+        "days": "Du Lundi au Vendredi sur les stades Gillardeaux et de l'agglomération"
+      },
+      {
+        "title": "Préparation Compétition & Interclubs",
+        "days": "Séances spécifiques encadrées par des entraîneurs experts"
+      }
+    ],
+    "notes": "Siège : Maison Départementale des Sports, 4275 Rocade Charles de Gaulle, Avignon. Suivez les résultats et records sur Instagram @gamathle."
+  },
+  {
+    "name": "Union Sport Apt (USPORTAT / USALV)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-011.jpg",
+    "city": "Apt (Luberon)",
+    "website": "https://www.facebook.com/p/Apt-Athl%C3%A9tisme-100057520544731/?locale=fr_FR",
+    "facebook": "https://www.facebook.com/p/Apt-Athl%C3%A9tisme-100057520544731/?locale=fr_FR",
+    "disciplines": [
+      "Athlétisme",
+      "Piste",
+      "Course sur route",
+      "Trail",
+      "Organisation Course du Pays d'Apt",
+      "Affilié FFA"
+    ],
+    "description": "Section d'athlétisme historique de la cité d'Apt au cœur du Parc Naturel Régional du Luberon.\n\nLe club réunit jeunes et adultes sur la piste d'Apt et les sentiers environnants, et est très impliqué dans les courses traditionnelles du Pays d'Apt.",
+    "schedule": [
+      {
+        "title": "Athlétisme Jeunes & École d'Athlé",
+        "days": "Mercredi après-midi au complexe sportif d'Apt"
+      },
+      {
+        "title": "Course à pied & Hors-Stade",
+        "days": "Séances en soirée et sorties dominicales"
+      }
+    ],
+    "notes": "Lieu : Complexe sportif / Cité scolaire d'Apt."
+  },
+  {
+    "name": "UA Orange Haut Vaucluse (UAOHV / UAO)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-012.jpg",
+    "website": "https://uao-athle.fr/",
+    "city": "Orange",
+    "facebook": "https://www.facebook.com/people/Orange-Athletisme/100063538720612/",
+    "email": "orange.athletisme@orange.fr",
+    "contact": "06 48 60 21 27",
+    "disciplines": [
+      "Athlétisme (Piste, Sauts, Lancers)",
+      "Demi-Fond",
+      "Running & Hors-Stade",
+      "Marche Nordique",
+      "Fit'Athlé",
+      "Affilié FFA"
+    ],
+    "description": "L'Union Athlétisme Orange (UAO / UAOHV) est le grand club d'athlétisme de la cité des Princes.\n\nDoté d'installations complètes au Stade Charles Costa (piste synthétique, sautoir à la perche, cages de lancers homologuées), le club encadre toutes les pratiques dès 4 ans jusqu'aux catégories Masters.",
+    "schedule": [
+      {
+        "title": "Running / Loisir & Demi-Fond",
+        "days": "Mardi & Jeudi 18h30 - 20h00 (Stade Costa)"
+      },
+      {
+        "title": "École d'Athlé & Jeunes",
+        "days": "Mercredi après-midi & Samedi matin"
+      },
+      {
+        "title": "Piste & Compétitions (Cadets à Masters)",
+        "days": "Séances spécialisées en semaine"
+      }
+    ],
+    "notes": "Lieu : Stade Charles Costa (Complexe de Nogent, Avenue de Nogent, 84100 Orange). Permanences aux heures d'entraînement."
+  },
+  {
+    "name": "Terra Sport Ventoux (Dinguo-Beur)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-013.jpg",
+    "website": "https://www.dinguedeboue.com/",
+    "city": "Pernes-les-Fontaines & Massif du Ventoux",
+    "disciplines": [
+      "Course à obstacles (Mud Run)",
+      "Trail",
+      "Course nature",
+      "Outdoor"
+    ],
+    "description": "Structure sportive emblématique à l'origine de « La Dingue de Boue », grande course à obstacles festive et sportive organisée sur le site du motocross de Pernes-les-Fontaines.\n\nTerra Sport Ventoux promeut les sports nature et outdoor alliant défi physique, esprit d'équipe et ambiance festive.",
+    "schedule": [
+      {
+        "title": "Événements & Préparations Outdoor",
+        "days": "Sessions d'entraînement spécifiques et rassemblements organisés au cours de la saison"
+      }
+    ],
+    "notes": "Organisateur de La Dingue de Boue (formats 3.5 km à 10 km avec obstacles, ramping, filets et passages aquatiques)."
+  },
+  {
+    "name": "U Sault Apt Luberon Ventoux (USALV)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-014.jpg",
+    "website": "https://www.facebook.com/p/Apt-Athl%C3%A9tisme-100057520544731/?locale=fr_FR",
+    "city": "Apt & Sault",
+    "facebook": "https://www.facebook.com/p/Apt-Athl%C3%A9tisme-100057520544731/?locale=fr_FR",
+    "disciplines": [
+      "Athlétisme",
+      "Trail",
+      "Course sur route",
+      "Cross",
+      "Affilié FFA"
+    ],
+    "description": "L'Union Sault Apt Luberon Ventoux (USALV) fédère les pratiquants de l'est Vaucluse, entre les vallées du Luberon et le plateau de Sault.\n\nUn club de proximité tourné vers la nature, les courses locales et le développement des jeunes athlètes sur piste et en cross.",
+    "schedule": [
+      {
+        "title": "Entraînements Route & Trail",
+        "days": "Sorties hebdomadaires en plaine et en moyenne montagne"
+      },
+      {
+        "title": "Piste & Athlétisme",
+        "days": "Créneaux encadrés au complexe sportif d'Apt"
+      }
+    ],
+    "notes": "Affilié FFA. Organisation de courses hors-stade dans le Pays d'Apt."
+  },
+  {
+    "name": "ASVA Villeneuve les Avignon",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-014.jpg",
+    "website": "https://asv-athletisme.fr/",
+    "city": "Villeneuve-lès-Avignon (Grand Avignon)",
+    "email": "asva30@yahoo.com",
+    "contact": "Bruno Murgia (Président) : 06 95 73 51 72 / 06 13 48 26 85",
+    "disciplines": [
+      "Running & Hors-Stade",
+      "Course sur route",
+      "Trail",
+      "Piste",
+      "Athlé Fit'",
+      "Baby Athlé",
+      "Affilié FFA"
+    ],
+    "description": "L'Association Sportive Villeneuve Athlétisme (ASVA) accueille les athlètes de Villeneuve et du Grand Avignon au Stade Jean Sagnes.\n\nClub très dynamique orienté running et santé, il propose des séances sur piste et des sorties trail dominicales dans la garrigue gardoise et vauclusienne.",
+    "schedule": [
+      {
+        "title": "Running / Route & Piste",
+        "days": "Mardi & Vendredi 18h30 - 20h00 (Stade Jean Sagnes)"
+      },
+      {
+        "title": "Sorties Nature / Trail",
+        "days": "Dimanche matin (Garrigue et massifs voisins)"
+      },
+      {
+        "title": "École d'Athlé & Athlé Fit'",
+        "days": "Mercredi après-midi & Samedi"
+      }
+    ],
+    "notes": "Lieu : Stade Jean Sagnes (Complexe sportif de la Laune, Chemin de Saint-Honoré, Villeneuve-lès-Avignon)."
+  },
+  {
+    "name": "Orange Sports Athlé Nature (OSAN)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-015.jpg",
+    "website": "https://www.osan.fr/",
+    "city": "Orange & Sérignan-du-Comtat",
+    "facebook": "https://www.facebook.com/p/Orange-Sports-Athl%C3%A9-Nature-100063538720612/",
+    "contact": "Béatrice Bétard (Présidente) : 06 16 34 31 77",
+    "disciplines": [
+      "Marche Nordique (Loisir & Compétition)",
+      "Trail & Course Nature",
+      "Athlé'Fit & PPG",
+      "Sport Santé",
+      "Affilié FFA"
+    ],
+    "description": "L'OSAN est le club spécialiste des sports nature et du sport-santé à Orange et ses alentours.\n\nAffilié à la FFA, il propose une pratique très variée : marche nordique pour tous niveaux (de la santé à la compétition), running nature, PPG au stade et séances Athlé'Fit.",
+    "schedule": [
+      {
+        "title": "PPG & Renforcement (Tous niveaux)",
+        "days": "Lundi 19h00 - 20h15 (Stade Costa à Orange)"
+      },
+      {
+        "title": "Running Loisir",
+        "days": "Jeudi 18h30 - 20h00 (Stade Costa)"
+      },
+      {
+        "title": "Marche Nordique (Matin)",
+        "days": "Mardi & Jeudi 9h00 - 11h00 (Lieux nature variables)"
+      },
+      {
+        "title": "Marche Nordique (Soirée & Compétition)",
+        "days": "Mercredi 18h45 - 20h30"
+      },
+      {
+        "title": "Marche Nordique Santé / Adaptée",
+        "days": "Jeudi 14h00 - 15h15"
+      }
+    ],
+    "notes": "Points de départ en pleine nature communiqués chaque semaine sur le site internet osan.fr."
+  },
+  {
+    "name": "Entente Sportive Nord Vaucluse (ESNV)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-016.jpg",
+    "website": "https://www.osan.fr/page/1773125-entente-sportive-nord-vaucluse",
+    "city": "Nord Vaucluse (Orange - Bollène)",
+    "disciplines": [
+      "Athlétisme",
+      "Marche Nordique",
+      "Trail & Course Hors-Stade",
+      "Affilié FFA"
+    ],
+    "description": "Entente sportive regroupant les forces vives de l'athlétisme du Haut Vaucluse, notamment l'OSAN et le BAC.\n\nL'ESNV mutualise les encadrements techniques, les infrastructures et les déplacements sur les compétitions fédérales et régionales.",
+    "schedule": [
+      {
+        "title": "Entraînements mutualisés",
+        "days": "Créneaux répartis entre les stades d'Orange et de Bollène"
+      }
+    ],
+    "notes": "Structure affiliée FFA permettant le rayonnement des clubs partenaires en championnat interclubs et compétitions officielles."
+  },
+  {
+    "name": "La Loriolade",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-017.jpg",
+    "website": "https://www.facebook.com/p/Loriolade-LA-100010717621149/",
+    "city": "Loriol-du-Comtat",
+    "facebook": "https://www.facebook.com/p/Loriolade-LA-100010717621149/",
+    "contact": "Christophe Camps (Président)",
+    "disciplines": [
+      "Course à pied",
+      "Trail",
+      "Course sur route",
+      "Organisation La Loriolade"
+    ],
+    "description": "Club de course à pied convivial basé à Loriol-du-Comtat, au cœur de la plaine comtadine et face au Mont Ventoux.\n\nAvec plus d'une centaine d'adhérents, le club cultive la convivialité et l'entraide lors des sorties d'entraînement hebdomadaires et organise la course annuelle « La Loriolade » au printemps.",
+    "schedule": [
+      {
+        "title": "Sorties Running & Découverte",
+        "days": "Séances collectives en semaine et sorties longues le dimanche"
+      }
+    ],
+    "notes": "Organisateur de la course festive et sportive « La Loriolade » (formats 5 km, 10 km et courses enfants)."
+  },
   {
     "name": "Ménerbes Running",
     "city": "Ménerbes",
@@ -46,20 +636,122 @@
     "website": "https://www.menerbesrunning.fr/",
     "facebook": "https://www.facebook.com/MenerbesRunning/",
     "instagram": "https://www.instagram.com/menerbesrunning/",
-    "disciplines": ["Route", "Trail", "Section Marche", "Affilié FFA", "Loisir & Performance"],
+    "disciplines": [
+      "Route",
+      "Trail",
+      "Section Marche",
+      "Affilié FFA",
+      "Loisir & Performance"
+    ],
     "description": "Créé en 2016 et affilié à la Fédération Française d'Athlétisme (FFA) depuis 2021, le club propose des entraînements route et trail ainsi qu'une section marche.\n\nDans une ambiance conviviale, le club réunit tous les passionnés de course à pied et de marche, que ce soit pour le loisir ou la recherche de performance.",
     "schedule": [
-      { "title": "Lundi soir", "days": "Renforcement musculaire à la salle polyvalente de Ménerbes" },
-      { "title": "Mercredi soir", "days": "Entraînement course & marche (lieux de RDV tournants)" },
-      { "title": "Samedi matin", "days": "Sortie nature course & marche (lieux de RDV tournants)" }
+      {
+        "title": "Lundi soir",
+        "days": "Renforcement musculaire à la salle polyvalente de Ménerbes"
+      },
+      {
+        "title": "Mercredi soir",
+        "days": "Entraînement course & marche (lieux de RDV tournants)"
+      },
+      {
+        "title": "Samedi matin",
+        "days": "Sortie nature course & marche (lieux de RDV tournants)"
+      }
     ],
     "coach": "Séances variées de renforcement musculaire et sorties encadrées par les animateurs du club.",
     "notes": "Affilié FFA depuis 2021. Les points de rendez-vous changent pour varier les terrains et découvrir les sentiers du Luberon. Retrouvez toutes les infos sur menerbesrunning.fr."
   },
-  { "name": "Running Orange Club 84 (ROC)", "image_url": "/images/liste_clubs_et_sites.pdf-image-018.jpg", "website": "https://www.facebook.com/p/ROC-84-Running-Orange-Club-100083187227961/?locale=fr_FR" },
-  { "name": "Athlé Vaison Ventoux", "image_url": "/images/liste_clubs_et_sites.pdf-image-020.jpg" },
-  { "name": "Ventoux Organisation", "image_url": "/images/liste_clubs_et_sites.pdf-image-021.png" },
-  { "name": "Les Foulées de Mornas", "image_url": "/images/liste_clubs_et_sites.pdf-image-023.jpg", "website": "https://www.facebook.com/p/Foul%C3%A9es-de-Mornas-Running-100043362296266/" },
+  {
+    "name": "Running Orange Club 84 (ROC)",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-018.jpg",
+    "website": "https://www.facebook.com/p/ROC-84-Running-Orange-Club-100083187227961/?locale=fr_FR",
+    "city": "Orange",
+    "facebook": "https://www.facebook.com/p/ROC-84-Running-Orange-Club-100083187227961/?locale=fr_FR",
+    "disciplines": [
+      "Course sur route",
+      "Trail",
+      "Marche Nordique",
+      "Demi-Fond",
+      "Affilié FFA"
+    ],
+    "description": "Le Running Orange Club 84 (ROC 84) est une association active basée à Orange, affiliée à la Fédération Française d'Athlétisme.\n\nLe club réunit des coureurs de tous horizons pour préparer ensemble des défis sur route (10 km, semi, marathon) ou des trails dans la région provençale.",
+    "schedule": [
+      {
+        "title": "Entraînements Running",
+        "days": "Séances de fractionné et d'endurance en soirée en semaine"
+      },
+      {
+        "title": "Sorties Dominicales",
+        "days": "Sorties en groupe sur route et chemins de campagne"
+      }
+    ],
+    "notes": "Siège : Maison des Associations, Route de Caderousse, 84100 Orange. Ambiance conviviale et sportive."
+  },
+  {
+    "name": "Athlé Vaison Ventoux",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-020.jpg",
+    "city": "Vaison-la-Romaine",
+    "website": "https://www.vaison-la-romaine.com",
+    "disciplines": [
+      "Athlétisme",
+      "Course sur route",
+      "Cross-Country",
+      "Trail",
+      "Organisation La Bacchanale",
+      "Affilié FFA"
+    ],
+    "description": "Club d'athlétisme et de course à pied de Vaison-la-Romaine, au pied du versant nord du Mont Ventoux.\n\nAffilié à la FFA, le club forme les jeunes en école d'athlétisme et propose un cadre exceptionnel pour la course sur route et le cross.\n\nLe club est l'historique organisateur de « La Bacchanale », la plus ancienne course pédestre du Vaucluse.",
+    "schedule": [
+      {
+        "title": "École d'Athlétisme & Jeunes",
+        "days": "Mercredi après-midi au complexe sportif de Vaison"
+      },
+      {
+        "title": "Adultes Hors-Stade & Cross",
+        "days": "Séances d'entraînement en soirée et sorties nature le week-end"
+      }
+    ],
+    "notes": "Lieu : Complexe sportif municipal de Vaison-la-Romaine. Organisation de La Bacchanale."
+  },
+  {
+    "name": "Ventoux Organisation",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-021.png",
+    "city": "Bédoin & Massif du Ventoux",
+    "disciplines": [
+      "Trail de Montagne",
+      "Organisation d'événements",
+      "Sports Outdoor"
+    ],
+    "description": "Structure investie dans la promotion des sports de nature et l'accueil des épreuves d'envergure sur les pentes du Mont Ventoux.\n\nElle participe à la valorisation des sentiers mythiques du Géant de Provence pour les trailers et coureurs en montagne.",
+    "schedule": [
+      {
+        "title": "Événements & Épreuves Outdoor",
+        "days": "Coordination des manifestations sportives tout au long de l'année"
+      }
+    ],
+    "notes": "Au cœur du territoire du Parc Naturel Régional du Mont-Ventoux."
+  },
+  {
+    "name": "Les Foulées de Mornas",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-023.jpg",
+    "website": "https://www.facebook.com/p/Foul%C3%A9es-de-Mornas-Running-100043362296266/",
+    "city": "Mornas",
+    "facebook": "https://www.facebook.com/p/Foul%C3%A9es-de-Mornas-Running-100043362296266/",
+    "disciplines": [
+      "Trail",
+      "Course nature",
+      "Running",
+      "Convivialité"
+    ],
+    "description": "Association de trail et course nature située à Mornas, dominée par sa célèbre forteresse médiévale.\n\nLes Foulées de Mornas rassemblent des passionnés de sentiers escarpés, de nature et de convivialité, avec des sorties régulières sur les collines du Haut Vaucluse et des participations aux courses régionales.",
+    "schedule": [
+      {
+        "title": "Sorties Entraînement en Colline",
+        "days": "Séances en semaine et sorties longues le dimanche matin"
+      }
+    ],
+    "notes": "Départs réguliers depuis Mornas pour arpenter les sentiers du massif de Mornas et des environs."
+  },
   {
     "name": "Les 5 Pas de Courthézon",
     "city": "Courthézon",
@@ -68,29 +760,96 @@
     "facebook": "https://www.facebook.com/p/LEs-5-pas-de-Courth%C3%A9zon-61570357461787/",
     "instagram": "https://www.instagram.com/5pasdecourthezon/",
     "contact": "Laetitia - 06 87 09 60 50",
-    "disciplines": ["Route", "Trail", "Affilié FFA", "Loisir & Confirmé"],
+    "disciplines": [
+      "Route",
+      "Trail",
+      "Affilié FFA",
+      "Loisir & Confirmé"
+    ],
     "description": "Club de course à pied convivial basé à Courthézon, comptant une cinquantaine d'adhérents et affilié à la Fédération Française d'Athlétisme (FFA).\n\nPratique sur route et en trail dans un esprit d'entraide et de convivialité. Le club propose des entraînements encadrés avec coach, ainsi que des sorties nature régulières.\n\nOrganisation de sorties trail dans le Mont Ventoux ou les Dentelles de Montmirail, et sorties à thème (Run & Yoga...).",
     "schedule": [
-      { "title": "Mardi 18h30", "days": "Stade Costa (Orange) - Débutants / Loisirs & Confirmés avec coach" },
-      { "title": "Vendredi 18h30", "days": "Sortie nature dans les vignes" },
-      { "title": "Dimanche 9h00", "days": "Sortie nature dans les vignes" }
+      {
+        "title": "Mardi 18h30",
+        "days": "Stade Costa (Orange) - Débutants / Loisirs & Confirmés avec coach"
+      },
+      {
+        "title": "Vendredi 18h30",
+        "days": "Sortie nature dans les vignes"
+      },
+      {
+        "title": "Dimanche 9h00",
+        "days": "Sortie nature dans les vignes"
+      }
     ],
     "coach": "Entraînements sur piste encadrés avec coach au stade Costa d'Orange (groupes débutants/loisirs et confirmés).",
     "notes": "Affilié FFA. Suivez les sorties et la vie du club sur Instagram (@5pasdecourthezon) et Facebook."
   },
-  { "name": "Piémont Club", "image_url": "/images/liste_clubs_et_sites.pdf-image-025.jpg", "website": "https://www.facebook.com/people/Piemont-club/61581893283567/" },
-  { "name": "Team PAPA", "image_url": "/images/club26.jpg", "website": "https://www.facebook.com/p/Team-PAPA-100092419316904/" },
+  {
+    "name": "Piémont Club",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-025.jpg",
+    "website": "https://www.facebook.com/people/Piemont-club/61581893283567/",
+    "city": "Pertuis (Sud Luberon)",
+    "facebook": "https://www.facebook.com/people/Piemont-club/61581893283567/",
+    "disciplines": [
+      "Trail Running",
+      "Sorties 'Off'",
+      "Endurance",
+      "Sports de Pleine Nature"
+    ],
+    "description": "Association sportive basée à Pertuis, aux portes du Sud Luberon et du Pays d'Aix.\n\nLe Piémont Club met l'accent sur la pratique du trail running en pleine nature, le partage d'expérience et l'organisation de sorties « off » conviviales sur les sentiers techniques du massif du Luberon et de la Sainte-Victoire.",
+    "schedule": [
+      {
+        "title": "Sorties Trail en Groupe",
+        "days": "Rendez-vous hebdomadaires le week-end et en soirée en semaine"
+      }
+    ],
+    "notes": "Pratique axée sur la convivialité, le dénivelé et la découverte de nouveaux sentiers."
+  },
+  {
+    "name": "Team PAPA",
+    "image_url": "/images/club26.jpg",
+    "website": "https://www.facebook.com/p/Team-PAPA-100092419316904/",
+    "city": "Entraigues-sur-la-Sorgue",
+    "facebook": "https://www.facebook.com/p/Team-PAPA-100092419316904/",
+    "disciplines": [
+      "Trail Running",
+      "Défis Solidaires & Caritatifs",
+      "Sorties Nature",
+      "Esprit d'Équipe"
+    ],
+    "description": "Club et association de trailers engagés basée à Entraigues-sur-la-Sorgue.\n\nLa Team PAPA combine le dépassement de soi en milieu naturel avec une démarche solidaire et humanitaire forte : relever des défis sportifs au profit de nobles causes dans une ambiance festive et fraternelle.",
+    "schedule": [
+      {
+        "title": "Entraînements & Sorties Collectives",
+        "days": "Séances en groupe en semaine et week-ends d'entraînement nature"
+      }
+    ],
+    "notes": "Association solidaire et dynamique. Contact et actualités sur leur page Facebook."
+  },
   {
     "name": "DénivLuberon",
     "city": "Robion & Apt",
     "image_url": "/images/denivluberon.png",
     "website": "https://denivluberon.fr/",
-    "disciplines": ["Trail", "Randonnée", "Circuit-Training"],
+    "disciplines": [
+      "Trail",
+      "Randonnée",
+      "Circuit-Training"
+    ],
     "description": "Le club DénivLuberon est basé sur Robion et Apt. Il a pour objectif de promouvoir le trail et le patrimoine de la région, tout en étant accessible à tous niveaux.\n\nLe club se décline en deux parties :\n• Section randonnée : un dimanche sur deux, pour faire découvrir les massifs du Luberon et des Monts de Vaucluse.\n• Section trail : deux entraînements par semaine à Robion et Apt, ainsi qu'une sortie nature toutes les deux semaines.\n\nLes entraînements se déroulent en pleine nature sous forme de circuit-training mêlant : travail technique, renforcement musculaire, développement physiologique et conseils en préparation mentale & nutrition.",
     "schedule": [
-      { "title": "Entraînements Trail Apt", "days": "Mardi 18h30 / Samedi 8h30" },
-      { "title": "Entraînements Trail Robion", "days": "Mercredi 18h30 / Samedi 10h30" },
-      { "title": "Dimanche", "days": "Sortie trail ou rando en alternance" }
+      {
+        "title": "Entraînements Trail Apt",
+        "days": "Mardi 18h30 / Samedi 8h30"
+      },
+      {
+        "title": "Entraînements Trail Robion",
+        "days": "Mercredi 18h30 / Samedi 10h30"
+      },
+      {
+        "title": "Dimanche",
+        "days": "Sortie trail ou rando en alternance"
+      }
     ],
     "coach": "Trailer, athlète minimaliste, préparateur physique & mental et spécialiste du système nerveux.",
     "notes": "Les points de rdv changent régulièrement et sont communiqués sur le groupe WhatsApp du club. Inscriptions sur le site internet."
@@ -101,7 +860,11 @@
     "image_url": "/images/ovtln.jpg",
     "website": "https://ovtln.com/",
     "instagram": "https://www.instagram.com/teamovtln/",
-    "disciplines": ["Trail", "Compétition", "Affilié FFA"],
+    "disciplines": [
+      "Trail",
+      "Compétition",
+      "Affilié FFA"
+    ],
     "description": "Nouveau club basé sur Entraigues-sur-la-Sorgue et affilié à la Fédération Française d'Athlétisme (FFA).\n\nPetit club dynamique à vocation trail et compétition, axé sur le partage, le dépassement de soi et les épreuves de pleine nature (trail, course sur route et ultra-distance).",
     "notes": "Club officiel affilié FFA. Retrouvez les actualités, récits de courses, traces GPX et informations sur leur site officiel ovtln.com et sur Instagram @teamovtln."
   },
@@ -113,11 +876,22 @@
     "website": "https://www.facebook.com/lafouleemontilienne/",
     "facebook": "https://www.facebook.com/lafouleemontilienne/",
     "instagram": "https://www.instagram.com/lafouleemontilienne_monteux/",
-    "disciplines": ["Trail", "Course sur route", "Renfo & VMA", "Tous niveaux"],
+    "disciplines": [
+      "Trail",
+      "Course sur route",
+      "Renfo & VMA",
+      "Tous niveaux"
+    ],
     "description": "Association de trail et course à pied située à Monteux, accessible à tous les niveaux.\n\nObjectifs : Se faire plaisir, progresser et convivialité. Chez nous, c'est surtout chacun son rythme et ses objectifs !\n\nSéances variées sur piste, au lac de Monteux, en ville ou en sorties délocalisées en pleine nature selon les inspirations des coachs.",
     "schedule": [
-      { "title": "Mardi (18h15 Renfo & 18h45 VMA)", "days": "Piste du Vieux Moulin à Monteux" },
-      { "title": "Jeudi (18h30)", "days": "Sur piste, au Lac, dans Monteux ou en délocalisé" }
+      {
+        "title": "Mardi (18h15 Renfo & 18h45 VMA)",
+        "days": "Piste du Vieux Moulin à Monteux"
+      },
+      {
+        "title": "Jeudi (18h30)",
+        "days": "Sur piste, au Lac, dans Monteux ou en délocalisé"
+      }
     ],
     "coach": "Séances de renforcement musculaire, travail de VMA et sorties encadrées par les coachs du club.",
     "notes": "Accessible à tous les niveaux. Contactez le club directement par email (lafouleemontilienne@gmail.com) ou sur leurs réseaux sociaux."
@@ -129,11 +903,22 @@
     "website": "https://goult-rockets-runners.com/",
     "instagram": "https://www.instagram.com/goult.rocketsrunners/",
     "email": "larondegoultoise@gmail.com",
-    "disciplines": ["Trail", "Course nature", "Luberon", "Organisation Ronde Goultoise"],
+    "disciplines": [
+      "Trail",
+      "Course nature",
+      "Luberon",
+      "Organisation Ronde Goultoise"
+    ],
     "description": "Niché au cœur du Luberon, le Goult Rockets Runners réunit passionnés de trail et de course à pied dans une ambiance conviviale, sportive et tournée vers la nature.\n\nEntre entraînements réguliers, partage d’expérience et découverte des plus beaux sentiers du massif, le club fait rimer sport, nature et esprit d’équipe.\n\nLe club est également l'organisateur de La Ronde Goultoise, grand événement convivial et festif au départ de Goult.",
     "schedule": [
-      { "title": "Mardi (18h30 - 20h00)", "days": "Sortie trail & entraînement sur les sentiers autour de Goult" },
-      { "title": "Samedi (9h00 - 10h30)", "days": "Sortie nature, sentiers et dénivelé" }
+      {
+        "title": "Mardi (18h30 - 20h00)",
+        "days": "Sortie trail & entraînement sur les sentiers autour de Goult"
+      },
+      {
+        "title": "Samedi (9h00 - 10h30)",
+        "days": "Sortie nature, sentiers et dénivelé"
+      }
     ],
     "coach": "Romain Casano : diplômé d'une Licence et d'un Master STAPS en entraînement sportif et préparation physique (15 ans d'encadrement, préparateur physique d'athlètes de haut niveau, enfant de Goult).",
     "notes": "Point de rendez-vous différent chaque semaine pour explorer de nouveaux sentiers et panoramas du Luberon. Séances adaptées du débutant au confirmé. Inscriptions ouvertes sur le site officiel via HelloAsso."
