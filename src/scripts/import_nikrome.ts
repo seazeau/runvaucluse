@@ -6,6 +6,10 @@ async function importNikrome(url: string, race_slug: string) {
   db.pragma('foreign_keys = OFF');
   
   try {
+    const raceRow = db.prepare('SELECT date FROM races WHERE slug = ?').get(race_slug) as any;
+    const race_date = raceRow?.date || '2026-10-18';
+    console.log(`Using race_date: ${race_date}`);
+
     const response = await fetch(url);
     const html = await response.text();
     const $ = cheerio.load(html);
@@ -66,7 +70,8 @@ async function importNikrome(url: string, race_slug: string) {
             podium: $(cols[6]).text().trim() || null,
             speed: $(cols[7]).text().trim() || null,
             club: $(cols[8]).text().trim() || null,
-            });
+            race_date,
+          });
         }
       });
 
@@ -102,6 +107,7 @@ async function importNikrome(url: string, race_slug: string) {
                 podium: String(cells[6] || '').trim() || null,
                 speed: String(cells[7] || '').trim() || null,
                 club: String(item.club || '').trim() || null,
+                race_date,
               });
             }
             start += length;
@@ -112,12 +118,12 @@ async function importNikrome(url: string, race_slug: string) {
 
       if (tableResults.length > 0) {
         const stmt = db.prepare(`
-          INSERT INTO results (race_slug, event_name, rank_overall, bib, name, rank_sex, rank_cat, time, podium, speed, club)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO results (race_slug, event_name, rank_overall, bib, name, rank_sex, rank_cat, time, podium, speed, club, race_date)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
         const insertMany = db.transaction((data) => {
           for (const res of data) {
-            stmt.run(res.race_slug, res.event_name, res.rank_overall, res.bib, res.name, res.rank_sex, res.rank_cat, res.time, res.podium, res.speed, res.club);
+            stmt.run(res.race_slug, res.event_name, res.rank_overall, res.bib, res.name, res.rank_sex, res.rank_cat, res.time, res.podium, res.speed, res.club, res.race_date);
           }
         });
         insertMany(tableResults);
