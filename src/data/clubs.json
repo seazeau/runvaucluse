@@ -23,7 +23,24 @@
   { "name": "Athlé Vaison Ventoux", "image_url": "/images/liste_clubs_et_sites.pdf-image-020.jpg" },
   { "name": "Ventoux Organisation", "image_url": "/images/liste_clubs_et_sites.pdf-image-021.png" },
   { "name": "Les Foulées de Mornas", "image_url": "/images/liste_clubs_et_sites.pdf-image-023.jpg", "website": "https://www.facebook.com/p/Foul%C3%A9es-de-Mornas-Running-100043362296266/" },
-  { "name": "Les 5 Pas de Courthézon", "image_url": "/images/liste_clubs_et_sites.pdf-image-024.jpg", "website": "https://www.facebook.com/p/LEs-5-pas-de-Courth%C3%A9zon-61570357461787/" },
+  {
+    "name": "Les 5 Pas de Courthézon",
+    "city": "Courthézon",
+    "image_url": "/images/liste_clubs_et_sites.pdf-image-024.jpg",
+    "website": "https://www.facebook.com/p/LEs-5-pas-de-Courth%C3%A9zon-61570357461787/",
+    "facebook": "https://www.facebook.com/p/LEs-5-pas-de-Courth%C3%A9zon-61570357461787/",
+    "instagram": "https://www.instagram.com/5pasdecourthezon/",
+    "contact": "Laetitia - 06 87 09 60 50",
+    "disciplines": ["Route", "Trail", "Affilié FFA", "Loisir & Confirmé"],
+    "description": "Club de course à pied convivial basé à Courthézon, comptant une cinquantaine d'adhérents et affilié à la Fédération Française d'Athlétisme (FFA).\n\nPratique sur route et en trail dans un esprit d'entraide et de convivialité. Le club propose des entraînements encadrés avec coach, ainsi que des sorties nature régulières.\n\nOrganisation de sorties trail dans le Mont Ventoux ou les Dentelles de Montmirail, et sorties à thème (Run & Yoga...).",
+    "schedule": [
+      { "title": "Mardi 18h30", "days": "Stade Costa (Orange) - Débutants / Loisirs & Confirmés avec coach" },
+      { "title": "Vendredi 18h30", "days": "Sortie nature dans les vignes" },
+      { "title": "Dimanche 9h00", "days": "Sortie nature dans les vignes" }
+    ],
+    "coach": "Entraînements sur piste encadrés avec coach au stade Costa d'Orange (groupes débutants/loisirs et confirmés).",
+    "notes": "Affilié FFA. Suivez les sorties et la vie du club sur Instagram (@5pasdecourthezon) et Facebook."
+  },
   { "name": "Piémont Club", "image_url": "/images/liste_clubs_et_sites.pdf-image-025.jpg", "website": "https://www.facebook.com/people/Piemont-club/61581893283567/" },
   { "name": "Team PAPA", "image_url": "/images/club26.jpg", "website": "https://www.facebook.com/p/Team-PAPA-100092419316904/" },
   {

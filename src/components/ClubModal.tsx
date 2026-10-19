@@ -12,7 +12,8 @@ import {
   MessageCircle, 
   Mountain,
   Compass,
-  CheckCircle2
+  CheckCircle2,
+  Phone
 } from 'lucide-react';
 import { Club } from '@/lib/types';
 import styles from './ClubModal.module.css';
@@ -126,6 +127,34 @@ export default function ClubModal({ club, isOpen, onClose }: ClubModalProps) {
                 </div>
               )}
 
+              {/* Contact info */}
+              {club.contact && (
+                <div className={styles.contactCard}>
+                  <Phone size={17} className={styles.contactIcon} />
+                  <div>
+                    <strong>Contact : </strong>
+                    {(() => {
+                      const phoneMatch = club.contact.match(/(0[1-9](?:\s?\d{2}){4}|\d{10})/);
+                      if (phoneMatch) {
+                        const phone = phoneMatch[1];
+                        const cleanPhone = phone.replace(/\s+/g, '');
+                        const parts = club.contact.split(phone);
+                        return (
+                          <>
+                            {parts[0]}
+                            <a href={`tel:${cleanPhone}`} className={styles.contactLink}>
+                              {phone}
+                            </a>
+                            {parts[1]}
+                          </>
+                        );
+                      }
+                      return club.contact;
+                    })()}
+                  </div>
+                </div>
+              )}
+
               {/* Notes & WhatsApp info */}
               {club.notes && (
                 <div className={styles.notesCard}>
@@ -146,6 +175,19 @@ export default function ClubModal({ club, isOpen, onClose }: ClubModalProps) {
                 >
                   <span>Visiter le site officiel</span>
                   <ExternalLink size={15} />
+                </a>
+              )}
+              {club.facebook && (
+                <a 
+                  href={club.facebook} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.facebookBtn}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                  <span>Facebook</span>
                 </a>
               )}
               {club.instagram && (

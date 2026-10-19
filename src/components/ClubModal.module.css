@@ -229,6 +229,35 @@
   margin-top: 2px;
 }
 
+.contactCard {
+  background: var(--bg-slate);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--dark-ink);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contactIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.contactLink {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 0.35rem;
+}
+
+.contactLink:hover {
+  text-decoration: underline;
+}
+
 .footer {
   padding: 1.25rem 2rem 2rem;
   border-top: 1px solid var(--border-hairline);
@@ -286,6 +315,30 @@
   background: #C13584;
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(225, 48, 108, 0.3);
+}
+
+.facebookBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: #1877F2;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
+}
+
+.facebookBtn:hover {
+  background: #0d65d9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(24, 119, 242, 0.3);
 }
 
 .closeModalBtn {
