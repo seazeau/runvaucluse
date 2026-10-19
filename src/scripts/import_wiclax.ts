@@ -23,6 +23,10 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
     db.pragma('foreign_keys = OFF');
 
     try {
+        const raceRow = db.prepare('SELECT date FROM races WHERE slug = ?').get(race_slug) as any;
+        const race_date = raceRow?.date || '2026-10-18';
+        console.log(`Using race_date: ${race_date}`);
+
         const res = await fetch(directClaxUrl, { headers });
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         
@@ -34,9 +38,23 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
 
         // 1. Extract distances
         const races: { [id: string]: string } = {};
-        $('Parcours P').each((_, el) => {
-            const id = $(el).attr('id') || $(el).attr('nom');
-            const name = $(el).attr('nom');
+        $('Parcours P, Parcours Pcs').each((_, el) => {
+            const id = $(el).attr('nom') || $(el).attr('id');
+            let name = $(el).attr('nom') || $(el).attr('id');
+            if (name === 'T25Km') name = 'Trail 25 km';
+            else if (name === 'T16Km') name = 'Trail 16 km';
+            else if (name === 'T11Km') name = 'Trail 11 km';
+            else if (name === 'M10Km') name = 'Marche 10 km';
+            else if (name === 'M06Km') name = 'Marche 6 km';
+            else {
+                const dist = $(el).attr('distance');
+                if (dist) {
+                    const km = parseInt(dist, 10) / 1000;
+                    if (!name || name.startsWith('T') || name.startsWith('P')) {
+                        name = `Trail ${km} km`;
+                    }
+                }
+            }
             if (id && name) races[id] = name;
         });
 
@@ -130,7 +148,8 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
                     time: res.time,
                     speed: res.speed,
                     club: res.club,
-                    podium: currentRank <= 3 ? `${currentRank}` : null
+                    podium: currentRank <= 3 ? `${currentRank}` : null,
+                    race_date
                 });
                 currentRank++;
             }
@@ -138,12 +157,12 @@ async function importWiclaxXML(claxUrl: string, race_slug: string) {
 
         if (tableResults.length > 0) {
             const stmt = db.prepare(`
-              INSERT INTO results (race_slug, event_name, rank_overall, bib, name, rank_sex, rank_cat, time, podium, speed, club)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              INSERT INTO results (race_slug, event_name, rank_overall, bib, name, rank_sex, rank_cat, time, podium, speed, club, race_date)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `);
             const insertMany = db.transaction((data) => {
               for (const res of data) {
-                stmt.run(res.race_slug, res.event_name, res.rank_overall, res.bib, res.name, res.rank_sex, res.rank_cat, res.time, res.podium, res.speed, res.club);
+                stmt.run(res.race_slug, res.event_name, res.rank_overall, res.bib, res.name, res.rank_sex, res.rank_cat, res.time, res.podium, res.speed, res.club, res.race_date);
               }
             });
             insertMany(tableResults);
