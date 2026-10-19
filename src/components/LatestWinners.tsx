@@ -93,7 +93,7 @@ const LatestWinners: React.FC<LatestWinnersProps> = ({ races }) => {
                         {winners.male && (
                           <div className={styles.winnerMini}>
                             <Trophy size={10} className={styles.maleIcon} />
-                            <span className={styles.miniName}>{winners.male.name}</span>
+                            <span className={styles.miniName} title={winners.male.name}>{winners.male.name}</span>
                           </div>
                         )}
                         
@@ -102,7 +102,7 @@ const LatestWinners: React.FC<LatestWinnersProps> = ({ races }) => {
                         {winners.female && (
                           <div className={styles.winnerMini}>
                             <Trophy size={10} className={styles.femaleIcon} />
-                            <span className={styles.miniName}>{winners.female.name}</span>
+                            <span className={styles.miniName} title={winners.female.name}>{winners.female.name}</span>
                           </div>
                         )}
                       </div>
