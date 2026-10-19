@@ -40,5 +40,15 @@
     ],
     "coach": "Trailer, athlète minimaliste, préparateur physique & mental et spécialiste du système nerveux.",
     "notes": "Les points de rdv changent régulièrement et sont communiqués sur le groupe WhatsApp du club. Inscriptions sur le site internet."
+  },
+  {
+    "name": "OVTLN",
+    "city": "Entraigues-sur-la-Sorgue",
+    "image_url": "/images/ovtln.jpg",
+    "website": "https://ovtln.com/",
+    "instagram": "https://www.instagram.com/teamovtln/",
+    "disciplines": ["Trail", "Compétition", "Affilié FFA"],
+    "description": "Nouveau club basé sur Entraigues-sur-la-Sorgue et affilié à la Fédération Française d'Athlétisme (FFA).\n\nPetit club dynamique à vocation trail et compétition, axé sur le partage, le dépassement de soi et les épreuves de pleine nature (trail, course sur route et ultra-distance).",
+    "notes": "Club officiel affilié FFA. Retrouvez les actualités, récits de courses, traces GPX et informations sur leur site officiel ovtln.com et sur Instagram @teamovtln."
   }
 ]

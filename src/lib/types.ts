@@ -48,6 +48,7 @@ export interface Club {
   name: string;
   image_url: string;
   website?: string;
+  instagram?: string;
   city?: string;
   disciplines?: string[];
   description?: string;
