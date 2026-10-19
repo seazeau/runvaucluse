@@ -25,5 +25,20 @@
   { "name": "Les Foulées de Mornas", "image_url": "/images/liste_clubs_et_sites.pdf-image-023.jpg", "website": "https://www.facebook.com/p/Foul%C3%A9es-de-Mornas-Running-100043362296266/" },
   { "name": "Les 5 Pas de Courthézon", "image_url": "/images/liste_clubs_et_sites.pdf-image-024.jpg", "website": "https://www.facebook.com/p/LEs-5-pas-de-Courth%C3%A9zon-61570357461787/" },
   { "name": "Piémont Club", "image_url": "/images/liste_clubs_et_sites.pdf-image-025.jpg", "website": "https://www.facebook.com/people/Piemont-club/61581893283567/" },
-  { "name": "Team PAPA", "image_url": "/images/club26.jpg", "website": "https://www.facebook.com/p/Team-PAPA-100092419316904/" }
+  { "name": "Team PAPA", "image_url": "/images/club26.jpg", "website": "https://www.facebook.com/p/Team-PAPA-100092419316904/" },
+  {
+    "name": "DénivLuberon",
+    "city": "Robion & Apt",
+    "image_url": "/images/denivluberon.png",
+    "website": "https://denivluberon.fr/",
+    "disciplines": ["Trail", "Randonnée", "Circuit-Training"],
+    "description": "Le club DénivLuberon est basé sur Robion et Apt. Il a pour objectif de promouvoir le trail et le patrimoine de la région, tout en étant accessible à tous niveaux.\n\nLe club se décline en deux parties :\n• Section randonnée : un dimanche sur deux, pour faire découvrir les massifs du Luberon et des Monts de Vaucluse.\n• Section trail : deux entraînements par semaine à Robion et Apt, ainsi qu'une sortie nature toutes les deux semaines.\n\nLes entraînements se déroulent en pleine nature sous forme de circuit-training mêlant : travail technique, renforcement musculaire, développement physiologique et conseils en préparation mentale & nutrition.",
+    "schedule": [
+      { "title": "Entraînements Trail Apt", "days": "Mardi 18h30 / Samedi 8h30" },
+      { "title": "Entraînements Trail Robion", "days": "Mercredi 18h30 / Samedi 10h30" },
+      { "title": "Dimanche", "days": "Sortie trail ou rando en alternance" }
+    ],
+    "coach": "Trailer, athlète minimaliste, préparateur physique & mental et spécialiste du système nerveux.",
+    "notes": "Les points de rdv changent régulièrement et sont communiqués sur le groupe WhatsApp du club. Inscriptions sur le site internet."
+  }
 ]

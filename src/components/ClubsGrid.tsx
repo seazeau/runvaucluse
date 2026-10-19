@@ -1,10 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { MapPin, Info, ExternalLink } from 'lucide-react';
 import styles from './ClubsGrid.module.css';
 import clubsData from '../data/clubs.json';
+import { Club } from '@/lib/types';
+import ClubModal from './ClubModal';
 
 const ClubsGrid = () => {
+  const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenClub = (club: Club) => {
+    setSelectedClub(club);
+    setIsModalOpen(true);
+  };
+
   return (
     <section className={styles.clubsSection}>
       <header className={styles.header}>
@@ -13,8 +25,10 @@ const ClubsGrid = () => {
       </header>
 
       <div className={styles.grid}>
-        {clubsData.map((club, index) => {
-          const CardContent = (
+        {(clubsData as Club[]).map((club, index) => {
+          const hasDetails = Boolean(club.description || club.schedule);
+
+          const CardInner = (
             <>
               <div className={styles.cardGlow}></div>
               <div className={styles.imageContainer}>
@@ -22,6 +36,16 @@ const ClubsGrid = () => {
               </div>
               <div className={styles.info}>
                 <h3 className={styles.name}>{club.name}</h3>
+                {club.city && (
+                  <span className={styles.cityTag}>
+                    <MapPin size={11} /> {club.city}
+                  </span>
+                )}
+                {hasDetails && (
+                  <span className={styles.badgeDetails}>
+                    <Info size={10} /> Fiche & Horaires
+                  </span>
+                )}
                 <div className={styles.scanline}></div>
               </div>
             </>
@@ -32,22 +56,44 @@ const ClubsGrid = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              transition={{ delay: Math.min(index * 0.03, 0.5) }}
               viewport={{ once: true }}
             >
-              {club.website ? (
-                <a href={club.website} target="_blank" rel="noopener noreferrer" className={styles.clubCard}>
-                  {CardContent}
+              {hasDetails ? (
+                <button 
+                  type="button"
+                  onClick={() => handleOpenClub(club)}
+                  className={`${styles.clubCard} ${styles.clubCardFeatured}`}
+                  aria-label={`Voir la fiche détaillée de ${club.name}`}
+                >
+                  {CardInner}
+                </button>
+              ) : club.website ? (
+                <a 
+                  href={club.website} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.clubCard}
+                  aria-label={`Visiter le site de ${club.name}`}
+                >
+                  {CardInner}
                 </a>
               ) : (
                 <div className={styles.clubCard}>
-                  {CardContent}
+                  {CardInner}
                 </div>
               )}
             </motion.div>
           );
         })}
       </div>
+
+      {/* Detailed Club Modal */}
+      <ClubModal 
+        club={selectedClub}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };

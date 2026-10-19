@@ -1,0 +1,320 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 20, 23, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+.modal {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  color: var(--dark-ink);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--bg-slate);
+  border: 1px solid var(--border-hairline);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--dark-ink);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: var(--dark-ink);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.header {
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  background: linear-gradient(180deg, #F9F9F8 0%, #FFFFFF 100%);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.logoContainer {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 16px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.headerInfo {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1.05;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+}
+
+.cityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gray-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.disciplinesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.disciplinePill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: var(--dark-pill);
+  color: #ffffff;
+}
+
+.body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  color: var(--dark-ink);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.sectionIcon {
+  color: #c05621;
+}
+
+.descriptionText {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #374151;
+  white-space: pre-line;
+  margin: 0;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.scheduleCard {
+  background: var(--bg-slate);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.scheduleCardTitle {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--dark-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.scheduleCardDays {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: right;
+  background: #ffffff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-hairline);
+}
+
+.coachCard {
+  background: #F8F9FA;
+  border-left: 4px solid var(--dark-pill);
+  padding: 0.9rem 1.1rem;
+  border-radius: 0 12px 12px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #374151;
+}
+
+.notesCard {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #92400E;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.notesIcon {
+  color: #D97706;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer {
+  padding: 1.25rem 2rem 2rem;
+  border-top: 1px solid var(--border-hairline);
+  display: flex;
+  gap: 1rem;
+  background: #FAFAF9;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.websiteBtn {
+  flex-grow: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--dark-pill);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.websiteBtn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.closeModalBtn {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  color: var(--dark-ink);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeModalBtn:hover {
+  background: var(--bg-slate);
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.75rem 1.25rem 1.25rem;
+  }
+
+  .cityBadge {
+    justify-content: center;
+  }
+
+  .disciplinesList {
+    justify-content: center;
+  }
+
+  .body {
+    padding: 1.25rem;
+  }
+
+  .scheduleCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .scheduleCardDays {
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer {
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+}

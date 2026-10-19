@@ -38,11 +38,22 @@ export interface RaceResult {
   club: string;
 }
 
+export interface ClubSchedule {
+  title: string;
+  days: string;
+}
+
 export interface Club {
-  id: number;
+  id?: number;
   name: string;
   image_url: string;
   website?: string;
+  city?: string;
+  disciplines?: string[];
+  description?: string;
+  schedule?: ClubSchedule[];
+  coach?: string;
+  notes?: string;
 }
 
 export interface RunnerResult extends RaceResult {
