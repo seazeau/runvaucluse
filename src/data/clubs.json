@@ -100,5 +100,21 @@
     ],
     "coach": "Séances de renforcement musculaire, travail de VMA et sorties encadrées par les coachs du club.",
     "notes": "Accessible à tous les niveaux. Contactez le club directement par email (lafouleemontilienne@gmail.com) ou sur leurs réseaux sociaux."
+  },
+  {
+    "name": "Goult Rockets Runners",
+    "city": "Goult (Luberon)",
+    "image_url": "/images/goultrocketsrunners.png",
+    "website": "https://goult-rockets-runners.com/",
+    "instagram": "https://www.instagram.com/goult.rocketsrunners/",
+    "email": "larondegoultoise@gmail.com",
+    "disciplines": ["Trail", "Course nature", "Luberon", "Organisation Ronde Goultoise"],
+    "description": "Niché au cœur du Luberon, le Goult Rockets Runners réunit passionnés de trail et de course à pied dans une ambiance conviviale, sportive et tournée vers la nature.\n\nEntre entraînements réguliers, partage d’expérience et découverte des plus beaux sentiers du massif, le club fait rimer sport, nature et esprit d’équipe.\n\nLe club est également l'organisateur de La Ronde Goultoise, grand événement convivial et festif au départ de Goult.",
+    "schedule": [
+      { "title": "Mardi (18h30 - 20h00)", "days": "Sortie trail & entraînement sur les sentiers autour de Goult" },
+      { "title": "Samedi (9h00 - 10h30)", "days": "Sortie nature, sentiers et dénivelé" }
+    ],
+    "coach": "Romain Casano : diplômé d'une Licence et d'un Master STAPS en entraînement sportif et préparation physique (15 ans d'encadrement, préparateur physique d'athlètes de haut niveau, enfant de Goult).",
+    "notes": "Point de rendez-vous différent chaque semaine pour explorer de nouveaux sentiers et panoramas du Luberon. Séances adaptées du débutant au confirmé. Inscriptions ouvertes sur le site officiel via HelloAsso."
   }
 ]
