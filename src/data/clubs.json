@@ -1,6 +1,27 @@
 [
   { "name": "ACEP Valréas", "image_url": "/images/liste_clubs_et_sites.pdf-image-000.jpg", "website": "https://www.facebook.com/AthletismeValreas/" },
-  { "name": "CS Avignon Montfavet Athlétisme (CS AMA)", "image_url": "/images/liste_clubs_et_sites.pdf-image-001.jpg", "website": "https://csama.athle.fr/" },
+  {
+    "name": "CS Avignon Montfavet Athlétisme (CS AMA)",
+    "city": "Avignon & Montfavet",
+    "image_url": "/images/csama.png",
+    "website": "https://www.csama.fr",
+    "facebook": "https://www.facebook.com/athletismeclub",
+    "instagram": "https://www.instagram.com/csama_athletisme/",
+    "email": "csamathletisme@gmail.com",
+    "contact": "07 81 40 71 87 / 07 62 96 51 37",
+    "disciplines": ["Athlétisme", "Piste & Sauts & Lancers", "Demi-Fond & Cross", "Hors Stade & Running", "Loisir", "École d'Athlé", "Affilié FFA"],
+    "description": "Fondé en 1978, le Club Sportif Avignon-Montfavet Athlétisme (CSAMA) réunit près de 100 passionnés autour des valeurs du sport, du dépassement de soi et de la convivialité.\n\nAffilié à la Fédération Française d'Athlétisme (FFA), le club propose un encadrement complet de l'école d'athlétisme (dès 3 ans) jusqu'aux catégories Masters : piste, sauts, lancers, demi-fond, cross-country, running hors-stade (10 km, semi, marathon) et section loisirs running.\n\nLe CSAMA est également l'organisateur des 10 km de la Durance, course sur route officielle à label qualificatif à Montfavet.",
+    "schedule": [
+      { "title": "Loisir & Running (Adultes)", "days": "Mardi 18h30 - 20h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)" },
+      { "title": "Demi-Fond, Cross & Hors Stade", "days": "Du Lundi au Vendredi 18h30 - 20h30 & Samedi matin (Stade Gillardeaux)" },
+      { "title": "Piste, Sauts & Lancers (Cadets à Masters)", "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)" },
+      { "title": "École d'Athlétisme (Éveil & Poussins)", "days": "Mercredi 14h30 - 16h30 & Samedi 10h00 - 12h00 (Stade de la Martelle)" },
+      { "title": "Baby Athlé (3 à 5 ans)", "days": "Samedi 10h30 - 12h00 (Stade de la Martelle)" },
+      { "title": "Benjamins & Minimes", "days": "Lundi, Mercredi, Vendredi 18h00 - 20h00 (Stade de la Martelle)" }
+    ],
+    "coach": "Moussa (responsable piste & section loisir running), Fadil Saber (responsable demi-fond & cross) et Julien Dupont (Président du club).",
+    "notes": "Lieux d'entraînements : Complexe Sportif de la Martelle à Montfavet (à côté de la piscine Jean Clément) et Stade Gillardeaux à Avignon. Inscriptions en ligne ouvertes sur Sports'N Connect. Organisation annuelle des 10 km de la Durance."
+  },
   { "name": "BC Isle sur la Sorgue", "image_url": "/images/liste_clubs_et_sites.pdf-image-002.png", "website": "https://athletisme-isle-sur-la-sorgue.fr/" },
   { "name": "AS Cavaillon Athletic", "image_url": "/images/liste_clubs_et_sites.pdf-image-003.jpg", "website": "https://ascavaillon.com/" },
   { "name": "CAS Avignon (CASA / Avignonnais)", "image_url": "/images/liste_clubs_et_sites.pdf-image-004.jpg", "website": "http://www.casavignon.net/" },
