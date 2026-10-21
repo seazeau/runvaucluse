@@ -1,7 +1,7 @@
 import { Race } from '@/lib/types';
 import racesData from '@/data/races.json';
 import styles from './RaceDetail.module.css';
-import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy, Sparkles, HelpCircle } from 'lucide-react';
+import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy, Sparkles, HelpCircle, ZoomIn } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getResultsBySlug } from '@/lib/db';
@@ -161,7 +161,18 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
             {/* Left: Poster */}
             <div className={styles.posterSection}>
               {race.image_url ? (
-                <img src={race.image_url} alt={race.name} className={styles.poster} />
+                <a 
+                  href={race.image_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.posterLink}
+                  title="Voir l'affiche officielle en haute définition (plein écran)"
+                >
+                  <img src={race.image_url} alt={race.name} className={styles.poster} />
+                  <span className={styles.posterZoomHint}>
+                    <ZoomIn size={14} /> Voir en HD
+                  </span>
+                </a>
               ) : (
                 <div className={styles.posterPlaceholder}>PAS D&apos;AFFICHE DISPONIBLE</div>
               )}
@@ -435,7 +446,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                     <Link key={r.slug} href={`/race/${r.slug}/`} className={styles.relatedCard}>
                       <div className={styles.relatedImageContainer}>
                         {r.image_url ? (
-                          <img src={r.image_url} alt={r.name} className={styles.relatedImage} loading="lazy" />
+                          <>
+                            <div 
+                              className={styles.relatedBlurBackdrop}
+                              style={{ backgroundImage: `url(${r.image_url})` }}
+                              aria-hidden="true"
+                            />
+                            <img src={r.image_url} alt={r.name} className={styles.relatedImage} loading="lazy" />
+                          </>
                         ) : (
                           <div className={styles.relatedPlaceholder}>RUNVAUCLUSE</div>
                         )}

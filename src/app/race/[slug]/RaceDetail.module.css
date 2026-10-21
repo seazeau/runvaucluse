@@ -40,21 +40,60 @@
   top: 100px;
 }
 
+.posterLink {
+  display: block;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-hairline);
+  background: #F4F6F8;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: zoom-in;
+}
+
+.posterLink:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
 .poster {
   width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 1px solid var(--border-hairline);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-  background: #F4F6F8;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.posterZoomHint {
+  position: absolute;
+  bottom: 0.85rem;
+  right: 0.85rem;
+  background: rgba(17, 20, 23, 0.85);
+  color: #ffffff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.posterLink:hover .posterZoomHint {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .posterPlaceholder {
   width: 100%;
   aspect-ratio: 3/4;
   background: var(--bg-slate);
-  border-radius: 24px;
+  border-radius: 18px;
   border: 1px dashed var(--border-hairline);
   display: flex;
   align-items: center;
@@ -642,16 +681,38 @@
 
 .relatedImageContainer {
   width: 100%;
-  aspect-ratio: 16/9;
-  background: #E5E7EB;
+  aspect-ratio: 16/10;
+  background: #181C20;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.relatedBlurBackdrop {
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.55);
+  opacity: 0.85;
+  transform: scale(1.25);
+  pointer-events: none;
 }
 
 .relatedImage {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.relatedCard:hover .relatedImage {
+  transform: scale(1.04);
 }
 
 .relatedPlaceholder {
