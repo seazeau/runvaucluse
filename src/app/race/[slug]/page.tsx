@@ -1,7 +1,7 @@
 import { Race } from '@/lib/types';
 import racesData from '@/data/races.json';
 import styles from './RaceDetail.module.css';
-import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy, Sparkles } from 'lucide-react';
+import { MapPin, Calendar, Activity, Phone, Globe, ArrowLeft, Download, FileText, Trophy, Sparkles, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getResultsBySlug } from '@/lib/db';
@@ -24,9 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const raceYear = raceDate.getFullYear();
 
-  const seoDescription = race.description || 
-    `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city}. Retrouvez les distances (${race.distances}), les infos d'inscription et le calendrier complet des courses en Vaucluse sur RunVaucluse.`;
-
   const hasCityInName = race.name.toLowerCase().includes(race.city.toLowerCase());
   const displayName = hasCityInName ? race.name : `${race.name} (${race.city})`;
 
@@ -34,19 +31,54 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? `[ANNULÉE] ${displayName} ${raceYear}`
     : `${displayName} ${raceYear} : Parcours, Inscriptions & Infos`;
 
+  const metaDescription = race.description 
+    ? (race.description.length > 155 ? race.description.substring(0, 152).trim() + '...' : race.description)
+    : `Toutes les infos sur ${displayName} le ${formattedDate} à ${race.city} en Vaucluse (${race.distances}) : tracé, dénivelé, inscriptions et calendrier officiel.`;
+
+  const fullImageUrl = race.image_url?.startsWith('http') 
+    ? race.image_url 
+    : `https://runvaucluse.fr${race.image_url || '/images/og-image.jpg'}`;
+
   return {
     title: pageTitle,
-    description: seoDescription,
-    keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses ${raceYear}`, `trail vaucluse`, `running paca`, 'marathon avignon', 'semi marathon avignon'],
+    description: metaDescription,
+    keywords: [
+      `${race.name}`,
+      `${race.city}`,
+      `course ${race.city}`,
+      `trail ${race.city}`,
+      `${race.type} vaucluse`,
+      `calendrier courses ${raceYear}`,
+      `inscriptions ${race.name}`,
+      `parcours ${race.name}`,
+      'trail vaucluse',
+      'running paca',
+      'course a pied vaucluse'
+    ],
     alternates: {
       canonical: `https://runvaucluse.fr/race/${race.slug}/`,
     },
     openGraph: {
-      title: `${displayName} ${raceYear}`,
-      description: seoDescription,
+      title: `${displayName} ${raceYear} : Parcours & Inscriptions | RunVaucluse`,
+      description: metaDescription,
       url: `https://runvaucluse.fr/race/${race.slug}/`,
-      images: [race.image_url || '/images/og-image.jpg'],
+      siteName: 'RunVaucluse',
+      locale: 'fr_FR',
+      images: [
+        {
+          url: fullImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${race.name} - ${race.city} Vaucluse`,
+        }
+      ],
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${displayName} ${raceYear} | RunVaucluse`,
+      description: metaDescription,
+      images: [fullImageUrl],
     }
   };
 }
@@ -87,6 +119,17 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
     ? race.facebook 
     : `https://www.facebook.com/search/top/?q=${encodeURIComponent(race.name)}`;
 
+  // Related races for internal SEO linking
+  const relatedRaces = (racesData as Race[])
+    .filter(r => r.slug !== slug)
+    .sort((a, b) => {
+      const sameTypeA = a.type === race.type ? 1 : 0;
+      const sameTypeB = b.type === race.type ? 1 : 0;
+      if (sameTypeA !== sameTypeB) return sameTypeB - sameTypeA;
+      return Math.abs(new Date(a.date).getTime() - raceDate.getTime()) - Math.abs(new Date(b.date).getTime() - raceDate.getTime());
+    })
+    .slice(0, 3);
+
   // GPX for GRV
   const isGRV = slug === 'grand-raid-ventoux-by-utmb-malaucene';
   const grvGpx = [
@@ -102,6 +145,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
       
       <main className={styles.main}>
         <div className="container">
+          <nav className={styles.breadcrumbs} aria-label="Fil d'Ariane">
+            <Link href="/">Accueil</Link>
+            <span className={styles.breadcrumbSeparator}>/</span>
+            <Link href="/#calendrier">Calendrier</Link>
+            <span className={styles.breadcrumbSeparator}>/</span>
+            <span className={styles.breadcrumbCurrent}>{race.name}</span>
+          </nav>
+
           <Link href="/#calendrier" className={styles.backLink}>
             <ArrowLeft size={16} /> RETOUR AU CALENDRIER
           </Link>
@@ -317,6 +368,92 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               loading="lazy"
             ></iframe>
           </div>
+
+          {/* SEO FAQ Section */}
+          <section className={styles.faqSection}>
+            <div className={styles.faqHeader}>
+              <HelpCircle size={22} />
+              <h2>QUESTIONS FRÉQUENTES • {race.name.toUpperCase()}</h2>
+            </div>
+            <div className={styles.faqGrid}>
+              <div className={styles.faqItem}>
+                <h3 className={styles.faqQuestion}>Quand a lieu {race.name} ?</h3>
+                <p className={styles.faqAnswer}>
+                  L&apos;épreuve se déroule le <strong>{formattedDate}</strong> à <strong>{race.city}</strong> en Vaucluse (84).
+                </p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3 className={styles.faqQuestion}>Quelles sont les distances au programme ?</h3>
+                <p className={styles.faqAnswer}>
+                  {race.name} propose les parcours et formats suivants : <strong>{race.distances}</strong> ({race.type}).
+                </p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3 className={styles.faqQuestion}>Comment s&apos;inscrire à la course ?</h3>
+                <p className={styles.faqAnswer}>
+                  {race.is_cancelled ? (
+                    "L'édition a été officiellement annulée pour cette année."
+                  ) : race.registration_link ? (
+                    <>
+                      Les inscriptions sont ouvertes en ligne sur la plateforme <strong>{race.registration_platform || "officielle"}</strong>. Retrouvez le lien direct d&apos;inscription ci-dessus.
+                    </>
+                  ) : race.link ? (
+                    <>
+                      Les informations et inscriptions sont accessibles via le site officiel de l&apos;organisation.
+                    </>
+                  ) : (
+                    "Les inscriptions ouvriront prochainement. Consultez régulièrement le calendrier RunVaucluse pour ne pas manquer l'ouverture des dossards."
+                  )}
+                </p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3 className={styles.faqQuestion}>Où se situe le départ à {race.city} ?</h3>
+                <p className={styles.faqAnswer}>
+                  Le rassemblement et le retrait des dossards sont situés sur la commune de <strong>{race.city}</strong> (Vaucluse). Consultez la carte interactive ci-dessus pour planifier votre itinéraire.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* SEO Related Races for Internal Linking */}
+          {relatedRaces.length > 0 && (
+            <section className={styles.relatedSection}>
+              <div className={styles.relatedHeader}>
+                <h2>ÉPREUVES SIMILAIRES EN VAUCLUSE</h2>
+                <Link href="/#calendrier" className={styles.backLink} style={{ margin: 0 }}>
+                  VOIR TOUT LE CALENDRIER →
+                </Link>
+              </div>
+              <div className={styles.relatedGrid}>
+                {relatedRaces.map((r) => {
+                  const rDate = new Date(r.date).toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                  });
+                  return (
+                    <Link key={r.slug} href={`/race/${r.slug}/`} className={styles.relatedCard}>
+                      <div className={styles.relatedImageContainer}>
+                        {r.image_url ? (
+                          <img src={r.image_url} alt={r.name} className={styles.relatedImage} loading="lazy" />
+                        ) : (
+                          <div className={styles.relatedPlaceholder}>RUNVAUCLUSE</div>
+                        )}
+                      </div>
+                      <div className={styles.relatedBody}>
+                        <span className={styles.relatedBadge}>{r.type}</span>
+                        <h3 className={styles.relatedTitle}>{r.name}</h3>
+                        <div className={styles.relatedMeta}>
+                          <span><Calendar size={13} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px' }} />{rDate}</span>
+                          <span><MapPin size={13} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px' }} />{r.city}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>
