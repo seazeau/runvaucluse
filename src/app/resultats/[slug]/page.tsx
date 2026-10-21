@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `Résultats : ${race.name} ${year} | RunVaucluse`,
     description: `Classement complet et temps officiels de la course ${race.name} qui a eu lieu le ${new Date(resultDate).toLocaleDateString('fr-FR')}.`,
+    alternates: {
+      canonical: `https://runvaucluse.fr/resultats/${slug}/`,
+    },
   };
 }
 

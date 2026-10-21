@@ -5,6 +5,9 @@ import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
 
 export const metadata: Metadata = {
   title: "Marathon & Semi-Marathon d'Avignon 2027 - Présentation & Analyse Complète | RunVaucluse",
+  alternates: {
+    canonical: 'https://runvaucluse.fr/race/marathon-davignon-avignon/',
+  },
   description: "Dossier officiel et analyse tactique complète de la 2ème édition du Marathon et Semi-Marathon d'Avignon (Dimanche 14 Mars 2027) : 6 000 dossards, labellisé FFA sur les 2 distances, inscriptions Finishers, tracés GPX téléchargeables, profils altimétriques et conseils coach STAPS.",
   keywords: [
     "marathon avignon 2027",

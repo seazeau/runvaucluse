@@ -48,7 +48,7 @@ export default function StructuredData({ race }: { race: Race }) {
       name: race.contact || 'Comité d\'Organisation RunVaucluse',
       url: race.website || `https://runvaucluse.fr/race/${race.slug}`,
     },
-    url: `https://runvaucluse.fr/race/${race.slug}`,
+    url: `https://runvaucluse.fr/race/${race.slug}/`,
   };
 
   return (

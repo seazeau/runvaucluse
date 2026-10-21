@@ -8,9 +8,16 @@ import SEOSection from '@/components/SEOSection';
 import { Race } from '@/lib/types';
 import styles from './page.module.css';
 import { Plus, AlertCircle, Calendar } from 'lucide-react';
+import type { Metadata } from 'next';
 
 // Direct import for static export reliability
 import racesData from '../data/races.json';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://runvaucluse.fr/',
+  },
+};
 
 export default async function Home() {
   return (

@@ -36,9 +36,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://runvaucluse.fr'),
-  alternates: {
-    canonical: '/',
-  },
   icons: {
     icon: [
       { url: '/favicon.ico?v=2', sizes: 'any' },

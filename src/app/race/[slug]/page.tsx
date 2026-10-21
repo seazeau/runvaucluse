@@ -27,17 +27,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const seoDescription = race.description || 
     `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city}. Retrouvez les distances (${race.distances}), les infos d'inscription et le calendrier complet des courses en Vaucluse sur RunVaucluse.`;
 
+  const hasCityInName = race.name.toLowerCase().includes(race.city.toLowerCase());
+  const displayName = hasCityInName ? race.name : `${race.name} (${race.city})`;
+
   const pageTitle = race.is_cancelled
-    ? `[ANNULÉE] ${race.name} - ${race.city} | RunVaucluse ${raceYear}`
-    : `${race.name} - ${race.city} | RunVaucluse ${raceYear}`;
+    ? `[ANNULÉE] ${displayName} ${raceYear}`
+    : `${displayName} ${raceYear} : Parcours, Inscriptions & Infos`;
 
   return {
     title: pageTitle,
     description: seoDescription,
-    keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses ${raceYear}`, `trail vaucluse`, `running paca`],
+    keywords: [`${race.name}`, `${race.city}`, `course ${race.type} vaucluse`, `calendrier courses ${raceYear}`, `trail vaucluse`, `running paca`, 'marathon avignon', 'semi marathon avignon'],
+    alternates: {
+      canonical: `https://runvaucluse.fr/race/${race.slug}/`,
+    },
     openGraph: {
-      title: `${race.name} - ${race.city}`,
+      title: `${displayName} ${raceYear}`,
       description: seoDescription,
+      url: `https://runvaucluse.fr/race/${race.slug}/`,
       images: [race.image_url || '/images/og-image.jpg'],
       type: 'website',
     }

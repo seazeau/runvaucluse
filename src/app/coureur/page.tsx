@@ -5,6 +5,9 @@ import CoureurClient from './CoureurClient';
 export const metadata: Metadata = {
   title: 'Fiche Coureur & Palmarès Officiel | RunVaucluse',
   description: 'Consultez la fiche profil de votre coureur : nombre de courses en Vaucluse, kilomètres parcourus, victoires, chronos et classements officiels 2026.',
+  alternates: {
+    canonical: 'https://runvaucluse.fr/coureur/',
+  },
 };
 
 export default function CoureurPage() {

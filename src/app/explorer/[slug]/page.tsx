@@ -15,9 +15,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${route.title} - Itinéraire Trail | RunVaucluse`,
     description: `Découvrez l'itinéraire "${route.title}" en Vaucluse : ${route.distance}, ${route.elevation} de dénivelé. ${route.description.substring(0, 100)}...`,
+    alternates: {
+      canonical: `https://runvaucluse.fr/explorer/${route.slug}/`,
+    },
     openGraph: {
       title: `${route.title} - Itinéraire Trail | RunVaucluse`,
       description: route.description,
+      url: `https://runvaucluse.fr/explorer/${route.slug}/`,
       images: route.image ? [route.image] : [],
     }
   };
