@@ -86,8 +86,11 @@ export default function AboutSection() {
             </p>
 
             <p className={styles.storyParagraph}>
-              Derrière ce projet, je suis <strong>Vincent Buisson</strong>, coureur passionné sur route (sub-35' au 10 km) et <strong>entraîneur diplômé STAPS (Sciences et Techniques des Activités Physiques et Sportives)</strong>. 
-              Au quotidien, j'accompagne à distance des coureurs et coureuses de tous niveaux — du premier dossard aux quêtes de records sur 10 km, semi-marathon et marathon.
+              Derrière ce projet, je suis <strong><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener">Vincent Buisson</a></strong>, coureur passionné sur route (sub-35&apos; au 10 km) et <strong>entraîneur course à pied diplômé STAPS (Sciences et Techniques des Activités Physiques et Sportives)</strong>. 
+              Au quotidien, j&apos;accompagne à distance des coureurs et coureuses de tous niveaux — du premier dossard aux quêtes de records en{' '}
+              <a href="https://vincentbuisson.fr/coaching-10km/" target="_blank" rel="noopener" style={{ textDecoration: 'underline', color: '#f6c83b', fontWeight: 600 }}>coaching 10 km</a>,{' '}
+              <a href="https://vincentbuisson.fr/coaching-semi-marathon/" target="_blank" rel="noopener" style={{ textDecoration: 'underline', color: '#f6c83b', fontWeight: 600 }}>préparation semi-marathon</a> et{' '}
+              <a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener" style={{ textDecoration: 'underline', color: '#f6c83b', fontWeight: 600 }}>coaching marathon en ligne</a>.
             </p>
 
             {/* 4 Pillars */}

@@ -74,7 +74,9 @@ export default function Footer() {
                   Boutique Top4Running <ExternalLink size={12} />
                 </a>
               </li>
-              <li><a href="https://vincentbuisson.fr" target="_blank" rel="noopener noreferrer">Coaching Vincent Buisson <ExternalLink size={12} /></a></li>
+              <li><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener">Coach Course à Pied — Vincent Buisson <ExternalLink size={12} /></a></li>
+              <li><a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener">Préparation Marathon & Semi <ExternalLink size={12} /></a></li>
+              <li><a href="https://vincentbuisson.fr/calculateur-allures/" target="_blank" rel="noopener">Calculateur VMA & Allures <ExternalLink size={12} /></a></li>
               <li><a href="https://vaucluse.athle.fr/" target="_blank" rel="noopener noreferrer">CDCHS 84 <ExternalLink size={12} /></a></li>
               <li><Link href="/#contact">Proposer une course</Link></li>
               <li><Link href="/studio">Studio Instagram ⚡</Link></li>
