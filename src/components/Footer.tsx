@@ -92,7 +92,7 @@ export default function Footer() {
             <strong>RunVaucluse</strong> est votre portail dédié au <strong>running en Vaucluse</strong>. 
             Nous référençons chaque <strong>course à pied en Vaucluse</strong>, du petit trail de village aux grands marathons nationaux. 
             Que vous cherchiez un <strong>trail en Vaucluse</strong> ou une <strong>course sur route</strong>, notre calendrier 2026 
-            est mis à jour quotidiennement pour vous offrir les meilleures épreuves de Provence.
+            est mis à jour quotidiennement pour vous offrir les meilleures épreuves de Provence. Pour préparer vos courses, consultez nos guides sur l&apos;<a href="https://vincentbuisson.fr/blog/endurance-fondamentale-zone-2-running/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>endurance fondamentale (Zone 2)</a>, le <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>seuil ventilatoire SV1 et SV2</a> et la <a href="https://vincentbuisson.fr/blog/calculer-zones-frequence-cardiaque-running-karvonen/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>formule de Karvonen</a>.
           </p>
         </div>
 

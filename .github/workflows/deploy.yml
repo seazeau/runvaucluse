@@ -64,6 +64,9 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           scp -P $TARGET_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new out.tar.gz $TARGET_USER@$TARGET_HOST:domains/runvaucluse.fr/public_html/
           ssh -p $TARGET_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new $TARGET_USER@$TARGET_HOST "cd domains/runvaucluse.fr/public_html && tar -xzf out.tar.gz && rm out.tar.gz"
+          if [ -f "runpassion-index.html" ]; then
+            scp -P $TARGET_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new runpassion-index.html $TARGET_USER@$TARGET_HOST:domains/runpassion.fr/public_html/index.html || true
+          fi
           echo "✅ Déploiement réussi sur Hostinger !"
 
 
