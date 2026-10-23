@@ -364,6 +364,62 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
 
           {slug === 'marathon-davignon-avignon' && <AvignonMarathonDossier />}
 
+          <section className={styles.coachCard}>
+            <div className={styles.coachLeft}>
+              <img
+                src="/images/vincent-buisson.webp"
+                alt="Vincent Buisson — Coach Course à Pied STAPS"
+                className={styles.coachAvatar}
+                loading="lazy"
+              />
+              <div className={styles.coachContent}>
+                <div className={styles.coachBadges}>
+                  <span className={styles.coachTag}>Coaching Officiel RunVaucluse</span>
+                  <span className={styles.coachTagMuted}>Diplômé STAPS • Suivi Nolio</span>
+                </div>
+                <h2 className={styles.coachTitle}>
+                  PRÉPARER {race.name.toUpperCase()} AVEC UN PLAN SUR-MESURE
+                </h2>
+                <p className={styles.coachText}>
+                  Fondateur de RunVaucluse et entraîneur diplômé STAPS (Sub-35&apos; au 10 km),{' '}
+                  <a href="https://vincentbuisson.fr/" target="_blank" rel="noopener" className={styles.coachInlineLink}>
+                    Vincent Buisson
+                  </a>{' '}
+                  vous accompagne chaque semaine sur <strong>Nolio</strong> pour arriver au départ à 100% de vos moyens :{' '}
+                  <a href="https://vincentbuisson.fr/coaching-10km/" target="_blank" rel="noopener" className={styles.coachInlineLink}>
+                    préparation 10 km
+                  </a>
+                  ,{' '}
+                  <a href="https://vincentbuisson.fr/coaching-semi-marathon/" target="_blank" rel="noopener" className={styles.coachInlineLink}>
+                    coaching semi-marathon
+                  </a>
+                  ,{' '}
+                  <a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener" className={styles.coachInlineLink}>
+                    préparation marathon
+                  </a>{' '}
+                  et trail.
+                </p>
+                <div className={styles.coachPills}>
+                  <a href="https://vincentbuisson.fr/calculateur-allures/" target="_blank" rel="noopener" className={styles.coachPill}>
+                    Calculateur VMA &amp; Allures →
+                  </a>
+                  <a href="https://vincentbuisson.fr/blog/endurance-fondamentale-zone-2-running/" target="_blank" rel="noopener" className={styles.coachPill}>
+                    Guide Endurance Fondamentale (Zone 2) →
+                  </a>
+                  <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" className={styles.coachPill}>
+                    Seuils SV1 &amp; SV2 →
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className={styles.coachRight}>
+              <a href="https://vincentbuisson.fr/contact/" target="_blank" rel="noopener" className={styles.coachCta}>
+                Réserver mon bilan offert →
+              </a>
+              <span className={styles.coachSubCta}>Visio de 15 min • Sans engagement</span>
+            </div>
+          </section>
+
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>
               <MapPin size={24} />
