@@ -364,6 +364,74 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
 
           {slug === 'marathon-davignon-avignon' && <AvignonMarathonDossier />}
 
+          {/* Coaching Callout Banner on every Race Page (SEO + Lead Generation) */}
+          <section
+            style={{
+              margin: '2.5rem 0',
+              padding: '2rem',
+              borderRadius: '20px',
+              background: 'linear-gradient(135deg, rgba(246, 200, 59, 0.12) 0%, rgba(18, 18, 24, 0.95) 60%, rgba(10, 10, 14, 0.98) 100%)',
+              border: '1px solid rgba(246, 200, 59, 0.35)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)',
+            }}
+          >
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
+              <div style={{ flex: '1 1 480px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(246, 200, 59, 0.15)', color: '#f6c83b', padding: '0.35rem 0.85rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+                  <Sparkles size={14} /> Préparation Course &amp; Coaching Sur-Mesure
+                </div>
+                <h2 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.6rem 0', lineHeight: 1.25 }}>
+                  Vous préparez {race.name} ({race.distances}) ?
+                </h2>
+                <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
+                  Ne laissez rien au hasard le jour J. <strong><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener" style={{ color: '#f6c83b', textDecoration: 'underline' }}>Vincent Buisson</a></strong> (Fondateur de RunVaucluse, <strong>Coach course à pied diplômé STAPS</strong> &amp; Sub-35&apos; au 10 km) vous accompagne sur <strong>Nolio</strong> avec un plan 100% individualisé selon votre niveau :{' '}
+                  <a href="https://vincentbuisson.fr/coaching-10km/" target="_blank" rel="noopener" style={{ color: '#ffffff', textDecoration: 'underline', fontWeight: 600 }}>préparation 10 km</a>,{' '}
+                  <a href="https://vincentbuisson.fr/coaching-semi-marathon/" target="_blank" rel="noopener" style={{ color: '#ffffff', textDecoration: 'underline', fontWeight: 600 }}>coaching semi-marathon</a>,{' '}
+                  <a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener" style={{ color: '#ffffff', textDecoration: 'underline', fontWeight: 600 }}>préparation marathon</a> et trail.
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', fontSize: '0.8rem' }}>
+                  <a href="https://vincentbuisson.fr/calculateur-allures/" target="_blank" rel="noopener" style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', textDecoration: 'none', fontWeight: 600 }}>
+                    ⚡ Calculateur VMA &amp; Allures Cibles
+                  </a>
+                  <a href="https://vincentbuisson.fr/blog/endurance-fondamentale-zone-2-running/" target="_blank" rel="noopener" style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', textDecoration: 'none', fontWeight: 600 }}>
+                    📖 Guide Endurance Fondamentale (Zone 2)
+                  </a>
+                  <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', textDecoration: 'none', fontWeight: 600 }}>
+                    🔥 Comprendre les Seuils SV1 / SV2
+                  </a>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', minWidth: '240px' }}>
+                <a
+                  href="https://vincentbuisson.fr/contact/"
+                  target="_blank"
+                  rel="noopener"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    background: '#f6c83b',
+                    color: '#09090b',
+                    fontWeight: 900,
+                    fontSize: '0.85rem',
+                    padding: '1rem 1.4rem',
+                    borderRadius: '12px',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    boxShadow: '0 10px 25px rgba(246, 200, 59, 0.25)',
+                  }}
+                >
+                  Réserver mon Bilan Offert →
+                </a>
+                <span style={{ fontSize: '0.75rem', color: '#94a3b8', textAlign: 'center' }}>
+                   Appel visio de 15 min gratuit • Sans engagement
+                </span>
+              </div>
+            </div>
+          </section>
+
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>
               <MapPin size={24} />
