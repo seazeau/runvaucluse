@@ -551,14 +551,14 @@
     "date": "2027-03-07",
     "name": "Trail de Venasque",
     "city": "Venasque",
-    "distances": "25 km (931D+), 13 km (485D+), 8 km (200D+)",
+    "distances": "24 km, 13 km, 7 km, Marche 7 km",
     "type": "Trail",
     "contact": "Foyer Laïque de Venasque (06 78 12 57 88 / foyerlaiquevenasque@gmail.com)",
-    "image_url": "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=800",
+    "image_url": "/images/poster-trail-de-venasque-2027.png",
     "link": "https://www.facebook.com/foyerlaiquevenasque",
     "facebook": "https://www.facebook.com/foyerlaiquevenasque",
     "slug": "trail-de-venasque-venasque",
-    "description": "Dimanche 7 mars 2027 à Venasque.Trois formats au programme : 25 km (931m D+), 13 km (485m D+) et 8 km (200m D+) autour de l’un des plus beaux villages de France."
+    "description": "Dimanche 7 mars 2027 à Venasque. Le Trail de Venasque propose 3 parcours de 24 km, 13 km et 7 km ainsi qu'une marche de 7 km au cœur des sublimes paysages et falaises de l'un des Plus Beaux Villages de France. Restauration festive prévue à l'arrivée (grillades, frites, crêpes, boissons). Événement convivial organisé par le Foyer Laïque de Venasque et la Team PAPA Running."
   },
   {
     "id": 13,
