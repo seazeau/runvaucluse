@@ -421,11 +421,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
             </div>
           </section>
 
-          <NutripurePartnerCard 
-            raceName={race.name}
-            raceType={race.type}
-            raceDistances={race.distances}
-          />
+          <NutripurePartnerCard />
 
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>
