@@ -8,6 +8,7 @@ import { getResultsBySlug } from '@/lib/db';
 import StructuredData from '@/components/StructuredData';
 import CyberCardGenerator from '@/components/CyberCardGenerator';
 import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
+import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -419,6 +420,12 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               <span className={styles.coachSubCta}>Visio de 15 min • Sans engagement</span>
             </div>
           </section>
+
+          <NutripurePartnerCard 
+            raceName={race.name}
+            raceType={race.type}
+            raceDistances={race.distances}
+          />
 
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>

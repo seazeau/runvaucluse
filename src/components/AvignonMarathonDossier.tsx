@@ -674,6 +674,7 @@ export default function AvignonMarathonDossier() {
                   Pour sécuriser votre apport de 60g de glucides/heure sans troubles gastriques, 
                   Vincent Buisson conseille les <strong>gels énergétiques de son partenaire Nutripure</strong> (30g de glucides, ratio 2:1) 
                   ou la <strong>boisson d&apos;effort Nutripure 60g</strong> dans votre flasque (avec électrolytes et BCAA). 
+                  Bénéficiez de <strong>-10% de réduction</strong> avec le code <strong>RUNPASSION</strong>. 
                   Complétez avec l&apos;eau des ravitaillements tous les 5 km.
                 </p>
               </div>
@@ -1128,14 +1129,17 @@ export default function AvignonMarathonDossier() {
                 la <strong>Boisson Énergétique d&apos;Effort 60g</strong> (ratio 2:1 maltodextrine/fructose, 1000mg BCAA, 5 électrolytes) 
                 ou les <strong>Gels Énergétiques Nutripure</strong> (30g de glucides par gel, technologie SolidCarbs™).
               </p>
+              <div style={{ margin: '0.75rem 0', padding: '0.6rem 0.85rem', background: '#ECFDF5', border: '1px dashed #059669', borderRadius: '8px', fontSize: '0.85rem', color: '#065F46' }}>
+                🎁 <strong>Offre partenaire coureur :</strong> <strong>-10%</strong> sur votre 1ère commande avec le code <strong>RUNPASSION</strong>
+              </div>
               <a
-                href="https://www.nutripure.fr/fr/"
+                href="https://www.nutripure.fr/fr/?s=RUNPASSION"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer sponsored"
                 className={styles.affiliateBtn}
                 style={{ background: '#059669', color: '#ffffff' }}
               >
-                Découvrir la nutrition Nutripure <ExternalLink size={14} />
+                Commander sur Nutripure (-10% code RUNPASSION) <ExternalLink size={14} />
               </a>
             </div>
           </div>

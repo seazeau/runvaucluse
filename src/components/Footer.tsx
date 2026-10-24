@@ -74,6 +74,11 @@ export default function Footer() {
                   Boutique Top4Running <ExternalLink size={12} />
                 </a>
               </li>
+              <li>
+                <a href="https://www.nutripure.fr/fr/?s=RUNPASSION" target="_blank" rel="noopener noreferrer sponsored" className={styles.affiliateLink}>
+                  Nutrition Nutripure (-10% code RUNPASSION) <ExternalLink size={12} />
+                </a>
+              </li>
               <li><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener">Coach Course à Pied — Vincent Buisson <ExternalLink size={12} /></a></li>
               <li><a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener">Préparation Marathon & Semi <ExternalLink size={12} /></a></li>
               <li><a href="https://vincentbuisson.fr/calculateur-allures/" target="_blank" rel="noopener">Calculateur VMA & Allures <ExternalLink size={12} /></a></li>

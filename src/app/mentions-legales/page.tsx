@@ -31,8 +31,8 @@ export default function MentionsLegales() {
           </section>
 
           <section style={{ marginBottom: '2rem' }}>
-            <h2 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>4. AFFILIATION</h2>
-            <p>RunVaucluse participe au programme d&apos;affiliation Top4Running. Certains liens sortants peuvent générer une commission sans surcoût pour l&apos;utilisateur.</p>
+            <h2 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>4. AFFILIATION & PARTENARIATS</h2>
+            <p>RunVaucluse participe à des programmes d&apos;affiliation partenaires (notamment <strong>Top4Running</strong> et <strong>Nutripure</strong>). Certains liens sortants peuvent générer une commission sans aucun surcoût pour l&apos;utilisateur, tout en lui faisant bénéficier de réductions et offres promotionnelles exclusives.</p>
           </section>
         </div>
       </div>
