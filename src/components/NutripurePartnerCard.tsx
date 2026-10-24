@@ -61,7 +61,7 @@ export default function NutripurePartnerCard() {
               rel="noopener noreferrer sponsored"
               className={styles.titleLink}
             >
-              NUTRIPURE • Nutrition Pure &amp; Traçable
+              NUTRIPURE
             </a>
           </h3>
 
