@@ -5,6 +5,7 @@ import EditorialHero from '@/components/EditorialHero';
 import FAQSection from '@/components/FAQSection';
 import AboutSection from '@/components/AboutSection';
 import SEOSection from '@/components/SEOSection';
+import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 import { Race } from '@/lib/types';
 import styles from './page.module.css';
 import { Plus, AlertCircle, Calendar } from 'lucide-react';
@@ -33,6 +34,7 @@ export default async function Home() {
       {/* FULL CALENDAR SECTION */}
       <section id="calendrier" className={styles.calendarSection}>
         <div className="container">
+          <NutripurePartnerCard />
           <header className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
               <Calendar size={24} className={styles.headerIcon} />

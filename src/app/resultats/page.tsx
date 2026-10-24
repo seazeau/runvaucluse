@@ -3,6 +3,7 @@ import styles from './ResultatsList.module.css';
 import { Trophy, Calendar, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getRacesWithResults, getLatestWinners } from '@/lib/db';
+import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 
 export const metadata = {
   title: "Résultats & Classements des Courses en Vaucluse 2026 - 2027 | RunVaucluse",
@@ -33,6 +34,7 @@ export default async function ResultatsPage() {
     <div className={styles.pageWrapper}>
       <main className={styles.main}>
         <div className={styles.container}>
+          <NutripurePartnerCard />
           <header className={styles.header}>
             <h1 className={styles.title}>RÉSULTATS DES COURSES</h1>
             <p className={styles.subtitle}>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getResultsBySlug, getRaceBySlug, getRacesWithResults } from '@/lib/db';
 import { Metadata } from 'next';
 import RaceResultsClient from './RaceResultsClient';
+import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -74,6 +75,8 @@ export default async function RaceResultsPage({ params }: { params: Promise<{ sl
           <Link href="/resultats" className={styles.backLink}>
             <ChevronLeft size={16} /> TOUS LES RÉSULTATS
           </Link>
+
+          <NutripurePartnerCard />
 
           <div className={styles.header}>
             <h1 className={styles.title}>{race.name}</h1>
