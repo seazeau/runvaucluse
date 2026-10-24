@@ -13,7 +13,8 @@
     "instagram": "https://www.instagram.com/dinguedeboue",
     "registration_link": "https://www.jf-chronotrail.fr/inscription_dinguedeboue_2026/dinguedeboue_2026/liste_inscrits.php",
     "registration_platform": "JF Chronotrail",
-    "slug": "dingue-de-boue-pernes-les-fontaines"
+    "slug": "dingue-de-boue-pernes-les-fontaines",
+    "description": "Course d'obstacles festive et boueuse à Pernes-les-Fontaines ! 6 km d'épreuves physiques et ludiques avec franchissements, glissades, bottes de paille et fosses de boue. Ouverte en solo ou en équipe avec le Challenge Entreprise."
   },
   {
     "id": 47,
@@ -27,7 +28,8 @@
     "link": "http://acep-valreas.asso-web.com/",
     "facebook": "https://www.facebook.com/acepvalreas/",
     "instagram": "https://www.instagram.com/acepvalreas/",
-    "slug": "lenclavienne-valreas"
+    "slug": "lenclavienne-valreas",
+    "description": "Course sur route estivale à Valréas au cœur de l'Enclave des Papes. Parcours de 10 km (170m D+) traversant la cité médiévale historique, ses remparts et les vignobles vallonnés de l'Enclave."
   },
   {
     "date": "2026-09-12",
@@ -62,7 +64,8 @@
     "registration_platform": "KMS",
     "registration_link": "https://www.kms.fr/v5/public/course/5293",
     "website": "https://www.facebook.com/p/Trail-du-ruban-dor%C3%A9-cancers-pediatriques-61550627121194/",
-    "slug": "trail-du-ruban-dore-sault"
+    "slug": "trail-du-ruban-dore-sault",
+    "description": "Trail sauvage et authentique à Sault sur le plateau d'Albion et les flancs est du Géant de Provence. Parcours de 33 km (880m D+) et 12 km (250m D+) entre champs de lavande, forêts de hêtres et sentiers calmes."
   },
   {
     "date": "2026-09-20",
@@ -115,7 +118,7 @@
     "facebook": "https://www.facebook.com/lacarombaise/",
     "slug": "la-carombaise-caromb",
     "is_cancelled": true,
-    "description": "L'édition 2026 de La Carombaise est officiellement annulée. Rendez-vous pour la prochaine édition !"
+    "description": "Course nature conviviale à Caromb sur les contreforts du Mont Ventoux. Parcours variés de 13 km et 5,3 km entre oliveraies, vignes du Ventoux et ruelles du village de Caromb."
   },
   {
     "id": 65,
@@ -148,7 +151,8 @@
     "registration_link": "https://bit.ly/PernesenRose",
     "website": "https://www.viesantevaucluse.fr",
     "slug": "pernes-en-rose-pernes-les-fontaines",
-    "id": 66
+    "id": 66,
+    "description": "Course et marche caritative à Pernes-les-Fontaines dans le cadre d'Octobre Rose au profit de la Ligue contre le cancer. Parcours solidaire de 10 km, marche de 2 km, course enfants de 1 km et animations festives."
   },
   {
     "id": 67,
@@ -163,7 +167,8 @@
     "link": "https://tmv-saumane.fr",
     "facebook": "https://www.facebook.com/profile.php?id=100057584343343",
     "instagram": "https://www.instagram.com/tmv_saumane/",
-    "slug": "trail-des-monts-de-vaucluse-saumane"
+    "slug": "trail-des-monts-de-vaucluse-saumane",
+    "description": "Grand rendez-vous trail à Saumane-de-Vaucluse à travers les Monts de Vaucluse. Trois parcours techniques de 50 km (2325m D+), 22,7 km (1302m D+) et 10,5 km (400m D+) sillonnant les bories, crêtes rocheuses et le Vallon de la Tapy."
   },
   {
     "id": 68,
@@ -199,7 +204,8 @@
     "slug": "trail-du-ventouret-bedoin",
     "registration_platform": "Njuko",
     "registration_link": "https://in.njuko.com/trail-du-ventouret-2026?currentPage=select-competition",
-    "website": "https://ventouxtrailclub.com/trail-du-ventouret/"
+    "website": "https://ventouxtrailclub.com/trail-du-ventouret/",
+    "description": "Trail montagnard à Bédoin sur les sentiers sauvages de la face sud du Mont Ventoux. Trois parcours exigeants de 36 km (1950m D+), 24 km (1400m D+) et 12 km (550m D+) au cœur des pierriers et forêts du Ventoux."
   },
   {
     "id": 70,
@@ -213,7 +219,8 @@
     "link": "https://www.infinitytrail.fr/mont-ventoux/",
     "facebook": "https://www.facebook.com/infinitytrail.fr",
     "instagram": "https://www.instagram.com/infinitytrail.fr/",
-    "slug": "infinity-trail-mont-ventoux-bedoin"
+    "slug": "infinity-trail-mont-ventoux-bedoin",
+    "description": "Format Backyard Ultra officiel à Bédoin au pied du Mont Ventoux. Les coureurs s'élancent sur une boucle de 6,706 km à parcourir chaque heure, jusqu'au dernier coureur encore en lice (Last One Standing)."
   },
   {
     "id": 71,
@@ -230,7 +237,8 @@
     "registration_platform": "Nikrome",
     "registration_link": "https://www.nikrome.com",
     "website": "https://10km-d-althen.finishers.com/fr",
-    "slug": "les-10-km-dalthen-althen-des-paluds"
+    "slug": "les-10-km-dalthen-althen-des-paluds",
+    "description": "Courses sur route rapides et plates à Althen-des-Paluds. Épreuves de 10 km et 5 km labellisées FFA idéales pour battre son record personnel de vitesse en fin de saison, complétées par des courses enfants."
   },
   {
     "id": 72,
@@ -259,7 +267,8 @@
     "type": "Course sur route FFA",
     "contact": "romainfagot@outlook.fr",
     "image_url": "/images/poster-telethon-running-carpentras.jpg",
-    "slug": "telethon-running-carpentras"
+    "slug": "telethon-running-carpentras",
+    "description": "Course solidaire annuelle à Carpentras au complexe sportif au profit du Téléthon. Format de 7,5 km en solo ou en relais dans une ambiance festive et sportive ouverte à tous les niveaux."
   },
   {
     "id": 74,
@@ -291,7 +300,8 @@
     "image_url": "/images/poster-la-foulee-caumontoise-caumont-sur-durance.jpg",
     "link": "https://lesgalopants.fr/la-foulee-caumontoise/",
     "facebook": "https://www.facebook.com/lafouleecaumontoise/",
-    "slug": "la-foulee-caumontoise-caumont-sur-durance"
+    "slug": "la-foulee-caumontoise-caumont-sur-durance",
+    "description": "Course nature et route à Caumont-sur-Durance à travers la colline du Piémont et les berges de la Durance. Trois formats de 15 km, 10 km et 6 km ainsi qu'une marche nordique de 9 km."
   },
   {
     "id": 76,
@@ -337,7 +347,8 @@
     "link": "http://ascavaillon.athle.com",
     "facebook": "https://www.facebook.com/ecotraildenoeldecavaillon/",
     "instagram": "https://www.instagram.com/as_cavaillon/",
-    "slug": "eco-trail-de-noel-cavaillon"
+    "slug": "eco-trail-de-noel-cavaillon",
+    "description": "Trail nature hivernal à Cavaillon sur les sentiers escarpés de la colline Saint-Jacques. Épreuves de 12 km (360m D+) et 7 km (200m D+) pour clore la saison des trails dans une ambiance festive de fin d'année."
   },
   {
     "id": 78,
@@ -353,7 +364,8 @@
     "registration_platform": "KMS",
     "registration_link": "https://www.kms.fr",
     "website": "https://www.csama.fr",
-    "slug": "10-km-de-la-durance-montfavet"
+    "slug": "10-km-de-la-durance-montfavet",
+    "description": "Classique hivernale de fin d'année à Montfavet (Avignon). Parcours plat et roulant de 10 km et 5 km parfait pour tester son allure et finir l'année sur un chrono officiel."
   },
   {
     "id": 1,
@@ -774,7 +786,7 @@
     "registration_link": "https://www.kms.fr/v5/public/courses/5270",
     "registration_platform": "KMS",
     "slug": "la-boucle-rose-cavaillon",
-    "description": "Dimanche 11 avril 2027 à Cavaillon. Épreuve nature et solidaire proposant deux formats de 12 km et 7 km."
+    "description": "Course et marche solidaire à Cavaillon au profit de la lutte contre le cancer du sein. Deux parcours conviviaux de 12 km et 7 km ouverts aux coureurs et marcheurs sur la colline Saint-Jacques."
   },
   {
     "id": 23,
@@ -810,7 +822,7 @@
     "registration_link": "https://in.njuko.com/-la-course-des-templiers-20261773935926463",
     "website": "https://www.facebook.com/use.omnisports",
     "slug": "course-des-templiers-entraigues-sur-la-sorgue",
-    "description": "Dimanche 25 avril 2027 à Entraigues-sur-la-Sorgue. Épreuves de 21,1 km, 13 km solo ou duo (127m D+) et 7 km."
+    "description": "Épreuve sur route et nature à Entraigues-sur-la-Sorgue. Au programme : 21,1 km (semi-marathon), 13 km solo ou duo (127m D+) et un 7 km rapide longeant les berges de la Sorgue et la campagne."
   },
   {
     "id": 24,
@@ -1178,7 +1190,7 @@
     "slug": "duo-nocturne-de-vedene-vedene",
     "registration_link": "https://www.kms.fr/v5/public/course/4975",
     "website": "https://mairie-vedene.fr/votre-ville/sports-loisirs-et-vie-associative/sports/evenements-sportifs/duo-nocturne",
-    "description": "Vendredi 2 juillet 2027 à 22h à Vedène. Course nocturne conviviale de 8,2 km (80m D+) à la lampe frontale."
+    "description": "Course nocturne estivale en duo ou solo à Vedène. Parcours festif et rapide de 8,2 km (80m D+) à la lampe frontale à travers le centre historique et le parc de la mairie."
   },
   {
     "id": 45,
@@ -1375,7 +1387,7 @@
     "registration_platform": "Njuko",
     "registration_link": "https://in.njuko.com/octobre-run-20261784706722161?currentPage=select-competition",
     "facebook": "https://www.facebook.com/octobrerosemazan",
-    "description": "Samedi 9 octobre 2027 à Mazan. Épreuve solidaire Octobre Rose au pied du Ventoux.",
+    "description": "Mobilisation sportive et solidaire à Mazan pour Octobre Rose. Courses et marches de 12 km et 5 km ouvertes à tous au pied du Mont Ventoux pour soutenir la lutte contre le cancer du sein.",
     "slug": "octobre-rose-a-mazan-mazan"
   },
   {
@@ -1629,7 +1641,7 @@
     "instagram": "https://www.instagram.com/lesmontsdemathias/",
     "parcours_link": "https://www.calculitineraires.fr/index.php?id=1581334",
     "gpx_link": "/itineraires/les-monts-de-mathias.gpx",
-    "description": "Dimanche 21 novembre 2027 à 9h30 à Visan. Course nature de 13 km (330m D+) au cœur de l’Enclave des Papes.",
+    "description": "Course nature en Enclave des Papes à Visan. Parcours pittoresque de 13 km (330m D+) entre vignes de renom, pinèdes et collines calcaires de l'Enclave.",
     "slug": "trail-les-monts-de-mathias-2027-visan"
   },
   {
@@ -1695,6 +1707,6 @@
     "registration_link": "https://www.kms.fr",
     "website": "https://www.csama.fr",
     "slug": "10-km-de-la-durance-2027-montfavet",
-    "description": "Dimanche 19 décembre 2027 à Montfavet (départs 9h45 et 10h). Classique hivernale sur route de 10 km et 5 km."
+    "description": "Édition 2027 des 10 km de la Durance à Montfavet. Parcours mesuré et plat de 10 km et 5 km propice aux performances de fin d'année à travers la plaine maraîchère comtadine."
   }
 ]
