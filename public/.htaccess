@@ -1,7 +1,15 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Redirect www to non-www (matches all canonical tags)
+  RewriteCond %{HTTP_HOST} ^www\.runvaucluse\.fr$ [NC]
+  RewriteRule ^(.*)$ https://runvaucluse.fr/$1 [L,R=301]
+
   # Standard Next.js behavior for trailingSlash: true
   # If the file is not found, try to append .html or check for index.html
   RewriteCond %{REQUEST_FILENAME} !-f
