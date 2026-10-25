@@ -7,7 +7,7 @@ async function importNikrome(url: string, race_slug: string) {
   
   try {
     const raceRow = db.prepare('SELECT date FROM races WHERE slug = ?').get(race_slug) as any;
-    const race_date = raceRow?.date || '2026-10-18';
+    const race_date = raceRow?.date || '2026-10-25';
     console.log(`Using race_date: ${race_date}`);
 
     const response = await fetch(url);
@@ -58,6 +58,15 @@ async function importNikrome(url: string, race_slug: string) {
           const rank = parseInt(rankText);
           if (isNaN(rank)) return;
 
+          let speedVal = $(cols[7]).text().trim() || null;
+          let clubVal = $(cols[8]).text().trim() || null;
+
+          if (clubVal && (clubVal.toLowerCase().includes('km/h') || clubVal.toLowerCase().includes('kmh') || clubVal.toLowerCase().includes('km'))) {
+            const tmp = speedVal;
+            speedVal = clubVal;
+            clubVal = tmp;
+          }
+
           tableResults.push({
             race_slug,
             event_name,
@@ -68,8 +77,8 @@ async function importNikrome(url: string, race_slug: string) {
             rank_cat: $(cols[4]).text().trim(),
             time: $(cols[5]).text().trim(),
             podium: $(cols[6]).text().trim() || null,
-            speed: $(cols[7]).text().trim() || null,
-            club: $(cols[8]).text().trim() || null,
+            speed: speedVal,
+            club: clubVal,
             race_date,
           });
         }
@@ -95,6 +104,18 @@ async function importNikrome(url: string, race_slug: string) {
               const cells = item.cells || [];
               const rank = parseInt(cells[0], 10);
               if (isNaN(rank)) continue;
+
+              let speedVal = String(item.club || '').trim() || null;
+              let clubVal = String(cells[7] || '').trim() || null;
+
+              // In Nikrome API, item.club contains the speed string (e.g. "12.1 Kmh")
+              // and cells[7] contains the club name (e.g. "AS Cavaillon")
+              if (clubVal && (clubVal.toLowerCase().includes('km/h') || clubVal.toLowerCase().includes('kmh') || clubVal.toLowerCase().includes('km'))) {
+                const tmp = speedVal;
+                speedVal = clubVal;
+                clubVal = tmp;
+              }
+
               tableResults.push({
                 race_slug,
                 event_name,
@@ -105,8 +126,8 @@ async function importNikrome(url: string, race_slug: string) {
                 rank_cat: String(cells[4] || '').trim(),
                 time: String(cells[5] || '').trim(),
                 podium: String(cells[6] || '').trim() || null,
-                speed: String(cells[7] || '').trim() || null,
-                club: String(item.club || '').trim() || null,
+                speed: speedVal,
+                club: clubVal,
                 race_date,
               });
             }
