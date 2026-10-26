@@ -73,7 +73,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // New Race Carrousel State
   const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
-    return races.find(r => r.slug === 'utlm-backyard-ultra-monteux')?.slug || races.find(r => r.slug === 'trail-nocturne-de-bonnieux-bonnieux')?.slug || races.find(r => r.slug === 'la-vigneronde-puget')?.slug || races[0]?.slug || '';
+    return races.find(r => r.slug === 'traversee-des-dentelles-gigondas')?.slug || races.find(r => r.slug === 'utlm-backyard-ultra-monteux')?.slug || races.find(r => r.slug === 'trail-nocturne-de-bonnieux-bonnieux')?.slug || races.find(r => r.slug === 'la-vigneronde-puget')?.slug || races[0]?.slug || '';
   });
 
   // Clubs Call Carrousel State
@@ -261,6 +261,9 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const race = activeNewRace;
       if (race.slug === 'utlm-backyard-ultra-monteux') {
         return `🔔 TOP DÉPART // UTLM BACKYARD ULTRA 2026 ! ⏳🔥\n\nC'est parti aujourd'hui à 14h00 au Domaine de Beauregard (Lac de Monteux) pour la 5ème édition de l'Ultra Tour du Lac de Monteux Backyard Ultra !\n\nLe concept officiel « Last One Standing » créé par Lazarus Lake :\n🔄 Une boucle de 6,706 km (18m D+) avec vue sur le Mont Ventoux et les Dentelles\n⏱️ Moins d'une heure pour boucler chaque tour\n🔔 Nouveau départ toutes les heures à la cloche, sans aucun retard toléré\n🛌 Le temps restant sert à manger, soigner ses pieds, dormir 10 minutes... ou douter !\n🏆 Règle absolue : il n'y a qu'UN SEUL finisher et unique vainqueur. Tous les autres coureurs finissent DNF (Did Not Finish).\n\n130 guerriers et guerrières prennent le départ cet après-midi. Qui sera le dernier homme ou la dernière femme debout ? Combien de boucles seront courues ? 24h (100 miles) ? 36h ? 48h+ ?\n\n👉 Retrouvez la présentation de l'épreuve et les actualités sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien en bio)\n\n💬 À vos pronostics en commentaire : combien de tours pour le vainqueur selon vous ? 👇\n\n#runvaucluse #utlm #utlmby #backyardultra #lastonestanding #lazaruslake #monteux #vaucluse #runningvaucluse #trailvaucluse #ultratrail #courseapied #ultraendurance #defi #lacdemonteux`;
+      }
+      if (race.slug === 'traversee-des-dentelles-gigondas') {
+        return `🏔️ OUVERTURE DES INSCRIPTIONS // LA TRAVERSÉE DES DENTELLES 2027 ! 🏃‍♂️⚡\n\nC’est le moment de réserver votre dossard pour l’un des plus beaux trails de Provence ! Les inscriptions officielles pour la 39ème édition de la Traversée des Dentelles de Gigondas viennent d’ouvrir sur la plateforme Finishers ! 🍇⛰️\n\nLes infos clés à retenir :\n📅 Dates : Samedi 5 & Dimanche 6 Juin 2027\n📍 Lieu : Gigondas (Vaucluse) — au cœur des majestueuses Dentelles de Montmirail\n🎟️ Inscriptions officielles : sur la plateforme @finishers_fr (Finishers)\n\nAu programme, 5 formats d'exception taillés pour tous les défis :\n🔹 42 KM (2 000m D+) • Marathon des Dentelles (Le grand défi au lever du soleil - départ 5h30)\n🔹 21 KM (600m D+) • La Traversée des Dentelles (L'épreuve reine au cœur des crêtes calcaires)\n🔹 11 KM (420m D+) • La Gambade (Parcours tonique et accessible)\n🔹 5 KM (210m D+) • La Petite Gambade (Idéal pour débuter le trail ou sprinter)\n🔹 Marche 11 KM (420m D+) & Courses enfants (Kids 1 km & Mini Kids 200 m)\n\nEntre sentiers sauvages, crêtes calcaires spectaculaires, vues plongeantes sur le Mont Ventoux et traversée des célèbres vignobles de Gigondas, c'est l'essence même du trail provençal avec une ambiance chaleureuse et festive.\n\nSur RUNVAUCLUSE.FR, retrouvez dès maintenant :\n📍 Fiche complète de la course & parcours\n📈 Dénivelés et profils\n🎟️ Lien direct d’inscription Finishers\n\n👉 Rendez-vous sur le site :\n🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio !)\n\n💾 Enregistrez ce post pour votre calendrier 2027 et taguez vos partenaires de trail en commentaire ! 👇\n\n#runvaucluse #traverseedesdentelles #dentellesdemontmirail #gigondas #trailvaucluse #runningvaucluse #finishers #marathondesdentelles #trailfrance #montventoux #vaucluse #courseapied #provence #trailrunning`;
       }
       if (race.slug === 'marathon-davignon-avignon') {
         return `🔥 ANNONCE OFFICIELLE // 2ÈME ÉDITION DU MARATHON D'AVIGNON ! 🏃‍♂️⚡\n\nBloquez la date : le Dimanche 14 mars 2027, la Cité des Papes accueillera la 2ème édition de son grand Marathon et Semi-Marathon officiel ! 🏰🏅\n\nLes infos clés officielles :\n📅 Date : Dimanche 14 mars 2027\n🎟️ 6 000 dossards au total (3 000 sur le semi / 3 000 sur le marathon)\n⭐ Parcours labellisés FFA sur les 2 distances (qualificatif Championnats de France)\n⏱️ Inscriptions : ouverture AVANT FIN OCTOBRE sur la plateforme unique Finishers !\n🤝 Partenaires majeurs : NGE & Ville d'Avignon\n\nAvec son tracé ultra-plat au cœur des remparts du XIVe siècle et sur l'Île de la Barthelasse, c'est l'épreuve parfaite pour exploser votre record personnel ou réussir votre premier marathon !\n\nSur RUNVAUCLUSE.FR, nous venons de mettre à jour le DOSSIER COMPLET :\n📍 Tracés GPX interactifs\n📈 Profil altimétrique et analyse tactique coach STAPS\n⏱️ Toutes les infos sur les 6 000 dossards et l'ouverture des inscriptions\n\n👉 Retrouvez le dossier dès maintenant sur le site :\n🔗 WWW.RUNVAUCLUSE.FR (Lien en bio !)\n\n💾 Enregistrez ce post et identifiez vos potes pour ne pas rater l'ouverture des dossards fin octobre ! 👇\n\n#runvaucluse #marathonavignon #semimarathonavignon #avignon #finishers #vaucluse #runningvaucluse #courseapied #marathon #semimarathon #ffa #nge #course2027`;
@@ -1090,7 +1093,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
                             <span className={styles.slidePillTag}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART AUJOURD\'HUI 🔔' : 'NOUVEAU SUR LE SITE ✨'}
+                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART AUJOURD\'HUI 🔔' : race.slug === 'traversee-des-dentelles-gigondas' ? 'INSCRIPTIONS OUVERTES 🏔️' : 'NOUVEAU SUR LE SITE ✨'}
                             </span>
                           </div>
 
@@ -1126,7 +1129,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                                 </div>
                                 <div className={styles.posterBadges}>
                                   <span className={styles.posterTagBadge}>
-                                    {race.slug === 'utlm-backyard-ultra-monteux' ? '🔥 5ÈME ÉDITION' : (race.label ? `🏷️ ${race.label.toUpperCase()}` : '📍 COURSE VAUCLUSE')}
+                                    {race.slug === 'utlm-backyard-ultra-monteux' ? '🔥 5ÈME ÉDITION' : race.slug === 'traversee-des-dentelles-gigondas' ? '🔥 39ÈME ÉDITION • DOSSARDS FINISHERS' : (race.label ? `🏷️ ${race.label.toUpperCase()}` : '📍 COURSE VAUCLUSE')}
                                   </span>
                                 </div>
                               </div>
