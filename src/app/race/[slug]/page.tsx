@@ -251,7 +251,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {(race.pdf_link || race.parcours_link || race.gpx_link) && (
+              {!isDentelles && !isGRV && (race.pdf_link || race.parcours_link || race.gpx_link) && (
                 <div className={styles.gpxContainer}>
                   <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
                   <div className={styles.gpxGrid}>
