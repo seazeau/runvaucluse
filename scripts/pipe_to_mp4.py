@@ -31,8 +31,8 @@ while True:
     if frame is not None:
         writer.write(frame)
         total_written += 1
-        if total_written % 60 == 0:
-            sys.stderr.write(f"Frame {total_written}/720\n")
+        if total_written % 100 == 0:
+            sys.stderr.write(f"Frame {total_written}\n")
             sys.stderr.flush()
 
 writer.release()

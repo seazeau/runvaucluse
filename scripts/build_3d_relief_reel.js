@@ -5,13 +5,13 @@ const fs = require('fs');
 const os = require('os');
 
 const OUT_MP4 = 'public/itineraires/valescure_reel_runvaucluse.mp4';
-const TOTAL_FRAMES = 720; // 24.0 seconds at 30 fps
+const TOTAL_FRAMES = 900; // 30.0 seconds at 30 fps
 
 async function generate3DReel() {
     console.log("=================================================");
     console.log("🚀 Lancement du Rendu Reel 3D Relief Tour de France");
     console.log("Course: Les Crêtes de Valescure (43 km)");
-    console.log("Format: 720x1280 @ 30fps • 720 frames (24.0s)");
+    console.log("Format: 720x1280 @ 30fps • 900 frames (30.0s)");
     console.log("=================================================");
 
     // 1. Spawn Python pipe encoder
