@@ -159,16 +159,19 @@
     "date": "2026-11-01",
     "name": "Trail des Monts de Vaucluse",
     "city": "Saumane",
-    "distances": "50 km (2325D+), 22,7 km (1302D+), 10,5 km (400D+)",
+    "distances": "43 km (1905D+), 22,5 km (1200D+), 10 km (400D+), course enfants",
     "type": "Trail",
     "label": "LB",
     "contact": "organisateur@tmv-saumane.fr",
-    "image_url": "/images/trailmontvaucluse.jpg",
+    "image_url": "/images/poster-trail-monts-de-vaucluse-2026.png",
     "link": "https://tmv-saumane.fr",
     "facebook": "https://www.facebook.com/profile.php?id=100057584343343",
     "instagram": "https://www.instagram.com/tmv_saumane/",
     "slug": "trail-des-monts-de-vaucluse-saumane",
-    "description": "Grand rendez-vous trail à Saumane-de-Vaucluse à travers les Monts de Vaucluse. Trois parcours techniques de 50 km (2325m D+), 22,7 km (1302m D+) et 10,5 km (400m D+) sillonnant les bories, crêtes rocheuses et le Vallon de la Tapy."
+    "description": "7ème édition du Trail des Monts de Vaucluse (TMV) le dimanche 1er novembre 2026 à Saumane-de-Vaucluse. Au programme : Les Crêtes de Valescure (43 km • 1905m D+ à 8h00, qualificatif Championnats de France), Le Sommet des Ânes (22,5 km • 1200m D+ à 8h30, qualificatif Championnats de France), La Trace du Goupil (10 km • 400m D+ à 10h00) et La Barule des Pitchouns (course enfants à 9h00).",
+    "registration_platform": "Nikrome",
+    "registration_link": "https://www.nikrome.com",
+    "website": "https://www.tmv-saumane.fr"
   },
   {
     "id": 68,
