@@ -40,14 +40,22 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# python
+__pycache__/
+*.pyc
+
 # build archives
 *.tar
 *.tar.gz
 *.zip
+*.mp4
+data/tiles_cache/
 
 # temporary inspection screenshots & windows shortcuts
 screenshot_*.png
 inspi.png
+public/images/frame_*.jpg
+public/images/reel_frame*.jpg
 *.lnk
 /*.jpg
 /*.jpeg

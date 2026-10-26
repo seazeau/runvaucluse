@@ -7,7 +7,7 @@
             "width": 1080,
             "height": 1920
         },
-        "duration": 600,
+        "duration": 1800,
         "timeFormat": "frames"
     },
     "scenes": [
@@ -20,7 +20,7 @@
                 "logarithmic": false,
                 "groupedPosition": true
             },
-            "duration": 600,
+            "duration": 1800,
             "attributes": [
                 {
                     "type": "cameraGroup",
