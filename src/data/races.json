@@ -171,7 +171,8 @@
     "description": "7ème édition du Trail des Monts de Vaucluse (TMV) le dimanche 1er novembre 2026 à Saumane-de-Vaucluse. Au programme : Les Crêtes de Valescure (43 km • 1905m D+ à 8h00, qualificatif Championnats de France), Le Sommet des Ânes (22,5 km • 1200m D+ à 8h30, qualificatif Championnats de France), La Trace du Goupil (10 km • 400m D+ à 10h00) et La Barule des Pitchouns (course enfants à 9h00).",
     "registration_platform": "Nikrome",
     "registration_link": "https://www.nikrome.com",
-    "website": "https://www.tmv-saumane.fr"
+    "website": "https://www.tmv-saumane.fr",
+    "gpx_link": "/itineraires/tmv-valescure-43km.gpx"
   },
   {
     "id": 68,
