@@ -140,6 +140,15 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
     { label: '25 KM (20K)', file: '/itineraires/20_K_GRV_26_v6_b38f5b4346.gpx' },
   ];
 
+  // GPX for Traversée des Dentelles
+  const isDentelles = slug === 'traversee-des-dentelles-gigondas';
+  const dentellesGpx = [
+    { label: '42 KM • Marathon des Dentelles (2 000m D+)', file: '/itineraires/traversee-dentelles-42km-marathon.gpx' },
+    { label: '21 KM • La Traversée des Dentelles (600m D+)', file: '/itineraires/traversee-dentelles-21km.gpx' },
+    { label: '11 KM • La Gambade (420m D+)', file: '/itineraires/traversee-dentelles-11km-gambade.gpx' },
+    { label: '5 KM • La Petite Gambade (210m D+)', file: '/itineraires/traversee-dentelles-5km-petite-gambade.gpx' },
+  ];
+
   return (
     <div className={styles.pageWrapper}>
       <StructuredData race={race} />
@@ -221,6 +230,19 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   <span className={styles.gpxLabel}>TRACÉS GPX OFFICIELS</span>
                   <div className={styles.gpxGrid}>
                     {grvGpx.map((gpx, idx) => (
+                      <a key={idx} href={gpx.file} download className={styles.gpxBtn}>
+                        <Download size={16} /> {gpx.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {isDentelles && (
+                <div className={styles.gpxContainer}>
+                  <span className={styles.gpxLabel}>TRACÉS GPX OFFICIELS (4 PARCOURS)</span>
+                  <div className={styles.gpxGrid}>
+                    {dentellesGpx.map((gpx, idx) => (
                       <a key={idx} href={gpx.file} download className={styles.gpxBtn}>
                         <Download size={16} /> {gpx.label}
                       </a>
