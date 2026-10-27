@@ -2,8 +2,8 @@ export interface ReelRunnerData {
   name: string;
   club: string;
   count: number;
+  bestRank: number | string;
   totalKm: number;
-  wins: number;
   grade: string;
 }
 
@@ -281,25 +281,31 @@ export function drawReelFrame(
     ctx.font = '700 28px system-ui, sans-serif';
     ctx.fillText(`📍 ${runner.club || 'Coureur Vaucluse'}`, w / 2, cardY + 375);
 
-    // 4 Stats Grid (2x2)
-    const gridY = cardY + 430;
-    const gridW = 660;
-    const cellW = (gridW - 30) / 2;
-    const cellH = 145;
+    // 3 Stats Grid (Nombre de courses, Meilleure place au scratch, Kilomètre en course)
+    const gridY = cardY + 440;
+    const gridW = 680;
+    const gap = 14;
+    const cellW = (gridW - 2 * gap) / 3;
+    const cellH = 155;
     const gridX = (w - gridW) / 2;
 
+    const formatRank = (r: number | string) => {
+      if (!r || r === '-') return '-';
+      if (typeof r === 'number') {
+        return r === 1 ? '1ER' : `${r}E`;
+      }
+      return `${r}`.toUpperCase();
+    };
+
     const stats = [
-      { val: `${runner.count}`, label: 'DOSSARDS TERMINÉS', icon: '🏃' },
-      { val: `${runner.totalKm} KM`, label: 'DISTANCE TOTALE COURSE', icon: '📍' },
-      { val: runner.wins > 0 ? `${runner.wins}` : '100%', label: runner.wins > 0 ? 'VICTOIRES / PODIUMS' : 'TAUX DE FINISHER', icon: '🥇' },
-      { val: 'TOP 5%', label: 'RANG DÉPARTEMENTAL', icon: '🏆' }
+      { val: `${runner.count}`, labelTop: 'NOMBRE DE', labelBottom: 'COURSES', icon: '🏃' },
+      { val: formatRank(runner.bestRank), labelTop: 'MEILLEURE PLACE', labelBottom: 'AU SCRATCH', icon: '🥇' },
+      { val: `${runner.totalKm} KM`, labelTop: 'KILOMÈTRE', labelBottom: 'EN COURSE', icon: '📍' }
     ];
 
     stats.forEach((st, idx) => {
-      const col = idx % 2;
-      const row = Math.floor(idx / 2);
-      const cx = gridX + col * (cellW + 30);
-      const cy = gridY + row * (cellH + 20);
+      const cx = gridX + idx * (cellW + gap);
+      const cy = gridY;
 
       ctx.fillStyle = 'rgba(250, 247, 242, 0.05)';
       ctx.strokeStyle = 'rgba(250, 247, 242, 0.12)';
@@ -309,12 +315,13 @@ export function drawReelFrame(
       ctx.stroke();
 
       ctx.fillStyle = '#F6C83B';
-      ctx.font = '900 62px "Bebas Neue", sans-serif';
-      ctx.fillText(st.val, cx + cellW / 2, cy + 68);
+      ctx.font = '900 58px "Bebas Neue", sans-serif';
+      ctx.fillText(st.val, cx + cellW / 2, cy + 66);
 
-      ctx.fillStyle = 'rgba(250, 247, 242, 0.7)';
-      ctx.font = '700 20px system-ui, sans-serif';
-      ctx.fillText(`${st.icon} ${st.label}`, cx + cellW / 2, cy + 112);
+      ctx.fillStyle = 'rgba(250, 247, 242, 0.75)';
+      ctx.font = '700 16px system-ui, sans-serif';
+      ctx.fillText(`${st.icon} ${st.labelTop}`, cx + cellW / 2, cy + 104);
+      ctx.fillText(st.labelBottom, cx + cellW / 2, cy + 126);
     });
 
     // Card Bottom Line

@@ -138,48 +138,48 @@ const POPULAR_RUNNERS: ReelRunnerData[] = [
     name: 'Didier Bresson',
     club: 'Allianz Bresson Carpentras',
     count: 12,
+    bestRank: 4,
     totalKm: 164,
-    wins: 0,
     grade: 'Pilier du Peloton'
   },
   {
     name: 'Chantal Jacob',
     club: 'AS Apt & Ventoux Trail',
     count: 22,
+    bestRank: 81,
     totalKm: 246,
-    wins: 0,
     grade: 'Légende du 84'
   },
   {
     name: 'Alexandre Reymonet',
     club: '1000 Pattes du Pontet',
     count: 22,
+    bestRank: 13,
     totalKm: 238,
-    wins: 1,
     grade: 'Légende du 84'
   },
   {
     name: 'Bruno Dallara',
     club: 'Big Pig',
     count: 18,
+    bestRank: 68,
     totalKm: 181,
-    wins: 0,
     grade: 'Légende du 84'
   },
   {
     name: 'Clara Entresangle',
     club: 'AS Cavaillon',
     count: 8,
+    bestRank: 1,
     totalKm: 75,
-    wins: 6,
     grade: 'Championne du 84'
   },
   {
     name: 'Romain Legendre',
     club: 'UA Carpentras',
     count: 6,
+    bestRank: 1,
     totalKm: 60,
-    wins: 4,
     grade: 'Recordman 84'
   }
 ];
@@ -199,6 +199,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [customRunnerName, setCustomRunnerName] = useState('');
   const [customRunnerClub, setCustomRunnerClub] = useState('');
   const [customRunnerCount, setCustomRunnerCount] = useState<number>(12);
+  const [customRunnerBestRank, setCustomRunnerBestRank] = useState<number>(4);
   const [customRunnerKm, setCustomRunnerKm] = useState<number>(164);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
@@ -208,8 +209,8 @@ export default function StudioClient({ races, latestWinners }: Props) {
         name: customRunnerName.trim(),
         club: customRunnerClub.trim() || 'Coureur Vaucluse',
         count: customRunnerCount,
+        bestRank: customRunnerBestRank || 1,
         totalKm: customRunnerKm,
-        wins: 0,
         grade: customRunnerCount >= 10 ? 'Légende du 84' : customRunnerCount >= 5 ? 'Pilier du Peloton' : 'Finisher Régulier'
       }
     : (POPULAR_RUNNERS[selectedRunnerIndex] || POPULAR_RUNNERS[0]);
@@ -548,7 +549,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     } else if (mode === 'reel') {
-      return `🏃‍♂️ TU AS COURU DANS LE VAUCLUSE CETTE ANNÉE ? TA CARTE COUREUR EST DISPONIBLE ! 🪪⚡\n\nQue tu aies fait 1 course de village ou 20 trails, toutes tes stats 2026/2027 sont réunies sur une seule carte officielle :\n\n✅ Nombre de dossards terminés\n✅ Distance totale parcourue en compétition\n✅ Podiums et classements\n✅ Badge de saison (Légende du 84, Pilier du peloton...)\n\n👉 Tape ton prénom et nom sur RUNVAUCLUSE.FR/COUREUR (Lien direct en bio 🔗) pour générer ta carte et la partager en Story !\n\n💬 Tague ton club et tes potes de course en commentaire pour qu'ils découvrent leur bilan ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #cartecoureur #bilanrunning #vaucluse #courseapied #avignon #cavaillon #carpentras #orange #apt #trailduventoux #instarunfrance`;
+      return `🏃‍♂️ TU AS COURU DANS LE VAUCLUSE CETTE ANNÉE ? TA CARTE COUREUR EST DISPONIBLE ! 🪪⚡\n\nQue tu aies fait 1 course de village ou 20 trails, toutes tes stats 2026/2027 sont réunies sur une seule carte officielle :\n\n✅ Nombre de courses\n✅ Meilleure place au scratch\n✅ Kilomètres en course\n✅ Badge de saison (Légende du 84, Pilier du peloton...)\n\n👉 Tape ton prénom et nom sur RUNVAUCLUSE.FR/COUREUR (Lien direct en bio 🔗) pour générer ta carte et la partager en Story !\n\n💬 Tague ton club et tes potes de course en commentaire pour qu'ils découvrent leur bilan ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #cartecoureur #bilanrunning #vaucluse #courseapied #avignon #cavaillon #carpentras #orange #apt #trailduventoux #instarunfrance`;
     }
     return '';
   };
@@ -899,7 +900,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                   >
                     {POPULAR_RUNNERS.map((runner, idx) => (
                       <option key={idx} value={idx}>
-                        {runner.name} ({runner.club}) — {runner.count} courses ({runner.totalKm} km)
+                        {runner.name} ({runner.club}) — {runner.count} courses, {typeof runner.bestRank === 'number' ? (runner.bestRank === 1 ? '1er' : `${runner.bestRank}e`) : runner.bestRank} scratch, {runner.totalKm} km
                       </option>
                     ))}
                   </select>
@@ -916,7 +917,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     style={{ marginBottom: '0.4rem' }}
                   />
                   {customRunnerName.trim() && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem' }}>
                       <input 
                         type="text"
                         className={styles.selectInput}
@@ -927,14 +928,21 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                       <input 
                         type="number"
                         className={styles.selectInput}
-                        placeholder="Courses"
+                        placeholder="Nombre de courses"
                         value={customRunnerCount}
                         onChange={(e) => setCustomRunnerCount(parseInt(e.target.value) || 0)}
                       />
                       <input 
                         type="number"
                         className={styles.selectInput}
-                        placeholder="Total Km"
+                        placeholder="Meilleur scratch (ex: 4)"
+                        value={customRunnerBestRank}
+                        onChange={(e) => setCustomRunnerBestRank(parseInt(e.target.value) || 1)}
+                      />
+                      <input 
+                        type="number"
+                        className={styles.selectInput}
+                        placeholder="Kilomètres en course"
                         value={customRunnerKm}
                         onChange={(e) => setCustomRunnerKm(parseInt(e.target.value) || 0)}
                       />
@@ -1275,19 +1283,19 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           <div className={styles.reelCardStatsGrid}>
                             <div className={styles.reelCardStatBox}>
                               <span className={styles.reelCardStatValue}>{currentRunner.count}</span>
-                              <span className={styles.reelCardStatLabel}>🏃 DOSSARDS TERMINÉS</span>
+                              <span className={styles.reelCardStatLabel}>🏃 NOMBRE DE COURSES</span>
+                            </div>
+                            <div className={styles.reelCardStatBox}>
+                              <span className={styles.reelCardStatValue}>
+                                {typeof currentRunner.bestRank === 'number'
+                                  ? (currentRunner.bestRank === 1 ? '1ER' : `${currentRunner.bestRank}E`)
+                                  : (currentRunner.bestRank || '-')}
+                              </span>
+                              <span className={styles.reelCardStatLabel}>🥇 MEILLEURE PLACE SCRATCH</span>
                             </div>
                             <div className={styles.reelCardStatBox}>
                               <span className={styles.reelCardStatValue}>{currentRunner.totalKm} KM</span>
-                              <span className={styles.reelCardStatLabel}>📍 DISTANCE COURSE</span>
-                            </div>
-                            <div className={styles.reelCardStatBox}>
-                              <span className={styles.reelCardStatValue}>{currentRunner.wins > 0 ? `${currentRunner.wins}` : '100%'}</span>
-                              <span className={styles.reelCardStatLabel}>🥇 {currentRunner.wins > 0 ? 'VICTOIRES / PODIUMS' : 'TAUX FINISHER'}</span>
-                            </div>
-                            <div className={styles.reelCardStatBox}>
-                              <span className={styles.reelCardStatValue}>TOP 5%</span>
-                              <span className={styles.reelCardStatLabel}>🏆 RANG DÉPARTEMENTAL</span>
+                              <span className={styles.reelCardStatLabel}>📍 KILOMÈTRE EN COURSE</span>
                             </div>
                           </div>
 
