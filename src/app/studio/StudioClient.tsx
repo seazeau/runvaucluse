@@ -1700,7 +1700,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                               <div className={styles.clubBenefitCard}>
                                 <Trophy size={22} className={styles.clubBenefitIcon} />
                                 <div>
-                                  <h4 className={styles.clubBenefitTitle}>CONVIVIALITÉ & ÉPRUVE DU WEEK-END</h4>
+                                  <h4 className={styles.clubBenefitTitle}>CONVIVIALITÉ & ÉPREUVES DU WEEK-END</h4>
                                   <p className={styles.clubBenefitText}>
                                     Covoiturages sur les courses locales, émulation sur les lignes de départ et l&apos;ambiance chaleureuse des 3èmes mi-temps !
                                   </p>
