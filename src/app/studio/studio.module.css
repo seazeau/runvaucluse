@@ -1327,3 +1327,427 @@
 
 
 
+
+/* ==========================================================================
+   REEL MOTION DESIGN (WALL OF FAME 9:16)
+   ========================================================================== */
+
+.reelContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.reelCanvas {
+  width: 420px;
+  height: 746px; /* 9:16 ratio */
+  background: radial-gradient(circle at 50% 20%, #1A2127 0%, #0D1013 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(250, 247, 242, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(246, 200, 59, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.2rem 1.8rem;
+  box-sizing: border-box;
+}
+
+.reelBackgroundOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(rgba(246, 200, 59, 0.15) 1px, transparent 1px),
+    radial-gradient(rgba(235, 94, 40, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  opacity: 0.35;
+}
+
+.reelGlowOrb1 {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 200, 59, 0.25) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  animation: reelPulse 4s ease-in-out infinite alternate;
+}
+
+.reelGlowOrb2 {
+  position: absolute;
+  bottom: 40px;
+  left: -80px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 94, 40, 0.25) 0%, transparent 70%);
+  filter: blur(45px);
+  pointer-events: none;
+  animation: reelPulse 5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes reelPulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+.reelProgressBarContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(250, 247, 242, 0.15);
+  z-index: 20;
+}
+
+.reelProgressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #EB5E28, #F6C83B);
+  transition: width 0.05s linear;
+}
+
+.reelBrandHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.reelLogo {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.35rem;
+  letter-spacing: 1.5px;
+  color: #FAF7F2;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.reelSceneBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.65rem;
+  border-radius: 20px;
+  background: rgba(246, 200, 59, 0.15);
+  border: 1px solid rgba(246, 200, 59, 0.4);
+  color: #F6C83B;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reelContentZone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  margin: 1.5rem 0;
+}
+
+.reelHookZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  animation: reelSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reelHookPill {
+  background: #EB5E28;
+  color: #FAF7F2;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(235, 94, 40, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.reelHookTitle {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 3.1rem;
+  line-height: 0.95;
+  color: #FAF7F2;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.reelHookHighlight {
+  color: #F6C83B;
+  display: block;
+  text-shadow: 0 0 30px rgba(246, 200, 59, 0.4);
+}
+
+.reelHookSubtitle {
+  font-size: 0.95rem;
+  color: rgba(250, 247, 242, 0.8);
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reelDatabaseZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.2rem;
+  animation: reelZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reelCounterDisplay {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 4.6rem;
+  line-height: 0.9;
+  color: #F6C83B;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 25px rgba(246, 200, 59, 0.35);
+}
+
+.reelDatabaseLabel {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.55rem;
+  line-height: 1.1;
+  color: #FAF7F2;
+  margin: -0.5rem 0 0;
+  letter-spacing: 1px;
+}
+
+.reelStatBox {
+  background: rgba(250, 247, 242, 0.05);
+  border: 1px solid rgba(250, 247, 242, 0.12);
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  max-width: 320px;
+}
+
+.reelRecordsZone {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  animation: reelSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reelRecordsTitle {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.7rem;
+  color: #FAF7F2;
+  margin: 0 0 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reelRecordCard {
+  background: rgba(250, 247, 242, 0.05);
+  border: 1px solid rgba(246, 200, 59, 0.25);
+  border-left: 4px solid #F6C83B;
+  border-radius: 12px;
+  padding: 0.75rem 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.reelRecordMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.reelRecordDist {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #EB5E28;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.reelRecordAthlete {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #FAF7F2;
+}
+
+.reelRecordClub {
+  font-size: 0.72rem;
+  color: rgba(250, 247, 242, 0.65);
+}
+
+.reelRecordTimeBadge {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.7rem;
+  color: #F6C83B;
+  letter-spacing: 1px;
+  background: rgba(246, 200, 59, 0.1);
+  border: 1px solid rgba(246, 200, 59, 0.3);
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.reelOutroZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  animation: reelZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reelOutroTitle {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.8rem;
+  line-height: 0.95;
+  color: #FAF7F2;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.reelSearchBarMockup {
+  background: rgba(250, 247, 242, 0.08);
+  border: 1px solid rgba(250, 247, 242, 0.2);
+  border-radius: 30px;
+  padding: 0.65rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(250, 247, 242, 0.65);
+  font-size: 0.85rem;
+  width: 100%;
+  max-width: 290px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.reelCtaPill {
+  background: linear-gradient(135deg, #F6C83B, #EB5E28);
+  color: #0D1013;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.45rem;
+  letter-spacing: 1.5px;
+  padding: 0.7rem 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(246, 200, 59, 0.4);
+  font-weight: 700;
+}
+
+.reelFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(250, 247, 242, 0.1);
+  padding-top: 1rem;
+  font-size: 0.78rem;
+  color: rgba(250, 247, 242, 0.6);
+  z-index: 10;
+}
+
+.reelFooterHighlight {
+  color: #F6C83B;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reelControlsToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 420px;
+  background: #1A2127;
+  border: 1px solid rgba(250, 247, 242, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-sizing: border-box;
+}
+
+.reelTimelineRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.reelTimeSlider {
+  flex: 1;
+  accent-color: #F6C83B;
+  cursor: pointer;
+}
+
+.reelTimeText {
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: #FAF7F2;
+  min-width: 75px;
+  text-align: right;
+}
+
+.reelButtonsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.reelScenesNav {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.reelSceneBtn {
+  background: rgba(250, 247, 242, 0.06);
+  border: 1px solid rgba(250, 247, 242, 0.12);
+  color: rgba(250, 247, 242, 0.8);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reelSceneBtnActive {
+  background: rgba(246, 200, 59, 0.15);
+  border-color: #F6C83B;
+  color: #F6C83B;
+}
+
+@keyframes reelSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reelZoomIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}

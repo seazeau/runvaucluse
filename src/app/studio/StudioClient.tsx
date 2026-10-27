@@ -29,6 +29,9 @@ import {
 import { toPng } from 'html-to-image';
 import LogoIcon from '@/components/LogoIcon';
 import clubsData from '@/data/clubs.json';
+import recordsData from '@/data/vaucluse-records.json';
+import { drawReelFrame, RecordItem } from './reelRenderer';
+import { Film, Play, Pause, Search, Award, Flame } from 'lucide-react';
 import styles from './studio.module.css';
 
 interface LatestWinnerRace {
@@ -136,7 +139,84 @@ interface Props {
 }
 
 export default function StudioClient({ races, latestWinners }: Props) {
-  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story'>('new_race');
+  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('new_race');
+
+  // Reel Motion State (Wall of Fame)
+  const [reelTime, setReelTime] = useState(0);
+  const [reelPlaying, setReelPlaying] = useState(true);
+  const [reelFilter, setReelFilter] = useState<'mixed' | '10k' | 'semi' | 'marathon'>('mixed');
+  const [isExportingVideo, setIsExportingVideo] = useState(false);
+  const [exportProgress, setExportProgress] = useState(0);
+
+  useEffect(() => {
+    if (mode !== 'reel' || !reelPlaying) return;
+    const interval = setInterval(() => {
+      setReelTime((prev) => {
+        const next = Math.round((prev + 0.05) * 100) / 100;
+        return next >= 12.0 ? 0 : next;
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, [mode, reelPlaying]);
+
+  const exportReelVideo = async () => {
+    setIsExportingVideo(true);
+    setExportProgress(0);
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        setIsExportingVideo(false);
+        return;
+      }
+
+      const stream = canvas.captureStream(30);
+      let mimeType = 'video/webm;codecs=vp9';
+      if (typeof MediaRecorder !== 'undefined' && !MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4';
+      }
+
+      const recorder = new MediaRecorder(stream, { mimeType });
+      const chunks: Blob[] = [];
+
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reel-wall-of-fame-runvaucluse.${mimeType.includes('mp4') ? 'mp4' : 'webm'}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setIsExportingVideo(false);
+        setExportProgress(100);
+      };
+
+      recorder.start();
+
+      const totalFrames = 360;
+      for (let f = 0; f < totalFrames; f++) {
+        const t = f / 30;
+        drawReelFrame(ctx, 1080, 1920, t, reelFilter, recordsData as RecordItem[]);
+        setExportProgress(Math.round((f / totalFrames) * 100));
+        if (f % 15 === 0) {
+          await new Promise((r) => setTimeout(r, 4));
+        }
+      }
+
+      recorder.stop();
+    } catch (err) {
+      console.error('Error exporting Reel video:', err);
+      setIsExportingVideo(false);
+    }
+  };
   
   // Weekend Carrousel State
   const [selectedRaceSlugs, setSelectedRaceSlugs] = useState<string[]>(() => {
@@ -396,16 +476,19 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
 #runvaucluse #runningvaucluse #trailvaucluse #athlevaucluse #clubrunning #courirvaucluse #courseapied #avignon #carpentras #cavaillon #orange #apt #bollene #islesurlasorgue #vaucluse #runningfrance`;
       }
       return `📢 APPEL À TOUS LES CLUBS & ASSOCIATIONS DU VAUCLUSE ! 🏃‍♂️🏃‍♀️\n\nLe Vaucluse regorge de clubs passionnés, de groupes d’entraînement chaleureux et de coachs engagés.\n\nSur RUNVAUCLUSE.FR, nous voulons offrir à chaque coureur vauclusien — qu’il soit débutant, traileur ou compétiteur — un annuaire complet et précis pour trouver le club qui lui correspond.\n\n👉 Responsables, coachs ou coureurs : aidez-nous à compléter la fiche de votre club !\n\nEnvoyez-nous simplement :\n1️⃣ Une courte présentation de votre club (l’esprit, vos spécialités : route, trail, piste, loisir, jeunes…)\n2️⃣ Vos créneaux et horaires d’entraînement (jours, heures et lieux de rendez-vous)\n3️⃣ Vos liens d’inscriptions et contacts officiels (site, mail, réseaux)\n\n📩 Pour nous les envoyer :\n• En message privé directement ici (${clubInstagramTag})\n• Par mail à : ${clubContactEmail}\n\nC’est 100% gratuit et ouvert à toutes les structures du département (FFA, FSGT, UFOLEP ou assos running indépendantes).\n\n👇 Tague ton club, ton président ou tes partenaires d’entraînement en commentaire pour qu’ils ne manquent pas le train !\n\n---\n#runvaucluse #runningvaucluse #trailvaucluse #athlevaucluse #clubathletisme #clubrunning #vaucluse #avignon #carpentras #cavaillon #orange #apt #bollene #islesurlasorgue #courirconvivialite #courseapied`;
-    } else {
+    } else if (mode === 'story') {
       if (activeStoryRace.slug === 'utlm-backyard-ultra-monteux') {
         return `🔔 TOP DÉPART : UTLM BACKYARD ULTRA AU LAC DE MONTEUX !\n\n130 coureurs au départ, boucle de 6,706 km chaque heure. 1 seul finisher, tous les autres DNF !\n\n👉 Retrouvez toutes les infos sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #utlm #backyardultra #lastonestanding #monteux #courseapied`;
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
+    } else if (mode === 'reel') {
+      return `🏆 QUI DÉTIENT LES RECORDS DE COURSE À PIED DANS LE VAUCLUSE ? ⏱️⚡\n\n10 km en 30'49", Semi-Marathon en 1h08'45", 24 655 coureurs répertoriés...\n\nLe grand WALL OF FAME du Vaucluse est enfin en ligne sur runvaucluse.fr ! 🏃‍♂️🏃‍♀️\n\nCe que vous allez y trouver :\n🥇 Les records départementaux officiels homologués FFA & World Athletics\n📊 L'historique complet de vos courses locales dans le 84 (dossards terminés, podiums, victoires)\n🔍 Un moteur de recherche pour trouver vos stats et celles de votre club !\n\n👉 Ton nom est-il déjà inscrit dans l'histoire ? Tape ton prénom sur runvaucluse.fr/records (Lien direct en bio 🔗)\n\nDis-nous en commentaire : c'est quoi ton chrono de référence sur 10 km ou Semi ? 👇\n\n#runvaucluse #vaucluse #runningvaucluse #trailduventoux #courseapied #walloffame #avignon #cavaillon #carpentras #athle84 #instarunfrance`;
     }
+    return '';
   };
 
   const copyCaption = () => {
-    navigator.clipboard.writeText(generateCaption());
+    navigator.clipboard.writeText(generateCaption() || '');
     setCopiedCaption(true);
     setTimeout(() => setCopiedCaption(false), 2000);
   };
@@ -459,6 +542,12 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               onClick={() => { setMode('story'); setActiveSlideIndex(0); }}
             >
               <Zap size={18} /> Story "Focus Course J-7"
+            </button>
+            <button 
+              className={`${styles.tabBtn} ${mode === 'reel' ? styles.tabBtnActive : ''}`}
+              onClick={() => { setMode('reel'); setReelPlaying(true); setReelTime(0); }}
+            >
+              <Film size={18} /> Reel Motion "Wall of Fame"
             </button>
           </div>
         </header>
@@ -725,6 +814,98 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               </>
             )}
 
+            {/* REEL WALL OF FAME CONTROLS */}
+            {mode === 'reel' && (
+              <>
+                <h3 className={styles.controlsSectionTitle}>
+                  <Film size={18} /> Configuration Reel Motion 9:16
+                </h3>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Angle / Focus des Records</label>
+                  <select 
+                    className={styles.selectInput}
+                    value={reelFilter}
+                    onChange={(e) => setReelFilter(e.target.value as any)}
+                  >
+                    <option value="mixed">Mixte : 10 KM & Semi (H/F)</option>
+                    <option value="10k">Focus : 10 KM Hommes & Femmes</option>
+                    <option value="semi">Focus : Semi-Marathon (21.1 km)</option>
+                    <option value="marathon">Focus : Marathon (42.195 km)</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Contrôle de l'Animation (12s)</label>
+                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.6rem' }}>
+                    <button 
+                      onClick={() => setReelPlaying(!reelPlaying)}
+                      className={styles.actionBtn}
+                      style={{ flex: 1, padding: '0.6rem' }}
+                    >
+                      {reelPlaying ? <Pause size={16} /> : <Play size={16} />}
+                      {reelPlaying ? 'Mettre en pause' : 'Lancer la lecture'}
+                    </button>
+                    <button 
+                      onClick={() => { setReelTime(0); setReelPlaying(true); }}
+                      className={styles.actionBtn}
+                      style={{ padding: '0.6rem' }}
+                      title="Recommencer"
+                    >
+                      <RotateCcw size={16} />
+                    </button>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
+                    <button 
+                      onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                      className={styles.actionBtn}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime < 3 ? 1 : 0.7 }}
+                    >
+                      Scène 1 : Hook (0-3s)
+                    </button>
+                    <button 
+                      onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                      className={styles.actionBtn}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 3 && reelTime < 6.2 ? 1 : 0.7 }}
+                    >
+                      Scène 2 : 24K Runners (3-6s)
+                    </button>
+                    <button 
+                      onClick={() => { setReelTime(7.5); setReelPlaying(false); }}
+                      className={styles.actionBtn}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 6.2 && reelTime < 9.5 ? 1 : 0.7 }}
+                    >
+                      Scène 3 : Records (6-9s)
+                    </button>
+                    <button 
+                      onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
+                      className={styles.actionBtn}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 9.5 ? 1 : 0.7 }}
+                    >
+                      Scène 4 : Outro (9-12s)
+                    </button>
+                  </div>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Export Vidéo Instagram Reel</label>
+                  <button 
+                    onClick={exportReelVideo}
+                    disabled={isExportingVideo}
+                    className={styles.downloadBtn}
+                    style={{ background: 'linear-gradient(135deg, #EB5E28, #F6C83B)', color: '#0D1013', fontWeight: 800 }}
+                  >
+                    <Film size={18} />
+                    {isExportingVideo ? `Génération vidéo HD... (${exportProgress}%)` : 'Exporter la Vidéo (WebM 1080p)'}
+                  </button>
+                  <p style={{ margin: '0.4rem 0 0', fontSize: '0.75rem', color: 'rgba(250, 247, 242, 0.6)' }}>
+                    Génère un fichier vidéo vertical (9:16) 1080×1920 fluide à 30fps prêt à être publié directement sur Instagram Reels ou TikTok.
+                  </p>
+                </div>
+              </>
+            )}
+
             {/* VISUAL & POSTER SETTINGS */}
             {(mode === 'weekend' || mode === 'story' || mode === 'new_race') && (
               <div className={styles.visualSettingsBox}>
@@ -879,6 +1060,214 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
             )}
 
             {/* ACTUAL RENDERED CANVAS */}
+            {mode === 'reel' ? (
+              <div className={styles.reelContainer}>
+                {/* Visual Canvas (capturable by toPng as well) */}
+                <div 
+                  ref={canvasRef}
+                  className={styles.reelCanvas}
+                >
+                  <div className={styles.reelBackgroundOverlay} />
+                  <div className={styles.reelGlowOrb1} />
+                  <div className={styles.reelGlowOrb2} />
+
+                  {/* Progress Bar */}
+                  <div className={styles.reelProgressBarContainer}>
+                    <div 
+                      className={styles.reelProgressBarFill}
+                      style={{ width: `${(reelTime / 12) * 100}%` }}
+                    />
+                  </div>
+
+                  {/* Header */}
+                  <div className={styles.reelBrandHeader}>
+                    <div className={styles.reelLogo}>
+                      <LogoIcon size={26} /> RUNVAUCLUSE
+                    </div>
+                    <span className={styles.reelSceneBadge}>
+                      {reelTime < 3 && '⚡ ARCHIVES 84'}
+                      {reelTime >= 3 && reelTime < 6.2 && '🏆 24K COUREURS'}
+                      {reelTime >= 6.2 && reelTime < 9.5 && '⏱️ CHRONOS FFA'}
+                      {reelTime >= 9.5 && '🔥 WALL OF FAME'}
+                    </span>
+                  </div>
+
+                  {/* Content Zone */}
+                  <div className={styles.reelContentZone}>
+                    {/* SCENE 1 : HOOK */}
+                    {reelTime < 3 && (
+                      <div className={styles.reelHookZone} key="scene-1">
+                        <span className={styles.reelHookPill}>
+                          <Sparkles size={14} /> LE GRAND BILAN DU VAUCLUSE
+                        </span>
+                        <h2 className={styles.reelHookTitle}>
+                          QUI DÉTIENT LES <span className={styles.reelHookHighlight}>RECORDS DU 84 ?</span>
+                        </h2>
+                        <p className={styles.reelHookSubtitle}>
+                          <Trophy size={18} color="#F6C83B" /> 10 KM ROUTE • SEMI • MARATHON
+                        </p>
+                      </div>
+                    )}
+
+                    {/* SCENE 2 : 24K RUNNERS */}
+                    {reelTime >= 3 && reelTime < 6.2 && (
+                      <div className={styles.reelDatabaseZone} key="scene-2">
+                        <span className={styles.reelHookPill} style={{ background: '#F6C83B', color: '#0D1013' }}>
+                          <Award size={14} /> ARCHIVES OFFICIELLES
+                        </span>
+                        <h2 className={styles.reelCounterDisplay}>
+                          {Math.round(Math.min(24655, ((reelTime - 3.0) / 1.5) * 24655)).toLocaleString('fr-FR')}
+                        </h2>
+                        <h3 className={styles.reelDatabaseLabel}>
+                          COUREURS RÉPERTORIÉS DANS LE VAUCLUSE
+                        </h3>
+                        <div className={styles.reelStatBox}>
+                          <Search size={22} color="#F6C83B" style={{ flexShrink: 0 }} />
+                          <div style={{ fontSize: '0.8rem', lineHeight: '1.3' }}>
+                            <div style={{ fontWeight: 700, color: '#FAF7F2' }}>100+ courses passées au crible</div>
+                            <div style={{ color: '#F6C83B' }}>Ton nom est peut-être déjà dedans ! 👀</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SCENE 3 : RECORDS */}
+                    {reelTime >= 6.2 && reelTime < 9.5 && (
+                      <div className={styles.reelRecordsZone} key="scene-3">
+                        <div className={styles.reelRecordsTitle}>
+                          <span>CHRONOS MYTHIQUES</span>
+                          <span style={{ fontSize: '0.85rem', color: '#F6C83B' }}>HOMOLOGUÉS FFA</span>
+                        </div>
+
+                        <div className={styles.reelRecordCard}>
+                          <div className={styles.reelRecordMeta}>
+                            <span className={styles.reelRecordDist}>10 KM ROUTE • HOMME</span>
+                            <span className={styles.reelRecordAthlete}>Hedi BOUAZZAOUI</span>
+                            <span className={styles.reelRecordClub}>CS Avignon Montfavet</span>
+                          </div>
+                          <span className={styles.reelRecordTimeBadge}>30'49''</span>
+                        </div>
+
+                        <div className={styles.reelRecordCard}>
+                          <div className={styles.reelRecordMeta}>
+                            <span className={styles.reelRecordDist}>10 KM ROUTE • FEMME</span>
+                            <span className={styles.reelRecordAthlete}>Clara ENTRESANGLE</span>
+                            <span className={styles.reelRecordClub}>AS Cavaillon</span>
+                          </div>
+                          <span className={styles.reelRecordTimeBadge}>31'45''</span>
+                        </div>
+
+                        <div className={styles.reelRecordCard}>
+                          <div className={styles.reelRecordMeta}>
+                            <span className={styles.reelRecordDist}>SEMI-MARATHON • HOMME</span>
+                            <span className={styles.reelRecordAthlete}>Maxime BOURDET</span>
+                            <span className={styles.reelRecordClub}>UA Carpentras</span>
+                          </div>
+                          <span className={styles.reelRecordTimeBadge}>1h08'45''</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SCENE 4 : OUTRO */}
+                    {reelTime >= 9.5 && (
+                      <div className={styles.reelOutroZone} key="scene-4">
+                        <span className={styles.reelHookPill}>
+                          <Flame size={14} /> ET TOI, QUEL EST TON TEMPS ?
+                        </span>
+                        <h2 className={styles.reelOutroTitle}>
+                          REJOINS LE <br /><span style={{ color: '#F6C83B' }}>WALL OF FAME</span>
+                        </h2>
+
+                        <div className={styles.reelSearchBarMockup}>
+                          <Search size={18} color="#F6C83B" />
+                          <span>Tape ton nom ou ton club...</span>
+                        </div>
+
+                        <div className={styles.reelCtaPill}>
+                          DÉCOUVRE TES STATS
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Footer */}
+                  <div className={styles.reelFooter}>
+                    <span>RUNVAUCLUSE.FR/RECORDS</span>
+                    <span className={styles.reelFooterHighlight}>
+                      LIEN EN BIO <ChevronRight size={15} />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Timeline & Player Bar */}
+                <div className={styles.reelControlsToolbar}>
+                  <div className={styles.reelTimelineRow}>
+                    <button 
+                      onClick={() => setReelPlaying(!reelPlaying)}
+                      className={styles.navArrowBtn}
+                      style={{ padding: '0.4rem', borderRadius: '8px' }}
+                    >
+                      {reelPlaying ? <Pause size={18} /> : <Play size={18} />}
+                    </button>
+
+                    <input 
+                      type="range"
+                      min="0"
+                      max="12"
+                      step="0.1"
+                      value={reelTime}
+                      onChange={(e) => {
+                        setReelTime(parseFloat(e.target.value));
+                        setReelPlaying(false);
+                      }}
+                      className={styles.reelTimeSlider}
+                    />
+
+                    <span className={styles.reelTimeText}>
+                      {reelTime.toFixed(1)}s / 12.0s
+                    </span>
+                  </div>
+
+                  <div className={styles.reelButtonsRow}>
+                    <div className={styles.reelScenesNav}>
+                      <button 
+                        onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                        className={`${styles.reelSceneBtn} ${reelTime < 3 ? styles.reelSceneBtnActive : ''}`}
+                      >
+                        Hook
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                        className={`${styles.reelSceneBtn} ${reelTime >= 3 && reelTime < 6.2 ? styles.reelSceneBtnActive : ''}`}
+                      >
+                        24K Runners
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(7.5); setReelPlaying(false); }}
+                        className={`${styles.reelSceneBtn} ${reelTime >= 6.2 && reelTime < 9.5 ? styles.reelSceneBtnActive : ''}`}
+                      >
+                        Records
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
+                        className={`${styles.reelSceneBtn} ${reelTime >= 9.5 ? styles.reelSceneBtnActive : ''}`}
+                      >
+                        Outro
+                      </button>
+                    </div>
+
+                    <button 
+                      onClick={exportReelVideo}
+                      disabled={isExportingVideo}
+                      className={styles.actionBtn}
+                      style={{ background: '#EB5E28', color: '#FAF7F2', borderColor: '#EB5E28', fontSize: '0.75rem', padding: '0.4rem 0.75rem' }}
+                    >
+                      <Film size={14} /> {isExportingVideo ? `${exportProgress}%` : 'Export WebM'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
             <div className={`${styles.canvasViewport} ${mode === 'story' ? styles.canvasViewportStory : ''}`}>
               <div 
                 ref={canvasRef} 
@@ -2149,6 +2538,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
 
               </div>
             </div>
+            )}
 
           </div>
 
