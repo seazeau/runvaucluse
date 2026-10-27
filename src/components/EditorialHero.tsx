@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Zap } from 'lucide-react';
+import clubsData from '@/data/clubs.json';
 import styles from './EditorialHero.module.css';
 
 const ALL_FEATURED_RACES = [
@@ -213,7 +214,7 @@ export default function EditorialHero() {
               <div className={styles.statDesc}>Calendrier complet officiel et synchronisé chaque semaine.</div>
             </div>
             <div className={styles.statItem}>
-              <div className={styles.statNumber}>27 CLUBS</div>
+              <div className={styles.statNumber}>{clubsData.length} CLUBS</div>
               <div className={styles.statDesc}>La communauté FFA et hors-stade de tout le département.</div>
             </div>
             <div className={styles.statItem}>

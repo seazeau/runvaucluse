@@ -7,11 +7,12 @@ export default function SEOSection() {
       <div className="container">
         <div className={styles.seoGrid}>
           <div className={styles.seoContent}>
-            <h2 className={styles.seoTitle}>Votre Calendrier de Course à Pied & Trails en Vaucluse 2026</h2>
+            <h2 className={styles.seoTitle}>Votre Calendrier de Course à Pied & Trails en Vaucluse 2026 - 2027</h2>
             <p className={styles.seoText}>
               Bienvenue sur <strong>RunVaucluse</strong>, la plateforme de référence dédiée au <strong>running et au trail dans le Vaucluse (84)</strong>. 
               Que vous prépariez votre premier 10 km, un semi-marathon rapide ou un trail engagé sur les pentes du Géant de Provence, 
-              notre calendrier centralise l&apos;intégralité des épreuves officielles : du mythique <strong>Trail du Ventoux</strong>{' '}aux courses populaires 
+              notre calendrier centralise l&apos;intégralité des épreuves officielles : du grand <Link href="/race/marathon-davignon-avignon/" style={{ color: '#c05621', fontWeight: 700 }}>Marathon & Semi-Marathon d&apos;Avignon 2027</Link> au mythique <strong>Trail du Ventoux</strong>, 
+              en passant par le <strong>Trail des Monts de Vaucluse</strong> et les courses populaires 
               d&apos;Avignon, Orange, Carpentras, Cavaillon, L&apos;Isle-sur-la-Sorgue, Sorgues ou Apt.
             </p>
             <p className={styles.seoText}>

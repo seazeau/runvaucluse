@@ -9,8 +9,14 @@ export default function StructuredData({ race }: { race: Race }) {
   });
   const raceYear = raceDate.getFullYear();
 
-  const description = race.description || 
-    `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city} en Vaucluse (84). Distances au programme : ${race.distances}. Inscription, parcours et infos pratiques sur RunVaucluse.`;
+  const isMarathonAvignon = race.slug === 'marathon-davignon-avignon';
+  const eventName = isMarathonAvignon 
+    ? "Marathon & Semi-Marathon d'Avignon 2027" 
+    : `${race.name} ${raceYear}`;
+
+  const description = isMarathonAvignon
+    ? "Participez à la 2ème édition du Marathon et Semi-Marathon d'Avignon le 14 mars 2027 : 6 000 dossards, 42,195 km et 21,1 km labellisés FFA, inscriptions Finishers et tracés GPX."
+    : race.description || `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city} en Vaucluse (84). Distances au programme : ${race.distances}. Inscription, parcours et infos pratiques sur RunVaucluse.`;
 
   const registrationUrl = race.registration_link || race.link || `https://runvaucluse.fr/race/${race.slug}/`;
 
@@ -26,7 +32,7 @@ export default function StructuredData({ race }: { race: Race }) {
       {
         '@type': 'SportsEvent',
         '@id': `https://runvaucluse.fr/race/${race.slug}/#event`,
-        name: `${race.name} ${raceYear}`,
+        name: eventName,
         description: description,
         url: `https://runvaucluse.fr/race/${race.slug}/`,
         startDate: race.date,

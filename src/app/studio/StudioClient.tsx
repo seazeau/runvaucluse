@@ -22,7 +22,9 @@ import {
   RotateCcw,
   Users,
   Mail,
-  MessageCircle
+  MessageCircle,
+  Compass,
+  Globe
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import LogoIcon from '@/components/LogoIcon';
@@ -46,6 +48,87 @@ interface LatestWinnerRace {
     rank_overall: number;
   }[];
 }
+
+interface ClubRegionItem {
+  name: string;
+  query: string;
+  city: string;
+  specialty: string;
+}
+
+interface ClubRegion {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  clubs: ClubRegionItem[];
+}
+
+const CLUB_REGIONS: ClubRegion[] = [
+  {
+    id: 'avignon',
+    title: 'GRAND AVIGNON & PLAINE',
+    subtitle: '8 clubs & groupes d\'entraînement sur Avignon, Le Pontet, Sorgues...',
+    icon: '🏛️',
+    clubs: [
+      { name: 'CAS Avignon (CASA)', query: 'CAS Avignon', city: 'Avignon', specialty: 'Piste, Hors-Stade & FFA' },
+      { name: 'CS Avignon Montfavet (CSAMA)', query: 'CS Avignon Montfavet', city: 'Montfavet', specialty: 'Piste & Running convivial' },
+      { name: 'Grand Avignon Mistral (GAMA)', query: 'Grand Avignon Mistral', city: 'Avignon', specialty: 'Demi-fond & Santé' },
+      { name: 'US Le Pontet Athlétisme', query: 'US Le Pontet', city: 'Le Pontet', specialty: 'Stade Montbord • Route, Trail' },
+      { name: 'ASVA Villeneuve', query: 'ASVA Villeneuve', city: 'Villeneuve', specialty: 'Stade Sagnes • Running, Trail' },
+      { name: 'Sorgues Athlé 84', query: 'Sorgues Athlé', city: 'Sorgues', specialty: 'Stade Badaffier • Running' },
+      { name: 'Les 5 Pas de Courthézon', query: 'Courthézon', city: 'Courthézon', specialty: 'Hors-stade & Trail' },
+      { name: 'OVTLN', query: 'OVTLN', city: 'Entraigues', specialty: 'Course nature & Sorties groupe' }
+    ]
+  },
+  {
+    id: 'ventoux',
+    title: 'VENTOUX & COMTAT VENAISSIN',
+    subtitle: '7 clubs au pied du Géant de Provence et des Dentelles',
+    icon: '⛰️',
+    clubs: [
+      { name: 'UA Carpentras (UAC)', query: 'UA Carpentras', city: 'Carpentras', specialty: 'Stade Roseraie • Piste, Trail' },
+      { name: 'Athlé Vaison Ventoux', query: 'Athlé Vaison Ventoux', city: 'Vaison', specialty: 'Route, Trail & Jeunes' },
+      { name: 'Team PAPA', query: 'Team PAPA', city: 'Pernes', specialty: 'Trail & Ultra endurance' },
+      { name: 'Terra Sport Ventoux', query: 'Terra Sport Ventoux', city: 'Pernes/Ventoux', specialty: 'Trail technique & D+' },
+      { name: 'Ventoux Organisation', query: 'Ventoux Organisation', city: 'Bédoin', specialty: 'Sorties Massif du Ventoux' },
+      { name: 'La Foulée Montilienne', query: 'Foulée Montilienne', city: 'Monteux', specialty: 'Running route & Loisir' },
+      { name: 'La Loriolade', query: 'La Loriolade', city: 'Loriol', specialty: 'Course nature & Convivialité' }
+    ]
+  },
+  {
+    id: 'luberon',
+    title: 'LUBERON & PAYS D\'APT',
+    subtitle: '8 clubs entre ocres, falaises, Sorgues et Sud Luberon',
+    icon: '🌿',
+    clubs: [
+      { name: 'AS Cavaillon Athletic (ASC)', query: 'AS Cavaillon', city: 'Cavaillon', specialty: 'Stade Pagnetti • Piste, Route, Trail' },
+      { name: 'DénivLuberon', query: 'DénivLuberon', city: 'Robion/Apt', specialty: 'Trail engagé & Dénivelé' },
+      { name: 'Union Sport Apt (USALV)', query: 'Union Sport Apt', city: 'Apt', specialty: 'Stade de Bosque • Route & Trail' },
+      { name: 'U Sault Apt Luberon Ventoux', query: 'U Sault Apt', city: 'Sault & Apt', specialty: 'Haute Provence • Nature' },
+      { name: 'BC Isle sur la Sorgue (BCI)', query: 'BC Isle sur la Sorgue', city: "L'Isle-sur-Sorgue", specialty: 'Stade Névons • Piste & Trail' },
+      { name: 'Ménerbes Running', query: 'Ménerbes Running', city: 'Ménerbes', specialty: 'Sentiers du Luberon' },
+      { name: 'Goult Rockets Runners', query: 'Goult Rockets', city: 'Goult', specialty: 'Collines & Sorties plaisir' },
+      { name: 'Piémont Club', query: 'Piémont Club', city: 'Pertuis', specialty: 'Sud Luberon • Piste & Hors-stade' }
+    ]
+  },
+  {
+    id: 'nord',
+    title: 'HAUT VAUCLUSE & ENCLAVE',
+    subtitle: '8 clubs sur Orange, Bollène, Valréas, Mornas...',
+    icon: '🍇',
+    clubs: [
+      { name: 'UA Orange Haut Vaucluse', query: 'UA Orange Haut Vaucluse', city: 'Orange', specialty: 'Stade Clapier • Piste & Route' },
+      { name: 'Running Orange Club (ROC 84)', query: 'Running Orange Club', city: 'Orange', specialty: 'Running route & Convivialité' },
+      { name: 'Orange Sports Athlé (OSAN)', query: 'OSAN', city: 'Orange/Sérignan', specialty: 'Trail & Course nature' },
+      { name: 'ACEP Valréas', query: 'ACEP Valréas', city: 'Valréas', specialty: 'Route, Trail & Cross' },
+      { name: 'Bollène Athlétique Club (BAC)', query: 'Bollène Athlétique', city: 'Bollène', specialty: 'Piste, Running & Jeunes' },
+      { name: 'CAP Bollène', query: 'CAP Bollène', city: 'Bollène', specialty: 'Hors-stade & Trail' },
+      { name: 'Les Foulées de Mornas', query: 'Foulées de Mornas', city: 'Mornas', specialty: 'Chemins de la forteresse' },
+      { name: 'ES Nord Vaucluse (ESNV)', query: 'ESNV', city: 'Orange-Bollène', specialty: 'Entente territoriale FFA' }
+    ]
+  }
+];
 
 interface Props {
   races: Race[];
@@ -76,7 +159,8 @@ export default function StudioClient({ races, latestWinners }: Props) {
     return races.find(r => r.slug === 'traversee-des-dentelles-gigondas')?.slug || races.find(r => r.slug === 'utlm-backyard-ultra-monteux')?.slug || races.find(r => r.slug === 'trail-nocturne-de-bonnieux-bonnieux')?.slug || races.find(r => r.slug === 'la-vigneronde-puget')?.slug || races[0]?.slug || '';
   });
 
-  // Clubs Call Carrousel State
+  // Clubs Carrousel State
+  const [clubsType, setClubsType] = useState<'guide' | 'call'>('guide');
   const [clubContactEmail, setClubContactEmail] = useState('contact@runvaucluse.fr');
   const [clubInstagramTag, setClubInstagramTag] = useState('@runvaucluse.fr');
   const [clubsCoverMode, setClubsCoverMode] = useState<'all' | 'featured'>('all');
@@ -117,7 +201,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   // Reset slide index when changing mode or selection
   useEffect(() => {
     setActiveSlideIndex(0);
-  }, [mode, selectedPodiumSlugs, selectedStorySlug, selectedNewRaceSlug]);
+  }, [mode, selectedPodiumSlugs, selectedStorySlug, selectedNewRaceSlug, clubsType]);
 
   // Selected races for Weekend Mode
   const selectedRaces = races.filter(r => selectedRaceSlugs.includes(r.slug));
@@ -156,7 +240,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   } else if (mode === 'new_race') {
     totalSlides = 4; // Cover + Formats + Présentation + CTA
   } else if (mode === 'clubs') {
-    totalSlides = 4; // Cover + Pourquoi + Checklist + CTA
+    totalSlides = clubsType === 'guide' ? 7 : 4; // Guide: Cover + Pourquoi + 4 Régions + CTA | Call: 4 slides
   } else if (mode === 'story') {
     totalSlides = 1;
   }
@@ -271,6 +355,46 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const dateFormatted = new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       return `✨ NOUVEAU DOSSARD EN VAUCLUSE // ${race.name.toUpperCase()} !\n\nUne nouvelle course vient d'être ajoutée au calendrier officiel sur RUNVAUCLUSE.FR 🏃‍♂️⚡\n\n📅 Date : ${dateFormatted}\n📍 Lieu : ${race.city} (Vaucluse)\n📏 Formats : ${race.distances}\n${race.label ? `🏷️ Label : ${race.label}\n` : ''}${race.contact ? `👥 Organisation : ${race.contact}\n` : ''}\n${race.description ? `${race.description.slice(0, 280)}...\n\n` : ''}👉 Retrouvez la fiche complète, le parcours et le lien direct d'inscription officielle sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien en bio)\n\n💾 Enregistrez ce post pour votre calendrier de courses et taguez vos amis partants ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #${race.city.toLowerCase().replace(/[^a-z0-9]/g, '')} #courseapied #dossard #vaucluse #provence #calendriercourses`;
     } else if (mode === 'clubs') {
+      if (clubsType === 'guide') {
+        return `🏃‍♂️ TU COURS ENCORE TOUT SEUL DANS TON COIN ?
+
+Si tu as du mal à te motiver l'hiver, si tu stagnes sur tes chronos sur 10 km ou semi, ou si tu cherches simplement un groupe sympa pour partager tes sorties longues le dimanche... Il y a forcément un club fait pour toi dans le 84 ! 💥
+
+Dans le Vaucluse, ce sont désormais 31 CLUBS ET ASSOCIATIONS d'athlétisme, de trail et de running qui vous accueillent, quel que soit votre niveau (du grand débutant au marathonien sub-3h) !
+
+👉 POURQUOI REJOINDRE UN CLUB ?
+1️⃣ La régularité : fini les séances sautées après le boulot.
+2️⃣ La piste d'athlétisme : des séances de fractionné calibrées pour progresser sans se blesser.
+3️⃣ L'ambiance : des partenaires de sortie, des covoiturages sur les courses locales et des apéros d'après-séance !
+
+---
+
+📍 OÙ TROUVER VOTRE CLUB DANS LE VAUCLUSE ?
+
+🏛️ GRAND AVIGNON :
+• CAS Avignon (CASA) • CS Avignon Montfavet (CSAMA) • US Le Pontet • GAMA • ASVA Villeneuve • Sorgues Athlé • Courthézon • OVTLN Entraigues
+
+⛰️ VENTOUX & COMTAT :
+• UA Carpentras • Athlé Vaison Ventoux • Team PAPA Pernes • Terra Sport Ventoux • Ventoux Organisation • La Foulée Montilienne • La Loriolade
+
+🌿 LUBERON & SORGUES :
+• AS Cavaillon • DénivLuberon Robion • US Apt & USALV Sault • BCI Isle-sur-la-Sorgue • Ménerbes Running • Goult Rockets • Piémont Club Pertuis
+
+🍇 HAUT VAUCLUSE & ENCLAVE :
+• UAOHV Orange • ROC 84 Orange • OSAN Orange • ACEP Valréas • BAC & CAP Bollène • Mornas • ESNV
+
+---
+
+🔎 HORAIRES & DÉTAILS DES SÉANCES :
+Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs des licences et contacts des coachs sont répertoriés sur notre annuaire :
+🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio @runvaucluse.fr)
+
+💬 QUESTION : Tu cours en solo ou en club ? Tague ton club ou ton pote de course en commentaire ! 👇
+
+💾 Sauvegarde ce carrousel pour retrouver tous les clubs du département à tout moment !
+
+#runvaucluse #runningvaucluse #trailvaucluse #athlevaucluse #clubrunning #courirvaucluse #courseapied #avignon #carpentras #cavaillon #orange #apt #bollene #islesurlasorgue #vaucluse #runningfrance`;
+      }
       return `📢 APPEL À TOUS LES CLUBS & ASSOCIATIONS DU VAUCLUSE ! 🏃‍♂️🏃‍♀️\n\nLe Vaucluse regorge de clubs passionnés, de groupes d’entraînement chaleureux et de coachs engagés.\n\nSur RUNVAUCLUSE.FR, nous voulons offrir à chaque coureur vauclusien — qu’il soit débutant, traileur ou compétiteur — un annuaire complet et précis pour trouver le club qui lui correspond.\n\n👉 Responsables, coachs ou coureurs : aidez-nous à compléter la fiche de votre club !\n\nEnvoyez-nous simplement :\n1️⃣ Une courte présentation de votre club (l’esprit, vos spécialités : route, trail, piste, loisir, jeunes…)\n2️⃣ Vos créneaux et horaires d’entraînement (jours, heures et lieux de rendez-vous)\n3️⃣ Vos liens d’inscriptions et contacts officiels (site, mail, réseaux)\n\n📩 Pour nous les envoyer :\n• En message privé directement ici (${clubInstagramTag})\n• Par mail à : ${clubContactEmail}\n\nC’est 100% gratuit et ouvert à toutes les structures du département (FFA, FSGT, UFOLEP ou assos running indépendantes).\n\n👇 Tague ton club, ton président ou tes partenaires d’entraînement en commentaire pour qu’ils ne manquent pas le train !\n\n---\n#runvaucluse #runningvaucluse #trailvaucluse #athlevaucluse #clubathletisme #clubrunning #vaucluse #avignon #carpentras #cavaillon #orange #apt #bollene #islesurlasorgue #courirconvivialite #courseapied`;
     } else {
       if (activeStoryRace.slug === 'utlm-backyard-ultra-monteux') {
@@ -328,7 +452,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
               className={`${styles.tabBtn} ${mode === 'clubs' ? styles.tabBtnActive : ''}`}
               onClick={() => { setMode('clubs'); setActiveSlideIndex(0); }}
             >
-              <Users size={18} /> Carrousel "Appel aux Clubs"
+              <Users size={18} /> Carrousel "Guide des Clubs"
             </button>
             <button 
               className={`${styles.tabBtn} ${mode === 'story' ? styles.tabBtnActive : ''}`}
@@ -490,60 +614,90 @@ export default function StudioClient({ races, latestWinners }: Props) {
               </>
             )}
 
-            {/* CLUBS CALL MODE CONTROLS */}
+            {/* CLUBS MODE CONTROLS */}
             {mode === 'clubs' && (
               <>
                 <h3 className={styles.controlsSectionTitle}>
-                  <Users size={18} /> Appel aux Clubs & Assos
+                  <Users size={18} /> Carrousel Clubs & Assos
                 </h3>
 
                 <div className={styles.formGroup}>
-                  <p style={{ color: 'rgba(250, 247, 242, 0.7)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>
-                    Ce carrousel 4 slides invite tous les clubs et associations running du 84 à compléter leur fiche officielle sur RunVaucluse.fr.
-                  </p>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Affichage des logos sur la Cover</label>
+                  <label className={styles.label}>Type de carrousel</label>
                   <div className={styles.displayModeGrid}>
                     <button
                       type="button"
-                      className={`${styles.displayModeBtn} ${clubsCoverMode === 'all' ? styles.displayModeBtnActive : ''}`}
-                      onClick={() => setClubsCoverMode('all')}
+                      className={`${styles.displayModeBtn} ${clubsType === 'guide' ? styles.displayModeBtnActive : ''}`}
+                      onClick={() => setClubsType('guide')}
                     >
-                      <Users size={15} /> Les 27 clubs (Mosaïque)
+                      <Compass size={15} /> Guide Coureurs (7 slides)
                     </button>
                     <button
                       type="button"
-                      className={`${styles.displayModeBtn} ${clubsCoverMode === 'featured' ? styles.displayModeBtnActive : ''}`}
-                      onClick={() => setClubsCoverMode('featured')}
+                      className={`${styles.displayModeBtn} ${clubsType === 'call' ? styles.displayModeBtnActive : ''}`}
+                      onClick={() => setClubsType('call')}
                     >
-                      <Trophy size={15} /> 8 clubs en vedette
+                      <Users size={15} /> Appel Dirigeants (4 slides)
                     </button>
                   </div>
                 </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Email de contact affiché</label>
-                  <input 
-                    type="text"
-                    className={styles.selectInput}
-                    value={clubContactEmail}
-                    onChange={(e) => setClubContactEmail(e.target.value)}
-                    placeholder="contact@runvaucluse.fr"
-                  />
-                </div>
+                {clubsType === 'guide' ? (
+                  <div className={styles.formGroup}>
+                    <p style={{ color: 'rgba(250, 247, 242, 0.75)', fontSize: '0.85rem', lineHeight: '1.45', margin: 0 }}>
+                      Ce carrousel 7 slides présente l&apos;intégralité des <strong>{clubsData.length} clubs</strong> aux coureurs par secteur géographique (Grand Avignon, Ventoux, Luberon, Haut Vaucluse) pour les aider à choisir leur club cette saison.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className={styles.formGroup}>
+                      <p style={{ color: 'rgba(250, 247, 242, 0.7)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>
+                        Ce carrousel 4 slides invite tous les clubs et associations running du 84 à compléter leur fiche officielle sur RunVaucluse.fr.
+                      </p>
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Compte Instagram affiché</label>
-                  <input 
-                    type="text"
-                    className={styles.selectInput}
-                    value={clubInstagramTag}
-                    onChange={(e) => setClubInstagramTag(e.target.value)}
-                    placeholder="@runvaucluse.fr"
-                  />
-                </div>
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>Affichage des logos sur la Cover</label>
+                      <div className={styles.displayModeGrid}>
+                        <button
+                          type="button"
+                          className={`${styles.displayModeBtn} ${clubsCoverMode === 'all' ? styles.displayModeBtnActive : ''}`}
+                          onClick={() => setClubsCoverMode('all')}
+                        >
+                          <Users size={15} /> Les {clubsData.length} clubs (Mosaïque)
+                        </button>
+                        <button
+                          type="button"
+                          className={`${styles.displayModeBtn} ${clubsCoverMode === 'featured' ? styles.displayModeBtnActive : ''}`}
+                          onClick={() => setClubsCoverMode('featured')}
+                        >
+                          <Trophy size={15} /> 8 clubs en vedette
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>Email de contact affiché</label>
+                      <input 
+                        type="text"
+                        className={styles.selectInput}
+                        value={clubContactEmail}
+                        onChange={(e) => setClubContactEmail(e.target.value)}
+                        placeholder="contact@runvaucluse.fr"
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>Compte Instagram affiché</label>
+                      <input 
+                        type="text"
+                        className={styles.selectInput}
+                        value={clubInstagramTag}
+                        onChange={(e) => setClubInstagramTag(e.target.value)}
+                        placeholder="@runvaucluse.fr"
+                      />
+                    </div>
+                  </>
+                )}
               </>
             )}
 
@@ -1403,7 +1557,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                 })()}
 
                 {/* =========================================================
-                    MODE 5: APPEL AUX CLUBS CAROUSEL SLIDES (4 SLIDES)
+                    MODE 5: CLUBS CAROUSEL SLIDES (GUIDE 7 SLIDES OU APPEL 4 SLIDES)
                    ========================================================= */}
                 {mode === 'clubs' && (() => {
                   const featuredClubs = [
@@ -1420,6 +1574,248 @@ export default function StudioClient({ races, latestWinners }: Props) {
                   const allClubs = clubsData.filter(c => c.image_url);
                   const displayClubs = clubsCoverMode === 'all' ? allClubs : featuredClubs;
 
+                  const getClubLogo = (query: string): string => {
+                    const c = clubsData.find(item => item.name.toLowerCase().includes(query.toLowerCase()));
+                    return c?.image_url || '/icon.svg';
+                  };
+
+                  // ----------------------------------------------------
+                  // A. MODE GUIDE COUREURS (7 SLIDES PAR SECTEUR)
+                  // ----------------------------------------------------
+                  if (clubsType === 'guide') {
+                    return (
+                      <>
+                        {/* SLIDE 0: COVER GUIDE */}
+                        {activeSlideIndex === 0 && (
+                          <div className={styles.raceSlideCard}>
+                            <div className={styles.slideBrandHeader}>
+                              <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                              <span className={styles.slidePillTag}>GUIDE COUREURS 2026/2027 🏃‍♂️</span>
+                            </div>
+
+                            <div style={{ margin: '0.4rem 0 0.1rem' }}>
+                              <span style={{ 
+                                fontFamily: 'var(--font-mono, monospace)', 
+                                fontSize: '0.85rem', 
+                                fontWeight: 700, 
+                                color: '#F6C83B', 
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase' 
+                              }}>
+                                ANNUAIRE DU RUNNING EN VAUCLUSE
+                              </span>
+                              <h2 style={{ 
+                                fontFamily: 'var(--font-display, sans-serif)', 
+                                fontSize: '2.5rem', 
+                                lineHeight: '0.95', 
+                                color: '#FAF7F2', 
+                                margin: '0.4rem 0 0.5rem',
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase'
+                              }}>
+                                OÙ COURIR EN CLUB DANS LE VAUCLUSE ?
+                              </h2>
+                              <p style={{ 
+                                color: 'rgba(250, 247, 242, 0.8)', 
+                                fontSize: '0.88rem', 
+                                lineHeight: '1.35', 
+                                margin: 0 
+                              }}>
+                                Les <strong>31 clubs et assos</strong> du 84 pour ne plus courir seul, s&apos;entraîner en groupe et progresser cette saison.
+                              </p>
+                            </div>
+
+                            {/* Clubs preview logos */}
+                            <div className={styles.clubsCoverLogosGridAll}>
+                              {allClubs.map((club, idx) => (
+                                <div 
+                                  key={idx} 
+                                  className={styles.clubLogoMiniItemAll} 
+                                  title={club.name}
+                                >
+                                  <img src={club.image_url} alt={club.name} className={styles.clubLogoMiniImg} />
+                                </div>
+                              ))}
+                            </div>
+
+                            <div style={{ 
+                              display: 'flex', 
+                              justifyContent: 'center', 
+                              gap: '0.5rem', 
+                              marginBottom: '0.4rem' 
+                            }}>
+                              <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem' }}>
+                                ⚡ LES 31 CLUBS DU 84
+                              </span>
+                              <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem', background: '#EB5E28' }}>
+                                📍 4 GRANDS BASSINS
+                              </span>
+                            </div>
+
+                            <div className={styles.coverFooter}>
+                              <span>DÉCOUVREZ VOTRE SECTEUR</span>
+                              <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* SLIDE 1: POURQUOI REJOINDRE UN CLUB */}
+                        {activeSlideIndex === 1 && (
+                          <div className={styles.raceSlideCard}>
+                            <div className={styles.slideBrandHeader}>
+                              <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                              <span className={styles.slidePillTag}>LES AVANTAGES 🎯</span>
+                            </div>
+
+                            <div style={{ margin: '0.5rem 0 0.2rem' }}>
+                              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.3rem", color: "#FAF7F2", margin: 0, letterSpacing: "1px" }}>
+                                NE COUREZ PLUS SEUL(E) !
+                              </h3>
+                              <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.75)", fontSize: "0.88rem" }}>
+                                3 vraies raisons d&apos;intégrer un groupe d&apos;entraînement :
+                              </p>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', margin: '0.6rem 0' }}>
+                              <div className={styles.clubBenefitCard}>
+                                <Zap size={22} className={styles.clubBenefitIcon} />
+                                <div>
+                                  <h4 className={styles.clubBenefitTitle}>PROGRESSION & PISTE D&apos;ATHLÉ</h4>
+                                  <p className={styles.clubBenefitText}>
+                                    Des séances de VMA et de fractionné encadrées par des coachs diplômés pour franchir un cap (10 km, semi, marathon) sans vous blesser.
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className={styles.clubBenefitCard}>
+                                <MapPin size={22} className={styles.clubBenefitIcon} />
+                                <div>
+                                  <h4 className={styles.clubBenefitTitle}>MOTIVATION & SORTIES NATURE</h4>
+                                  <p className={styles.clubBenefitText}>
+                                    Fini les séances en solo dans le froid ou sous le Mistral. Partagez vos sorties longues le dimanche en colline, garrigue ou vers le Ventoux.
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className={styles.clubBenefitCard}>
+                                <Trophy size={22} className={styles.clubBenefitIcon} />
+                                <div>
+                                  <h4 className={styles.clubBenefitTitle}>CONVIVIALITÉ & ÉPRUVE DU WEEK-END</h4>
+                                  <p className={styles.clubBenefitText}>
+                                    Covoiturages sur les courses locales, émulation sur les lignes de départ et l&apos;ambiance chaleureuse des 3èmes mi-temps !
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className={styles.coverFooter}>
+                              <span>LES CLUBS PRÈS DE CHEZ VOUS</span>
+                              <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* SLIDES 2 à 5: LES 4 BASSINS GÉOGRAPHIQUES */}
+                        {activeSlideIndex >= 2 && activeSlideIndex <= 5 && (() => {
+                          const region = CLUB_REGIONS[activeSlideIndex - 2];
+                          return (
+                            <div className={styles.raceSlideCard}>
+                              <div className={styles.slideBrandHeader}>
+                                <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                                <span className={styles.slidePillTag}>SECTEUR {activeSlideIndex - 1}/4 {region.icon}</span>
+                              </div>
+
+                              <div style={{ margin: '0.4rem 0 0.15rem' }}>
+                                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.3rem", color: "#F6C83B", margin: 0, letterSpacing: "1px", lineHeight: "1" }}>
+                                  {region.title}
+                                </h3>
+                                <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.75)", fontSize: "0.82rem" }}>
+                                  {region.subtitle}
+                                </p>
+                              </div>
+
+                              <div className={styles.clubRegionGrid}>
+                                {region.clubs.map((c, i) => (
+                                  <div key={i} className={styles.clubRegionCardItem}>
+                                    <div className={styles.clubRegionLogo}>
+                                      <img src={getClubLogo(c.query)} alt={c.name} />
+                                    </div>
+                                    <div className={styles.clubRegionInfo}>
+                                      <h4 className={styles.clubRegionName} title={c.name}>{c.name}</h4>
+                                      <div className={styles.clubRegionMeta}>
+                                        <span className={styles.clubRegionCity}>📍 {c.city}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className={styles.coverFooter}>
+                                <span>{activeSlideIndex === 5 ? 'HORAIRES & INFOS COMPLÈTES' : 'SUITE DU GUIDE'}</span>
+                                <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
+                              </div>
+                            </div>
+                          );
+                        })()}
+
+                        {/* SLIDE 6: CTA FINAL COUREURS */}
+                        {activeSlideIndex === 6 && (
+                          <div className={styles.raceSlideCard}>
+                            <div className={styles.slideBrandHeader}>
+                              <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
+                              <span className={styles.slidePillTag}>ANNUAIRE OFFICIEL 🌐</span>
+                            </div>
+
+                            <div style={{ margin: '0.5rem 0 0.2rem', textAlign: 'center' }}>
+                              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", color: "#F6C83B", margin: 0, letterSpacing: "1px" }}>
+                                TROUVEZ VOTRE CLUB EN 1 CLIC
+                              </h3>
+                              <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.75)", fontSize: "0.9rem" }}>
+                                Consultez les créneaux, jours et horaires précis sur le site officiel :
+                              </p>
+                            </div>
+
+                            <div className={styles.clubContactGrid}>
+                              <div className={styles.clubContactItem}>
+                                <span className={styles.clubContactLabel}>
+                                  <Globe size={18} color="#EB5E28" /> SITE INTERNET
+                                </span>
+                                <span className={styles.clubContactVal}>WWW.RUNVAUCLUSE.FR</span>
+                              </div>
+
+                              <div className={styles.clubContactItem}>
+                                <span className={styles.clubContactLabel}>
+                                  <Timer size={18} color="#EB5E28" /> SÉANCES & CRÉNEAUX
+                                </span>
+                                <span className={styles.clubContactVal}>STADES, HORAIRES & LIEUX</span>
+                              </div>
+
+                              <div className={styles.clubContactItem}>
+                                <span className={styles.clubContactLabel}>
+                                  <FileText size={18} color="#EB5E28" /> CONTACTS & ADHÉSIONS
+                                </span>
+                                <span className={styles.clubContactVal}>LIENS DIRECTS DES CLUBS</span>
+                              </div>
+                            </div>
+
+                            <div className={styles.clubCommunityCallout}>
+                              💬 <strong>Tu cours dans un club du 84 ?</strong><br />
+                              Tague ton club ou tes partenaires de run en commentaire ! 👇
+                            </div>
+
+                            <div className={styles.coverFooter}>
+                              <span>RUNVAUCLUSE.FR • COMMUNAUTÉ</span>
+                              <span className={styles.swipeArrow}><Bookmark size={16} /> ENREGISTRE</span>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    );
+                  }
+
+                  // ----------------------------------------------------
+                  // B. MODE APPEL AUX DIRIGEANTS (4 SLIDES)
+                  // ----------------------------------------------------
                   return (
                     <>
                       {/* SLIDE 0: COVER ANNONCE */}
@@ -1482,7 +1878,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
                             marginBottom: '0.4rem' 
                           }}>
                             <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem' }}>
-                              {clubsCoverMode === 'all' ? '⚡ LES 27 CLUBS DU VAUCLUSE' : '⚡ +25 CLUBS RÉFÉRENCÉS'}
+                              {clubsCoverMode === 'all' ? `⚡ LES ${clubsData.length} CLUBS DU VAUCLUSE` : '⚡ +25 CLUBS RÉFÉRENCÉS'}
                             </span>
                             <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem', background: '#EB5E28' }}>
                               🆓 100% GRATUIT

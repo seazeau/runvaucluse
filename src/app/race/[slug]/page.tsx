@@ -28,13 +28,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const hasCityInName = race.name.toLowerCase().includes(race.city.toLowerCase());
   const displayName = hasCityInName ? race.name : `${race.name} (${race.city})`;
 
-  const pageTitle = race.is_cancelled
-    ? `[ANNULÉE] ${displayName} ${raceYear}`
-    : `${displayName} ${raceYear} : Parcours, Inscriptions & Infos`;
-
-  const metaDescription = race.description 
+  // High-CTR SEO Titles matching user search intent (Inscriptions, Dates, Parcours)
+  let pageTitle = `${displayName} ${raceYear} : Inscription, Parcours & Date`;
+  let metaDescription = race.description 
     ? (race.description.length > 155 ? race.description.substring(0, 152).trim() + '...' : race.description)
-    : `Toutes les infos sur ${displayName} le ${formattedDate} à ${race.city} en Vaucluse (${race.distances}) : tracé, dénivelé, inscriptions et calendrier officiel.`;
+    : `Toutes les infos sur ${displayName} le ${formattedDate} à ${race.city} en Vaucluse (${race.distances}) : inscription en ligne, tracé, dénivelé et calendrier officiel.`;
+
+  if (race.is_cancelled) {
+    pageTitle = `[ANNULÉE] ${displayName} ${raceYear} : Informations`;
+  } else if (slug === 'marathon-davignon-avignon') {
+    pageTitle = `Marathon & Semi-Marathon d'Avignon 2027 : Inscriptions, Parcours & Date`;
+    metaDescription = `Toutes les infos sur la 2ème édition du Marathon et Semi-Marathon d'Avignon (14 mars 2027) : 6 000 dossards, inscriptions Finishers, tracés GPX officiels et analyse coach STAPS.`;
+  }
 
   const fullImageUrl = race.image_url?.startsWith('http') 
     ? race.image_url 
@@ -45,6 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: metaDescription,
     keywords: [
       `${race.name}`,
+      `inscription ${race.name}`,
+      `inscription ${race.name} ${raceYear}`,
       `${race.city}`,
       `course ${race.city}`,
       `trail ${race.city}`,
@@ -60,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: `https://runvaucluse.fr/race/${race.slug}/`,
     },
     openGraph: {
-      title: `${displayName} ${raceYear} : Parcours & Inscriptions | RunVaucluse`,
+      title: `${pageTitle} | RunVaucluse`,
       description: metaDescription,
       url: `https://runvaucluse.fr/race/${race.slug}/`,
       siteName: 'RunVaucluse',
@@ -77,7 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${displayName} ${raceYear} | RunVaucluse`,
+      title: `${pageTitle} | RunVaucluse`,
       description: metaDescription,
       images: [fullImageUrl],
     }
