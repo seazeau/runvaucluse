@@ -30,7 +30,7 @@ import { toPng } from 'html-to-image';
 import LogoIcon from '@/components/LogoIcon';
 import clubsData from '@/data/clubs.json';
 import recordsData from '@/data/vaucluse-records.json';
-import { drawReelFrame, RecordItem } from './reelRenderer';
+import { drawReelFrame, ReelRunnerData } from './reelRenderer';
 import { Film, Play, Pause, Search, Award, Flame } from 'lucide-react';
 import styles from './studio.module.css';
 
@@ -133,6 +133,57 @@ const CLUB_REGIONS: ClubRegion[] = [
   }
 ];
 
+const POPULAR_RUNNERS: ReelRunnerData[] = [
+  {
+    name: 'Didier Bresson',
+    club: 'Allianz Bresson Carpentras',
+    count: 12,
+    totalKm: 164,
+    wins: 0,
+    grade: 'Pilier du Peloton'
+  },
+  {
+    name: 'Chantal Jacob',
+    club: 'AS Apt & Ventoux Trail',
+    count: 22,
+    totalKm: 246,
+    wins: 0,
+    grade: 'Légende du 84'
+  },
+  {
+    name: 'Alexandre Reymonet',
+    club: '1000 Pattes du Pontet',
+    count: 22,
+    totalKm: 238,
+    wins: 1,
+    grade: 'Légende du 84'
+  },
+  {
+    name: 'Bruno Dallara',
+    club: 'Big Pig',
+    count: 18,
+    totalKm: 181,
+    wins: 0,
+    grade: 'Légende du 84'
+  },
+  {
+    name: 'Clara Entresangle',
+    club: 'AS Cavaillon',
+    count: 8,
+    totalKm: 75,
+    wins: 6,
+    grade: 'Championne du 84'
+  },
+  {
+    name: 'Romain Legendre',
+    club: 'UA Carpentras',
+    count: 6,
+    totalKm: 60,
+    wins: 4,
+    grade: 'Recordman 84'
+  }
+];
+
 interface Props {
   races: Race[];
   latestWinners: LatestWinnerRace[];
@@ -141,12 +192,27 @@ interface Props {
 export default function StudioClient({ races, latestWinners }: Props) {
   const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('new_race');
 
-  // Reel Motion State (Wall of Fame)
+  // Reel Motion State (Carte Coureur & Recherche)
   const [reelTime, setReelTime] = useState(0);
   const [reelPlaying, setReelPlaying] = useState(true);
-  const [reelFilter, setReelFilter] = useState<'mixed' | '10k' | 'semi' | 'marathon'>('mixed');
+  const [selectedRunnerIndex, setSelectedRunnerIndex] = useState(0);
+  const [customRunnerName, setCustomRunnerName] = useState('');
+  const [customRunnerClub, setCustomRunnerClub] = useState('');
+  const [customRunnerCount, setCustomRunnerCount] = useState<number>(12);
+  const [customRunnerKm, setCustomRunnerKm] = useState<number>(164);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
+
+  const currentRunner: ReelRunnerData = customRunnerName.trim()
+    ? {
+        name: customRunnerName.trim(),
+        club: customRunnerClub.trim() || 'Coureur Vaucluse',
+        count: customRunnerCount,
+        totalKm: customRunnerKm,
+        wins: 0,
+        grade: customRunnerCount >= 10 ? 'Légende du 84' : customRunnerCount >= 5 ? 'Pilier du Peloton' : 'Finisher Régulier'
+      }
+    : (POPULAR_RUNNERS[selectedRunnerIndex] || POPULAR_RUNNERS[0]);
 
   useEffect(() => {
     if (mode !== 'reel' || !reelPlaying) return;
@@ -204,7 +270,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const totalFrames = 360;
       for (let f = 0; f < totalFrames; f++) {
         const t = f / 30;
-        drawReelFrame(ctx, 1080, 1920, t, reelFilter, recordsData as RecordItem[]);
+        drawReelFrame(ctx, 1080, 1920, t, currentRunner);
         setExportProgress(Math.round((f / totalFrames) * 100));
         if (f % 15 === 0) {
           await new Promise((r) => setTimeout(r, 4));
@@ -482,7 +548,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     } else if (mode === 'reel') {
-      return `🏆 QUI DÉTIENT LES RECORDS DE COURSE À PIED DANS LE VAUCLUSE ? ⏱️⚡\n\n10 km en 29'05", Semi-Marathon en 1h04'27", 24 655 coureurs répertoriés...\n\nLe grand WALL OF FAME du Vaucluse est enfin en ligne sur runvaucluse.fr ! 🏃‍♂️🏃‍♀️\n\nCe que vous allez y trouver :\n🥇 Les records départementaux officiels homologués FFA & World Athletics\n📊 L'historique complet de vos courses locales dans le 84 (dossards terminés, podiums, victoires)\n🔍 Un moteur de recherche pour trouver vos stats et celles de votre club !\n\n👉 Ton nom est-il déjà inscrit dans l'histoire ? Tape ton prénom sur runvaucluse.fr/records (Lien direct en bio 🔗)\n\nDis-nous en commentaire : c'est quoi ton chrono de référence sur 10 km ou Semi ? 👇\n\n#runvaucluse #vaucluse #runningvaucluse #trailduventoux #courseapied #walloffame #avignon #cavaillon #carpentras #athle84 #instarunfrance`;
+      return `🏃‍♂️ TU AS COURU DANS LE VAUCLUSE CETTE ANNÉE ? TA CARTE COUREUR EST DISPONIBLE ! 🪪⚡\n\nQue tu aies fait 1 course de village ou 20 trails, toutes tes stats 2026/2027 sont réunies sur une seule carte officielle :\n\n✅ Nombre de dossards terminés\n✅ Distance totale parcourue en compétition\n✅ Podiums et classements\n✅ Badge de saison (Légende du 84, Pilier du peloton...)\n\n👉 Tape ton prénom et nom sur RUNVAUCLUSE.FR/COUREUR (Lien direct en bio 🔗) pour générer ta carte et la partager en Story !\n\n💬 Tague ton club et tes potes de course en commentaire pour qu'ils découvrent leur bilan ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #cartecoureur #bilanrunning #vaucluse #courseapied #avignon #cavaillon #carpentras #orange #apt #trailduventoux #instarunfrance`;
     }
     return '';
   };
@@ -547,7 +613,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               className={`${styles.tabBtn} ${mode === 'reel' ? styles.tabBtnActive : ''}`}
               onClick={() => { setMode('reel'); setReelPlaying(true); setReelTime(0); }}
             >
-              <Film size={18} /> Reel Motion "Wall of Fame"
+              <Film size={18} /> Reel Motion "Carte Coureur"
             </button>
           </div>
         </header>
@@ -814,25 +880,66 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               </>
             )}
 
-            {/* REEL WALL OF FAME CONTROLS */}
+            {/* REEL RUNNER CARD CONTROLS */}
             {mode === 'reel' && (
               <>
                 <h3 className={styles.controlsSectionTitle}>
-                  <Film size={18} /> Configuration Reel Motion 9:16
+                  <Film size={18} /> Configuration Reel "Carte Coureur"
                 </h3>
 
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Angle / Focus des Records</label>
+                  <label className={styles.label}>Coureur de Démonstration</label>
                   <select 
                     className={styles.selectInput}
-                    value={reelFilter}
-                    onChange={(e) => setReelFilter(e.target.value as any)}
+                    value={selectedRunnerIndex}
+                    onChange={(e) => {
+                      setSelectedRunnerIndex(parseInt(e.target.value));
+                      setCustomRunnerName('');
+                    }}
                   >
-                    <option value="mixed">Mixte : 10 KM & Semi (H/F)</option>
-                    <option value="10k">Focus : 10 KM Hommes & Femmes</option>
-                    <option value="semi">Focus : Semi-Marathon (21.1 km)</option>
-                    <option value="marathon">Focus : Marathon (42.195 km)</option>
+                    {POPULAR_RUNNERS.map((runner, idx) => (
+                      <option key={idx} value={idx}>
+                        {runner.name} ({runner.club}) — {runner.count} courses ({runner.totalKm} km)
+                      </option>
+                    ))}
                   </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Ou Personnaliser un Athlète</label>
+                  <input 
+                    type="text"
+                    className={styles.selectInput}
+                    placeholder="Nom Prénom (ex: Didier Bresson)"
+                    value={customRunnerName}
+                    onChange={(e) => setCustomRunnerName(e.target.value)}
+                    style={{ marginBottom: '0.4rem' }}
+                  />
+                  {customRunnerName.trim() && (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+                      <input 
+                        type="text"
+                        className={styles.selectInput}
+                        placeholder="Club"
+                        value={customRunnerClub}
+                        onChange={(e) => setCustomRunnerClub(e.target.value)}
+                      />
+                      <input 
+                        type="number"
+                        className={styles.selectInput}
+                        placeholder="Courses"
+                        value={customRunnerCount}
+                        onChange={(e) => setCustomRunnerCount(parseInt(e.target.value) || 0)}
+                      />
+                      <input 
+                        type="number"
+                        className={styles.selectInput}
+                        placeholder="Total Km"
+                        value={customRunnerKm}
+                        onChange={(e) => setCustomRunnerKm(parseInt(e.target.value) || 0)}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -858,32 +965,32 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
                     <button 
-                      onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                      onClick={() => { setReelTime(1.2); setReelPlaying(false); }}
                       className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime < 3 ? 1 : 0.7 }}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime < 3.2 ? 1 : 0.7 }}
                     >
-                      Scène 1 : Hook (0-3s)
+                      Scène 1 : Recherche
                     </button>
                     <button 
-                      onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                      onClick={() => { setReelTime(4.8); setReelPlaying(false); }}
                       className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 3 && reelTime < 6.2 ? 1 : 0.7 }}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 3.2 && reelTime < 7.2 ? 1 : 0.7 }}
                     >
-                      Scène 2 : 24K Runners (3-6s)
+                      Scène 2 : Carte Coureur
                     </button>
                     <button 
-                      onClick={() => { setReelTime(7.5); setReelPlaying(false); }}
+                      onClick={() => { setReelTime(8.2); setReelPlaying(false); }}
                       className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 6.2 && reelTime < 9.5 ? 1 : 0.7 }}
+                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 7.2 && reelTime < 9.5 ? 1 : 0.7 }}
                     >
-                      Scène 3 : Records (6-9s)
+                      Scène 3 : 24K Cartes
                     </button>
                     <button 
                       onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
                       className={styles.actionBtn}
                       style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 9.5 ? 1 : 0.7 }}
                     >
-                      Scène 4 : Outro (9-12s)
+                      Scène 4 : Outro Story
                     </button>
                   </div>
                 </div>
@@ -900,7 +1007,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     {isExportingVideo ? `Génération vidéo HD... (${exportProgress}%)` : 'Exporter la Vidéo (WebM 1080p)'}
                   </button>
                   <p style={{ margin: '0.4rem 0 0', fontSize: '0.75rem', color: 'rgba(250, 247, 242, 0.6)' }}>
-                    Génère un fichier vidéo vertical (9:16) 1080×1920 fluide à 30fps prêt à être publié directement sur Instagram Reels ou TikTok.
+                    Génère le Reel vertical (9:16) 1080×1920 fluide avec la recherche et la carte de {currentRunner.name}.
                   </p>
                 </div>
               </>
@@ -1085,85 +1192,129 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                       <LogoIcon size={26} /> RUNVAUCLUSE
                     </div>
                     <span className={styles.reelSceneBadge}>
-                      {reelTime < 3 && '⚡ ARCHIVES 84'}
-                      {reelTime >= 3 && reelTime < 6.2 && '🏆 24K COUREURS'}
-                      {reelTime >= 6.2 && reelTime < 9.5 && '⏱️ CHRONOS FFA'}
-                      {reelTime >= 9.5 && '🔥 WALL OF FAME'}
+                      {reelTime < 3.2 && '🔍 RECHERCHE COUREUR'}
+                      {reelTime >= 3.2 && reelTime < 7.2 && '🪪 CARTE OFFICIELLE'}
+                      {reelTime >= 7.2 && reelTime < 9.5 && '📊 24K CARTES'}
+                      {reelTime >= 9.5 && '🔥 GÉNÈRE TA CARTE'}
                     </span>
                   </div>
 
                   {/* Content Zone */}
                   <div className={styles.reelContentZone}>
-                    {/* SCENE 1 : HOOK */}
-                    {reelTime < 3 && (
+                    {/* SCENE 1 : HOOK & LIVE SEARCH */}
+                    {reelTime < 3.2 && (
                       <div className={styles.reelHookZone} key="scene-1">
                         <span className={styles.reelHookPill}>
-                          <Sparkles size={14} /> LE GRAND BILAN DU VAUCLUSE
+                          <Sparkles size={14} /> BILAN OFFICIEL DE SAISON 2026/2027
                         </span>
                         <h2 className={styles.reelHookTitle}>
-                          QUI DÉTIENT LES <span className={styles.reelHookHighlight}>RECORDS DU 84 ?</span>
+                          TU AS COURU DANS LE 84 <br /><span className={styles.reelHookHighlight}>CETTE ANNÉE ?</span>
                         </h2>
-                        <p className={styles.reelHookSubtitle}>
-                          <Trophy size={18} color="#F6C83B" /> 10 KM ROUTE • SEMI • MARATHON
-                        </p>
+
+                        <div className={styles.reelSearchSimulationBox}>
+                          <div className={styles.reelSearchInputRow}>
+                            <Search size={18} color="#F6C83B" />
+                            <span className={styles.reelSearchTypingText}>
+                              {currentRunner.name.slice(0, Math.floor(Math.min(1, reelTime / 1.8) * currentRunner.name.length))}
+                            </span>
+                            <span className={styles.reelSearchCursor} />
+                          </div>
+
+                          {reelTime >= 2.0 && (
+                            <div className={styles.reelSearchResultPill}>
+                              <span>✓ 1 profil trouvé : <strong>{currentRunner.name}</strong></span>
+                              <span style={{ color: '#F6C83B', fontSize: '0.7rem' }}>{currentRunner.club}</span>
+                            </div>
+                          )}
+
+                          {reelTime >= 2.6 && (
+                            <div style={{ textAlign: 'center', background: '#F6C83B', color: '#0D1013', borderRadius: '8px', padding: '0.45rem', fontWeight: 800, fontSize: '0.78rem', letterSpacing: '0.5px' }}>
+                              GÉNÉRER MA CARTE COUREUR ➔
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    {/* SCENE 2 : 24K RUNNERS */}
-                    {reelTime >= 3 && reelTime < 6.2 && (
-                      <div className={styles.reelDatabaseZone} key="scene-2">
+                    {/* SCENE 2 : THE RUNNER CARD REVEAL */}
+                    {reelTime >= 3.2 && reelTime < 7.2 && (
+                      <div className={styles.reelCardContainer} key="scene-2">
+                        <div style={{ textAlign: 'center', marginBottom: '0.45rem' }}>
+                          <span style={{ color: '#EB5E28', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '1px' }}>
+                            TOUTES TES STATS EN UN CLIC
+                          </span>
+                          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.85rem', color: '#FAF7F2', margin: 0, letterSpacing: '0.5px' }}>
+                            TA CARTE OFFICIELLE DE SAISON 🪪
+                          </h3>
+                        </div>
+
+                        <div className={styles.reelStoryCard}>
+                          <div className={styles.reelStoryCardShine} />
+
+                          <div className={styles.reelCardHeader}>
+                            <div className={styles.reelCardBrand}>
+                              <LogoIcon size={18} /> RUNVAUCLUSE
+                            </div>
+                            <span className={styles.reelCardGradeBadge} style={{ background: 'rgba(246, 200, 59, 0.15)', border: '1px solid #F6C83B', color: '#F6C83B' }}>
+                              👑 {currentRunner.grade.toUpperCase()}
+                            </span>
+                          </div>
+
+                          <div className={styles.reelCardProfile}>
+                            <div className={styles.reelCardAvatar}>
+                              {currentRunner.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                            </div>
+                            <h4 className={styles.reelCardAthleteName}>
+                              {currentRunner.name.toUpperCase()}
+                            </h4>
+                            <p className={styles.reelCardClubName}>
+                              <MapPin size={12} /> {currentRunner.club}
+                            </p>
+                          </div>
+
+                          <div className={styles.reelCardStatsGrid}>
+                            <div className={styles.reelCardStatBox}>
+                              <span className={styles.reelCardStatValue}>{currentRunner.count}</span>
+                              <span className={styles.reelCardStatLabel}>🏃 DOSSARDS TERMINÉS</span>
+                            </div>
+                            <div className={styles.reelCardStatBox}>
+                              <span className={styles.reelCardStatValue}>{currentRunner.totalKm} KM</span>
+                              <span className={styles.reelCardStatLabel}>📍 DISTANCE COURSE</span>
+                            </div>
+                            <div className={styles.reelCardStatBox}>
+                              <span className={styles.reelCardStatValue}>{currentRunner.wins > 0 ? `${currentRunner.wins}` : '100%'}</span>
+                              <span className={styles.reelCardStatLabel}>🥇 {currentRunner.wins > 0 ? 'VICTOIRES / PODIUMS' : 'TAUX FINISHER'}</span>
+                            </div>
+                            <div className={styles.reelCardStatBox}>
+                              <span className={styles.reelCardStatValue}>TOP 5%</span>
+                              <span className={styles.reelCardStatLabel}>🏆 RANG DÉPARTEMENTAL</span>
+                            </div>
+                          </div>
+
+                          <div className={styles.reelCardFooter}>
+                            <span>RUNVAUCLUSE.FR/COUREUR</span>
+                            <span style={{ color: '#F6C83B', fontWeight: 700 }}>SAISON 2026/2027 ⚡</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SCENE 3 : 24K RUNNERS */}
+                    {reelTime >= 7.2 && reelTime < 9.5 && (
+                      <div className={styles.reelDatabaseZone} key="scene-3">
                         <span className={styles.reelHookPill} style={{ background: '#F6C83B', color: '#0D1013' }}>
-                          <Award size={14} /> ARCHIVES OFFICIELLES
+                          <Award size={14} /> BILAN COMMUNAUTAIRE
                         </span>
-                        <h2 className={styles.reelCounterDisplay}>
-                          {Math.round(Math.min(24655, ((reelTime - 3.0) / 1.5) * 24655)).toLocaleString('fr-FR')}
-                        </h2>
+                        <h2 className={styles.reelCounterDisplay}>24 655</h2>
                         <h3 className={styles.reelDatabaseLabel}>
-                          COUREURS RÉPERTORIÉS DANS LE VAUCLUSE
+                          CARTES DISPONIBLES DANS LE VAUCLUSE
                         </h3>
                         <div className={styles.reelStatBox}>
-                          <Search size={22} color="#F6C83B" style={{ flexShrink: 0 }} />
-                          <div style={{ fontSize: '0.8rem', lineHeight: '1.3' }}>
-                            <div style={{ fontWeight: 700, color: '#FAF7F2' }}>100+ courses passées au crible</div>
-                            <div style={{ color: '#F6C83B' }}>Ton nom est peut-être déjà dedans ! 👀</div>
+                          <Trophy size={24} color="#F6C83B" style={{ flexShrink: 0 }} />
+                          <div style={{ fontSize: '0.8rem', lineHeight: '1.35' }}>
+                            <div style={{ fontWeight: 700, color: '#FAF7F2' }}>Que tu aies fait 1 course ou 20 trails...</div>
+                            <div style={{ color: '#F6C83B' }}>Toutes tes courses sont réunies sur ta carte ! 📲</div>
                           </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* SCENE 3 : RECORDS */}
-                    {reelTime >= 6.2 && reelTime < 9.5 && (
-                      <div className={styles.reelRecordsZone} key="scene-3">
-                        <div className={styles.reelRecordsTitle}>
-                          <span>CHRONOS MYTHIQUES</span>
-                          <span style={{ fontSize: '0.85rem', color: '#F6C83B' }}>HOMOLOGUÉS FFA</span>
-                        </div>
-
-                        <div className={styles.reelRecordCard}>
-                          <div className={styles.reelRecordMeta}>
-                            <span className={styles.reelRecordDist}>10 KM ROUTE • HOMME</span>
-                            <span className={styles.reelRecordAthlete}>Romain LEGENDRE</span>
-                            <span className={styles.reelRecordClub}>UA Carpentras</span>
-                          </div>
-                          <span className={styles.reelRecordTimeBadge}>29'05''</span>
-                        </div>
-
-                        <div className={styles.reelRecordCard}>
-                          <div className={styles.reelRecordMeta}>
-                            <span className={styles.reelRecordDist}>10 KM ROUTE • FEMME</span>
-                            <span className={styles.reelRecordAthlete}>Clara ENTRESANGLE</span>
-                            <span className={styles.reelRecordClub}>AS Cavaillon</span>
-                          </div>
-                          <span className={styles.reelRecordTimeBadge}>31'45''</span>
-                        </div>
-
-                        <div className={styles.reelRecordCard}>
-                          <div className={styles.reelRecordMeta}>
-                            <span className={styles.reelRecordDist}>SEMI-MARATHON • HOMME</span>
-                            <span className={styles.reelRecordAthlete}>Florian BANCAL</span>
-                            <span className={styles.reelRecordClub}>ACEP Valréas</span>
-                          </div>
-                          <span className={styles.reelRecordTimeBadge}>1h06\'57\'\'</span>
                         </div>
                       </div>
                     )}
@@ -1172,19 +1323,19 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     {reelTime >= 9.5 && (
                       <div className={styles.reelOutroZone} key="scene-4">
                         <span className={styles.reelHookPill}>
-                          <Flame size={14} /> ET TOI, QUEL EST TON TEMPS ?
+                          <Flame size={14} /> GRATUIT & EN 1 CLIC
                         </span>
                         <h2 className={styles.reelOutroTitle}>
-                          REJOINS LE <br /><span style={{ color: '#F6C83B' }}>WALL OF FAME</span>
+                          DÉCOUVRE TA <br /><span style={{ color: '#F6C83B' }}>CARTE COUREUR</span>
                         </h2>
 
                         <div className={styles.reelSearchBarMockup}>
                           <Search size={18} color="#F6C83B" />
-                          <span>Tape ton nom ou ton club...</span>
+                          <span>Tape ton nom sur runvaucluse.fr/coureur</span>
                         </div>
 
                         <div className={styles.reelCtaPill}>
-                          DÉCOUVRE TES STATS
+                          TÉLÉCHARGE & PARTAGE EN STORY
                         </div>
                       </div>
                     )}
