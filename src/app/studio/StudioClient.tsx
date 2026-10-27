@@ -482,7 +482,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     } else if (mode === 'reel') {
-      return `🏆 QUI DÉTIENT LES RECORDS DE COURSE À PIED DANS LE VAUCLUSE ? ⏱️⚡\n\n10 km en 30'49", Semi-Marathon en 1h08'45", 24 655 coureurs répertoriés...\n\nLe grand WALL OF FAME du Vaucluse est enfin en ligne sur runvaucluse.fr ! 🏃‍♂️🏃‍♀️\n\nCe que vous allez y trouver :\n🥇 Les records départementaux officiels homologués FFA & World Athletics\n📊 L'historique complet de vos courses locales dans le 84 (dossards terminés, podiums, victoires)\n🔍 Un moteur de recherche pour trouver vos stats et celles de votre club !\n\n👉 Ton nom est-il déjà inscrit dans l'histoire ? Tape ton prénom sur runvaucluse.fr/records (Lien direct en bio 🔗)\n\nDis-nous en commentaire : c'est quoi ton chrono de référence sur 10 km ou Semi ? 👇\n\n#runvaucluse #vaucluse #runningvaucluse #trailduventoux #courseapied #walloffame #avignon #cavaillon #carpentras #athle84 #instarunfrance`;
+      return `🏆 QUI DÉTIENT LES RECORDS DE COURSE À PIED DANS LE VAUCLUSE ? ⏱️⚡\n\n10 km en 29'05", Semi-Marathon en 1h04'27", 24 655 coureurs répertoriés...\n\nLe grand WALL OF FAME du Vaucluse est enfin en ligne sur runvaucluse.fr ! 🏃‍♂️🏃‍♀️\n\nCe que vous allez y trouver :\n🥇 Les records départementaux officiels homologués FFA & World Athletics\n📊 L'historique complet de vos courses locales dans le 84 (dossards terminés, podiums, victoires)\n🔍 Un moteur de recherche pour trouver vos stats et celles de votre club !\n\n👉 Ton nom est-il déjà inscrit dans l'histoire ? Tape ton prénom sur runvaucluse.fr/records (Lien direct en bio 🔗)\n\nDis-nous en commentaire : c'est quoi ton chrono de référence sur 10 km ou Semi ? 👇\n\n#runvaucluse #vaucluse #runningvaucluse #trailduventoux #courseapied #walloffame #avignon #cavaillon #carpentras #athle84 #instarunfrance`;
     }
     return '';
   };
@@ -1142,10 +1142,10 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                         <div className={styles.reelRecordCard}>
                           <div className={styles.reelRecordMeta}>
                             <span className={styles.reelRecordDist}>10 KM ROUTE • HOMME</span>
-                            <span className={styles.reelRecordAthlete}>Hedi BOUAZZAOUI</span>
-                            <span className={styles.reelRecordClub}>CS Avignon Montfavet</span>
+                            <span className={styles.reelRecordAthlete}>Romain LEGENDRE</span>
+                            <span className={styles.reelRecordClub}>UA Carpentras</span>
                           </div>
-                          <span className={styles.reelRecordTimeBadge}>30'49''</span>
+                          <span className={styles.reelRecordTimeBadge}>29'05''</span>
                         </div>
 
                         <div className={styles.reelRecordCard}>
