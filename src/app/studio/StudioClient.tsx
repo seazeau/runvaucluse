@@ -1160,10 +1160,10 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                         <div className={styles.reelRecordCard}>
                           <div className={styles.reelRecordMeta}>
                             <span className={styles.reelRecordDist}>SEMI-MARATHON • HOMME</span>
-                            <span className={styles.reelRecordAthlete}>Maxime BOURDET</span>
-                            <span className={styles.reelRecordClub}>UA Carpentras</span>
+                            <span className={styles.reelRecordAthlete}>Florian BANCAL</span>
+                            <span className={styles.reelRecordClub}>ACEP Valréas</span>
                           </div>
-                          <span className={styles.reelRecordTimeBadge}>1h08'45''</span>
+                          <span className={styles.reelRecordTimeBadge}>1h06\'57\'\'</span>
                         </div>
                       </div>
                     )}

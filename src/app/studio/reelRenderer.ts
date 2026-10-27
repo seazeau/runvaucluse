@@ -194,10 +194,10 @@ export function drawReelFrame(
 
     // Records to show
     const items = [
+      { dist: '5 KM ROUTE • HOMME', time: "14'49''", name: 'Romain LE MOUELLIC', club: 'Running Orange Club 84' },
+      { dist: '5 KM ROUTE • FEMME', time: "15'32''", name: 'Clara ENTRESANGLE', club: 'AS Cavaillon' },
       { dist: '10 KM ROUTE • HOMME', time: "30'49''", name: 'Hedi BOUAZZAOUI', club: 'CS Avignon Montfavet' },
-      { dist: '10 KM ROUTE • FEMME', time: "31'45''", name: 'Clara ENTRESANGLE', club: 'AS Cavaillon' },
-      { dist: 'SEMI-MARATHON • HOMME', time: "1h08'45''", name: 'Maxime BOURDET', club: 'UA Carpentras' },
-      { dist: 'SEMI-MARATHON • FEMME', time: "1h17'00''", name: 'Élodie SENTER', club: 'La Loriolade' }
+      { dist: 'MARATHON • HOMME', time: "2h24'12''", name: 'Florian BANCAL', club: 'ACEP Valréas' }
     ];
 
     const cardW = 880;

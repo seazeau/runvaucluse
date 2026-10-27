@@ -120,7 +120,19 @@ export default function CoureurClient() {
 
     if (queryName) {
       const clean = queryName.toLowerCase().trim();
-      const match = runners.find(r => r.n.toLowerCase().includes(clean));
+      const tokens = clean
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
+
+      const match = runners.find(r => {
+        const normName = r.n
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        return tokens.every(t => normName.includes(t));
+      });
       if (match) {
         setSelectedRunner(match);
         return;
@@ -137,8 +149,25 @@ export default function CoureurClient() {
   const searchSuggestions = useMemo(() => {
     const q = searchInput.trim().toLowerCase();
     if (q.length < 2) return [];
+    const tokens = q
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .split(/\s+/)
+      .filter(Boolean);
+
     return runners
-      .filter(r => r.n.toLowerCase().includes(q))
+      .filter(r => {
+        const normName = r.n
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const normClub = (r.club || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const combined = `${normName} ${normClub}`;
+        return tokens.every(t => combined.includes(t));
+      })
       .slice(0, 6);
   }, [searchInput, runners]);
 

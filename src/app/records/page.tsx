@@ -26,6 +26,7 @@ interface Runner {
   r: Result[];
   count: number;
   wins: number;
+  club?: string;
 }
 
 interface RoadRecord {
@@ -125,8 +126,25 @@ const RecordsContent = () => {
   const filteredRunners = useMemo(() => {
     const s = search.toLowerCase().trim();
     if (!s) return runnersData.slice(0, limit);
+    const tokens = s
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .split(/\s+/)
+      .filter(Boolean);
+
     return runnersData
-      .filter(r => r.n.toLowerCase().includes(s))
+      .filter(r => {
+        const normName = r.n
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const normClub = (r.club || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const combined = `${normName} ${normClub}`;
+        return tokens.every(token => combined.includes(token));
+      })
       .slice(0, limit);
   }, [search, limit, runnersData]);
 
