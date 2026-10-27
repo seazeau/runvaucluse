@@ -135,6 +135,14 @@ const CLUB_REGIONS: ClubRegion[] = [
 
 const POPULAR_RUNNERS: ReelRunnerData[] = [
   {
+    name: 'Julien Grange',
+    club: 'La Loriolade',
+    count: 12,
+    bestRank: 2,
+    totalKm: 155,
+    grade: 'Légende du 84'
+  },
+  {
     name: 'Didier Bresson',
     club: 'Allianz Bresson Carpentras',
     count: 12,
@@ -199,8 +207,8 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [customRunnerName, setCustomRunnerName] = useState('');
   const [customRunnerClub, setCustomRunnerClub] = useState('');
   const [customRunnerCount, setCustomRunnerCount] = useState<number>(12);
-  const [customRunnerBestRank, setCustomRunnerBestRank] = useState<number>(4);
-  const [customRunnerKm, setCustomRunnerKm] = useState<number>(164);
+  const [customRunnerBestRank, setCustomRunnerBestRank] = useState<number>(2);
+  const [customRunnerKm, setCustomRunnerKm] = useState<number>(155);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
 
@@ -911,7 +919,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                   <input 
                     type="text"
                     className={styles.selectInput}
-                    placeholder="Nom Prénom (ex: Didier Bresson)"
+                    placeholder="Nom Prénom (ex: Julien Grange)"
                     value={customRunnerName}
                     onChange={(e) => setCustomRunnerName(e.target.value)}
                     style={{ marginBottom: '0.4rem' }}
