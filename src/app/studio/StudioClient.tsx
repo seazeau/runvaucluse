@@ -237,23 +237,129 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const exportReelVideo = async () => {
     setIsExportingVideo(true);
     setExportProgress(0);
+
     try {
+      const width = 1080;
+      const height = 1920;
+      const fps = 30;
+      const duration = 12; // 12 seconds
+      const totalFrames = fps * duration; // 360 frames
+      const slugRunner = currentRunner.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+
       const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1920;
+      canvas.width = width;
+      canvas.height = height;
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         setIsExportingVideo(false);
         return;
       }
 
-      const stream = canvas.captureStream(30);
-      let mimeType = 'video/webm;codecs=vp9';
-      if (typeof MediaRecorder !== 'undefined' && !MediaRecorder.isTypeSupported(mimeType)) {
-        mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4';
+      // Check if WebCodecs VideoEncoder + mp4-muxer is supported (Native MP4 H.264 for Instagram)
+      const hasWebCodecs = typeof window !== 'undefined' && 'VideoEncoder' in window && 'VideoFrame' in window;
+
+      if (hasWebCodecs) {
+        try {
+          const { Muxer, ArrayBufferTarget } = await import('mp4-muxer');
+
+          // Look for supported AVC / H.264 codec
+          const candidateCodecs = ['avc1.640028', 'avc1.4d002a', 'avc1.42001f', 'avc1.42e01f'];
+          let selectedCodec: string | null = null;
+
+          for (const c of candidateCodecs) {
+            try {
+              const res = await (window as any).VideoEncoder.isConfigSupported({
+                codec: c,
+                width,
+                height,
+                bitrate: 8_000_000,
+                framerate: fps
+              });
+              if (res.supported) {
+                selectedCodec = c;
+                break;
+              }
+            } catch {
+              // continue
+            }
+          }
+
+          if (selectedCodec) {
+            const muxer = new Muxer({
+              target: new ArrayBufferTarget(),
+              video: {
+                codec: 'avc',
+                width,
+                height
+              },
+              fastStart: 'in-memory',
+              firstTimestampBehavior: 'offset'
+            });
+
+            const videoEncoder = new (window as any).VideoEncoder({
+              output: (chunk: any, meta: any) => muxer.addVideoChunk(chunk, meta),
+              error: (e: any) => console.error('VideoEncoder error:', e)
+            });
+
+            videoEncoder.configure({
+              codec: selectedCodec,
+              width,
+              height,
+              bitrate: 8_000_000,
+              framerate: fps
+            });
+
+            for (let f = 0; f < totalFrames; f++) {
+              const t = f / fps;
+              drawReelFrame(ctx, width, height, t, currentRunner);
+
+              const timestampMicros = Math.round((f * 1_000_000) / fps);
+              const frame = new (window as any).VideoFrame(canvas, { timestamp: timestampMicros });
+              videoEncoder.encode(frame, { keyFrame: f % 60 === 0 });
+              frame.close();
+
+              setExportProgress(Math.round(((f + 1) / totalFrames) * 96));
+              if (f % 8 === 0) {
+                await new Promise((r) => setTimeout(r, 0));
+              }
+            }
+
+            await videoEncoder.flush();
+            muxer.finalize();
+
+            const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reel-carte-coureur-${slugRunner}.mp4`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            setExportProgress(100);
+            setIsExportingVideo(false);
+            return;
+          }
+        } catch (mp4Err) {
+          console.warn('WebCodecs MP4 export encountered error, trying MediaRecorder fallback:', mp4Err);
+        }
       }
 
-      const recorder = new MediaRecorder(stream, { mimeType });
+      // Fallback: MediaRecorder (tests MP4 container first, then webm)
+      const stream = canvas.captureStream(fps);
+      let mimeType = 'video/mp4;codecs=avc1';
+      if (typeof MediaRecorder !== 'undefined') {
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+          mimeType = MediaRecorder.isTypeSupported('video/mp4')
+            ? 'video/mp4'
+            : MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+              ? 'video/webm;codecs=vp9'
+              : 'video/webm';
+        }
+      }
+
+      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 8_000_000 });
       const chunks: Blob[] = [];
 
       recorder.ondataavailable = (e) => {
@@ -261,11 +367,12 @@ export default function StudioClient({ races, latestWinners }: Props) {
       };
 
       recorder.onstop = () => {
+        const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
         const blob = new Blob(chunks, { type: mimeType });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `reel-wall-of-fame-runvaucluse.${mimeType.includes('mp4') ? 'mp4' : 'webm'}`;
+        a.download = `reel-carte-coureur-${slugRunner}.${ext}`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -276,11 +383,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
       recorder.start();
 
-      const totalFrames = 360;
       for (let f = 0; f < totalFrames; f++) {
-        const t = f / 30;
-        drawReelFrame(ctx, 1080, 1920, t, currentRunner);
-        setExportProgress(Math.round((f / totalFrames) * 100));
+        const t = f / fps;
+        drawReelFrame(ctx, width, height, t, currentRunner);
+        setExportProgress(Math.round(((f + 1) / totalFrames) * 100));
         if (f % 15 === 0) {
           await new Promise((r) => setTimeout(r, 4));
         }
@@ -1020,10 +1126,10 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     style={{ background: 'linear-gradient(135deg, #EB5E28, #F6C83B)', color: '#0D1013', fontWeight: 800 }}
                   >
                     <Film size={18} />
-                    {isExportingVideo ? `Génération vidéo HD... (${exportProgress}%)` : 'Exporter la Vidéo (WebM 1080p)'}
+                    {isExportingVideo ? `Génération vidéo MP4... (${exportProgress}%)` : 'Exporter la Vidéo MP4 (Format Instagram 1080p)'}
                   </button>
                   <p style={{ margin: '0.4rem 0 0', fontSize: '0.75rem', color: 'rgba(250, 247, 242, 0.6)' }}>
-                    Génère le Reel vertical (9:16) 1080×1920 fluide avec la recherche et la carte de {currentRunner.name}.
+                    Vidéo MP4 HD (H.264) 1080×1920 fluide (12s), 100% compatible et prête à publier directement sur Instagram Reels, Stories et TikTok.
                   </p>
                 </div>
               </>
