@@ -1,4 +1,5 @@
 'use client';
+import { parseDistanceList } from '@/lib/utils';
 
 import { useState, useRef, useEffect } from 'react';
 import { Race } from '@/lib/types';
@@ -1640,9 +1641,9 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 </div>
 
                                 <div className={styles.raceSlideDistances} style={{ marginTop: '0.6rem' }}>
-                                  {race.distances.split(',').map((dist, idx) => (
+                                  {parseDistanceList(race.distances).map((dist, idx) => (
                                     <span key={idx} className={styles.raceSlideDistPill}>
-                                      {dist.trim()}
+                                      {dist}
                                     </span>
                                   ))}
                                 </div>
@@ -1677,9 +1678,9 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 </div>
 
                                 <div className={styles.raceSlideDistances} style={{ marginTop: '0.75rem' }}>
-                                  {race.distances.split(',').map((dist, idx) => (
+                                  {parseDistanceList(race.distances).map((dist, idx) => (
                                     <span key={idx} className={styles.raceSlideDistPill}>
-                                      {dist.trim()}
+                                      {dist}
                                     </span>
                                   ))}
                                 </div>
@@ -1899,7 +1900,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                   if (!race) return null;
                   const raceImage = customImages[race.slug] || race.image_url || '/images/sommet-ventoux-1080p.jpg';
                   const dateFormatted = new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
-                  const distList = race.distances ? race.distances.split(',').map(d => d.trim()).filter(Boolean) : [];
+                  const distList = parseDistanceList(race.distances);
 
                   return (
                     <>
@@ -2787,9 +2788,9 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 </span>
                               </>
                             ) : (
-                              activeStoryRace.distances.split(',').map((dist, idx) => (
+                              parseDistanceList(activeStoryRace.distances).map((dist, idx) => (
                                 <span key={idx} className={styles.raceSlideDistPill} style={{ fontSize: '0.85rem', padding: '0.3rem 0.65rem' }}>
-                                  {dist.trim()}
+                                  {dist}
                                 </span>
                               ))
                             )}

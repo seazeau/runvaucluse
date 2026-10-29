@@ -1,4 +1,5 @@
 'use client';
+import { parseDistanceList } from '@/lib/utils';
 
 import { useState, useEffect, useRef } from 'react';
 import { Race } from '@/lib/types';
@@ -132,7 +133,7 @@ export default function CyberCardGenerator({ race }: Props) {
                         </div>
                         <div className={styles.metaItem}>
                           <span className={styles.metaLabel}>DISTANCES</span>
-                          <span className={styles.metaValue}>{race.distances.split(',')[0]}</span>
+                          <span className={styles.metaValue}>{parseDistanceList(race.distances)[0] || race.distances}</span>
                         </div>
                       </div>
                     </div>

@@ -1,4 +1,5 @@
 'use client';
+import { parseDistanceList } from '@/lib/utils';
 
 import { Race } from '@/lib/types';
 import styles from './FeaturedRace.module.css';
@@ -50,7 +51,7 @@ export default function FeaturedRace({ race }: FeaturedRaceProps) {
             </div>
             <div className={styles.metaItem}>
               <span className={styles.metaLabel}>DISTANCE</span>
-              <span className={styles.metaValue}>{race.distances.split(',')[0]}</span>
+              <span className={styles.metaValue}>{parseDistanceList(race.distances)[0] || race.distances}</span>
             </div>
           </div>
 

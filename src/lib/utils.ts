@@ -39,3 +39,15 @@ export function canonicalSlug(name: string): string {
   if (!name) return '';
   return normalizeName(name);
 }
+
+/**
+ * Splits a distances string (e.g. "43,2 km (1905D+), 22,5 km (1170D+)")
+ * without breaking decimal numbers that use commas (e.g. 43,2 or 22,5).
+ */
+export function parseDistanceList(distances?: string): string[] {
+  if (!distances) return [];
+  return distances
+    .split(/(?:(?<!\d),|,(?!\d)|;)+/)
+    .map(d => d.trim())
+    .filter(Boolean);
+}

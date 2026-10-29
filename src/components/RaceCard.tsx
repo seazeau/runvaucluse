@@ -1,4 +1,5 @@
 'use client';
+import { parseDistanceList } from '@/lib/utils';
 
 import { Race } from '@/lib/types';
 import styles from './RaceCard.module.css';
@@ -73,8 +74,8 @@ export default function RaceCard({ race, index }: RaceCardProps) {
 
         <div className={styles.body}>
           <div className={styles.distances}>
-            {race.distances.split(',').slice(0, 3).map((d, i) => (
-              <span key={i} className={styles.distTag}>{d.trim()}</span>
+            {parseDistanceList(race.distances).slice(0, 3).map((d, i) => (
+              <span key={i} className={styles.distTag}>{d}</span>
             ))}
           </div>
         </div>
