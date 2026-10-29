@@ -438,6 +438,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [copiedCaption, setCopiedCaption] = useState(false);
   const [imageDisplayMode, setImageDisplayMode] = useState<'poster' | 'banner'>('poster');
   const [customImages, setCustomImages] = useState<{ [slug: string]: string }>({});
+  type DossardStatus = 'open' | 'sold_out' | 'last_spots';
+  const [raceStatuses, setRaceStatuses] = useState<{ [slug: string]: DossardStatus }>({});
+
+  const getRaceStatus = (slug: string): DossardStatus => raceStatuses[slug] || 'open';
+  const setRaceStatus = (slug: string, status: DossardStatus) => {
+    setRaceStatuses(prev => ({ ...prev, [slug]: status }));
+  };
 
   const handleFileUpload = (slug: string, file: File) => {
     const reader = new FileReader();
@@ -1217,6 +1224,76 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     </div>
                   );
                 })()}
+
+                {/* Dossard Status Selector */}
+                {(() => {
+                  const targetSlug = mode === 'story'
+                    ? activeStoryRace.slug
+                    : mode === 'new_race'
+                      ? activeNewRace.slug
+                      : (activeSlideIndex > 0 && activeSlideIndex <= selectedRaces.length 
+                          ? selectedRaces[activeSlideIndex - 1].slug 
+                          : selectedRaces[0]?.slug);
+                  
+                  const targetRace = races.find(r => r.slug === targetSlug);
+                  if (!targetRace) return null;
+                  const currentStatus = getRaceStatus(targetSlug);
+
+                  return (
+                    <div className={styles.uploadBox} style={{ marginTop: '0.75rem' }}>
+                      <label className={styles.label}>
+                        Statut des Dossards pour : <strong style={{ color: '#F6C83B' }}>{targetRace.name}</strong>
+                      </label>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem', marginTop: '0.4rem' }}>
+                        <button
+                          type="button"
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.5rem 0.2rem',
+                            background: currentStatus === 'open' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
+                            color: currentStatus === 'open' ? '#0D1013' : 'rgba(255,255,255,0.8)',
+                            fontWeight: currentStatus === 'open' ? 800 : 600,
+                            border: `1px solid ${currentStatus === 'open' ? '#F6C83B' : 'rgba(255,255,255,0.15)'}`
+                          }}
+                          onClick={() => setRaceStatus(targetSlug, 'open')}
+                        >
+                          ⚡ Dispo
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.5rem 0.2rem',
+                            background: currentStatus === 'last_spots' ? '#f97316' : 'rgba(255,255,255,0.06)',
+                            color: currentStatus === 'last_spots' ? '#ffffff' : 'rgba(255,255,255,0.8)',
+                            fontWeight: currentStatus === 'last_spots' ? 800 : 600,
+                            border: `1px solid ${currentStatus === 'last_spots' ? '#f97316' : 'rgba(255,255,255,0.15)'}`
+                          }}
+                          onClick={() => setRaceStatus(targetSlug, 'last_spots')}
+                        >
+                          ⚠️ Derniers
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.5rem 0.2rem',
+                            background: currentStatus === 'sold_out' ? '#ef4444' : 'rgba(255,255,255,0.06)',
+                            color: currentStatus === 'sold_out' ? '#ffffff' : 'rgba(255,255,255,0.8)',
+                            fontWeight: currentStatus === 'sold_out' ? 800 : 600,
+                            border: `1px solid ${currentStatus === 'sold_out' ? '#ef4444' : 'rgba(255,255,255,0.15)'}`
+                          }}
+                          onClick={() => setRaceStatus(targetSlug, 'sold_out')}
+                        >
+                          🔴 Sold Out
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
@@ -1649,8 +1726,23 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 </div>
 
                                 <div className={styles.posterBadges}>
-                                  <span className={styles.posterTagBadge}>
-                                    ⚡ DOSSARDS OUVERTS
+                                  <span 
+                                    className={styles.posterTagBadge}
+                                    style={getRaceStatus(race.slug) === 'sold_out' ? {
+                                      background: 'rgba(239, 68, 68, 0.22)',
+                                      borderColor: '#ef4444',
+                                      color: '#ef4444'
+                                    } : getRaceStatus(race.slug) === 'last_spots' ? {
+                                      background: 'rgba(249, 115, 22, 0.22)',
+                                      borderColor: '#f97316',
+                                      color: '#f97316'
+                                    } : {}}
+                                  >
+                                    {getRaceStatus(race.slug) === 'sold_out'
+                                      ? '🔴 COMPLET (SOLD OUT)'
+                                      : getRaceStatus(race.slug) === 'last_spots'
+                                        ? '⚠️ DERNIERS DOSSARDS'
+                                        : '⚡ DOSSARDS OUVERTS'}
                                   </span>
                                 </div>
                               </div>
@@ -1683,6 +1775,27 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                       {dist}
                                     </span>
                                   ))}
+                                </div>
+
+                                <div className={styles.posterBadges} style={{ marginTop: '0.65rem' }}>
+                                  <span 
+                                    className={styles.posterTagBadge}
+                                    style={getRaceStatus(race.slug) === 'sold_out' ? {
+                                      background: 'rgba(239, 68, 68, 0.22)',
+                                      borderColor: '#ef4444',
+                                      color: '#ef4444'
+                                    } : getRaceStatus(race.slug) === 'last_spots' ? {
+                                      background: 'rgba(249, 115, 22, 0.22)',
+                                      borderColor: '#f97316',
+                                      color: '#f97316'
+                                    } : {}}
+                                  >
+                                    {getRaceStatus(race.slug) === 'sold_out'
+                                      ? '🔴 COMPLET (SOLD OUT)'
+                                      : getRaceStatus(race.slug) === 'last_spots'
+                                        ? '⚠️ DERNIERS DOSSARDS'
+                                        : '⚡ DOSSARDS OUVERTS'}
+                                  </span>
                                 </div>
                               </div>
                             </>

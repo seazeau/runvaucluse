@@ -46,8 +46,16 @@ export function canonicalSlug(name: string): string {
  */
 export function parseDistanceList(distances?: string): string[] {
   if (!distances) return [];
-  return distances
-    .split(/(?:(?<!\d),|,(?!\d)|;)+/)
-    .map(d => d.trim())
+  // 1. Normalize French decimal comma with space (e.g. "22, 5 km" -> "22.5 km")
+  let s = distances.replace(/(\d+),\s+(\d+)/g, '$1.$2');
+  // 2. Normalize decimal comma (e.g. "22,5" -> "22.5")
+  s = s.replace(/(\d+),(\d+)/g, '$1.$2');
+  // 3. Split on actual separators (commas and semicolons)
+  return s
+    .split(/[,;]+/)
+    .map(part => {
+      // 4. Restore French comma for display (e.g. "22.5" -> "22,5")
+      return part.replace(/(\d+)\.(\d+)/g, '$1,$2').trim();
+    })
     .filter(Boolean);
 }
