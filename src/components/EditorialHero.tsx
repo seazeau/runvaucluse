@@ -35,6 +35,15 @@ const ALL_FEATURED_RACES = [
     image: '/images/poster-marathon-davignon-2027.png'
   },
   {
+    date: '2027-10-23',
+    slug: 'marathon-des-terroirs-du-ventoux-mazan',
+    name: 'MARATHON DES TERROIRS DU VENTOUX',
+    badge: '23 & 24 OCTOBRE 2027 • MAZAN',
+    distBadge: 'FOULÉES FESTIVES • 42 KM, 21 KM, 10 KM, 5 KM',
+    meta: '1ère édition ! Grande fête au pied du Ventoux : vignobles AOC Ventoux, déguisements, ravitaillements festifs et repas musical.',
+    image: '/images/poster-marathon-des-terroirs-du-ventoux-2027.jpg'
+  },
+  {
     date: '2026-10-04',
     slug: 'trail-de-saint-didier-saint-didier',
     name: 'TRAIL DE SAINT-DIDIER',

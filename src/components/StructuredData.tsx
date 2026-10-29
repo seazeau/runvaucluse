@@ -10,12 +10,17 @@ export default function StructuredData({ race }: { race: Race }) {
   const raceYear = raceDate.getFullYear();
 
   const isMarathonAvignon = race.slug === 'marathon-davignon-avignon';
+  const isMarathonTerroirs = race.slug === 'marathon-des-terroirs-du-ventoux-mazan';
   const eventName = isMarathonAvignon 
     ? "Marathon & Semi-Marathon d'Avignon 2027" 
+    : isMarathonTerroirs
+    ? "Marathon des Terroirs du Ventoux 2027"
     : `${race.name} ${raceYear}`;
 
   const description = isMarathonAvignon
     ? "Participez à la 2ème édition du Marathon et Semi-Marathon d'Avignon le 14 mars 2027 : 6 000 dossards, 42,195 km et 21,1 km labellisés FFA, inscriptions Finishers et tracés GPX."
+    : isMarathonTerroirs
+    ? "Participez à la 1ère édition du Marathon des Terroirs du Ventoux les 23 et 24 octobre 2027 à Mazan : Marathon (42 km), Semi (21 km), 10 km, Rando (5 km) et courses enfants. Foulées festives et ravitaillements gourmands au cœur des domaines AOC Ventoux."
     : race.description || `Participez à ${race.name} (${race.type}) le ${formattedDate} à ${race.city} en Vaucluse (84). Distances au programme : ${race.distances}. Inscription, parcours et infos pratiques sur RunVaucluse.`;
 
   const registrationUrl = race.registration_link || race.link || `https://runvaucluse.fr/race/${race.slug}/`;

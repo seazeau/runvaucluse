@@ -30,6 +30,14 @@ const CAROUSEL_RACES = [
     city: "Avignon",
     description: "2ème édition le 14 mars 2027 ! 6 000 dossards (semi & marathon), parcours ultra-plat labellisé FFA. Inscriptions bientôt sur Finishers.",
     image: "/images/poster-marathon-davignon-2027.png",
+  },
+  {
+    id: 91,
+    slug: "marathon-des-terroirs-du-ventoux-mazan",
+    name: "MARATHON DES TERROIRS DU VENTOUX",
+    city: "Mazan",
+    description: "Grande première le 23 & 24 octobre 2027 ! Foulées festives et gourmandes au cœur des vignobles AOC Ventoux : Marathon, Semi, 10 km, Rando & Enfants.",
+    image: "/images/poster-marathon-des-terroirs-du-ventoux-2027.jpg",
   },
   {
     id: 56,

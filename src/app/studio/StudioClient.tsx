@@ -2026,7 +2026,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
                             <span className={styles.slidePillTag}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART AUJOURD\'HUI 🔔' : race.slug === 'traversee-des-dentelles-gigondas' ? 'INSCRIPTIONS OUVERTES 🏔️' : 'NOUVEAU SUR LE SITE ✨'}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'NOUVEAU EN 2027 🍇' : race.slug === 'utlm-backyard-ultra-monteux' ? 'TOP DÉPART AUJOURD\'HUI 🔔' : race.slug === 'traversee-des-dentelles-gigondas' ? 'INSCRIPTIONS OUVERTES 🏔️' : 'NOUVEAU SUR LE SITE ✨'}
                             </span>
                           </div>
 
@@ -2041,7 +2041,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                               </div>
                               <div className={styles.posterInfoCol}>
                                 <div className={styles.raceSlideMetaRow}>
-                                  <Calendar size={14} /> {race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : race.slug === 'traversee-des-dentelles-gigondas' ? 'SAMEDI 5 & DIMANCHE 6 JUIN 2027' : dateFormatted}
+                                  <Calendar size={14} /> {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? '23 & 24 OCTOBRE 2027 • MAZAN' : race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : race.slug === 'traversee-des-dentelles-gigondas' ? 'SAMEDI 5 & DIMANCHE 6 JUIN 2027' : dateFormatted}
                                 </div>
                                 <h3 className={styles.posterRaceName}>{race.name}</h3>
                                 <div className={styles.raceSlideCity}>
@@ -2062,7 +2062,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 </div>
                                 <div className={styles.posterBadges}>
                                   <span className={styles.posterTagBadge}>
-                                    {race.slug === 'utlm-backyard-ultra-monteux' ? '🔥 5ÈME ÉDITION' : race.slug === 'traversee-des-dentelles-gigondas' ? '🔥 39ÈME ÉDITION • WEEK-END SUR 2 JOURS' : (race.label ? `🏷️ ${race.label.toUpperCase()}` : '📍 COURSE VAUCLUSE')}
+                                    {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? '🍇 FOULÉES FESTIVES & GOURMANDES' : race.slug === 'utlm-backyard-ultra-monteux' ? '🔥 5ÈME ÉDITION' : race.slug === 'traversee-des-dentelles-gigondas' ? '🔥 39ÈME ÉDITION • WEEK-END SUR 2 JOURS' : (race.label ? `🏷️ ${race.label.toUpperCase()}` : '📍 COURSE VAUCLUSE')}
                                   </span>
                                 </div>
                               </div>
@@ -2074,7 +2074,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                               </div>
                               <div className={styles.raceSlideInfo}>
                                 <div className={styles.raceSlideMetaRow}>
-                                  <Calendar size={14} /> {race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : dateFormatted}
+                                  <Calendar size={14} /> {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? '23 & 24 OCTOBRE 2027 • MAZAN' : race.slug === 'utlm-backyard-ultra-monteux' ? 'JEUDI 1ER OCTOBRE • 14H00' : dateFormatted}
                                 </div>
                                 <h3 className={styles.raceSlideName}>{race.name}</h3>
                                 <div className={styles.raceSlideCity}>
@@ -2098,7 +2098,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           )}
 
                           <div className={styles.coverFooter}>
-                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT & LES RÈGLES' : 'PROGRAMME & DÉTAILS'}</span>
+                            <span>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'LE CONCEPT : RUN, TASTE & PARTY' : race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT & LES RÈGLES' : 'PROGRAMME & DÉTAILS'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -2110,20 +2110,76 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
                             <span className={styles.slidePillTag}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT OFFICIEL 🔔' : 'AU PROGRAMME 📅'}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'LE CONCEPT OFFICIEL 🍇' : race.slug === 'utlm-backyard-ultra-monteux' ? 'LE CONCEPT OFFICIEL 🔔' : 'AU PROGRAMME 📅'}
                             </span>
                           </div>
 
                           <div style={{ margin: '0.8rem 0 0.4rem' }}>
                             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#FAF7F2", margin: 0, letterSpacing: "1px" }}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LAST ONE STANDING' : 'LES ÉPREUVES DU JOUR'}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'RUN • TASTE • PARTY' : race.slug === 'utlm-backyard-ultra-monteux' ? 'LAST ONE STANDING' : 'LES ÉPREUVES DU JOUR'}
                             </h3>
                             <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
-                              {race.name} ({race.city})
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'La recette festive au pied du Géant de Provence' : `${race.name} (${race.city})`}
                             </p>
                           </div>
 
-                          {race.slug === 'utlm-backyard-ultra-monteux' ? (
+                          {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', margin: '0.8rem 0' }}>
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.18), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(235, 94, 40, 0.4)',
+                                borderRadius: '12px',
+                                padding: '0.75rem 0.95rem',
+                                textAlign: 'left'
+                              }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
+                                  <span style={{ fontSize: '1.15rem' }}>🏃</span>
+                                  <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.35rem', fontWeight: 900, color: '#F6C83B', letterSpacing: '0.5px' }}>
+                                    RUN • AU CŒUR DES VIGNES
+                                  </span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(250, 247, 242, 0.85)', lineHeight: 1.3 }}>
+                                  Parcours magnifiques aux couleurs d&apos;automne et traversée de domaines viticoles emblématiques.
+                                </p>
+                              </div>
+
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(250, 247, 242, 0.05))',
+                                border: '1px solid rgba(168, 85, 247, 0.4)',
+                                borderRadius: '12px',
+                                padding: '0.75rem 0.95rem',
+                                textAlign: 'left'
+                              }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
+                                  <span style={{ fontSize: '1.15rem' }}>🍷</span>
+                                  <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.35rem', fontWeight: 900, color: '#F6C83B', letterSpacing: '0.5px' }}>
+                                    TASTE • TERROIR & DÉGUSTATIONS
+                                  </span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(250, 247, 242, 0.85)', lineHeight: 1.3 }}>
+                                  Ravitaillements festifs et musicaux avec les cuvées AOC Ventoux et spécialités locales tout au long du tracé.
+                                </p>
+                              </div>
+
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.18), rgba(147, 51, 234, 0.15))',
+                                border: '1px solid rgba(246, 200, 59, 0.4)',
+                                borderRadius: '12px',
+                                padding: '0.75rem 0.95rem',
+                                textAlign: 'left'
+                              }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
+                                  <span style={{ fontSize: '1.15rem' }}>🎉</span>
+                                  <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.35rem', fontWeight: 900, color: '#F6C83B', letterSpacing: '0.5px' }}>
+                                    PARTY • DÉGUISEMENTS & FÊTE
+                                  </span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(250, 247, 242, 0.85)', lineHeight: 1.3 }}>
+                                  Dès la ligne franchie, grand repas musical et ambiance de folie ! Préparez vos plus beaux déguisements.
+                                </p>
+                              </div>
+                            </div>
+                          ) : race.slug === 'utlm-backyard-ultra-monteux' ? (
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem', margin: '0.8rem 0' }}>
                               <div style={{
                                 background: 'linear-gradient(135deg, rgba(235, 94, 40, 0.16), rgba(250, 247, 242, 0.05))',
@@ -2243,24 +2299,24 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           <div className={styles.newRaceFactsGrid}>
                             <div className={styles.newRaceFactCard}>
                               <span className={styles.newRaceFactLabel}><Calendar size={13} /> DATE</span>
-                              <span className={styles.newRaceFactVal}>{race.slug === 'utlm-backyard-ultra-monteux' ? '1er oct. 14h' : new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                              <span className={styles.newRaceFactVal}>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? '23-24 oct. 27' : race.slug === 'utlm-backyard-ultra-monteux' ? '1er oct. 14h' : new Date(race.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
                             </div>
                             <div className={styles.newRaceFactCard}>
                               <span className={styles.newRaceFactLabel}><MapPin size={13} /> LIEU</span>
                               <span className={styles.newRaceFactVal}>{race.city}</span>
                             </div>
                             <div className={styles.newRaceFactCard}>
-                              <span className={styles.newRaceFactLabel}><Zap size={13} /> TYPE</span>
-                              <span className={styles.newRaceFactVal}>{race.type || 'Course'}</span>
+                              <span className={styles.newRaceFactLabel}><Zap size={13} /> ESPRIT</span>
+                              <span className={styles.newRaceFactVal}>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'Foulées Festives' : (race.type || 'Course')}</span>
                             </div>
                             <div className={styles.newRaceFactCard}>
-                              <span className={styles.newRaceFactLabel}><Timer size={13} /> FINISHER</span>
-                              <span className={styles.newRaceFactVal}>{race.slug === 'utlm-backyard-ultra-monteux' ? '1 Unique' : (race.registration_platform || 'En ligne')}</span>
+                              <span className={styles.newRaceFactLabel}><Timer size={13} /> TERROIR</span>
+                              <span className={styles.newRaceFactVal}>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'AOC Ventoux' : race.slug === 'utlm-backyard-ultra-monteux' ? '1 Unique' : (race.registration_platform || 'En ligne')}</span>
                             </div>
                           </div>
 
                           <div className={styles.coverFooter}>
-                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'L\'ÉPREUVE MENTALE' : 'L\'ESPRIT DU DÉFI'}</span>
+                            <span>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'LES 5 FORMATS AU CHOIX' : race.slug === 'utlm-backyard-ultra-monteux' ? 'L\'ÉPREUVE MENTALE' : 'L\'ESPRIT DU DÉFI'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -2272,38 +2328,65 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           <div className={styles.slideBrandHeader}>
                             <div className={styles.slideLogo}><LogoIcon size={24} /> RUNVAUCLUSE</div>
                             <span className={styles.slidePillTag}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'DÉFI MENTAL EXTRÊME ⚡' : 'L\'EXPÉRIENCE 🌟'}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'LES 5 FORMATS 🏁' : race.slug === 'utlm-backyard-ultra-monteux' ? 'DÉFI MENTAL EXTRÊME ⚡' : 'L\'EXPÉRIENCE 🌟'}
                             </span>
                           </div>
 
                           <div style={{ margin: '0.8rem 0 0.4rem' }}>
                             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", color: "#F6C83B", margin: 0, letterSpacing: "1px" }}>
-                              {race.slug === 'utlm-backyard-ultra-monteux' ? 'LA GUERRE D\'USURE' : 'POURQUOI S\'INSCRIRE ?'}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'POUR TOUS LES NIVEAUX' : race.slug === 'utlm-backyard-ultra-monteux' ? 'LA GUERRE D\'USURE' : 'POURQUOI S\'INSCRIRE ?'}
                             </h3>
                             <p style={{ margin: '0.2rem 0 0', color: "rgba(250, 247, 242, 0.7)", fontSize: "0.9rem" }}>
-                              {race.name}
+                              {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'Chrono, fête, rando & enfants au pied du Ventoux' : race.name}
                             </p>
                           </div>
 
-                          <div className={styles.newRaceDescCard}>
-                            <p className={styles.newRaceDescText}>
-                              {race.slug === 'traversee-des-dentelles-gigondas'
-                                ? "Un festival trail complet sur 2 JOURS au pied des crêtes calcaires des Dentelles de Montmirail ! Le samedi soir : ambiance festive et formats accessibles (5 km, 11 km, marche et enfants). Le dimanche matin : les grands défis en altitude au lever du soleil (42 km Marathon 2000D+ et 21 km historique). Venez vivre l'esprit trail provençal, entre vignobles réputés et panoramas grandioses sur le Mont Ventoux !"
-                                : race.slug === 'utlm-backyard-ultra-monteux'
-                                ? "Imaginé par Lazarus Lake, le format Backyard Ultra pousse le corps et l'esprit au-delà de leurs limites. 6,7 km par heure paraît accessible, mais la nuit, le froid, la fatigue cumulée et la cloche qui sonne inlassablement transforment chaque départ en épreuve de volonté. Tant qu'il reste 2 coureurs en lice, la course ne s'arrête jamais !"
-                                : (race.description || "Une expérience sportive et humaine incontournable au cœur des paysages du Vaucluse. Venez relever le défi et partager une journée conviviale avec tous les passionnés de course à pied de la région.")}
-                            </p>
-                            <div className={styles.newRaceContactPill}>
-                              {race.slug === 'traversee-des-dentelles-gigondas'
-                                ? '📍 Gigondas • 2 Jours de trail • Samedi soir & Dimanche matin'
-                                : race.slug === 'utlm-backyard-ultra-monteux'
-                                ? '📍 Domaine de Beauregard • Vue sur le Mont Ventoux'
-                                : (race.contact ? `👥 Organisation : ${race.contact}` : '📍 Vaucluse (84)')}
+                          {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', margin: '0.65rem 0' }}>
+                              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem' }}>
+                                <div className={styles.newRaceDistCard} style={{ padding: '0.6rem 0.8rem', textAlign: 'left' }}>
+                                  <span className={styles.newRaceDistName} style={{ fontSize: '1.15rem', color: '#F6C83B' }}>42 KM MARATHON</span>
+                                  <span style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.75)' }}>Chrono & festif dans le vignoble</span>
+                                </div>
+                                <div className={styles.newRaceDistCard} style={{ padding: '0.6rem 0.8rem', textAlign: 'left' }}>
+                                  <span className={styles.newRaceDistName} style={{ fontSize: '1.15rem', color: '#F6C83B' }}>21 KM SEMI</span>
+                                  <span style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.75)' }}>Chrono & festif à savourer</span>
+                                </div>
+                                <div className={styles.newRaceDistCard} style={{ padding: '0.6rem 0.8rem', textAlign: 'left' }}>
+                                  <span className={styles.newRaceDistName} style={{ fontSize: '1.15rem', color: '#F6C83B' }}>10 KM CHRONO</span>
+                                  <span style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.75)' }}>Chrono & festif entre amis</span>
+                                </div>
+                                <div className={styles.newRaceDistCard} style={{ padding: '0.6rem 0.8rem', textAlign: 'left' }}>
+                                  <span className={styles.newRaceDistName} style={{ fontSize: '1.15rem', color: '#F6C83B' }}>5 KM RANDO</span>
+                                  <span style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.75)' }}>Sans chrono • Accessible à tous</span>
+                                </div>
+                              </div>
+                              <div className={styles.newRaceDistCard} style={{ padding: '0.55rem 0.8rem', textAlign: 'left', background: 'rgba(246, 200, 59, 0.08)' }}>
+                                <span className={styles.newRaceDistName} style={{ fontSize: '1.1rem', color: '#FAF7F2' }}>👶 COURSES ENFANTS</span>
+                                <span style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.75)', marginLeft: '0.5rem' }}>Pour les champions en herbe !</span>
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            <div className={styles.newRaceDescCard}>
+                              <p className={styles.newRaceDescText}>
+                                {race.slug === 'traversee-des-dentelles-gigondas'
+                                  ? "Un festival trail complet sur 2 JOURS au pied des crêtes calcaires des Dentelles de Montmirail ! Le samedi soir : ambiance festive et formats accessibles (5 km, 11 km, marche et enfants). Le dimanche matin : les grands défis en altitude au lever du soleil (42 km Marathon 2000D+ et 21 km historique). Venez vivre l'esprit trail provençal, entre vignobles réputés et panoramas grandioses sur le Mont Ventoux !"
+                                  : race.slug === 'utlm-backyard-ultra-monteux'
+                                  ? "Imaginé par Lazarus Lake, le format Backyard Ultra pousse le corps et l'esprit au-delà de leurs limites. 6,7 km par heure paraît accessible, mais la nuit, le froid, la fatigue cumulée et la cloche qui sonne inlassablement transforment chaque départ en épreuve de volonté. Tant qu'il reste 2 coureurs en lice, la course ne s'arrête jamais !"
+                                  : (race.description || "Une expérience sportive et humaine incontournable au cœur des paysages du Vaucluse. Venez relever le défi et partager une journée conviviale avec tous les passionnés de course à pied de la région.")}
+                              </p>
+                              <div className={styles.newRaceContactPill}>
+                                {race.slug === 'traversee-des-dentelles-gigondas'
+                                  ? '📍 Gigondas • 2 Jours de trail • Samedi soir & Dimanche matin'
+                                  : race.slug === 'utlm-backyard-ultra-monteux'
+                                  ? '📍 Domaine de Beauregard • Vue sur le Mont Ventoux'
+                                  : (race.contact ? `👥 Organisation : ${race.contact}` : '📍 Vaucluse (84)')}
+                              </div>
+                            </div>
+                          )}
 
                           <div className={styles.coverFooter}>
-                            <span>{race.slug === 'utlm-backyard-ultra-monteux' ? 'PRONOSTIC & SUIVI' : 'COMMENT PARTICIPER'}</span>
+                            <span>{race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'OUVERTURE DES INSCRIPTIONS' : race.slug === 'utlm-backyard-ultra-monteux' ? 'PRONOSTIC & SUIVI' : 'COMMENT PARTICIPER'}</span>
                             <span className={styles.swipeArrow}>SWIPE <ChevronRight size={18} /></span>
                           </div>
                         </div>
@@ -2314,21 +2397,53 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                         <div className={styles.outroCard}>
                           <LogoIcon size={52} />
                           <h2 className={styles.outroBigTitle}>
-                            {race.slug === 'utlm-backyard-ultra-monteux' ? 'QUE LE MEILLEUR GAGNE !' : 'INSCRIPTIONS OUVERTES !'}
+                            {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? 'OUVERTURE DES DOSSARDS !' : race.slug === 'utlm-backyard-ultra-monteux' ? 'QUE LE MEILLEUR GAGNE !' : 'INSCRIPTIONS OUVERTES !'}
                           </h2>
-                          <p className={styles.outroDesc}>
-                            {race.slug === 'utlm-backyard-ultra-monteux'
-                              ? "Suivez l'évolution des rescapés, les infos officielles et les chronos de l'épreuve sur :"
-                              : <>Retrouvez tous les détails, le règlement officiel et le lien d'inscription directe pour <strong>{race.name}</strong> sur :</>}
-                          </p>
-                          <div className={styles.outroUrlPill}>
-                            {race.slug === 'utlm-backyard-ultra-monteux' ? 'WWW.RUNVAUCLUSE.FR' : 'RUNVAUCLUSE.FR'}
-                          </div>
-                          <div className={styles.savePostReminder}>
-                            {race.slug === 'utlm-backyard-ultra-monteux'
-                              ? '💬 Pronostic en commentaire : combien de tours selon vous ?'
-                              : <><Bookmark size={18} /> Enregistre ce post pour ton prochain dossard !</>}
-                          </div>
+                          {race.slug === 'marathon-des-terroirs-du-ventoux-mazan' ? (
+                            <>
+                              <div style={{
+                                background: 'linear-gradient(135deg, rgba(246, 200, 59, 0.2), rgba(235, 94, 40, 0.15))',
+                                border: '1.5px solid #F6C83B',
+                                borderRadius: '12px',
+                                padding: '0.8rem 1.2rem',
+                                margin: '0.8rem 0',
+                                textAlign: 'center'
+                              }}>
+                                <span style={{ fontSize: '0.8rem', color: '#F6C83B', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', display: 'block' }}>
+                                  ⚡ TOP DÉPART DES INSCRIPTIONS
+                                </span>
+                                <span style={{ fontFamily: "var(--font-display, 'Bebas Neue', sans-serif)", fontSize: '1.65rem', fontWeight: 900, color: '#FAF7F2', display: 'block', margin: '0.2rem 0' }}>
+                                  VENDREDI 14 NOVEMBRE • 12H00 PÉTANTES
+                                </span>
+                              </div>
+                              <p className={styles.outroDesc} style={{ margin: '0.4rem 0 0.8rem', fontSize: '0.85rem' }}>
+                                Organisé par <strong>Ventoux Organisation</strong> & <strong>Ventoux Events</strong><br />
+                                en partenariat avec les vins <strong>AOC Ventoux</strong> 🍷
+                              </p>
+                              <div className={styles.outroUrlPill} style={{ fontSize: '0.95rem', padding: '0.7rem 1.4rem' }}>
+                                MARATHONDESTERROIRSDUVENTOUX.COM
+                              </div>
+                              <div className={styles.savePostReminder}>
+                                🍇 Identifiez en commentaire vos potes partants pour ce défi festif !
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <p className={styles.outroDesc}>
+                                {race.slug === 'utlm-backyard-ultra-monteux'
+                                  ? "Suivez l'évolution des rescapés, les infos officielles et les chronos de l'épreuve sur :"
+                                  : <>Retrouvez tous les détails, le règlement officiel et le lien d'inscription directe pour <strong>{race.name}</strong> sur :</>}
+                              </p>
+                              <div className={styles.outroUrlPill}>
+                                {race.slug === 'utlm-backyard-ultra-monteux' ? 'WWW.RUNVAUCLUSE.FR' : 'RUNVAUCLUSE.FR'}
+                              </div>
+                              <div className={styles.savePostReminder}>
+                                {race.slug === 'utlm-backyard-ultra-monteux'
+                                  ? '💬 Pronostic en commentaire : combien de tours selon vous ?'
+                                  : <><Bookmark size={18} /> Enregistre ce post pour ton prochain dossard !</>}
+                              </div>
+                            </>
+                          )}
                         </div>
                       )}
                     </>

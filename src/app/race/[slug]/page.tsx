@@ -8,6 +8,7 @@ import { getResultsBySlug } from '@/lib/db';
 import StructuredData from '@/components/StructuredData';
 import CyberCardGenerator from '@/components/CyberCardGenerator';
 import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
+import TerroirsMarathonDossier from '@/components/TerroirsMarathonDossier';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -39,6 +40,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   } else if (slug === 'marathon-davignon-avignon') {
     pageTitle = `Marathon & Semi-Marathon d'Avignon 2027 : Inscriptions, Parcours & Date`;
     metaDescription = `Toutes les infos sur la 2ème édition du Marathon et Semi-Marathon d'Avignon (14 mars 2027) : 6 000 dossards, inscriptions Finishers, tracés GPX officiels et analyse coach STAPS.`;
+  } else if (slug === 'marathon-des-terroirs-du-ventoux-mazan') {
+    pageTitle = `Marathon des Terroirs du Ventoux 2027 : Inscriptions, Formats & Affiche`;
+    metaDescription = `1ère édition les 23 & 24 octobre 2027 à Mazan : Marathon (42 km), Semi (21 km), 10 km, Rando (5 km) et enfants. Run, Taste & Party avec les vins AOC Ventoux.`;
   }
 
   const fullImageUrl = race.image_url?.startsWith('http') 
@@ -207,6 +211,11 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   {slug === 'marathon-davignon-avignon' && (
                     <span className={styles.dossierBadge}>⭐ DOSSIER OFFICIEL COUREUR</span>
                   )}
+                  {slug === 'marathon-des-terroirs-du-ventoux-mazan' && (
+                    <span className={styles.dossierBadge} style={{ background: 'linear-gradient(135deg, #7b2cbf, #eb5e28)', color: '#fff' }}>
+                      🍇 DOSSIER OFFICIEL & FOULÉES FESTIVES
+                    </span>
+                  )}
                 </div>
                 <h1 className={styles.title}>{race.name}</h1>
                 <div className={styles.location}>
@@ -325,6 +334,17 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   </div>
                 )}
 
+                {slug === 'marathon-des-terroirs-du-ventoux-mazan' && (
+                  <div className={styles.announcementBox} style={{ borderColor: 'rgba(235, 94, 40, 0.4)', background: 'linear-gradient(135deg, rgba(123, 44, 191, 0.15), rgba(235, 94, 40, 0.12))' }}>
+                    <div className={styles.announcementTitle} style={{ color: '#F6C83B' }}>
+                      <Sparkles size={16} /> 1ÈRE ÉDITION • 23 & 24 OCTOBRE 2027 • MAZAN
+                    </div>
+                    <p className={styles.announcementText}>
+                      Ouverture des inscriptions <strong>vendredi 14 novembre à 12h00 pétantes</strong> ! 5 formats festifs & gourmands (Marathon 42 km, Semi 21 km, 10 km, Rando 5 km et Enfants) au pied du Géant de Provence en partenariat avec les vins <strong>AOC Ventoux</strong>.
+                    </p>
+                  </div>
+                )}
+
                 {hasResults && (
                   <Link href={`/resultats/${slug}`} className={styles.resultsBtn}>
                     <Trophy size={18} /> {isUpcoming ? 'VOIR LES RÉSULTATS (ÉDITION PRÉCÉDENTE)' : 'VOIR LES RÉSULTATS OFFICIELS'}
@@ -357,6 +377,12 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 {slug === 'marathon-davignon-avignon' && (
                   <a href="#dossier-marathon" className={styles.dossierScrollBtn}>
                     VOIR LE DOSSIER & GPX ↓
+                  </a>
+                )}
+
+                {slug === 'marathon-des-terroirs-du-ventoux-mazan' && (
+                  <a href="#dossier-terroirs" className={styles.dossierScrollBtn} style={{ background: 'linear-gradient(135deg, rgba(123, 44, 191, 0.4), rgba(235, 94, 40, 0.4))' }}>
+                    VOIR LE DOSSIER & INFOS ↓
                   </a>
                 )}
 
@@ -393,6 +419,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
           </div>
 
           {slug === 'marathon-davignon-avignon' && <AvignonMarathonDossier />}
+          {slug === 'marathon-des-terroirs-du-ventoux-mazan' && <TerroirsMarathonDossier />}
 
           <section className={styles.coachCard}>
             <div className={styles.coachLeft}>
