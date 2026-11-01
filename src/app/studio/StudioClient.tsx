@@ -414,7 +414,12 @@ export default function StudioClient({ races, latestWinners }: Props) {
     return latestWinners.slice(0, 2).map(r => r.slug);
   });
   const [podiumTitle, setPodiumTitle] = useState('LES PODIUMS DU WEEK-END');
-  const [podiumDates, setPodiumDates] = useState('SAMEDI 19 & DIMANCHE 20 SEPTEMBRE');
+  const [podiumDates, setPodiumDates] = useState(() => {
+    if (latestWinners.length > 0 && latestWinners[0].date) {
+      return new Date(latestWinners[0].date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+    }
+    return 'DIMANCHE 1ER NOVEMBRE 2026';
+  });
 
   // New Race Carrousel State
   const [selectedNewRaceSlug, setSelectedNewRaceSlug] = useState<string>(() => {
