@@ -486,15 +486,17 @@
     "date": "2027-02-14",
     "name": "Trail des Fous Romains",
     "city": "Vaison-la-Romaine",
-    "distances": "25 km (1150D+), 15 km (600D+), marche (250D+)",
+    "distances": "25 km (1100D+), 15 km (550D+), marche nature 8 km (200D+)",
     "type": "Trail",
     "contact": "Françoise Haudry (06 86 27 87 56 / lafouleeromaine@gmail.com)",
-    "image_url": "/images/poster-trail-des-fous-romains.png",
+    "image_url": "/images/poster-trail-des-fous-romains-2027.jpg",
     "link": "https://www.facebook.com/traildesfousromains/",
     "facebook": "https://www.facebook.com/traildesfousromains/",
     "instagram": "https://www.instagram.com/traildesfousromains/",
     "slug": "trail-des-fous-romains-vaison-la-romaine",
-    "description": "Dimanche 14 février 2027 à Vaison-la-Romaine (départs 8h30, 8h40 et 9h30). Parcours de 25 km (1150m D+), 15 km (600m D+) et marche (250m D+) organisés par la Foulée Romaine."
+    "description": "6ème édition spéciale Saint-Valentin le dimanche 14 février 2027 à Vaison-la-Romaine, organisée par La Foulée Romaine avec le soutien de la Ville de Vaison-la-Romaine. Au programme : Trail 25 km (1100m D+ • départ 8h30 • 25€), Trail 15 km (550m D+ • départ 9h30 • 15€) et Marche Nature 8 km (200m D+ • départ 8h40 • 8€). Épreuve solidaire avec 1€ reversé par dossard à l'Association APACHE84. Inscriptions prochainement sur Nikrome.",
+    "registration_platform": "Nikrome",
+    "registration_link": "https://www.nikrome.com/"
   },
   {
     "id": 9,
