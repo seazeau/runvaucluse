@@ -212,6 +212,25 @@
     "description": "Trail montagnard à Bédoin sur les sentiers sauvages de la face sud du Mont Ventoux. Trois parcours exigeants de 36 km (1950m D+), 24 km (1400m D+) et 12 km (550m D+) au cœur des pierriers et forêts du Ventoux."
   },
   {
+    "id": 105,
+    "date": "2026-11-11",
+    "name": "Course des Poilus",
+    "city": "Carpentras",
+    "distances": "6 km, 3 km, marche 2,5 km, 850 m enfants",
+    "type": "Course sur route",
+    "contact": "Ville de Carpentras & UA Carpentras (associations@carpentras.fr)",
+    "image_url": "/images/poster-course-des-poilus-carpentras-2026.png",
+    "link": "https://run-signup-flow.lovable.app/",
+    "website": "https://www.carpentras.fr",
+    "registration_platform": "Lovable (carpentras.fr)",
+    "registration_link": "https://run-signup-flow.lovable.app/",
+    "pdf_link": "https://www.carpentras.fr/fileadmin/mediatheque/carpentras/pdf/fichiers-divers/Reglement_course.pdf",
+    "facebook": "https://www.facebook.com/ville.de.carpentras/",
+    "instagram": "https://www.instagram.com/villecarpentras/",
+    "slug": "course-des-poilus-carpentras",
+    "description": "1ère édition de la Course des Poilus le mercredi 11 novembre 2026 au cœur de Carpentras (départ Parking des Platanes, Allée Jean Jaurès). À l'occasion des commémorations du 11 novembre, la Ville de Carpentras et l'UA Carpentras (UAC) organisent une grande matinée sportive, festive et mémorielle. Au programme : 6 km chronométré (dès 16 ans, départ 10h), 3 km chronométré (dès 10 ans, départ 10h), marche encadrée de 2,5 km par un entraîneur de l'UAC et course enfants de 850 m (départ 10h45). Challenges individuel, par équipe (entreprises, clubs, assos) et challenge du nombre des écoles. Événement 100% gratuit (dossard gratuit sur inscription obligatoire, PPS obligatoire). Retrait des dossards à la Maison du Citoyen le 10 novembre (8h30-17h) et sur place le 11 novembre dès 8h."
+  },
+  {
     "id": 70,
     "date": "2026-11-13",
     "name": "Infinity Trail Mont Ventoux",
