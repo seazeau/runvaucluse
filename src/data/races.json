@@ -317,14 +317,17 @@
     "date": "2026-11-29",
     "name": "La Foulée Caumontoise",
     "city": "Caumont-sur-Durance",
-    "distances": "15 km, 10 km, 6 km",
-    "type": "Course sur route FFA",
-    "contact": "lesgalopants84@gmail.com",
-    "image_url": "/images/poster-la-foulee-caumontoise-caumont-sur-durance.jpg",
-    "link": "https://lesgalopants.fr/la-foulee-caumontoise/",
+    "distances": "15 km (350D+), 10 km (250D+), 6 km (150D+), marche 8,5 km",
+    "type": "Course nature",
+    "contact": "Les Galopants Caumont (lesgalopants84@gmail.com)",
+    "image_url": "/images/poster-la-foulee-caumontoise-2026.png",
+    "link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_caumont.php",
     "facebook": "https://www.facebook.com/lafouleecaumontoise/",
     "slug": "la-foulee-caumontoise-caumont-sur-durance",
-    "description": "Course nature et route à Caumont-sur-Durance à travers la colline du Piémont et les berges de la Durance. Trois formats de 15 km, 10 km et 6 km ainsi qu'une marche nordique de 9 km."
+    "description": "32ème édition de La Foulée Caumontoise le dimanche 29 novembre 2026 à Caumont-sur-Durance, organisée par Les Galopants. Au programme sur les collines du Piémont et les berges de la Durance : 3 courses nature de 15 km (350m D+), 10 km (250m D+), 6 km (150m D+) ainsi qu'une marche nature de 8,5 km. Inscriptions en ligne sur JF Chronotrail.",
+    "registration_platform": "JF Chronotrail",
+    "registration_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_caumont.php",
+    "website": "https://www.les-galopants.fr"
   },
   {
     "id": 76,
