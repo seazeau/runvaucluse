@@ -408,8 +408,13 @@ export default function StudioClient({ races, latestWinners }: Props) {
   }, [mode, reelPlaying, reelMaxDuration]);
 
   const exportReelVideo = async () => {
+    if (isExportingVideo) return;
     setIsExportingVideo(true);
-    setExportProgress(0);
+    setExportProgress(1);
+
+    // Pause live preview loop during video encoding so it doesn't compete for CPU/GPU
+    const wasPlaying = reelPlaying;
+    setReelPlaying(false);
 
     try {
       const width = 1080;
@@ -417,66 +422,124 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const fps = 30;
       const duration = reelTemplate === 'gpx' ? 10 : 12;
       const totalFrames = fps * duration;
+      const frameDurationMicros = Math.round(1_000_000 / fps);
       const fileSlug =
         reelTemplate === 'gpx'
-          ? `trace-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
-          : `carte-coureur-${currentRunner.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+          ? `trace-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+          : `carte-coureur-${currentRunner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+
+      // Ensure GPX track is loaded if user exports immediately
+      let activeTrack = parsedGpxTrack;
+      if (reelTemplate === 'gpx' && !activeTrack) {
+        const preset = GPX_PRESETS.find((p) => p.id === selectedGpxPresetId) || GPX_PRESETS[0];
+        const res = await fetch(encodeURI(preset.gpxUrl));
+        const xmlText = await res.text();
+        activeTrack = parseGpxXml(xmlText);
+        if (activeTrack) setParsedGpxTrack(activeTrack);
+      }
 
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { willReadFrequently: false });
       if (!ctx) {
         setIsExportingVideo(false);
         return;
       }
 
+      let safeTileCanvas: HTMLCanvasElement | null = gpxMapTilesCanvas;
+      let safeConfig: GpxReelConfig = { ...currentGpxConfig };
+
       const renderFrameAt = (t: number) => {
-        if (reelTemplate === 'gpx' && parsedGpxTrack) {
+        if (reelTemplate === 'gpx' && activeTrack) {
           drawGpxReelFrame(
             ctx,
             width,
             height,
             t,
-            parsedGpxTrack,
-            currentGpxConfig,
-            gpxMapTilesCanvas
+            activeTrack,
+            safeConfig,
+            safeTileCanvas
           );
         } else {
           drawReelFrame(ctx, width, height, t, currentRunner);
         }
       };
 
-      // Check if WebCodecs VideoEncoder + mp4-muxer is supported (Native MP4 H.264 for Instagram)
-      const hasWebCodecs = typeof window !== 'undefined' && 'VideoEncoder' in window && 'VideoFrame' in window;
+      // Test frame 0 for any CORS canvas tainting; if tainted, fallback to vector topo background
+      renderFrameAt(0);
+      try {
+        ctx.getImageData(0, 0, 1, 1);
+      } catch {
+        console.warn('Canvas tainted by external image/tiles, switching to clean vector topo background for export');
+        safeTileCanvas = null;
+        safeConfig = { ...currentGpxConfig, bgStyle: 'topo', bgImage: null };
+        renderFrameAt(0);
+      }
+
+      const triggerDownload = (blob: Blob, filename: string) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          if (document.body.contains(a)) document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 15000);
+      };
+
+      // 1. Try Native MP4 H.264 via WebCodecs VideoEncoder + mp4-muxer
+      const hasWebCodecs =
+        typeof window !== 'undefined' &&
+        'VideoEncoder' in window &&
+        'VideoFrame' in window;
 
       if (hasWebCodecs) {
         try {
           const { Muxer, ArrayBufferTarget } = await import('mp4-muxer');
 
-          // Look for supported AVC / H.264 codec
-          const candidateCodecs = ['avc1.640028', 'avc1.4d002a', 'avc1.42001f', 'avc1.42e01f'];
-          let selectedCodec: string | null = null;
+          // H.264 Level 4.0 / 4.2 / 5.0 codecs supporting 1080x1920
+          const candidateCodecs = [
+            'avc1.64002a',
+            'avc1.640028',
+            'avc1.4d002a',
+            'avc1.4d0028',
+            'avc1.42002a',
+            'avc1.420028'
+          ];
+          const accelModes: ('prefer-software' | 'no-preference')[] = [
+            'prefer-software',
+            'no-preference'
+          ];
 
-          for (const c of candidateCodecs) {
-            try {
-              const res = await (window as any).VideoEncoder.isConfigSupported({
-                codec: c,
-                width,
-                height,
-                bitrate: 8_000_000,
-                framerate: fps
-              });
-              if (res.supported) {
-                selectedCodec = c;
-                break;
+          let chosenConfig: any = null;
+
+          outerLoop: for (const accel of accelModes) {
+            for (const c of candidateCodecs) {
+              try {
+                const cfg = {
+                  codec: c,
+                  width,
+                  height,
+                  bitrate: 6_000_000,
+                  framerate: fps,
+                  hardwareAcceleration: accel
+                };
+                const res = await (window as any).VideoEncoder.isConfigSupported(cfg);
+                if (res && res.supported) {
+                  chosenConfig = res.config || cfg;
+                  break outerLoop;
+                }
+              } catch {
+                // continue
               }
-            } catch {
-              // continue
             }
           }
 
-          if (selectedCodec) {
+          if (chosenConfig) {
             const muxer = new Muxer({
               target: new ArrayBufferTarget(),
               video: {
@@ -488,106 +551,118 @@ export default function StudioClient({ races, latestWinners }: Props) {
               firstTimestampBehavior: 'offset'
             });
 
+            let encoderError: any = null;
             const videoEncoder = new (window as any).VideoEncoder({
               output: (chunk: any, meta: any) => muxer.addVideoChunk(chunk, meta),
-              error: (e: any) => console.error('VideoEncoder error:', e)
+              error: (e: any) => {
+                console.error('VideoEncoder runtime error:', e);
+                encoderError = e;
+              }
             });
 
-            videoEncoder.configure({
-              codec: selectedCodec,
-              width,
-              height,
-              bitrate: 8_000_000,
-              framerate: fps
-            });
+            videoEncoder.configure(chosenConfig);
 
             for (let f = 0; f < totalFrames; f++) {
+              if (encoderError || videoEncoder.state === 'closed') {
+                throw encoderError || new Error('VideoEncoder closed unexpectedly');
+              }
+
+              // Respect hardware/software encoder backpressure queue
+              while (videoEncoder.encodeQueueSize > 3 && !encoderError && videoEncoder.state === 'configured') {
+                await new Promise((r) => setTimeout(r, 8));
+              }
+
               const t = f / fps;
               renderFrameAt(t);
 
               const timestampMicros = Math.round((f * 1_000_000) / fps);
-              const frame = new (window as any).VideoFrame(canvas, { timestamp: timestampMicros });
-              videoEncoder.encode(frame, { keyFrame: f % 60 === 0 });
+              const frame = new (window as any).VideoFrame(canvas, {
+                timestamp: timestampMicros,
+                duration: frameDurationMicros
+              });
+              videoEncoder.encode(frame, { keyFrame: f % 30 === 0 });
               frame.close();
 
-              setExportProgress(Math.round(((f + 1) / totalFrames) * 96));
-              if (f % 8 === 0) {
+              setExportProgress(Math.max(1, Math.round(((f + 1) / totalFrames) * 95)));
+              if (f % 4 === 0) {
                 await new Promise((r) => setTimeout(r, 0));
               }
             }
 
             await videoEncoder.flush();
+            videoEncoder.close();
             muxer.finalize();
 
-            const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `reel-${fileSlug}.mp4`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            setExportProgress(100);
-            setIsExportingVideo(false);
-            return;
+            const buffer = muxer.target.buffer;
+            if (buffer && buffer.byteLength > 1000) {
+              const blob = new Blob([buffer], { type: 'video/mp4' });
+              triggerDownload(blob, `reel-${fileSlug}.mp4`);
+              setExportProgress(100);
+              setIsExportingVideo(false);
+              if (wasPlaying) setReelPlaying(true);
+              return;
+            }
           }
         } catch (mp4Err) {
-          console.warn('WebCodecs MP4 export encountered error, trying MediaRecorder fallback:', mp4Err);
+          console.warn('WebCodecs MP4 export failed, switching to MediaRecorder fallback:', mp4Err);
         }
       }
 
-      // Fallback: MediaRecorder (tests MP4 container first, then webm)
+      // 2. Fallback: Real-time MediaRecorder capture
       const stream = canvas.captureStream(fps);
       let mimeType = 'video/mp4;codecs=avc1';
       if (typeof MediaRecorder !== 'undefined') {
-        if (!MediaRecorder.isTypeSupported(mimeType)) {
-          mimeType = MediaRecorder.isTypeSupported('video/mp4')
-            ? 'video/mp4'
-            : MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
-              ? 'video/webm;codecs=vp9'
-              : 'video/webm';
-        }
+        const candidates = [
+          'video/mp4;codecs=avc1.42E01E',
+          'video/mp4;codecs=avc1',
+          'video/mp4',
+          'video/webm;codecs=h264',
+          'video/webm;codecs=vp9',
+          'video/webm'
+        ];
+        mimeType = candidates.find((m) => MediaRecorder.isTypeSupported(m)) || '';
       }
 
-      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 8_000_000 });
+      const recorder = mimeType
+        ? new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6_000_000 })
+        : new MediaRecorder(stream);
       const chunks: Blob[] = [];
 
       recorder.ondataavailable = (e) => {
         if (e.data && e.data.size > 0) chunks.push(e.data);
       };
 
-      recorder.onstop = () => {
-        const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
-        const blob = new Blob(chunks, { type: mimeType });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `reel-${fileSlug}.${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        setIsExportingVideo(false);
-        setExportProgress(100);
-      };
+      const stopPromise = new Promise<void>((resolve) => {
+        recorder.onstop = () => {
+          const ext = (recorder.mimeType || mimeType).includes('mp4') ? 'mp4' : 'webm';
+          const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
+          triggerDownload(blob, `reel-${fileSlug}.${ext}`);
+          setExportProgress(100);
+          setIsExportingVideo(false);
+          if (wasPlaying) setReelPlaying(true);
+          resolve();
+        };
+      });
 
-      recorder.start();
+      recorder.start(200);
 
+      const videoTrack = (stream.getVideoTracks()[0] as any) || null;
       for (let f = 0; f < totalFrames; f++) {
         const t = f / fps;
         renderFrameAt(t);
-        setExportProgress(Math.round(((f + 1) / totalFrames) * 100));
-        if (f % 15 === 0) {
-          await new Promise((r) => setTimeout(r, 4));
+        if (videoTrack && typeof videoTrack.requestFrame === 'function') {
+          videoTrack.requestFrame();
         }
+        setExportProgress(Math.max(1, Math.round(((f + 1) / totalFrames) * 98)));
+        await new Promise((r) => setTimeout(r, 1000 / fps));
       }
 
       recorder.stop();
+      await stopPromise;
     } catch (err) {
       console.error('Error exporting Reel video:', err);
       setIsExportingVideo(false);
+      if (wasPlaying) setReelPlaying(true);
     }
   };
   
@@ -738,12 +813,37 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // Download active slide as PNG
   const downloadCurrentSlide = async () => {
-    if (mode === 'reel' && reelTemplate === 'gpx' && gpxPreviewCanvasRef.current) {
-      const dataUrl = gpxPreviewCanvasRef.current.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = `runvaucluse-reel-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]/g, '-')}.png`;
-      link.href = dataUrl;
-      link.click();
+    if (mode === 'reel' && reelTemplate === 'gpx') {
+      try {
+        let dataUrl = '';
+        if (gpxPreviewCanvasRef.current) {
+          try {
+            dataUrl = gpxPreviewCanvasRef.current.toDataURL('image/png');
+          } catch {
+            // Fallback clean canvas if preview canvas was tainted
+            if (parsedGpxTrack) {
+              const tmp = document.createElement('canvas');
+              tmp.width = 1080;
+              tmp.height = 1920;
+              const tCtx = tmp.getContext('2d');
+              if (tCtx) {
+                drawGpxReelFrame(tCtx, 1080, 1920, reelTime, parsedGpxTrack, { ...currentGpxConfig, bgStyle: 'topo', bgImage: null }, null);
+                dataUrl = tmp.toDataURL('image/png');
+              }
+            }
+          }
+        }
+        if (dataUrl) {
+          const link = document.createElement('a');
+          link.download = `runvaucluse-reel-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`;
+          link.href = dataUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (err) {
+        console.error('PNG capture failed:', err);
+      }
       return;
     }
     if (!canvasRef.current) return;
@@ -1768,22 +1868,43 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
 
             {/* Export Buttons */}
             <div className={styles.exportBtns}>
-              <button 
-                onClick={downloadCurrentSlide} 
-                className={styles.primaryBtn}
-                disabled={isExporting}
-              >
-                <Download size={18} /> {isExporting ? 'EXPORT EN COURS...' : 'TÉLÉCHARGER CETTE SLIDE (HD)'}
-              </button>
+              {mode === 'reel' ? (
+                <>
+                  <button 
+                    onClick={exportReelVideo} 
+                    className={styles.primaryBtn}
+                    disabled={isExportingVideo}
+                  >
+                    <Film size={18} /> {isExportingVideo ? `GÉNÉRATION VIDÉO MP4 (${exportProgress}%)...` : `TÉLÉCHARGER LE REEL VIDÉO MP4 (${reelMaxDuration}S)`}
+                  </button>
+                  <button 
+                    onClick={downloadCurrentSlide} 
+                    className={styles.secondaryBtn}
+                    disabled={isExporting}
+                  >
+                    <Download size={18} /> CAPTURER L&apos;IMAGE ACTUELLE EN PNG (1080×1920)
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={downloadCurrentSlide} 
+                    className={styles.primaryBtn}
+                    disabled={isExporting}
+                  >
+                    <Download size={18} /> {isExporting ? 'EXPORT EN COURS...' : 'TÉLÉCHARGER CETTE SLIDE (HD)'}
+                  </button>
 
-              {mode !== 'story' && (
-                <button 
-                  onClick={downloadAllSlides} 
-                  className={styles.secondaryBtn}
-                  disabled={isExporting}
-                >
-                  <Share2 size={18} /> TÉLÉCHARGER LE CARROUSEL ENTIER ({totalSlides} SLIDES)
-                </button>
+                  {mode !== 'story' && (
+                    <button 
+                      onClick={downloadAllSlides} 
+                      className={styles.secondaryBtn}
+                      disabled={isExporting}
+                    >
+                      <Share2 size={18} /> TÉLÉCHARGER LE CARROUSEL ENTIER ({totalSlides} SLIDES)
+                    </button>
+                  )}
+                </>
               )}
             </div>
 
@@ -1809,7 +1930,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
           <div className={styles.previewArea}>
             
             {/* Pagination Controls */}
-            {mode !== 'story' && (
+            {mode !== 'story' && mode !== 'reel' && (
               <div className={styles.carouselPagination}>
                 <button 
                   onClick={() => setActiveSlideIndex(p => Math.max(0, p - 1))}
