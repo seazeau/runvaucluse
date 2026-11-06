@@ -48,6 +48,17 @@ export interface GpxPresetItem {
 export const GPX_PRESETS: GpxPresetItem[] = [
   // COURSES OFFICIELLES
   {
+    id: 'trail-du-ventouret-36k',
+    category: 'Course Officielle',
+    title: 'TRAIL DU VENTOURET 36K',
+    location: 'Bédoin • Mont Ventoux',
+    subtitle: 'CHALET REYNARD & SOMMET DU VENTOUX • DIMANCHE 8 NOV.',
+    gpxUrl: '/itineraires/36k-ventouret.gpx',
+    officialDistKm: 36.0,
+    officialDplus: 1950,
+    imageUrl: '/images/trailduventouret.jpg'
+  },
+  {
     id: 'tmv-valescure-43k',
     category: 'Course Officielle',
     title: 'TRAIL DES MONTS DE VAUCLUSE',

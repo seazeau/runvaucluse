@@ -209,7 +209,7 @@ interface Props {
 }
 
 export default function StudioClient({ races, latestWinners }: Props) {
-  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('new_race');
+  const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('reel');
 
   // Reel Motion State (GPX Trace & Runner Card)
   const [reelTemplate, setReelTemplate] = useState<'gpx' | 'runner'>('gpx');
@@ -895,7 +895,10 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
     } else if (mode === 'reel') {
       if (reelTemplate === 'gpx') {
         const minEle = parsedGpxTrack?.minEle ?? 100;
-        const maxEle = parsedGpxTrack?.maxEle ?? 600;
+        const maxEle = parsedGpxTrack?.maxEle ?? 1900;
+        if (selectedGpxPresetId === 'trail-du-ventouret-36k') {
+          return `🏔️ RECONNAISSANCE GPX // TRAIL DU VENTOURET 36 KM ! 🏃‍♂️⚡\n\nJ-2 avant le grand rendez-vous organisé par le @ventouxtrailclub ce Dimanche 8 Novembre sur les pentes sauvages du Géant de Provence !\n\nDécouvre en 10 secondes le tracé officiel et le profil altimétrique du grand parcours 36 KM :\n🔹 Distance : ${gpxDistOverride} KM\n🔹 Dénivelé positif : +${gpxDplusOverride} M D+\n🔹 Altitude : de ${minEle} m jusqu'au sommet à ${maxEle} m 🏔️\n🔹 Aussi au programme : 24 km (1400m D+), 12 km (550m D+), Run & Bike 21 km et Rando 8 km\n\n📥 Tu veux étudier le parcours ou charger la trace GPX dans ta montre ?\n👉 Télécharge gratuitement le fichier GPX officiel sur la fiche de la course :\n🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio !)\n\n💬 Qui sera sur la ligne de départ dimanche au Chalet Reynard ? Sur quelle distance (36K, 24K ou 12K) ? Dis-le nous en commentaire ! 👇\n\n#runvaucluse #trailduventouret #ventouxtrailclub #montventoux #bedoin #chaletreynard #trailvaucluse #runningvaucluse #tracegpx #trailrunning #geantdeprovence #vaucluse #courseapied #stravafrance`;
+        }
         return `🗺️ ZOOM TRACÉ GPX // ${gpxTitle.toUpperCase()} ! 🏃‍♂️⛰️\n\nDécouvre en 10 secondes le tracé complet et le profil altimétrique de : ${gpxTitle} (${gpxSubtitle}) dans le Vaucluse !\n\n📊 LES CHIFFRES DU PARCOURS :\n🔹 Distance : ${gpxDistOverride} KM\n🔹 Dénivelé positif : +${gpxDplusOverride} M D+\n🔹 Altitude : de ${minEle} m à ${maxEle} m (point culminant)\n\n📥 Tu veux courir ce parcours ou le charger dans ta montre GPS (Garmin, Coros, Suunto) ?\n👉 Télécharge gratuitement la trace GPX officielle et retrouve toutes les infos sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio !)\n\n💾 Enregistre ce Reel pour ta prochaine sortie et tague ton binôme de sentier en commentaire ! 👇\n\n#runvaucluse #tracegpx #trailvaucluse #runningvaucluse #montventoux #dentellesdemontmirail #luberon #montsdevaucluse #vaucluse #stravafrance #garminfrance #corosfrance #trailrunning #courseapied`;
       }
       return `🏃‍♂️ TU AS COURU DANS LE VAUCLUSE CETTE ANNÉE ? TA CARTE COUREUR EST DISPONIBLE ! 🪪⚡\n\nQue tu aies fait 1 course de village ou 20 trails, toutes tes stats 2026/2027 sont réunies sur une seule carte officielle :\n\n✅ Nombre de courses\n✅ Meilleure place au scratch\n✅ Kilomètres en course\n✅ Badge de saison (Légende du 84, Pilier du peloton...)\n\n👉 Tape ton prénom et nom sur RUNVAUCLUSE.FR/COUREUR (Lien direct en bio 🔗) pour générer ta carte et la partager en Story !\n\n💬 Tague ton club et tes potes de course en commentaire pour qu'ils découvrent leur bilan ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #cartecoureur #bilanrunning #vaucluse #courseapied #avignon #cavaillon #carpentras #orange #apt #trailduventoux #instarunfrance`;
