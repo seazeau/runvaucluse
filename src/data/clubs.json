@@ -526,6 +526,35 @@
     "notes": "Départs réguliers depuis Mornas pour arpenter les sentiers du massif de Mornas et des environs."
   },
   {
+    "name": "Les Mollets Pétillants",
+    "image_url": "/images/les-mollets-petillants.png",
+    "website": "https://mollets-petillants.fr/",
+    "city": "Saint-Didier",
+    "disciplines": [
+      "Trail",
+      "Course nature",
+      "Course sur route",
+      "Fractionné & Piste",
+      "Convivialité"
+    ],
+    "description": "Association de course à pied et de trail basée à Saint-Didier, organisatrice du réputé Trail de Saint-Didier.\n\nLe club réunit passionnés de nature et de grand air pour courir ensemble dans une ambiance chaleureuse, alliant sorties vallonnées au pied des Monts de Vaucluse et séances de fractionné sur piste.",
+    "schedule": [
+      {
+        "title": "Mardi 18h30 (hiver) / 19h00 (été) • Sortie Nature",
+        "days": "Sortie rythmée au départ de Pernes-les-Fontaines"
+      },
+      {
+        "title": "Jeudi 18h30 • Fractionné sur Piste",
+        "days": "Fractionnés sur la piste d'athlétisme de Carpentras"
+      },
+      {
+        "title": "Samedi 9h00 • Sortie Sentiers en Groupe",
+        "days": "Départ 9h en alternance de villages : Saint-Didier, Malemort, Le Beaucet, Pernes si 4 samedis dans le mois"
+      }
+    ],
+    "notes": "Association organisatrice du Trail de Saint-Didier. Tous les détails, parcours et actualités sont disponibles sur le site officiel (mollets-petillants.fr)."
+  },
+  {
     "name": "Les Sentiers du Paty",
     "image_url": "/images/les-sentiers-du-paty.jpg",
     "city": "Caromb",

@@ -88,12 +88,13 @@ const CLUB_REGIONS: ClubRegion[] = [
   {
     id: 'ventoux',
     title: 'VENTOUX & COMTAT VENAISSIN',
-    subtitle: '8 clubs au pied du Géant de Provence et des Dentelles',
+    subtitle: '9 clubs au pied du Géant de Provence et des Dentelles',
     icon: '⛰️',
     clubs: [
       { name: 'UA Carpentras (UAC)', query: 'UA Carpentras', city: 'Carpentras', specialty: 'Stade Roseraie • Piste, Trail' },
       { name: 'Athlé Vaison Ventoux', query: 'Athlé Vaison Ventoux', city: 'Vaison', specialty: 'Route, Trail & Jeunes' },
       { name: 'Les Sentiers du Paty', query: 'Sentiers du Paty', city: 'Caromb', specialty: 'Route, VMA & Trail au Paty' },
+      { name: 'Les Mollets Pétillants', query: 'Mollets Pétillants', city: 'Saint-Didier', specialty: 'Trail, Piste & Sorties nature' },
       { name: 'Team PAPA', query: 'Team PAPA', city: 'Pernes', specialty: 'Trail & Ultra endurance' },
       { name: 'Terra Sport Ventoux', query: 'Terra Sport Ventoux', city: 'Pernes/Ventoux', specialty: 'Trail technique & D+' },
       { name: 'Ventoux Organisation', query: 'Ventoux Organisation', city: 'Bédoin', specialty: 'Sorties Massif du Ventoux' },
@@ -653,7 +654,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
 Si tu as du mal à te motiver l'hiver, si tu stagnes sur tes chronos sur 10 km ou semi, ou si tu cherches simplement un groupe sympa pour partager tes sorties longues le dimanche... Il y a forcément un club fait pour toi dans le 84 ! 💥
 
-Dans le Vaucluse, ce sont désormais 32 CLUBS ET ASSOCIATIONS d'athlétisme, de trail et de running qui vous accueillent, quel que soit votre niveau (du grand débutant au marathonien sub-3h) !
+Dans le Vaucluse, ce sont désormais 33 CLUBS ET ASSOCIATIONS d'athlétisme, de trail et de running qui vous accueillent, quel que soit votre niveau (du grand débutant au marathonien sub-3h) !
 
 👉 POURQUOI REJOINDRE UN CLUB ?
 1️⃣ La régularité : fini les séances sautées après le boulot.
@@ -2536,7 +2537,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                                 lineHeight: '1.35', 
                                 margin: 0 
                               }}>
-                                Les <strong>32 clubs et assos</strong> du 84 pour ne plus courir seul, s&apos;entraîner en groupe et progresser cette saison.
+                                Les <strong>33 clubs et assos</strong> du 84 pour ne plus courir seul, s&apos;entraîner en groupe et progresser cette saison.
                               </p>
                             </div>
 
@@ -2560,7 +2561,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                               marginBottom: '0.4rem' 
                             }}>
                               <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem' }}>
-                                ⚡ LES 32 CLUBS DU 84
+                                ⚡ LES 33 CLUBS DU 84
                               </span>
                               <span className={styles.posterTagBadge} style={{ fontSize: '0.75rem', background: '#EB5E28' }}>
                                 📍 4 GRANDS BASSINS
