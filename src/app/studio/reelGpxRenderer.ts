@@ -507,33 +507,44 @@ export async function renderMapTilesCanvas(
     const sCtx = stitchCanvas.getContext('2d');
     if (!sCtx) return null;
 
-    const loadTile = (tx: number, ty: number): Promise<void> =>
-      new Promise((resolve) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        const url =
-          style === 'satellite'
-            ? `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${zoom}/${ty}/${tx}`
-            : `https://a.basemaps.cartocdn.com/dark_all/${zoom}/${tx}/${ty}.png`;
+    const loadTile = async (tx: number, ty: number): Promise<void> => {
+      const url =
+        style === 'satellite'
+          ? `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${zoom}/${ty}/${tx}`
+          : `https://a.basemaps.cartocdn.com/dark_all/${zoom}/${tx}/${ty}.png`;
 
-        const timer = setTimeout(() => resolve(), 2500);
-        img.onload = () => {
-          clearTimeout(timer);
-          sCtx.drawImage(
-            img,
-            (tx - tileXStart) * tileSize,
-            (ty - tileYStart) * tileSize,
-            tileSize,
-            tileSize
-          );
-          resolve();
-        };
-        img.onerror = () => {
-          clearTimeout(timer);
-          resolve();
-        };
-        img.src = url;
-      });
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 3000);
+        const res = await fetch(url, { mode: 'cors', signal: controller.signal });
+        clearTimeout(timer);
+        if (!res.ok) return;
+        const blob = await res.blob();
+        const objectUrl = URL.createObjectURL(blob);
+
+        await new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            sCtx.drawImage(
+              img,
+              (tx - tileXStart) * tileSize,
+              (ty - tileYStart) * tileSize,
+              tileSize,
+              tileSize
+            );
+            URL.revokeObjectURL(objectUrl);
+            resolve();
+          };
+          img.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            resolve();
+          };
+          img.src = objectUrl;
+        });
+      } catch {
+        // Ignore failed tile
+      }
+    };
 
     const promises: Promise<void>[] = [];
     for (let tx = tileXStart; tx <= tileXEnd; tx++) {

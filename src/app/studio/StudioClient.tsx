@@ -438,17 +438,35 @@ export default function StudioClient({ races, latestWinners }: Props) {
         if (activeTrack) setParsedGpxTrack(activeTrack);
       }
 
+      let safeTileCanvas: HTMLCanvasElement | null = gpxMapTilesCanvas;
+      let safeConfig: GpxReelConfig = { ...currentGpxConfig };
+
+      // Pre-test on a disposable canvas so the main encoding canvas is NEVER tainted
+      if (reelTemplate === 'gpx' && activeTrack) {
+        const testCanvas = document.createElement('canvas');
+        testCanvas.width = width;
+        testCanvas.height = height;
+        const testCtx = testCanvas.getContext('2d');
+        if (testCtx) {
+          drawGpxReelFrame(testCtx, width, height, 0, activeTrack, safeConfig, safeTileCanvas);
+          try {
+            testCtx.getImageData(0, 0, 1, 1);
+          } catch {
+            console.warn('Tainted tile/image detected on test canvas, switching to clean topo background');
+            safeTileCanvas = null;
+            safeConfig = { ...currentGpxConfig, bgStyle: 'topo', bgImage: null };
+          }
+        }
+      }
+
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      const ctx = canvas.getContext('2d', { willReadFrequently: false });
+      const ctx = canvas.getContext('2d');
       if (!ctx) {
         setIsExportingVideo(false);
         return;
       }
-
-      let safeTileCanvas: HTMLCanvasElement | null = gpxMapTilesCanvas;
-      let safeConfig: GpxReelConfig = { ...currentGpxConfig };
 
       const renderFrameAt = (t: number) => {
         if (reelTemplate === 'gpx' && activeTrack) {
@@ -465,17 +483,6 @@ export default function StudioClient({ races, latestWinners }: Props) {
           drawReelFrame(ctx, width, height, t, currentRunner);
         }
       };
-
-      // Test frame 0 for any CORS canvas tainting; if tainted, fallback to vector topo background
-      renderFrameAt(0);
-      try {
-        ctx.getImageData(0, 0, 1, 1);
-      } catch {
-        console.warn('Canvas tainted by external image/tiles, switching to clean vector topo background for export');
-        safeTileCanvas = null;
-        safeConfig = { ...currentGpxConfig, bgStyle: 'topo', bgImage: null };
-        renderFrameAt(0);
-      }
 
       const triggerDownload = (blob: Blob, filename: string) => {
         const url = URL.createObjectURL(blob);
@@ -501,45 +508,28 @@ export default function StudioClient({ races, latestWinners }: Props) {
         try {
           const { Muxer, ArrayBufferTarget } = await import('mp4-muxer');
 
-          // H.264 Level 4.0 / 4.2 / 5.0 codecs supporting 1080x1920
-          const candidateCodecs = [
-            'avc1.64002a',
-            'avc1.640028',
-            'avc1.4d002a',
-            'avc1.4d0028',
-            'avc1.42002a',
-            'avc1.420028'
-          ];
-          const accelModes: ('prefer-software' | 'no-preference')[] = [
-            'prefer-software',
-            'no-preference'
-          ];
+          const candidateCodecs = ['avc1.640028', 'avc1.4d002a', 'avc1.42001f', 'avc1.42e01f'];
+          let selectedCodec: string | null = null;
 
-          let chosenConfig: any = null;
-
-          outerLoop: for (const accel of accelModes) {
-            for (const c of candidateCodecs) {
-              try {
-                const cfg = {
-                  codec: c,
-                  width,
-                  height,
-                  bitrate: 6_000_000,
-                  framerate: fps,
-                  hardwareAcceleration: accel
-                };
-                const res = await (window as any).VideoEncoder.isConfigSupported(cfg);
-                if (res && res.supported) {
-                  chosenConfig = res.config || cfg;
-                  break outerLoop;
-                }
-              } catch {
-                // continue
+          for (const c of candidateCodecs) {
+            try {
+              const res = await (window as any).VideoEncoder.isConfigSupported({
+                codec: c,
+                width,
+                height,
+                bitrate: 8_000_000,
+                framerate: fps
+              });
+              if (res && res.supported) {
+                selectedCodec = c;
+                break;
               }
+            } catch {
+              // continue
             }
           }
 
-          if (chosenConfig) {
+          if (selectedCodec) {
             const muxer = new Muxer({
               target: new ArrayBufferTarget(),
               video: {
@@ -553,23 +543,40 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
             let encoderError: any = null;
             const videoEncoder = new (window as any).VideoEncoder({
-              output: (chunk: any, meta: any) => muxer.addVideoChunk(chunk, meta),
+              output: (chunk: any, meta: any) => {
+                const data = new Uint8Array(chunk.byteLength);
+                chunk.copyTo(data);
+                const safeTs =
+                  typeof chunk.timestamp === 'number' && Number.isFinite(chunk.timestamp) && chunk.timestamp >= 0
+                    ? chunk.timestamp
+                    : 0;
+                const safeDur =
+                  typeof chunk.duration === 'number' && Number.isFinite(chunk.duration) && chunk.duration > 0
+                    ? chunk.duration
+                    : frameDurationMicros;
+                muxer.addVideoChunkRaw(data, chunk.type, safeTs, safeDur, meta);
+              },
               error: (e: any) => {
                 console.error('VideoEncoder runtime error:', e);
                 encoderError = e;
               }
             });
 
-            videoEncoder.configure(chosenConfig);
+            videoEncoder.configure({
+              codec: selectedCodec,
+              width,
+              height,
+              bitrate: 8_000_000,
+              framerate: fps
+            });
 
             for (let f = 0; f < totalFrames; f++) {
               if (encoderError || videoEncoder.state === 'closed') {
                 throw encoderError || new Error('VideoEncoder closed unexpectedly');
               }
 
-              // Respect hardware/software encoder backpressure queue
-              while (videoEncoder.encodeQueueSize > 3 && !encoderError && videoEncoder.state === 'configured') {
-                await new Promise((r) => setTimeout(r, 8));
+              while (videoEncoder.encodeQueueSize > 5 && !encoderError && videoEncoder.state === 'configured') {
+                await new Promise((r) => setTimeout(r, 6));
               }
 
               const t = f / fps;
@@ -580,11 +587,11 @@ export default function StudioClient({ races, latestWinners }: Props) {
                 timestamp: timestampMicros,
                 duration: frameDurationMicros
               });
-              videoEncoder.encode(frame, { keyFrame: f % 30 === 0 });
+              videoEncoder.encode(frame, { keyFrame: f % 60 === 0 });
               frame.close();
 
               setExportProgress(Math.max(1, Math.round(((f + 1) / totalFrames) * 95)));
-              if (f % 4 === 0) {
+              if (f % 8 === 0) {
                 await new Promise((r) => setTimeout(r, 0));
               }
             }
