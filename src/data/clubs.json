@@ -526,6 +526,36 @@
     "notes": "Départs réguliers depuis Mornas pour arpenter les sentiers du massif de Mornas et des environs."
   },
   {
+    "name": "Les Sentiers du Paty",
+    "image_url": "/images/les-sentiers-du-paty.jpg",
+    "city": "Caromb",
+    "disciplines": [
+      "Course sur route",
+      "Trail",
+      "Fractionné / VMA",
+      "Sorties nature",
+      "Convivialité"
+    ],
+    "description": "Club convivial de course à pied sur route et trail basé à Caromb au pied du Mont Ventoux.\n\nLe club réunit des coureurs et trailers de tous niveaux autour du plaisir de s'entraîner ensemble, entre séances d'allure cool, fractionné sur route et sorties trail sur les superbes sentiers du lac du Paty.",
+    "schedule": [
+      {
+        "title": "Lundi 18h30 • Allure Cool",
+        "days": "Footing de reprise / récupération en endurance fondamentale à allure conviviale"
+      },
+      {
+        "title": "Mardi 18h30 • Route ou VMA",
+        "days": "Sortie rythmée sur route ou séance de fractionné / VMA pour travailler la vitesse"
+      },
+      {
+        "title": "Jeudi 18h30 • Trail dans le Paty",
+        "days": "Sortie trail technique et vallonnée sur les sentiers du massif du Paty"
+      }
+    ],
+    "instagram": "https://www.instagram.com/lessentiersdupaty",
+    "facebook": "https://www.facebook.com/share/14zv3tnyikw/",
+    "notes": "Départs des entraînements à 18h30. Retrouvez l'actualité des sorties et échangez avec l'équipe sur leur Instagram (@lessentiersdupaty) ou Facebook."
+  },
+  {
     "name": "Ménerbes Running",
     "city": "Ménerbes",
     "image_url": "/images/menerbe.png",
