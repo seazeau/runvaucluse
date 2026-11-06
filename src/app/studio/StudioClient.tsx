@@ -32,6 +32,14 @@ import LogoIcon from '@/components/LogoIcon';
 import clubsData from '@/data/clubs.json';
 import recordsData from '@/data/vaucluse-records.json';
 import { drawReelFrame, ReelRunnerData } from './reelRenderer';
+import {
+  GPX_PRESETS,
+  ParsedGpxTrack,
+  GpxReelConfig,
+  parseGpxXml,
+  renderMapTilesCanvas,
+  drawGpxReelFrame
+} from './reelGpxRenderer';
 import { Film, Play, Pause, Search, Award, Flame } from 'lucide-react';
 import styles from './studio.module.css';
 
@@ -203,7 +211,8 @@ interface Props {
 export default function StudioClient({ races, latestWinners }: Props) {
   const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('new_race');
 
-  // Reel Motion State (Carte Coureur & Recherche)
+  // Reel Motion State (GPX Trace & Runner Card)
+  const [reelTemplate, setReelTemplate] = useState<'gpx' | 'runner'>('gpx');
   const [reelTime, setReelTime] = useState(0);
   const [reelPlaying, setReelPlaying] = useState(true);
   const [selectedRunnerIndex, setSelectedRunnerIndex] = useState(0);
@@ -214,6 +223,24 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [customRunnerKm, setCustomRunnerKm] = useState<number>(155);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
+
+  // GPX Reel Specific State
+  const [selectedGpxPresetId, setSelectedGpxPresetId] = useState<string>(GPX_PRESETS[0].id);
+  const [parsedGpxTrack, setParsedGpxTrack] = useState<ParsedGpxTrack | null>(null);
+  const [isLoadingGpx, setIsLoadingGpx] = useState<boolean>(false);
+  const [customGpxFileName, setCustomGpxFileName] = useState<string>('');
+  const [gpxTitle, setGpxTitle] = useState<string>(GPX_PRESETS[0].title);
+  const [gpxSubtitle, setGpxSubtitle] = useState<string>(GPX_PRESETS[0].subtitle);
+  const [gpxBadgeText, setGpxBadgeText] = useState<string>('TRACÉ GPX OFFICIEL 🗺️');
+  const [gpxCtaText, setGpxCtaText] = useState<string>('📥 TÉLÉCHARGE LE GPX SUR RUNVAUCLUSE.FR');
+  const [gpxDistOverride, setGpxDistOverride] = useState<number>(GPX_PRESETS[0].officialDistKm);
+  const [gpxDplusOverride, setGpxDplusOverride] = useState<number>(GPX_PRESETS[0].officialDplus);
+  const [gpxBgStyle, setGpxBgStyle] = useState<'satellite' | 'darkmap' | 'topo' | 'photo'>('satellite');
+  const [gpxMapTilesCanvas, setGpxMapTilesCanvas] = useState<HTMLCanvasElement | null>(null);
+  const [gpxCustomBgImg, setGpxCustomBgImg] = useState<HTMLImageElement | null>(null);
+  const gpxPreviewCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const reelMaxDuration = reelTemplate === 'gpx' ? 10.0 : 12.0;
 
   const currentRunner: ReelRunnerData = customRunnerName.trim()
     ? {
@@ -226,16 +253,159 @@ export default function StudioClient({ races, latestWinners }: Props) {
       }
     : (POPULAR_RUNNERS[selectedRunnerIndex] || POPULAR_RUNNERS[0]);
 
+  const currentGpxConfig: GpxReelConfig = {
+    title: gpxTitle,
+    subtitle: gpxSubtitle,
+    badgeText: gpxBadgeText,
+    ctaText: gpxCtaText,
+    overrideDistKm: gpxDistOverride,
+    overrideDplus: gpxDplusOverride,
+    bgStyle: gpxBgStyle,
+    bgImage: gpxCustomBgImg
+  };
+
+  // Load selected GPX Preset when preset changes
+  useEffect(() => {
+    const preset = GPX_PRESETS.find((p) => p.id === selectedGpxPresetId);
+    if (!preset) return;
+
+    let cancelled = false;
+    setIsLoadingGpx(true);
+
+    fetch(encodeURI(preset.gpxUrl))
+      .then((res) => res.text())
+      .then((xmlText) => {
+        if (cancelled) return;
+        const parsed = parseGpxXml(xmlText);
+        if (parsed) {
+          setParsedGpxTrack(parsed);
+        }
+        setIsLoadingGpx(false);
+      })
+      .catch((err) => {
+        console.error('Error loading preset GPX:', err);
+        if (!cancelled) setIsLoadingGpx(false);
+      });
+
+    // If preset has an imageUrl, preload it for optional photo mode
+    if (preset.imageUrl) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        if (!cancelled) setGpxCustomBgImg(img);
+      };
+      img.src = preset.imageUrl;
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedGpxPresetId]);
+
+  // Load Satellite / DarkMap tiles when track bounds or map style changes
+  useEffect(() => {
+    if (!parsedGpxTrack) return;
+    if (gpxBgStyle !== 'satellite' && gpxBgStyle !== 'darkmap') {
+      setGpxMapTilesCanvas(null);
+      return;
+    }
+    let cancelled = false;
+    renderMapTilesCanvas(parsedGpxTrack.bounds, gpxBgStyle).then((tileCanvas) => {
+      if (!cancelled) setGpxMapTilesCanvas(tileCanvas);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [parsedGpxTrack, gpxBgStyle]);
+
+  // Draw live GPX Reel frame onto the preview canvas
+  useEffect(() => {
+    if (mode !== 'reel' || reelTemplate !== 'gpx') return;
+    const canvas = gpxPreviewCanvasRef.current;
+    if (!canvas || !parsedGpxTrack) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    drawGpxReelFrame(
+      ctx,
+      1080,
+      1920,
+      reelTime,
+      parsedGpxTrack,
+      currentGpxConfig,
+      gpxMapTilesCanvas
+    );
+  }, [
+    mode,
+    reelTemplate,
+    reelTime,
+    parsedGpxTrack,
+    gpxTitle,
+    gpxSubtitle,
+    gpxBadgeText,
+    gpxCtaText,
+    gpxDistOverride,
+    gpxDplusOverride,
+    gpxBgStyle,
+    gpxMapTilesCanvas,
+    gpxCustomBgImg
+  ]);
+
+  const handleSelectGpxPreset = (presetId: string) => {
+    const preset = GPX_PRESETS.find((p) => p.id === presetId);
+    if (!preset) return;
+    setSelectedGpxPresetId(presetId);
+    setCustomGpxFileName('');
+    setGpxTitle(preset.title);
+    setGpxSubtitle(preset.subtitle);
+    setGpxDistOverride(preset.officialDistKm);
+    setGpxDplusOverride(preset.officialDplus);
+    setReelTime(0);
+    setReelPlaying(true);
+  };
+
+  const handleCustomGpxUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const xmlText = reader.result as string;
+      const parsed = parseGpxXml(xmlText);
+      if (parsed) {
+        setParsedGpxTrack(parsed);
+        setCustomGpxFileName(file.name);
+        const cleanTitle = file.name.replace(/\.gpx$/i, '').replace(/[-_]/g, ' ').toUpperCase();
+        setGpxTitle(cleanTitle);
+        setGpxDistOverride(parsed.totalDistKm);
+        setGpxDplusOverride(parsed.totalDplus);
+        setReelTime(0);
+        setReelPlaying(true);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const handleGpxPhotoUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        setGpxCustomBgImg(img);
+        setGpxBgStyle('photo');
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
   useEffect(() => {
     if (mode !== 'reel' || !reelPlaying) return;
     const interval = setInterval(() => {
       setReelTime((prev) => {
         const next = Math.round((prev + 0.05) * 100) / 100;
-        return next >= 12.0 ? 0 : next;
+        return next >= reelMaxDuration ? 0 : next;
       });
     }, 50);
     return () => clearInterval(interval);
-  }, [mode, reelPlaying]);
+  }, [mode, reelPlaying, reelMaxDuration]);
 
   const exportReelVideo = async () => {
     setIsExportingVideo(true);
@@ -245,9 +415,12 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const width = 1080;
       const height = 1920;
       const fps = 30;
-      const duration = 12; // 12 seconds
-      const totalFrames = fps * duration; // 360 frames
-      const slugRunner = currentRunner.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const duration = reelTemplate === 'gpx' ? 10 : 12;
+      const totalFrames = fps * duration;
+      const fileSlug =
+        reelTemplate === 'gpx'
+          ? `trace-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
+          : `carte-coureur-${currentRunner.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
 
       const canvas = document.createElement('canvas');
       canvas.width = width;
@@ -257,6 +430,22 @@ export default function StudioClient({ races, latestWinners }: Props) {
         setIsExportingVideo(false);
         return;
       }
+
+      const renderFrameAt = (t: number) => {
+        if (reelTemplate === 'gpx' && parsedGpxTrack) {
+          drawGpxReelFrame(
+            ctx,
+            width,
+            height,
+            t,
+            parsedGpxTrack,
+            currentGpxConfig,
+            gpxMapTilesCanvas
+          );
+        } else {
+          drawReelFrame(ctx, width, height, t, currentRunner);
+        }
+      };
 
       // Check if WebCodecs VideoEncoder + mp4-muxer is supported (Native MP4 H.264 for Instagram)
       const hasWebCodecs = typeof window !== 'undefined' && 'VideoEncoder' in window && 'VideoFrame' in window;
@@ -314,7 +503,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
             for (let f = 0; f < totalFrames; f++) {
               const t = f / fps;
-              drawReelFrame(ctx, width, height, t, currentRunner);
+              renderFrameAt(t);
 
               const timestampMicros = Math.round((f * 1_000_000) / fps);
               const frame = new (window as any).VideoFrame(canvas, { timestamp: timestampMicros });
@@ -334,7 +523,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `reel-carte-coureur-${slugRunner}.mp4`;
+            a.download = `reel-${fileSlug}.mp4`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -375,7 +564,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `reel-carte-coureur-${slugRunner}.${ext}`;
+        a.download = `reel-${fileSlug}.${ext}`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -388,7 +577,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
       for (let f = 0; f < totalFrames; f++) {
         const t = f / fps;
-        drawReelFrame(ctx, width, height, t, currentRunner);
+        renderFrameAt(t);
         setExportProgress(Math.round(((f + 1) / totalFrames) * 100));
         if (f % 15 === 0) {
           await new Promise((r) => setTimeout(r, 4));
@@ -549,6 +738,14 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // Download active slide as PNG
   const downloadCurrentSlide = async () => {
+    if (mode === 'reel' && reelTemplate === 'gpx' && gpxPreviewCanvasRef.current) {
+      const dataUrl = gpxPreviewCanvasRef.current.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `runvaucluse-reel-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]/g, '-')}.png`;
+      link.href = dataUrl;
+      link.click();
+      return;
+    }
     if (!canvasRef.current) return;
     setIsExporting(true);
     try {
@@ -696,6 +893,11 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     } else if (mode === 'reel') {
+      if (reelTemplate === 'gpx') {
+        const minEle = parsedGpxTrack?.minEle ?? 100;
+        const maxEle = parsedGpxTrack?.maxEle ?? 600;
+        return `🗺️ ZOOM TRACÉ GPX // ${gpxTitle.toUpperCase()} ! 🏃‍♂️⛰️\n\nDécouvre en 10 secondes le tracé complet et le profil altimétrique de : ${gpxTitle} (${gpxSubtitle}) dans le Vaucluse !\n\n📊 LES CHIFFRES DU PARCOURS :\n🔹 Distance : ${gpxDistOverride} KM\n🔹 Dénivelé positif : +${gpxDplusOverride} M D+\n🔹 Altitude : de ${minEle} m à ${maxEle} m (point culminant)\n\n📥 Tu veux courir ce parcours ou le charger dans ta montre GPS (Garmin, Coros, Suunto) ?\n👉 Télécharge gratuitement la trace GPX officielle et retrouve toutes les infos sur :\n🔗 WWW.RUNVAUCLUSE.FR (Lien direct en bio !)\n\n💾 Enregistre ce Reel pour ta prochaine sortie et tague ton binôme de sentier en commentaire ! 👇\n\n#runvaucluse #tracegpx #trailvaucluse #runningvaucluse #montventoux #dentellesdemontmirail #luberon #montsdevaucluse #vaucluse #stravafrance #garminfrance #corosfrance #trailrunning #courseapied`;
+      }
       return `🏃‍♂️ TU AS COURU DANS LE VAUCLUSE CETTE ANNÉE ? TA CARTE COUREUR EST DISPONIBLE ! 🪪⚡\n\nQue tu aies fait 1 course de village ou 20 trails, toutes tes stats 2026/2027 sont réunies sur une seule carte officielle :\n\n✅ Nombre de courses\n✅ Meilleure place au scratch\n✅ Kilomètres en course\n✅ Badge de saison (Légende du 84, Pilier du peloton...)\n\n👉 Tape ton prénom et nom sur RUNVAUCLUSE.FR/COUREUR (Lien direct en bio 🔗) pour générer ta carte et la partager en Story !\n\n💬 Tague ton club et tes potes de course en commentaire pour qu'ils découvrent leur bilan ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #cartecoureur #bilanrunning #vaucluse #courseapied #avignon #cavaillon #carpentras #orange #apt #trailduventoux #instarunfrance`;
     }
     return '';
@@ -720,7 +922,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               </span>
               <h1 className={styles.title}>INSTAGRAM CONTENT STUDIO</h1>
               <p className={styles.subtitle}>
-                Générez en 1 clic vos Carrousels (4:5) et Stories (9:16) prêts à publier pour @runvaucluse.fr
+                Générez en 1 clic vos Carrousels (4:5), Stories et Reels Vidéo MP4 (9:16) pour @runvaucluse.fr
               </p>
             </div>
           </div>
@@ -761,7 +963,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               className={`${styles.tabBtn} ${mode === 'reel' ? styles.tabBtnActive : ''}`}
               onClick={() => { setMode('reel'); setReelPlaying(true); setReelTime(0); }}
             >
-              <Film size={18} /> Reel Motion "Carte Coureur"
+              <Film size={18} /> Reels Vidéo MP4 (Tracé GPX & Carte)
             </button>
           </div>
         </header>
@@ -1028,77 +1230,290 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
               </>
             )}
 
-            {/* REEL RUNNER CARD CONTROLS */}
+            {/* REEL GENERATOR CONTROLS */}
             {mode === 'reel' && (
               <>
                 <h3 className={styles.controlsSectionTitle}>
-                  <Film size={18} /> Configuration Reel "Carte Coureur"
+                  <Film size={18} /> Modèle de Reel Instagram (MP4)
                 </h3>
 
+                {/* Template Switcher */}
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Coureur de Démonstration</label>
-                  <select 
-                    className={styles.selectInput}
-                    value={selectedRunnerIndex}
-                    onChange={(e) => {
-                      setSelectedRunnerIndex(parseInt(e.target.value));
-                      setCustomRunnerName('');
-                    }}
-                  >
-                    {POPULAR_RUNNERS.map((runner, idx) => (
-                      <option key={idx} value={idx}>
-                        {runner.name} ({runner.club}) — {runner.count} courses, {typeof runner.bestRank === 'number' ? (runner.bestRank === 1 ? '1er' : `${runner.bestRank}e`) : runner.bestRank} scratch, {runner.totalKm} km
-                      </option>
-                    ))}
-                  </select>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem' }}>
+                    <button
+                      type="button"
+                      onClick={() => { setReelTemplate('gpx'); setReelTime(0); setReelPlaying(true); }}
+                      className={styles.actionBtn}
+                      style={{
+                        padding: '0.65rem 0.4rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 800,
+                        background: reelTemplate === 'gpx' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
+                        color: reelTemplate === 'gpx' ? '#0D1013' : '#FAF7F2',
+                        borderColor: reelTemplate === 'gpx' ? '#F6C83B' : 'rgba(255,255,255,0.15)'
+                      }}
+                    >
+                      🗺️ Reel Tracé GPX & D+
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setReelTemplate('runner'); setReelTime(0); setReelPlaying(true); }}
+                      className={styles.actionBtn}
+                      style={{
+                        padding: '0.65rem 0.4rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 800,
+                        background: reelTemplate === 'runner' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
+                        color: reelTemplate === 'runner' ? '#0D1013' : '#FAF7F2',
+                        borderColor: reelTemplate === 'runner' ? '#F6C83B' : 'rgba(255,255,255,0.15)'
+                      }}
+                    >
+                      🪪 Reel Carte Coureur
+                    </button>
+                  </div>
                 </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Ou Personnaliser un Athlète</label>
-                  <input 
-                    type="text"
-                    className={styles.selectInput}
-                    placeholder="Nom Prénom (ex: Julien Grange)"
-                    value={customRunnerName}
-                    onChange={(e) => setCustomRunnerName(e.target.value)}
-                    style={{ marginBottom: '0.4rem' }}
-                  />
-                  {customRunnerName.trim() && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem' }}>
+                {reelTemplate === 'gpx' ? (
+                  <>
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>
+                        1. Choisir un Parcours / Course GPX du 84 {isLoadingGpx && '(Chargement...)'}
+                      </label>
+                      <select
+                        className={styles.selectInput}
+                        value={selectedGpxPresetId}
+                        onChange={(e) => handleSelectGpxPreset(e.target.value)}
+                      >
+                        <optgroup label="🏆 Courses Officielles Vaucluse">
+                          {GPX_PRESETS.filter((p) => p.category === 'Course Officielle').map((preset) => (
+                            <option key={preset.id} value={preset.id}>
+                              {preset.title} ({preset.location}) — {preset.officialDistKm} km • +{preset.officialDplus}m D+
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="⛰️ Itinéraires & Sorties Trail 84">
+                          {GPX_PRESETS.filter((p) => p.category === 'Itinéraire Trail 84').map((preset) => (
+                            <option key={preset.id} value={preset.id}>
+                              {preset.title} ({preset.location}) — {preset.officialDistKm} km • +{preset.officialDplus}m D+
+                            </option>
+                          ))}
+                        </optgroup>
+                      </select>
+
+                      {/* Custom GPX File Upload */}
+                      <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <label className={styles.uploadBtn} style={{ flex: 1, justifyContent: 'center' }}>
+                          <Upload size={14} />
+                          {customGpxFileName ? `GPX chargé : ${customGpxFileName}` : 'Ou importer un fichier .GPX personnalisé'}
+                          <input
+                            type="file"
+                            accept=".gpx,application/gpx+xml,text/xml"
+                            style={{ display: 'none' }}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleCustomGpxUpload(file);
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>2. Style de Carte en Arrière-Plan</label>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => setGpxBgStyle('satellite')}
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.45rem',
+                            background: gpxBgStyle === 'satellite' ? '#EB5E28' : 'rgba(255,255,255,0.06)',
+                            borderColor: gpxBgStyle === 'satellite' ? '#EB5E28' : 'rgba(255,255,255,0.15)'
+                          }}
+                        >
+                          🛰️ Vue Satellite 3D
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setGpxBgStyle('darkmap')}
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.45rem',
+                            background: gpxBgStyle === 'darkmap' ? '#EB5E28' : 'rgba(255,255,255,0.06)',
+                            borderColor: gpxBgStyle === 'darkmap' ? '#EB5E28' : 'rgba(255,255,255,0.15)'
+                          }}
+                        >
+                          🗺️ Carte Dark Map
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setGpxBgStyle('topo')}
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.45rem',
+                            background: gpxBgStyle === 'topo' ? '#EB5E28' : 'rgba(255,255,255,0.06)',
+                            borderColor: gpxBgStyle === 'topo' ? '#EB5E28' : 'rgba(255,255,255,0.15)'
+                          }}
+                        >
+                          ⚡ Radar Topographique
+                        </button>
+                        <label
+                          className={styles.actionBtn}
+                          style={{
+                            fontSize: '0.74rem',
+                            padding: '0.45rem',
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                            background: gpxBgStyle === 'photo' ? '#EB5E28' : 'rgba(255,255,255,0.06)',
+                            borderColor: gpxBgStyle === 'photo' ? '#EB5E28' : 'rgba(255,255,255,0.15)'
+                          }}
+                        >
+                          🖼️ Photo en Fond
+                          <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleGpxPhotoUpload(file);
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>3. Titres & Chiffres Officiels</label>
+                      <input
+                        type="text"
+                        className={styles.selectInput}
+                        placeholder="Titre principal (ex: TRAIL DU PATY)"
+                        value={gpxTitle}
+                        onChange={(e) => setGpxTitle(e.target.value)}
+                        style={{ marginBottom: '0.35rem' }}
+                      />
+                      <input
+                        type="text"
+                        className={styles.selectInput}
+                        placeholder="Sous-titre / Lieu (ex: CAROMB • MONTS DE VAUCLUSE)"
+                        value={gpxSubtitle}
+                        onChange={(e) => setGpxSubtitle(e.target.value)}
+                        style={{ marginBottom: '0.35rem' }}
+                      />
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem', marginBottom: '0.35rem' }}>
+                        <div>
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(250,247,242,0.6)', display: 'block', marginBottom: '0.15rem' }}>
+                            Distance totale (KM)
+                          </span>
+                          <input
+                            type="number"
+                            step="0.1"
+                            className={styles.selectInput}
+                            value={gpxDistOverride}
+                            onChange={(e) => setGpxDistOverride(parseFloat(e.target.value) || 0)}
+                          />
+                        </div>
+                        <div>
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(250,247,242,0.6)', display: 'block', marginBottom: '0.15rem' }}>
+                            Dénivelé positif (M D+)
+                          </span>
+                          <input
+                            type="number"
+                            step="10"
+                            className={styles.selectInput}
+                            value={gpxDplusOverride}
+                            onChange={(e) => setGpxDplusOverride(parseInt(e.target.value) || 0)}
+                          />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        className={styles.selectInput}
+                        placeholder="Badge haut (ex: TRACÉ GPX OFFICIEL 🗺️)"
+                        value={gpxBadgeText}
+                        onChange={(e) => setGpxBadgeText(e.target.value)}
+                        style={{ marginBottom: '0.35rem' }}
+                      />
+                      <input
+                        type="text"
+                        className={styles.selectInput}
+                        placeholder="Bandeau bas (ex: 📥 TÉLÉCHARGE LE GPX SUR RUNVAUCLUSE.FR)"
+                        value={gpxCtaText}
+                        onChange={(e) => setGpxCtaText(e.target.value)}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>Coureur de Démonstration</label>
+                      <select 
+                        className={styles.selectInput}
+                        value={selectedRunnerIndex}
+                        onChange={(e) => {
+                          setSelectedRunnerIndex(parseInt(e.target.value));
+                          setCustomRunnerName('');
+                        }}
+                      >
+                        {POPULAR_RUNNERS.map((runner, idx) => (
+                          <option key={idx} value={idx}>
+                            {runner.name} ({runner.club}) — {runner.count} courses, {typeof runner.bestRank === 'number' ? (runner.bestRank === 1 ? '1er' : `${runner.bestRank}e`) : runner.bestRank} scratch, {runner.totalKm} km
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>Ou Personnaliser un Athlète</label>
                       <input 
                         type="text"
                         className={styles.selectInput}
-                        placeholder="Club"
-                        value={customRunnerClub}
-                        onChange={(e) => setCustomRunnerClub(e.target.value)}
+                        placeholder="Nom Prénom (ex: Julien Grange)"
+                        value={customRunnerName}
+                        onChange={(e) => setCustomRunnerName(e.target.value)}
+                        style={{ marginBottom: '0.4rem' }}
                       />
-                      <input 
-                        type="number"
-                        className={styles.selectInput}
-                        placeholder="Nombre de courses"
-                        value={customRunnerCount}
-                        onChange={(e) => setCustomRunnerCount(parseInt(e.target.value) || 0)}
-                      />
-                      <input 
-                        type="number"
-                        className={styles.selectInput}
-                        placeholder="Meilleur scratch (ex: 4)"
-                        value={customRunnerBestRank}
-                        onChange={(e) => setCustomRunnerBestRank(parseInt(e.target.value) || 1)}
-                      />
-                      <input 
-                        type="number"
-                        className={styles.selectInput}
-                        placeholder="Kilomètres en course"
-                        value={customRunnerKm}
-                        onChange={(e) => setCustomRunnerKm(parseInt(e.target.value) || 0)}
-                      />
+                      {customRunnerName.trim() && (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem' }}>
+                          <input 
+                            type="text"
+                            className={styles.selectInput}
+                            placeholder="Club"
+                            value={customRunnerClub}
+                            onChange={(e) => setCustomRunnerClub(e.target.value)}
+                          />
+                          <input 
+                            type="number"
+                            className={styles.selectInput}
+                            placeholder="Nombre de courses"
+                            value={customRunnerCount}
+                            onChange={(e) => setCustomRunnerCount(parseInt(e.target.value) || 0)}
+                          />
+                          <input 
+                            type="number"
+                            className={styles.selectInput}
+                            placeholder="Meilleur scratch (ex: 4)"
+                            value={customRunnerBestRank}
+                            onChange={(e) => setCustomRunnerBestRank(parseInt(e.target.value) || 1)}
+                          />
+                          <input 
+                            type="number"
+                            className={styles.selectInput}
+                            placeholder="Kilomètres en course"
+                            value={customRunnerKm}
+                            onChange={(e) => setCustomRunnerKm(parseInt(e.target.value) || 0)}
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
+                  </>
+                )}
 
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Contrôle de l'Animation (12s)</label>
+                  <label className={styles.label}>Contrôle de l&apos;Animation ({reelMaxDuration}s)</label>
                   <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.6rem' }}>
                     <button 
                       onClick={() => setReelPlaying(!reelPlaying)}
@@ -1118,36 +1533,62 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     </button>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
-                    <button 
-                      onClick={() => { setReelTime(1.2); setReelPlaying(false); }}
-                      className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime < 3.2 ? 1 : 0.7 }}
-                    >
-                      Scène 1 : Recherche
-                    </button>
-                    <button 
-                      onClick={() => { setReelTime(4.8); setReelPlaying(false); }}
-                      className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 3.2 && reelTime < 7.2 ? 1 : 0.7 }}
-                    >
-                      Scène 2 : Carte Coureur
-                    </button>
-                    <button 
-                      onClick={() => { setReelTime(8.2); setReelPlaying(false); }}
-                      className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 7.2 && reelTime < 9.5 ? 1 : 0.7 }}
-                    >
-                      Scène 3 : 24K Cartes
-                    </button>
-                    <button 
-                      onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
-                      className={styles.actionBtn}
-                      style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 9.5 ? 1 : 0.7 }}
-                    >
-                      Scène 4 : Outro Story
-                    </button>
-                  </div>
+                  {reelTemplate === 'gpx' ? (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+                      <button 
+                        onClick={() => { setReelTime(0.5); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime < 1.5 ? 1 : 0.7 }}
+                      >
+                        🟢 Départ (0s)
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime >= 1.5 && reelTime < 8.0 ? 1 : 0.7 }}
+                      >
+                        ⛰️ En Course (50%)
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(9.0); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime >= 8.0 ? 1 : 0.7 }}
+                      >
+                        🏁 Arrivée (100%)
+                      </button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
+                      <button 
+                        onClick={() => { setReelTime(1.2); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime < 3.2 ? 1 : 0.7 }}
+                      >
+                        Scène 1 : Recherche
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(4.8); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 3.2 && reelTime < 7.2 ? 1 : 0.7 }}
+                      >
+                        Scène 2 : Carte Coureur
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(8.2); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 7.2 && reelTime < 9.5 ? 1 : 0.7 }}
+                      >
+                        Scène 3 : 24K Cartes
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.75rem', padding: '0.4rem 0.5rem', opacity: reelTime >= 9.5 ? 1 : 0.7 }}
+                      >
+                        Scène 4 : Outro Story
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -1159,10 +1600,10 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     style={{ background: 'linear-gradient(135deg, #EB5E28, #F6C83B)', color: '#0D1013', fontWeight: 800 }}
                   >
                     <Film size={18} />
-                    {isExportingVideo ? `Génération vidéo MP4... (${exportProgress}%)` : 'Exporter la Vidéo MP4 (Format Instagram 1080p)'}
+                    {isExportingVideo ? `Génération vidéo MP4... (${exportProgress}%)` : `Exporter le Reel MP4 (${reelMaxDuration}s • 1080p)`}
                   </button>
                   <p style={{ margin: '0.4rem 0 0', fontSize: '0.75rem', color: 'rgba(250, 247, 242, 0.6)' }}>
-                    Vidéo MP4 HD (H.264) 1080×1920 fluide (12s), 100% compatible et prête à publier directement sur Instagram Reels, Stories et TikTok.
+                    Vidéo MP4 HD (H.264) 1080×1920 à 30 FPS ({reelMaxDuration}s), 100% compatible Instagram Reels, Stories et TikTok.
                   </p>
                 </div>
               </>
@@ -1399,180 +1840,191 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                   ref={canvasRef}
                   className={styles.reelCanvas}
                 >
-                  <div className={styles.reelBackgroundOverlay} />
-                  <div className={styles.reelGlowOrb1} />
-                  <div className={styles.reelGlowOrb2} />
-
-                  {/* Progress Bar */}
-                  <div className={styles.reelProgressBarContainer}>
-                    <div 
-                      className={styles.reelProgressBarFill}
-                      style={{ width: `${(reelTime / 12) * 100}%` }}
+                  {reelTemplate === 'gpx' ? (
+                    <canvas
+                      ref={gpxPreviewCanvasRef}
+                      width={1080}
+                      height={1920}
+                      style={{ width: '100%', height: '100%', display: 'block' }}
                     />
-                  </div>
+                  ) : (
+                    <>
+                      <div className={styles.reelBackgroundOverlay} />
+                      <div className={styles.reelGlowOrb1} />
+                      <div className={styles.reelGlowOrb2} />
 
-                  {/* Header */}
-                  <div className={styles.reelBrandHeader}>
-                    <div className={styles.reelLogo}>
-                      <LogoIcon size={26} /> RUNVAUCLUSE
-                    </div>
-                    <span className={styles.reelSceneBadge}>
-                      {reelTime < 3.2 && '🔍 RECHERCHE COUREUR'}
-                      {reelTime >= 3.2 && reelTime < 7.2 && '🪪 CARTE OFFICIELLE'}
-                      {reelTime >= 7.2 && reelTime < 9.5 && '📊 24K CARTES'}
-                      {reelTime >= 9.5 && '🔥 GÉNÈRE TA CARTE'}
-                    </span>
-                  </div>
-
-                  {/* Content Zone */}
-                  <div className={styles.reelContentZone}>
-                    {/* SCENE 1 : HOOK & LIVE SEARCH */}
-                    {reelTime < 3.2 && (
-                      <div className={styles.reelHookZone} key="scene-1">
-                        <span className={styles.reelHookPill}>
-                          <Sparkles size={14} /> BILAN OFFICIEL DE SAISON 2026/2027
-                        </span>
-                        <h2 className={styles.reelHookTitle}>
-                          TU AS COURU DANS LE 84 <br /><span className={styles.reelHookHighlight}>CETTE ANNÉE ?</span>
-                        </h2>
-
-                        <div className={styles.reelSearchSimulationBox}>
-                          <div className={styles.reelSearchInputRow}>
-                            <Search size={18} color="#F6C83B" />
-                            <span className={styles.reelSearchTypingText}>
-                              {currentRunner.name.slice(0, Math.floor(Math.min(1, reelTime / 1.8) * currentRunner.name.length))}
-                            </span>
-                            <span className={styles.reelSearchCursor} />
-                          </div>
-
-                          {reelTime >= 2.0 && (
-                            <div className={styles.reelSearchResultPill}>
-                              <span>✓ 1 profil trouvé : <strong>{currentRunner.name}</strong></span>
-                              <span style={{ color: '#F6C83B', fontSize: '0.7rem' }}>{currentRunner.club}</span>
-                            </div>
-                          )}
-
-                          {reelTime >= 2.6 && (
-                            <div style={{ textAlign: 'center', background: '#F6C83B', color: '#0D1013', borderRadius: '8px', padding: '0.45rem', fontWeight: 800, fontSize: '0.78rem', letterSpacing: '0.5px' }}>
-                              GÉNÉRER MA CARTE COUREUR ➔
-                            </div>
-                          )}
-                        </div>
+                      {/* Progress Bar */}
+                      <div className={styles.reelProgressBarContainer}>
+                        <div 
+                          className={styles.reelProgressBarFill}
+                          style={{ width: `${(reelTime / 12) * 100}%` }}
+                        />
                       </div>
-                    )}
 
-                    {/* SCENE 2 : THE RUNNER CARD REVEAL */}
-                    {reelTime >= 3.2 && reelTime < 7.2 && (
-                      <div className={styles.reelCardContainer} key="scene-2">
-                        <div style={{ textAlign: 'center', marginBottom: '0.45rem' }}>
-                          <span style={{ color: '#EB5E28', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '1px' }}>
-                            TOUTES TES STATS EN UN CLIC
-                          </span>
-                          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.85rem', color: '#FAF7F2', margin: 0, letterSpacing: '0.5px' }}>
-                            TA CARTE OFFICIELLE DE SAISON 🪪
-                          </h3>
+                      {/* Header */}
+                      <div className={styles.reelBrandHeader}>
+                        <div className={styles.reelLogo}>
+                          <LogoIcon size={26} /> RUNVAUCLUSE
                         </div>
+                        <span className={styles.reelSceneBadge}>
+                          {reelTime < 3.2 && '🔍 RECHERCHE COUREUR'}
+                          {reelTime >= 3.2 && reelTime < 7.2 && '🪪 CARTE OFFICIELLE'}
+                          {reelTime >= 7.2 && reelTime < 9.5 && '📊 24K CARTES'}
+                          {reelTime >= 9.5 && '🔥 GÉNÈRE TA CARTE'}
+                        </span>
+                      </div>
 
-                        <div className={styles.reelStoryCard}>
-                          <div className={styles.reelStoryCardShine} />
-
-                          <div className={styles.reelCardHeader}>
-                            <div className={styles.reelCardBrand}>
-                              <LogoIcon size={18} /> RUNVAUCLUSE
-                            </div>
-                            <span className={styles.reelCardGradeBadge} style={{ background: 'rgba(246, 200, 59, 0.15)', border: '1px solid #F6C83B', color: '#F6C83B' }}>
-                              👑 {currentRunner.grade.toUpperCase()}
+                      {/* Content Zone */}
+                      <div className={styles.reelContentZone}>
+                        {/* SCENE 1 : HOOK & LIVE SEARCH */}
+                        {reelTime < 3.2 && (
+                          <div className={styles.reelHookZone} key="scene-1">
+                            <span className={styles.reelHookPill}>
+                              <Sparkles size={14} /> BILAN OFFICIEL DE SAISON 2026/2027
                             </span>
-                          </div>
+                            <h2 className={styles.reelHookTitle}>
+                              TU AS COURU DANS LE 84 <br /><span className={styles.reelHookHighlight}>CETTE ANNÉE ?</span>
+                            </h2>
 
-                          <div className={styles.reelCardProfile}>
-                            <div className={styles.reelCardAvatar}>
-                              {currentRunner.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
-                            </div>
-                            <h4 className={styles.reelCardAthleteName}>
-                              {currentRunner.name.toUpperCase()}
-                            </h4>
-                            <p className={styles.reelCardClubName}>
-                              <MapPin size={12} /> {currentRunner.club}
-                            </p>
-                          </div>
+                            <div className={styles.reelSearchSimulationBox}>
+                              <div className={styles.reelSearchInputRow}>
+                                <Search size={18} color="#F6C83B" />
+                                <span className={styles.reelSearchTypingText}>
+                                  {currentRunner.name.slice(0, Math.floor(Math.min(1, reelTime / 1.8) * currentRunner.name.length))}
+                                </span>
+                                <span className={styles.reelSearchCursor} />
+                              </div>
 
-                          <div className={styles.reelCardStatsGrid}>
-                            <div className={styles.reelCardStatBox}>
-                              <span className={styles.reelCardStatValue}>{currentRunner.count}</span>
-                              <span className={styles.reelCardStatLabel}>🏃 NOMBRE DE COURSES</span>
+                              {reelTime >= 2.0 && (
+                                <div className={styles.reelSearchResultPill}>
+                                  <span>✓ 1 profil trouvé : <strong>{currentRunner.name}</strong></span>
+                                  <span style={{ color: '#F6C83B', fontSize: '0.7rem' }}>{currentRunner.club}</span>
+                                </div>
+                              )}
+
+                              {reelTime >= 2.6 && (
+                                <div style={{ textAlign: 'center', background: '#F6C83B', color: '#0D1013', borderRadius: '8px', padding: '0.45rem', fontWeight: 800, fontSize: '0.78rem', letterSpacing: '0.5px' }}>
+                                  GÉNÉRER MA CARTE COUREUR ➔
+                                </div>
+                              )}
                             </div>
-                            <div className={styles.reelCardStatBox}>
-                              <span className={styles.reelCardStatValue}>
-                                {typeof currentRunner.bestRank === 'number'
-                                  ? (currentRunner.bestRank === 1 ? '1ER' : `${currentRunner.bestRank}E`)
-                                  : (currentRunner.bestRank || '-')}
+                          </div>
+                        )}
+
+                        {/* SCENE 2 : THE RUNNER CARD REVEAL */}
+                        {reelTime >= 3.2 && reelTime < 7.2 && (
+                          <div className={styles.reelCardContainer} key="scene-2">
+                            <div style={{ textAlign: 'center', marginBottom: '0.45rem' }}>
+                              <span style={{ color: '#EB5E28', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '1px' }}>
+                                TOUTES TES STATS EN UN CLIC
                               </span>
-                              <span className={styles.reelCardStatLabel}>🥇 MEILLEURE PLACE SCRATCH</span>
+                              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.85rem', color: '#FAF7F2', margin: 0, letterSpacing: '0.5px' }}>
+                                TA CARTE OFFICIELLE DE SAISON 🪪
+                              </h3>
                             </div>
-                            <div className={styles.reelCardStatBox}>
-                              <span className={styles.reelCardStatValue}>{currentRunner.totalKm} KM</span>
-                              <span className={styles.reelCardStatLabel}>📍 KILOMÈTRE EN COURSE</span>
+
+                            <div className={styles.reelStoryCard}>
+                              <div className={styles.reelStoryCardShine} />
+
+                              <div className={styles.reelCardHeader}>
+                                <div className={styles.reelCardBrand}>
+                                  <LogoIcon size={18} /> RUNVAUCLUSE
+                                </div>
+                                <span className={styles.reelCardGradeBadge} style={{ background: 'rgba(246, 200, 59, 0.15)', border: '1px solid #F6C83B', color: '#F6C83B' }}>
+                                  👑 {currentRunner.grade.toUpperCase()}
+                                </span>
+                              </div>
+
+                              <div className={styles.reelCardProfile}>
+                                <div className={styles.reelCardAvatar}>
+                                  {currentRunner.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                                </div>
+                                <h4 className={styles.reelCardAthleteName}>
+                                  {currentRunner.name.toUpperCase()}
+                                </h4>
+                                <p className={styles.reelCardClubName}>
+                                  <MapPin size={12} /> {currentRunner.club}
+                                </p>
+                              </div>
+
+                              <div className={styles.reelCardStatsGrid}>
+                                <div className={styles.reelCardStatBox}>
+                                  <span className={styles.reelCardStatValue}>{currentRunner.count}</span>
+                                  <span className={styles.reelCardStatLabel}>🏃 NOMBRE DE COURSES</span>
+                                </div>
+                                <div className={styles.reelCardStatBox}>
+                                  <span className={styles.reelCardStatValue}>
+                                    {typeof currentRunner.bestRank === 'number'
+                                      ? (currentRunner.bestRank === 1 ? '1ER' : `${currentRunner.bestRank}E`)
+                                      : (currentRunner.bestRank || '-')}
+                                  </span>
+                                  <span className={styles.reelCardStatLabel}>🥇 MEILLEURE PLACE SCRATCH</span>
+                                </div>
+                                <div className={styles.reelCardStatBox}>
+                                  <span className={styles.reelCardStatValue}>{currentRunner.totalKm} KM</span>
+                                  <span className={styles.reelCardStatLabel}>📍 KILOMÈTRE EN COURSE</span>
+                                </div>
+                              </div>
+
+                              <div className={styles.reelCardFooter}>
+                                <span>RUNVAUCLUSE.FR/COUREUR</span>
+                                <span style={{ color: '#F6C83B', fontWeight: 700 }}>SAISON 2026/2027 ⚡</span>
+                              </div>
                             </div>
                           </div>
+                        )}
 
-                          <div className={styles.reelCardFooter}>
-                            <span>RUNVAUCLUSE.FR/COUREUR</span>
-                            <span style={{ color: '#F6C83B', fontWeight: 700 }}>SAISON 2026/2027 ⚡</span>
+                        {/* SCENE 3 : 24K RUNNERS */}
+                        {reelTime >= 7.2 && reelTime < 9.5 && (
+                          <div className={styles.reelDatabaseZone} key="scene-3">
+                            <span className={styles.reelHookPill} style={{ background: '#F6C83B', color: '#0D1013' }}>
+                              <Award size={14} /> BILAN COMMUNAUTAIRE
+                            </span>
+                            <h2 className={styles.reelCounterDisplay}>24 655</h2>
+                            <h3 className={styles.reelDatabaseLabel}>
+                              CARTES DISPONIBLES DANS LE VAUCLUSE
+                            </h3>
+                            <div className={styles.reelStatBox}>
+                              <Trophy size={24} color="#F6C83B" style={{ flexShrink: 0 }} />
+                              <div style={{ fontSize: '0.8rem', lineHeight: '1.35' }}>
+                                <div style={{ fontWeight: 700, color: '#FAF7F2' }}>Que tu aies fait 1 course ou 20 trails...</div>
+                                <div style={{ color: '#F6C83B' }}>Toutes tes courses sont réunies sur ta carte ! 📲</div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    )}
+                        )}
 
-                    {/* SCENE 3 : 24K RUNNERS */}
-                    {reelTime >= 7.2 && reelTime < 9.5 && (
-                      <div className={styles.reelDatabaseZone} key="scene-3">
-                        <span className={styles.reelHookPill} style={{ background: '#F6C83B', color: '#0D1013' }}>
-                          <Award size={14} /> BILAN COMMUNAUTAIRE
-                        </span>
-                        <h2 className={styles.reelCounterDisplay}>24 655</h2>
-                        <h3 className={styles.reelDatabaseLabel}>
-                          CARTES DISPONIBLES DANS LE VAUCLUSE
-                        </h3>
-                        <div className={styles.reelStatBox}>
-                          <Trophy size={24} color="#F6C83B" style={{ flexShrink: 0 }} />
-                          <div style={{ fontSize: '0.8rem', lineHeight: '1.35' }}>
-                            <div style={{ fontWeight: 700, color: '#FAF7F2' }}>Que tu aies fait 1 course ou 20 trails...</div>
-                            <div style={{ color: '#F6C83B' }}>Toutes tes courses sont réunies sur ta carte ! 📲</div>
+                        {/* SCENE 4 : OUTRO */}
+                        {reelTime >= 9.5 && (
+                          <div className={styles.reelOutroZone} key="scene-4">
+                            <span className={styles.reelHookPill}>
+                              <Flame size={14} /> GRATUIT & EN 1 CLIC
+                            </span>
+                            <h2 className={styles.reelOutroTitle}>
+                              DÉCOUVRE TA <br /><span style={{ color: '#F6C83B' }}>CARTE COUREUR</span>
+                            </h2>
+
+                            <div className={styles.reelSearchBarMockup}>
+                              <Search size={18} color="#F6C83B" />
+                              <span>Tape ton nom sur runvaucluse.fr/coureur</span>
+                            </div>
+
+                            <div className={styles.reelCtaPill}>
+                              TÉLÉCHARGE & PARTAGE EN STORY
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
-                    )}
 
-                    {/* SCENE 4 : OUTRO */}
-                    {reelTime >= 9.5 && (
-                      <div className={styles.reelOutroZone} key="scene-4">
-                        <span className={styles.reelHookPill}>
-                          <Flame size={14} /> GRATUIT & EN 1 CLIC
+                      {/* Footer */}
+                      <div className={styles.reelFooter}>
+                        <span>RUNVAUCLUSE.FR/RECORDS</span>
+                        <span className={styles.reelFooterHighlight}>
+                          LIEN EN BIO <ChevronRight size={15} />
                         </span>
-                        <h2 className={styles.reelOutroTitle}>
-                          DÉCOUVRE TA <br /><span style={{ color: '#F6C83B' }}>CARTE COUREUR</span>
-                        </h2>
-
-                        <div className={styles.reelSearchBarMockup}>
-                          <Search size={18} color="#F6C83B" />
-                          <span>Tape ton nom sur runvaucluse.fr/coureur</span>
-                        </div>
-
-                        <div className={styles.reelCtaPill}>
-                          TÉLÉCHARGE & PARTAGE EN STORY
-                        </div>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Footer */}
-                  <div className={styles.reelFooter}>
-                    <span>RUNVAUCLUSE.FR/RECORDS</span>
-                    <span className={styles.reelFooterHighlight}>
-                      LIEN EN BIO <ChevronRight size={15} />
-                    </span>
-                  </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Timeline & Player Bar */}
@@ -1589,7 +2041,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     <input 
                       type="range"
                       min="0"
-                      max="12"
+                      max={reelMaxDuration}
                       step="0.1"
                       value={reelTime}
                       onChange={(e) => {
@@ -1600,37 +2052,60 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                     />
 
                     <span className={styles.reelTimeText}>
-                      {reelTime.toFixed(1)}s / 12.0s
+                      {reelTime.toFixed(1)}s / {reelMaxDuration.toFixed(1)}s
                     </span>
                   </div>
 
                   <div className={styles.reelButtonsRow}>
-                    <div className={styles.reelScenesNav}>
-                      <button 
-                        onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
-                        className={`${styles.reelSceneBtn} ${reelTime < 3 ? styles.reelSceneBtnActive : ''}`}
-                      >
-                        Hook
-                      </button>
-                      <button 
-                        onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
-                        className={`${styles.reelSceneBtn} ${reelTime >= 3 && reelTime < 6.2 ? styles.reelSceneBtnActive : ''}`}
-                      >
-                        24K Runners
-                      </button>
-                      <button 
-                        onClick={() => { setReelTime(7.5); setReelPlaying(false); }}
-                        className={`${styles.reelSceneBtn} ${reelTime >= 6.2 && reelTime < 9.5 ? styles.reelSceneBtnActive : ''}`}
-                      >
-                        Records
-                      </button>
-                      <button 
-                        onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
-                        className={`${styles.reelSceneBtn} ${reelTime >= 9.5 ? styles.reelSceneBtnActive : ''}`}
-                      >
-                        Outro
-                      </button>
-                    </div>
+                    {reelTemplate === 'gpx' ? (
+                      <div className={styles.reelScenesNav}>
+                        <button 
+                          onClick={() => { setReelTime(0.4); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime < 1.5 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Départ
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 1.5 && reelTime < 8.0 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Tracé & D+
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(9.0); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 8.0 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Arrivée
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.reelScenesNav}>
+                        <button 
+                          onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime < 3 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Hook
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(4.5); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 3 && reelTime < 6.2 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          24K Runners
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(7.5); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 6.2 && reelTime < 9.5 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Records
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(10.5); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 9.5 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          Outro
+                        </button>
+                      </div>
+                    )}
 
                     <button 
                       onClick={exportReelVideo}
@@ -1638,7 +2113,7 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                       className={styles.actionBtn}
                       style={{ background: '#EB5E28', color: '#FAF7F2', borderColor: '#EB5E28', fontSize: '0.75rem', padding: '0.4rem 0.75rem' }}
                     >
-                      <Film size={14} /> {isExportingVideo ? `${exportProgress}%` : 'Export WebM'}
+                      <Film size={14} /> {isExportingVideo ? `${exportProgress}%` : 'Export MP4'}
                     </button>
                   </div>
                 </div>
