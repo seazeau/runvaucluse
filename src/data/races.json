@@ -644,7 +644,8 @@
     "registration_platform": "Finishers",
     "registration_link": "https://www.finishers.com/course/marathon-d-avignon",
     "website": "https://www.avignon-marathon.com",
-    "description": "2ème édition du Marathon et Semi-Marathon d'Avignon le dimanche 14 mars 2027 ! 6 000 dossards disponibles (3 000 sur le semi / 3 000 sur le marathon). Parcours ultra-plat labellisé FFA pour les deux distances et qualificatif pour les Championnats de France. Ouverture des inscriptions avant la fin du mois d'octobre 2026 sur la plateforme unique Finishers. Partenaires majeurs : NGE et Ville d'Avignon.",
+    "gpx_link": "/itineraires/marathon-avignon.gpx",
+    "description": "Dimanche 14 mars 2027 : 2ème édition du Marathon (42,195 km, départ 9h00) et Semi-Marathon d'Avignon (21,1 km, départ 8h00) ! 6 000 dossards disponibles (3 000 sur le semi / 3 000 sur le marathon). Parcours ultra-plat (+80m D+) au cœur de la Cité des Papes et de l'Île de la Barthelasse, labellisé FFA sur les deux distances et qualificatif pour les Championnats de France. Inscriptions ouvertes en ligne sur la plateforme officielle Finishers. Tracés GPX officiels téléchargeables.",
     "slug": "marathon-davignon-avignon"
   },
   {

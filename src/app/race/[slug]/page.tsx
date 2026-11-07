@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (race.is_cancelled) {
     pageTitle = `[ANNULÉE] ${displayName} ${raceYear} : Informations`;
   } else if (slug === 'marathon-davignon-avignon') {
-    pageTitle = `Marathon & Semi-Marathon d'Avignon 2027 : Inscriptions, Parcours & Date`;
-    metaDescription = `Toutes les infos sur la 2ème édition du Marathon et Semi-Marathon d'Avignon (14 mars 2027) : 6 000 dossards, inscriptions Finishers, tracés GPX officiels et analyse coach STAPS.`;
+    pageTitle = `Marathon & Semi-Marathon d'Avignon 2027 (14 Mars) : Inscription & Parcours GPX`;
+    metaDescription = `Dimanche 14 mars 2027 : 2e édition du Marathon (42,2 km, départ 9h) & Semi-Marathon d'Avignon (21,1 km, départ 8h). Inscriptions Finishers, tracés GPX plats (+80m D+) & dossards.`;
   } else if (slug === 'marathon-des-terroirs-du-ventoux-mazan') {
     pageTitle = `Marathon des Terroirs du Ventoux 2027 : Inscriptions, Formats & Affiche`;
     metaDescription = `1ère édition les 23 & 24 octobre 2027 à Mazan : Marathon (42 km), Semi (21 km), 10 km, Rando (5 km) et enfants. Run, Taste & Party avec les vins AOC Ventoux.`;
@@ -49,10 +49,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? race.image_url 
     : `https://runvaucluse.fr${race.image_url || '/images/og-image.jpg'}`;
 
+  const extraKeywords = slug === 'marathon-davignon-avignon' ? [
+    'marathon avignon 2027',
+    'semi marathon avignon 2027',
+    "marathon d'avignon 2027",
+    'semi-marathon avignon 2027',
+    'semi avignon 2027',
+    "semi marathon d'avignon 2027",
+    'inscription marathon avignon 2027',
+    'inscription semi marathon avignon 2027',
+    'parcours marathon avignon 2027',
+    'gpx marathon avignon',
+    'date marathon avignon 2027',
+    'finishers marathon avignon'
+  ] : [];
+
   return {
-    title: pageTitle,
+    title: slug === 'marathon-davignon-avignon' ? { absolute: `${pageTitle} | RunVaucluse` } : pageTitle,
     description: metaDescription,
     keywords: [
+      ...extraKeywords,
       `${race.name}`,
       `inscription ${race.name}`,
       `inscription ${race.name} ${raceYear}`,
@@ -160,6 +176,13 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
     { label: '5 KM • La Petite Gambade (210m D+)', file: '/itineraires/traversee-dentelles-5km-petite-gambade.gpx' },
   ];
 
+  // GPX for Marathon & Semi-Marathon d'Avignon 2027
+  const isAvignon = slug === 'marathon-davignon-avignon';
+  const avignonGpx = [
+    { label: "42,2 KM • Marathon d'Avignon (+80m D+)", file: '/itineraires/marathon-avignon.gpx' },
+    { label: "21,1 KM • Semi-Marathon d'Avignon (+60m D+)", file: '/itineraires/semi-marathon-avignon.gpx' },
+  ];
+
   return (
     <div className={styles.pageWrapper}>
       <StructuredData race={race} />
@@ -217,10 +240,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                     </span>
                   )}
                 </div>
-                <h1 className={styles.title}>{race.name}</h1>
+                <h1 className={styles.title}>
+                  {slug === 'marathon-davignon-avignon'
+                    ? "Marathon & Semi-Marathon d'Avignon 2027"
+                    : race.name}
+                </h1>
                 <div className={styles.location}>
                   <MapPin size={20} className={styles.icon} />
-                  <span>{race.city}, Vaucluse</span>
+                  <span>{race.city}, Vaucluse (84)</span>
                 </div>
               </div>
 
@@ -236,7 +263,11 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   <Activity size={20} className={styles.icon} />
                   <div>
                     <span className={styles.techLabel}>DISTANCES DISPONIBLES</span>
-                    <span className={styles.techValue}>{race.distances}</span>
+                    <span className={styles.techValue}>
+                      {slug === 'marathon-davignon-avignon'
+                        ? 'Marathon (42,195 km) & Semi-Marathon (21,1 km)'
+                        : race.distances}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -267,7 +298,20 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {!isDentelles && !isGRV && (race.pdf_link || race.parcours_link || race.gpx_link) && (
+              {isAvignon && (
+                <div className={styles.gpxContainer}>
+                  <span className={styles.gpxLabel}>TRACÉS GPX OFFICIELS 2027 (MARATHON & SEMI)</span>
+                  <div className={styles.gpxGrid}>
+                    {avignonGpx.map((gpx, idx) => (
+                      <a key={idx} href={gpx.file} download className={styles.gpxBtn}>
+                        <Download size={16} /> {gpx.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {!isDentelles && !isGRV && !isAvignon && (race.pdf_link || race.parcours_link || race.gpx_link) && (
                 <div className={styles.gpxContainer}>
                   <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
                   <div className={styles.gpxGrid}>
@@ -294,14 +338,14 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 <h3>À PROPOS DE L&apos;ÉVÈNEMENT</h3>
                 {slug === 'marathon-davignon-avignon' ? (
                   <p>
-                    <strong>Dimanche 14 mars 2027 :</strong> 2ème édition du grand Marathon & Semi-Marathon d&apos;Avignon ! 
-                    Courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse sur un parcours ultra-plat (+80m D+), 
+                    <strong>Dimanche 14 mars 2027 :</strong> 2ème édition du grand <strong>Marathon d&apos;Avignon (42,195 km, départ 9h00)</strong> et <strong>Semi-Marathon d&apos;Avignon (21,1 km, départ 8h00)</strong> ! 
+                    Courez au cœur de la Cité des Papes, devant le Palais des Papes et sur l&apos;Île de la Barthelasse sur un parcours 100% route ultra-plat (+80m D+ sur le marathon, +60m D+ sur le semi), 
                     <strong>labellisé FFA sur les 2 distances</strong> et qualificatif pour les Championnats de France. 
-                    <strong>6 000 dossards au total</strong> (3 000 sur le semi / 3 000 sur le marathon). 
-                    Ouverture des inscriptions <strong>avant la fin du mois d&apos;octobre</strong> sur la plateforme unique <strong>Finishers</strong>. 
+                    <strong>6 000 dossards au total</strong> (3 000 sur le semi-marathon / 3 000 sur le marathon). 
+                    Les <strong>inscriptions sont ouvertes en ligne</strong> sur la plateforme officielle <strong>Finishers</strong>. 
                     Partenaires majeurs : <strong>NGE</strong> et <strong>Ville d&apos;Avignon</strong>. 
-                    Retrouvez ci-dessous le dossier officiel complet : <strong>tracés GPX téléchargeables</strong>, profil altimétrique interactif, 
-                    <strong>découpage km par km</strong>, ravitaillements et <strong>conseils tactiques de Vincent Buisson (Diplômé STAPS)</strong>.
+                    Retrouvez ci-dessous le dossier officiel complet : <strong>tracés GPX téléchargeables (42K & 21K)</strong>, profil altimétrique interactif, 
+                    <strong>découpage km par km</strong>, horaires, ravitaillements, parkings et <strong>conseils tactiques de Vincent Buisson (Diplômé STAPS)</strong>.
                   </p>
                 ) : race.description ? (
                   <p>{race.description}</p>
@@ -326,10 +370,10 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 {slug === 'marathon-davignon-avignon' && (
                   <div className={styles.announcementBox}>
                     <div className={styles.announcementTitle}>
-                      <Sparkles size={16} /> 2ÈME ÉDITION • 14 MARS 2027 • 6 000 DOSSARDS
+                      <Sparkles size={16} /> 2ÈME ÉDITION • DIMANCHE 14 MARS 2027 • 6 000 DOSSARDS
                     </div>
                     <p className={styles.announcementText}>
-                      Ouverture des inscriptions <strong>avant fin octobre</strong> sur la plateforme unique <strong>Finishers</strong> (3 000 marathon / 3 000 semi-marathon). Parcours labellisés FFA sur les 2 distances. Partenaires majeurs : <strong>NGE</strong> & <strong>Ville d&apos;Avignon</strong>.
+                      <strong>Inscriptions ouvertes en ligne sur Finishers</strong> (3 000 dossards Marathon départ 9h00 / 3 000 dossards Semi-Marathon départ 8h00). Parcours ultra-plats labellisés FFA sur les 2 distances. Partenaires majeurs : <strong>NGE</strong> & <strong>Ville d&apos;Avignon</strong>.
                     </p>
                   </div>
                 )}
@@ -499,46 +543,104 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
           <section className={styles.faqSection}>
             <div className={styles.faqHeader}>
               <HelpCircle size={22} />
-              <h2>QUESTIONS FRÉQUENTES • {race.name.toUpperCase()}</h2>
+              <h2>
+                QUESTIONS FRÉQUENTES •{' '}
+                {slug === 'marathon-davignon-avignon'
+                  ? "MARATHON & SEMI-MARATHON D'AVIGNON 2027"
+                  : race.name.toUpperCase()}
+              </h2>
             </div>
-            <div className={styles.faqGrid}>
-              <div className={styles.faqItem}>
-                <h3 className={styles.faqQuestion}>Quand a lieu {race.name} ?</h3>
-                <p className={styles.faqAnswer}>
-                  L&apos;épreuve se déroule le <strong>{formattedDate}</strong> à <strong>{race.city}</strong> en Vaucluse (84).
-                </p>
+            {slug === 'marathon-davignon-avignon' ? (
+              <div className={styles.faqGrid}>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Quelle est la date et l&apos;heure de départ du Marathon et Semi-Marathon d&apos;Avignon 2027 ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    La 2ème édition se déroule le <strong>dimanche 14 mars 2027</strong> devant la <strong>Gare Avignon Centre</strong> (Cours Jean Jaurès). Le départ du <strong>Semi-Marathon d&apos;Avignon (21,0975 km)</strong> est donné à <strong>8h00</strong> et celui du <strong>Marathon d&apos;Avignon (42,195 km)</strong> à <strong>9h00</strong>.
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Comment s&apos;inscrire au Marathon et Semi-Marathon d&apos;Avignon 2027 ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    Les inscriptions en ligne sont ouvertes sur la plateforme officielle <strong>Finishers</strong> (6 000 dossards disponibles : 3 000 sur le Marathon et 3 000 sur le Semi-Marathon). Une attestation <strong>PPS (Parcours de Prévention Santé)</strong> de moins de 3 mois ou une licence FFA valide est requise.
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Quel est le parcours et le dénivelé du Marathon d&apos;Avignon 2027 (GPX) ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    Le tracé est 100 % sur route, ultra-roulant et <strong>labellisé FFA</strong> (qualificatif Championnats de France) : <strong>+80m D+ sur le Marathon (42,2 km)</strong> et <strong>+60m D+ sur le Semi-Marathon (21,1 km)</strong>. Il traverse les remparts, le Palais des Papes, le Pont Daladier et l&apos;Île de la Barthelasse. Les 2 fichiers GPX officiels sont téléchargeables gratuitement en haut de cette page.
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Où et quand retirer son dossard à Avignon ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    Le retrait des dossards a lieu à l&apos;<strong>Espace Jeanne Laurent</strong> (2 Montée des Moulins, 84000 Avignon) le <strong>vendredi 12 mars 2027 de 16h00 à 20h00</strong> et le <strong>samedi 13 mars 2027 de 10h00 à 20h00</strong>. Attention : aucun retrait de dossard le dimanche matin.
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Quelles sont les barrières horaires et les allures des meneurs d&apos;allure ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    Temps limite de <strong>2h45 sur le Semi-Marathon</strong> (4 meneurs d&apos;allure : 1h20, 1h30, 1h45, 2h00) et de <strong>5h45 sur le Marathon</strong> avec barrières intermédiaires à 2h55 au KM 21 et 4h05 au KM 30 (6 meneurs d&apos;allure : 3h00, 3h15, 3h30, 3h45, 4h00 et 4h30).
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>
+                    Où se garer le dimanche 14 mars 2027 pour le départ ?
+                  </h3>
+                  <p className={styles.faqAnswer}>
+                    Les parkings gratuits recommandés sont le <strong>Parking des Italiens</strong> (1 450 places, ouvert toute la journée) et le <strong>Parking de l&apos;Île Piot</strong> (1 100 places à 300m de l&apos;arrivée Barthelasse, accès avant 7h15 ou par le Gard), ainsi que le parking-relais Tram St-Chamand.
+                  </p>
+                </div>
               </div>
-              <div className={styles.faqItem}>
-                <h3 className={styles.faqQuestion}>Quelles sont les distances au programme ?</h3>
-                <p className={styles.faqAnswer}>
-                  {race.name} propose les parcours et formats suivants : <strong>{race.distances}</strong> ({race.type}).
-                </p>
+            ) : (
+              <div className={styles.faqGrid}>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>Quand a lieu {race.name} ?</h3>
+                  <p className={styles.faqAnswer}>
+                    L&apos;épreuve se déroule le <strong>{formattedDate}</strong> à <strong>{race.city}</strong> en Vaucluse (84).
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>Quelles sont les distances au programme ?</h3>
+                  <p className={styles.faqAnswer}>
+                    {race.name} propose les parcours et formats suivants : <strong>{race.distances}</strong> ({race.type}).
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>Comment s&apos;inscrire à la course ?</h3>
+                  <p className={styles.faqAnswer}>
+                    {race.is_cancelled ? (
+                      "L'édition a été officiellement annulée pour cette année."
+                    ) : race.registration_link ? (
+                      <>
+                        Les inscriptions sont ouvertes en ligne sur la plateforme <strong>{race.registration_platform || "officielle"}</strong>. Retrouvez le lien direct d&apos;inscription ci-dessus.
+                      </>
+                    ) : race.link ? (
+                      <>
+                        Les informations et inscriptions sont accessibles via le site officiel de l&apos;organisation.
+                      </>
+                    ) : (
+                      "Les inscriptions ouvriront prochainement. Consultez régulièrement le calendrier RunVaucluse pour ne pas manquer l'ouverture des dossards."
+                    )}
+                  </p>
+                </div>
+                <div className={styles.faqItem}>
+                  <h3 className={styles.faqQuestion}>Où se situe le départ à {race.city} ?</h3>
+                  <p className={styles.faqAnswer}>
+                    Le rassemblement et le retrait des dossards sont situés sur la commune de <strong>{race.city}</strong> (Vaucluse). Consultez la carte interactive ci-dessus pour planifier votre itinéraire.
+                  </p>
+                </div>
               </div>
-              <div className={styles.faqItem}>
-                <h3 className={styles.faqQuestion}>Comment s&apos;inscrire à la course ?</h3>
-                <p className={styles.faqAnswer}>
-                  {race.is_cancelled ? (
-                    "L'édition a été officiellement annulée pour cette année."
-                  ) : race.registration_link ? (
-                    <>
-                      Les inscriptions sont ouvertes en ligne sur la plateforme <strong>{race.registration_platform || "officielle"}</strong>. Retrouvez le lien direct d&apos;inscription ci-dessus.
-                    </>
-                  ) : race.link ? (
-                    <>
-                      Les informations et inscriptions sont accessibles via le site officiel de l&apos;organisation.
-                    </>
-                  ) : (
-                    "Les inscriptions ouvriront prochainement. Consultez régulièrement le calendrier RunVaucluse pour ne pas manquer l'ouverture des dossards."
-                  )}
-                </p>
-              </div>
-              <div className={styles.faqItem}>
-                <h3 className={styles.faqQuestion}>Où se situe le départ à {race.city} ?</h3>
-                <p className={styles.faqAnswer}>
-                  Le rassemblement et le retrait des dossards sont situés sur la commune de <strong>{race.city}</strong> (Vaucluse). Consultez la carte interactive ci-dessus pour planifier votre itinéraire.
-                </p>
-              </div>
-            </div>
+            )}
           </section>
 
           {/* SEO Related Races for Internal Linking */}

@@ -164,15 +164,15 @@ export default function AvignonMarathonDossier() {
             </span>
           </div>
 
-          <h1 className={styles.heroTitle}>
+          <h2 className={styles.heroTitle}>
             DOSSIER SPÉCIAL : SEMI & MARATHON D&apos;AVIGNON 2027
-          </h1>
+          </h2>
 
           <p className={styles.heroSubtitle}>
-            Dimanche 14 mars 2027 : 2ème édition du grand Marathon & Semi-Marathon d&apos;Avignon ! 
-            Courrez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse sur un parcours ultra-plat (+80m D+), 
+            Dimanche 14 mars 2027 : 2ème édition du grand Marathon (42,195 km, départ 9h00) & Semi-Marathon d&apos;Avignon (21,0975 km, départ 8h00) ! 
+            Courez au cœur de la Cité des Papes et sur l&apos;Île de la Barthelasse sur un parcours ultra-plat (+80m D+), 
             labellisé FFA sur les deux épreuves et qualificatif pour les Championnats de France. 
-            6 000 dossards disponibles (3 000 semi / 3 000 marathon). Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la plateforme unique Finishers. 
+            6 000 dossards disponibles (3 000 semi / 3 000 marathon). Inscriptions ouvertes en ligne sur la plateforme officielle Finishers. 
             Partenaires majeurs : NGE et Ville d&apos;Avignon. Retrouvez ici l&apos;analyse tactique du coach STAPS, les traces GPX interactives et le guide coureur officiel.
           </p>
 
@@ -222,7 +222,7 @@ export default function AvignonMarathonDossier() {
                 <Sparkles size={16} /> 2ème Édition • Dimanche 14 Mars 2027
               </div>
               <div style={{ marginTop: '0.35rem', fontSize: '0.9rem', color: 'var(--dark-ink, #111417)', lineHeight: 1.5 }}>
-                <strong>6 000 dossards au total</strong> (3 000 marathon / 3 000 semi-marathon) • <strong>Parcours labellisés FFA sur les 2 distances</strong> • Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la <strong>plateforme unique Finishers</strong>.
+                <strong>6 000 dossards au total</strong> (3 000 marathon départ 9h00 / 3 000 semi-marathon départ 8h00) • <strong>Parcours labellisés FFA sur les 2 distances</strong> • <strong>Inscriptions ouvertes en ligne</strong> sur la <strong>plateforme officielle Finishers</strong>.
               </div>
               <div style={{ marginTop: '0.4rem', fontSize: '0.82rem', color: '#5E6973', fontWeight: 600 }}>
                 Partenaires majeurs : <strong style={{ color: '#111417' }}>NGE</strong> & <strong style={{ color: '#111417' }}>Ville d&apos;Avignon</strong>
@@ -331,11 +331,10 @@ export default function AvignonMarathonDossier() {
         </div>
       </div>
 
-      {/* 4. TAB CONTENT: PARCOURS & GPX */}
-      {activeTab === 'parcours' && (
-        <>
-          {/* Interactive Map & Profile Card */}
-          <div className={styles.mapCard}>
+      {/* 4. TAB CONTENT: PARCOURS & GPX (Mounted in DOM for SEO indexing) */}
+      <div style={{ display: activeTab === 'parcours' ? 'block' : 'none' }}>
+        {/* Interactive Map & Profile Card */}
+        <div className={styles.mapCard}>
             <div className={styles.mapCardHeader}>
               <div className={styles.mapTitleGroup}>
                 <Compass size={22} color="#111417" />
@@ -630,12 +629,10 @@ export default function AvignonMarathonDossier() {
               )}
             </div>
           </section>
-        </>
-      )}
+      </div>
 
-      {/* 5. TAB CONTENT: STRATÉGIE & PACING */}
-      {activeTab === 'strategie' && (
-        <>
+      {/* 5. TAB CONTENT: STRATÉGIE & PACING (Mounted in DOM for SEO indexing) */}
+      <div style={{ display: activeTab === 'strategie' ? 'block' : 'none' }}>
           {/* Coach Bio Card */}
           <div className={styles.coachProfileCard}>
             <div className={styles.coachProfileHeader}>
@@ -829,12 +826,10 @@ export default function AvignonMarathonDossier() {
               </table>
             </div>
           </div>
-        </>
-      )}
+      </div>
 
-      {/* 6. TAB CONTENT: GUIDE LOGISTIQUE OFFICIEL */}
-      {activeTab === 'logistique' && (
-        <>
+      {/* 6. TAB CONTENT: GUIDE LOGISTIQUE OFFICIEL (Mounted in DOM for SEO indexing) */}
+      <div style={{ display: activeTab === 'logistique' ? 'block' : 'none' }}>
           <div className={styles.logisticsGrid}>
             {/* Retrait Dossards */}
             <div className={`${styles.logisticsCard} ${styles.logisticsCardHighlight}`}>
@@ -1073,12 +1068,10 @@ export default function AvignonMarathonDossier() {
               </div>
             </div>
           </div>
-        </>
-      )}
+      </div>
 
-      {/* 7. TAB CONTENT: ÉQUIPEMENT & MATÉRIEL TOP4RUNNING */}
-      {activeTab === 'equipement' && (
-        <div className={styles.gearSection}>
+      {/* 7. TAB CONTENT: ÉQUIPEMENT & MATÉRIEL TOP4RUNNING (Mounted in DOM for SEO indexing) */}
+      <div className={styles.gearSection} style={{ display: activeTab === 'equipement' ? 'block' : 'none' }}>
           <div className={styles.sectionHeader}>
             <ShoppingBag size={24} color="#111417" />
             <h3 className={styles.sectionTitle}>SÉLECTION MATÉRIEL & CHAUSSURES RECOMMANDÉES</h3>
@@ -1143,15 +1136,14 @@ export default function AvignonMarathonDossier() {
               </a>
             </div>
           </div>
-        </div>
-      )}
+      </div>
 
       {/* 8. FINAL CALL TO ACTION */}
       <section className={styles.finalCta}>
         <h3 className={styles.finalCtaTitle}>PRÊT À MARQUER L&apos;HISTOIRE EN VAUCLUSE ?</h3>
         <p className={styles.finalCtaDesc}>
-          Rejoignez 6 000 coureurs pour la 2ème édition du Marathon et Semi-Marathon d&apos;Avignon 
-          le dimanche 14 mars 2027. Ouverture des inscriptions avant la fin du mois d&apos;octobre sur la plateforme unique Finishers !
+          Rejoignez 6 000 coureurs pour la 2ème édition du Marathon (42,195 km) et Semi-Marathon d&apos;Avignon (21,1 km) 
+          le dimanche 14 mars 2027. Les inscriptions sont ouvertes en ligne sur la plateforme officielle Finishers !
         </p>
         <div className={styles.finalCtaButtons}>
           <a
