@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" fill="none">
+  <!-- Midsole - Main recognizable curve -->
+  <path d="M30 90 C 30 95, 60 100, 120 100 C 180 100, 210 90, 215 80" stroke="#fcb900" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- Outsole (Bottom) -->
+  <path d="M35 95 C 60 105, 120 105, 210 85" stroke="#fcb900" stroke-width="1" opacity="0.5" stroke-dasharray="4 4" />
+
+  <!-- Upper - Heel Counter -->
+  <path d="M30 90 C 25 80, 25 50, 45 40" stroke="#fcb900" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Upper - Collar (Ankle opening) -->
+  <path d="M45 40 C 60 35, 80 40, 95 50" stroke="#fcb900" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Upper - Lacing area & Tongue -->
+  <path d="M95 50 L 150 65" stroke="#fcb900" stroke-width="2" stroke-dasharray="8 4" opacity="0.8" />
+  
+  <!-- Upper - Toe Box -->
+  <path d="M150 65 C 180 70, 210 75, 215 80" stroke="#fcb900" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Internal Reinforcement / DNA Strands -->
+  <path d="M50 85 Q 80 60, 130 75" stroke="white" stroke-width="0.5" opacity="0.4" />
+  <path d="M60 80 Q 90 55, 140 70" stroke="white" stroke-width="0.5" opacity="0.4" />
+  
+  <!-- Tech Data Points -->
+  <circle cx="30" cy="90" r="2" fill="white" />
+  <circle cx="45" cy="40" r="2" fill="white" />
+  <circle cx="215" cy="80" r="2" fill="white" />
+  <circle cx="120" cy="100" r="1.5" fill="#fcb900" />
+  
+  <!-- Scanning grid details on the shoe -->
+  <line x1="60" y1="95" x2="60" y2="80" stroke="#fcb900" stroke-width="0.5" opacity="0.3" />
+  <line x1="90" y1="98" x2="90" y2="70" stroke="#fcb900" stroke-width="0.5" opacity="0.3" />
+  <line x1="120" y1="100" x2="120" y2="65" stroke="#fcb900" stroke-width="0.5" opacity="0.3" />
+  <line x1="150" y1="98" x2="150" y2="65" stroke="#fcb900" stroke-width="0.5" opacity="0.3" />
+</svg>

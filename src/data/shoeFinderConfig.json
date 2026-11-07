@@ -1,0 +1,2050 @@
+{
+  "profiles": [
+    {
+      "id": "recup",
+      "title": "1. Le Pur Débutant / Footing de Récupération",
+      "description": "Chaussures rassurantes, stables, qui accompagnent la foulée.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Ghost",
+            "brand": "Brooks",
+            "why": "La stabilité et la robustesse absolues pour commencer."
+          },
+          {
+            "modelName": "Velocity Nitro",
+            "brand": "Puma",
+            "why": "Le rapport qualité/prix exceptionnel, souple et très fiable."
+          },
+          {
+            "modelName": "Gel-Cumulus",
+            "brand": "Asics",
+            "why": "L'amorti classique et efficace pour les petites distances."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Clifton",
+            "brand": "Hoka",
+            "why": "Légère avec un léger profil incurvé pour fluidifier la foulée."
+          },
+          {
+            "modelName": "Pegasus",
+            "brand": "Nike",
+            "why": "Le grand classique polyvalent."
+          },
+          {
+            "modelName": "880",
+            "brand": "New Balance",
+            "why": "Neutre, fiable et très confortable au quotidien."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Vomero",
+            "brand": "Nike",
+            "why": "Amorti ultra-moelleux pour les lendemains de course."
+          },
+          {
+            "modelName": "Gel-Nimbus",
+            "brand": "Asics",
+            "why": "Un vrai chausson pour soulager les pieds fatigués."
+          },
+          {
+            "modelName": "Wave Sky",
+            "brand": "Mizuno",
+            "why": "Un maximum de douceur pour des footings à très basse intensité."
+          }
+        ]
+      }
+    },
+    {
+      "id": "records",
+      "title": "2. Le Chasseur de Records (10km / Marathon)",
+      "description": "Plaque carbone, dynamisme extrême, propulsion.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Endorphin Speed",
+            "brand": "Saucony",
+            "why": "La plaque en nylon offre un excellent compromis entre tolérance et dynamisme."
+          },
+          {
+            "modelName": "Sonic Blast",
+            "brand": "Sonic",
+            "why": "Un excellent compromis pour goûter au dynamisme sans une exigence technique extrême."
+          },
+          {
+            "modelName": "Mach X",
+            "brand": "Hoka",
+            "why": "Une approche plus douce de la plaque pour habituer le pied et le mollet."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Endorphin Pro",
+            "brand": "Saucony",
+            "why": "Un rebond fabuleux et un grand confort pour tenir l'allure sur la distance."
+          },
+          {
+            "modelName": "Cloudboom Echo",
+            "brand": "ON",
+            "why": "Une excellente transition avec une plaque très réactive et un ajustement précis."
+          },
+          {
+            "modelName": "Hyperion Elite",
+            "brand": "Brooks",
+            "why": "Le carbone version Brooks, offrant une grande stabilité dans la relance."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Adios Pro",
+            "brand": "Adidas",
+            "why": "La vraie bête de course pour exploser les chronos, redoutable d'efficacité avec ses EnergyRods sur 42 km."
+          },
+          {
+            "modelName": "Metaspeed",
+            "brand": "Asics",
+            "why": "La chaussure élite dernière génération qui s'adapte au millimètre à la foulée."
+          },
+          {
+            "modelName": "Fast-R",
+            "brand": "Puma",
+            "why": "Le design radical de Puma pour une propulsion explosive et un retour d'énergie phénoménal."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fort",
+      "title": "3. Le Coureur \"Gabarit Fort\" (+85kg)",
+      "description": "Stabilité, mousse dense, maintien structurel.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Adrenaline GTS",
+            "brand": "Brooks",
+            "why": "Avec GuideRails pour sécuriser l'axe du genou."
+          },
+          {
+            "modelName": "Gaviota",
+            "brand": "Hoka",
+            "why": "Amorti généreux avec un châssis renforcé (H-Frame) pour empêcher le pied de s'affaisser."
+          },
+          {
+            "modelName": "Wave Inspire",
+            "brand": "Mizuno",
+            "why": "La plaque Wave corrige en douceur la pronation de fatigue."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Gel-Kayano",
+            "brand": "Asics",
+            "why": "La reine mondiale du maintien et du confort structuré."
+          },
+          {
+            "modelName": "Bondi",
+            "brand": "Hoka",
+            "why": "Semelle surdimensionnée pour absorber les gros impacts."
+          },
+          {
+            "modelName": "Invincible",
+            "brand": "Nike",
+            "why": "Base ultra-large pour ne pas tanguer."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Wave Sky",
+            "brand": "Mizuno",
+            "why": "Mousse très dense qui ne s'écrase jamais sous le poids."
+          },
+          {
+            "modelName": "Hyperboost Edge",
+            "brand": "Adidas",
+            "why": "45 mm d'amorti colossal qui encaisse tout."
+          },
+          {
+            "modelName": "Superblast",
+            "brand": "Asics",
+            "why": "Mousse géante et légère pour accumuler le volume sans casser les fibres."
+          }
+        ]
+      }
+    },
+    {
+      "id": "confort",
+      "title": "4. Le Fan de Confort (Sorties Plaisir)",
+      "description": "Mousse moelleuse, sensation \"nuage\", chaussant premium.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Cloudsurfer",
+            "brand": "ON",
+            "why": "Une fluidité exceptionnelle grâce au CloudTec Phase pour une transition en douceur."
+          },
+          {
+            "modelName": "Skyrise",
+            "brand": "Mizuno",
+            "why": "Une sensation de flottement et une souplesse d'accueil très impressionnantes."
+          },
+          {
+            "modelName": "Supernova Rise",
+            "brand": "Adidas",
+            "why": "La mousse Dreamstrike+ offre un confort d'accueil immédiat."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "1080",
+            "brand": "New Balance",
+            "why": "Sensation de s'enfoncer dans un coussin."
+          },
+          {
+            "modelName": "Clifton",
+            "brand": "Hoka",
+            "why": "Amorti généreux et signature moelleuse."
+          },
+          {
+            "modelName": "Glycerin",
+            "brand": "Brooks",
+            "why": "Le confort premium avec la mousse DNA Loft."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Vomero Premium",
+            "brand": "Nike",
+            "why": "L'excellence des matériaux pour un confort 5 étoiles."
+          },
+          {
+            "modelName": "Gel-Nimbus",
+            "brand": "Asics",
+            "why": "Un amorti nuageux pour les athlètes qui veulent se préserver."
+          },
+          {
+            "modelName": "Triumph",
+            "brand": "Saucony",
+            "why": "L'amorti luxueux parfait pour engloutir les kilomètres."
+          }
+        ]
+      }
+    },
+    {
+      "id": "trail-poly",
+      "title": "5. Le Traileur (Chemins/Forêts - Polyvalence)",
+      "description": "Accroche rassurante, door-to-trail, transition route/chemin.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Pegasus Trail",
+            "brand": "Nike",
+            "why": "Confort incroyable de la porte de chez soi jusqu'en forêt."
+          },
+          {
+            "modelName": "Challenger",
+            "brand": "Hoka",
+            "why": "Très rassurante et protectrice sur sentiers faciles."
+          },
+          {
+            "modelName": "Gel-Trabuco",
+            "brand": "Asics",
+            "why": "Le grand classique, stable et robuste."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Genesis",
+            "brand": "Salomon",
+            "why": "Le confort et la durabilité pour tous les sentiers."
+          },
+          {
+            "modelName": "Hierro",
+            "brand": "New Balance",
+            "why": "Grand confort et grip Vibram redoutable."
+          },
+          {
+            "modelName": "Gel-Trabuco",
+            "brand": "Asics",
+            "why": "Stabilité et protection sur terrains variés."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Cascadia",
+            "brand": "Brooks",
+            "why": "Pour accumuler du dénivelé quotidien sans user d'autres modèles."
+          },
+          {
+            "modelName": "Cloudsurfer Trail",
+            "brand": "ON",
+            "why": "Fluidité exceptionnelle sur sentiers roulants."
+          },
+          {
+            "modelName": "Aero Glide GRVL",
+            "brand": "Salomon",
+            "why": "L'arme ultime pour passer de la route aux chemins gravel avec fluidité."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ultra",
+      "title": "6. L'Ultra-Traileur (Montagne / Longue Distance)",
+      "description": "Gros amorti, protection des chocs, durabilité.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Speedgoat",
+            "brand": "Hoka",
+            "why": "L'assurance tous risques avec un amorti monstrueux."
+          },
+          {
+            "modelName": "Cascadia",
+            "brand": "Brooks",
+            "why": "Le grand classique qui pardonne les erreurs sur les longs parcours."
+          },
+          {
+            "modelName": "Prodigio",
+            "brand": "La Sportiva",
+            "why": "Apporte le rebond nécessaire tout en restant accessible."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Mafate",
+            "brand": "Hoka",
+            "why": "Maintien et grip supérieurs sur terrains techniques."
+          },
+          {
+            "modelName": "More Trail",
+            "brand": "New Balance",
+            "why": "Le maximalisme ultime pour ne plus sentir les cailloux après 80 km."
+          },
+          {
+            "modelName": "Ultra Glide",
+            "brand": "Salomon",
+            "why": "Gros amorti et profil rocker pour avancer sans forcer."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Genesis",
+            "brand": "Salomon",
+            "why": "Précision, grip et durabilité pour l'élite."
+          },
+          {
+            "modelName": "Ultrafly",
+            "brand": "Nike",
+            "why": "Plaque carbone adaptée au trail et semelle Vibram."
+          },
+          {
+            "modelName": "Cloudultra",
+            "brand": "ON",
+            "why": "Conception ingénieuse pour les gonflements de pieds en fin de course."
+          }
+        ]
+      }
+    },
+    {
+      "id": "performeur-trail",
+      "title": "7. Le Performeur Trail (Skyrunning / Court)",
+      "description": "Précision, relance, accroche agressive.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Cascadia Elite",
+            "brand": "Brooks",
+            "why": "Nerveuse mais suffisamment stable pour s'habituer."
+          },
+          {
+            "modelName": "Speedcross",
+            "brand": "Salomon",
+            "why": "Crampons agressifs pour ne jamais glisser dans la boue."
+          },
+          {
+            "modelName": "Wave Mujin",
+            "brand": "Mizuno",
+            "why": "Protection et traction rassurante."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Zinal",
+            "brand": "Hoka",
+            "why": "Un vrai karting, léger et proche du sol."
+          },
+          {
+            "modelName": "Bushido",
+            "brand": "La Sportiva",
+            "why": "Un chausson d'escalade précis pour la caillasse."
+          },
+          {
+            "modelName": "Peregrine 16",
+            "brand": "Saucony",
+            "why": "Poids plume, accroche de folie et agilité redoutable."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "FujiSpeed",
+            "brand": "Asics",
+            "why": "Plaque carbone pour exploser les chronos sur sentiers."
+          },
+          {
+            "modelName": "Tecton X",
+            "brand": "Hoka",
+            "why": "Plaques parallèles pour un dynamisme fou sans perdre en stabilité."
+          },
+          {
+            "modelName": "Prodigio Pro",
+            "brand": "La Sportiva",
+            "why": "Mousse supercritique ultra-réactive pour les podiums."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tempo",
+      "title": "8. Le \"Tempo\" (Séances Rapides sans carbone)",
+      "description": "Fractionné, seuil, dynamisme et légèreté.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Novablast",
+            "brand": "Asics",
+            "why": "L'effet trampoline propulse sans exiger une foulée parfaite."
+          },
+          {
+            "modelName": "Hyperion Tempo",
+            "brand": "Brooks",
+            "why": "Légère et simple pour les premières pistes."
+          },
+          {
+            "modelName": "Kinvara",
+            "brand": "Saucony",
+            "why": "La reine des chaussures légères et souples pour s'initier au travail de pied."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Rebel",
+            "brand": "New Balance",
+            "why": "Fun, hyper souple et très rebondissante."
+          },
+          {
+            "modelName": "Mach",
+            "brand": "Hoka",
+            "why": "Dynamique, légère et incite à attaquer vers l'avant."
+          },
+          {
+            "modelName": "Wave Rebellion Flash",
+            "brand": "Mizuno",
+            "why": "Plaque en fibre de verre pour le tempo."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Evo SL",
+            "brand": "Adidas",
+            "why": "La mousse Lightstrike Pro des champions, mais sans la plaque."
+          },
+          {
+            "modelName": "Superblast",
+            "brand": "Asics",
+            "why": "Permet de tenir des allures très rapides sur la fatigue."
+          },
+          {
+            "modelName": "Vomero Plus",
+            "brand": "Nike",
+            "why": "Redoutable chaussure de tempo pour les puristes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "articulations",
+      "title": "9. Le Soucieux de ses Articulations (Santé & Prévention)",
+      "description": "Amorti maximal, absorption totale des chocs.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Bondi",
+            "brand": "Hoka",
+            "why": "Le max cushion historique qui gomme la route."
+          },
+          {
+            "modelName": "Cloudstratus",
+            "brand": "ON",
+            "why": "Double couche d'amorti pour un soutien massif."
+          },
+          {
+            "modelName": "Glycerin",
+            "brand": "Brooks",
+            "why": "Douceur d'impact extrême."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "More",
+            "brand": "New Balance",
+            "why": "Encore plus épaisse que la 1080."
+          },
+          {
+            "modelName": "Invincible",
+            "brand": "Nike",
+            "why": "Mousse ultra-absorbante pour préserver le dos."
+          },
+          {
+            "modelName": "Gel-Nimbus",
+            "brand": "Asics",
+            "why": "Filtration impressionnante des chocs."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Hyperboost Edge",
+            "brand": "Adidas",
+            "why": "45 mm de mousse pour engloutir le gros volume sans douleurs."
+          },
+          {
+            "modelName": "Superblast",
+            "brand": "Asics",
+            "why": "Le rempart absolu contre la casse musculaire de l'élite."
+          },
+          {
+            "modelName": "Vomero Premium",
+            "brand": "Nike",
+            "why": "Soin total du pied et des articulations."
+          }
+        ]
+      }
+    },
+    {
+      "id": "polyvalent",
+      "title": "10. Le Polyvalent (Le \"Couteau Suisse\")",
+      "description": "Une seule paire pour footing, sortie longue et accélérations.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Boston",
+            "brand": "Adidas",
+            "why": "Structurée et stable, elle est devenue une paire très rassurante pour tout faire."
+          },
+          {
+            "modelName": "Pegasus",
+            "brand": "Nike",
+            "why": "Ne brille nulle part, mais excelle partout."
+          },
+          {
+            "modelName": "Wave Rider",
+            "brand": "Mizuno",
+            "why": "Robuste, passe-partout et extrêmement fiable."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Vomero Plus",
+            "brand": "Nike",
+            "why": "Le confort de base avec un vrai \"pep's\" sous le pied."
+          },
+          {
+            "modelName": "Novablast",
+            "brand": "Asics",
+            "why": "Assez amortie pour le long, assez dynamique pour le rapide."
+          },
+          {
+            "modelName": "Ghost Max",
+            "brand": "Brooks",
+            "why": "Polyvalente avec une pointe de rocker pour fluidifier la transition."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Megablast",
+            "brand": "Asics",
+            "why": "Capable de courir à 10 km/h comme à 18 km/h."
+          },
+          {
+            "modelName": "SuperComp Trainer",
+            "brand": "New Balance",
+            "why": "Le confort pour le long, la plaque pour le rythme."
+          },
+          {
+            "modelName": "Azura",
+            "brand": "Saucony",
+            "why": "Équilibre parfait entre confort d'accueil et relance."
+          }
+        ]
+      }
+    },
+    {
+      "id": "minimaliste",
+      "title": "11. Le Minimaliste / Foulée Naturelle",
+      "description": "Drop faible, sensation de sol, travail actif du pied.",
+      "levels": {
+        "DÉBUTANT": [
+          {
+            "modelName": "Mach",
+            "brand": "Hoka",
+            "why": "Incite à l'avant-pied tout en gardant une mousse protectrice."
+          },
+          {
+            "modelName": "Liberate Nitro",
+            "brand": "Puma",
+            "why": "Extrêmement souple et basse, idéale pour sentir le sol sans brutalité."
+          },
+          {
+            "modelName": "Hyperion",
+            "brand": "Brooks",
+            "why": "Proche du sol, légère et sans artifice."
+          }
+        ],
+        "INTERMÉDIAIRE": [
+          {
+            "modelName": "Rebel",
+            "brand": "New Balance",
+            "why": "Flexibilité extrême, aucune contrainte pour le pied."
+          },
+          {
+            "modelName": "Cloudflow",
+            "brand": "ON",
+            "why": "Chaussure ferme et directe, appréciée des triathlètes."
+          },
+          {
+            "modelName": "Phantasm",
+            "brand": "Salomon",
+            "why": "Dynamisme naturel et grande légèreté."
+          }
+        ],
+        "PRO": [
+          {
+            "modelName": "Takumi Sen",
+            "brand": "Adidas",
+            "why": "Fine, ferme, exige des mollets d'acier à haute vitesse."
+          },
+          {
+            "modelName": "SuperComp Pacer",
+            "brand": "New Balance",
+            "why": "Pour les 5 km explosifs, au plus près du bitume."
+          },
+          {
+            "modelName": "Noosa Tri",
+            "brand": "Asics",
+            "why": "Taillée pour attaquer sur l'avant du pied."
+          }
+        ]
+      }
+    }
+  ],
+  "techSpecs": {
+    "880": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "270g",
+      "drop": 10,
+      "expertVibe": "Neutre, fiable et très confortable.",
+      "pros": [
+        "Fiabilité",
+        "Polyvalence"
+      ]
+    },
+    "1080": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "260g",
+      "drop": 6,
+      "expertVibe": "Le summum de la douceur.",
+      "pros": [
+        "Fresh Foam X"
+      ]
+    },
+    "Vaporfly": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 5,
+      "cushion": "Réactif",
+      "weight": "185g",
+      "drop": 8,
+      "stack": "40/32",
+      "expertVibe": "La reine des pelotons pour battre ses records.",
+      "pros": [
+        "Plaque Carbone full-length",
+        "Mousse ZoomX"
+      ]
+    },
+    "Alphafly": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 10,
+      "dynamisme": 10,
+      "stabilite": 6,
+      "cushion": "Réactif",
+      "weight": "218g",
+      "drop": 8,
+      "stack": "40/32",
+      "expertVibe": "La chaussure la plus rapide pour le marathon.",
+      "pros": [
+        "Unités Zoom Air",
+        "Mousse ZoomX"
+      ]
+    },
+    "Pegasus": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 7,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "281g",
+      "drop": 10,
+      "expertVibe": "Le couteau suisse increvable.",
+      "pros": [
+        "Polyvalence",
+        "Durabilité"
+      ]
+    },
+    "Vomero": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "290g",
+      "drop": 10,
+      "expertVibe": "Pardonne les erreurs de foulée grâce à son gros amorti.",
+      "pros": [
+        "Confort premium",
+        "Idéal débutant"
+      ]
+    },
+    "Vomero Premium": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Luxe",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "300g",
+      "drop": 10,
+      "expertVibe": "Confort cinq étoiles du premier au dernier km.",
+      "pros": [
+        "Tige ultra-soignée",
+        "Mousse luxueuse"
+      ]
+    },
+    "Vomero Plus": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Polyvalente",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "295g",
+      "drop": 10,
+      "expertVibe": "Confort mythique avec dynamisme supplémentaire.",
+      "pros": [
+        "Polyvalence",
+        "Réactivité"
+      ]
+    },
+    "Pegasus Trail": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Mixte",
+      "amorti": 8,
+      "dynamisme": 6,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "270g",
+      "drop": 10,
+      "expertVibe": "La championne du door-to-trail.",
+      "pros": [
+        "Polyvalence bitume/sentier"
+      ]
+    },
+    "Invincible": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "298g",
+      "drop": 9,
+      "expertVibe": "Mousse ultra-absorbante pour préserver le dos.",
+      "pros": [
+        "ZoomX massive",
+        "Base large"
+      ]
+    },
+    "Ultrafly": {
+      "type": "Trail",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "300g",
+      "drop": 8,
+      "expertVibe": "Plaque carbone adaptée au trail et semelle Vibram.",
+      "pros": [
+        "ZoomX",
+        "Vibram Megagrip"
+      ]
+    },
+    "Adios Pro": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 10,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "200g",
+      "drop": 6,
+      "expertVibe": "Machine à pulvériser les chronos.",
+      "pros": [
+        "EnergyRods carbone",
+        "Lightstrike Pro"
+      ]
+    },
+    "Takumi Sen": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 6,
+      "dynamisme": 10,
+      "stabilite": 6,
+      "cushion": "Réactif",
+      "weight": "190g",
+      "drop": 6,
+      "expertVibe": "L'arme fatale pour le 5km et 10km.",
+      "pros": [
+        "Nervosité",
+        "Proche du sol"
+      ]
+    },
+    "Evo SL": {
+      "type": "Performance",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "230g",
+      "drop": 7,
+      "expertVibe": "La sensation super-shoe sans plaque.",
+      "pros": [
+        "Lightstrike Pro",
+        "Légèreté"
+      ]
+    },
+    "Hyperboost Edge": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Récupération",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "310g",
+      "drop": 10,
+      "expertVibe": "Bouclier anti-chocs monumental.",
+      "pros": [
+        "45mm amorti",
+        "Protection maximale"
+      ]
+    },
+    "Boston": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "EnergyRods",
+      "usage": "Polyvalente",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "260g",
+      "drop": 7,
+      "expertVibe": "Structurée et stable, elle sait tout faire.",
+      "pros": [
+        "Polyvalence",
+        "Dynamisme"
+      ]
+    },
+    "Supernova Rise": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "275g",
+      "drop": 8,
+      "expertVibe": "La mousse Dreamstrike+ offre un confort immédiat.",
+      "pros": [
+        "Confort",
+        "Dreamstrike+"
+      ]
+    },
+    "Gel-Nimbus": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 5,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "290g",
+      "drop": 8,
+      "expertVibe": "Absorption redoutable pour coureurs lourds.",
+      "pros": [
+        "PureGEL",
+        "Base large"
+      ]
+    },
+    "Novablast": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "250g",
+      "drop": 8,
+      "expertVibe": "Effet trampoline incroyablement ludique.",
+      "pros": [
+        "Rebond talon",
+        "Dynamisme"
+      ]
+    },
+    "Superblast": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 10,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "249g",
+      "drop": 8,
+      "expertVibe": "Épargne considérablement la casse musculaire.",
+      "pros": [
+        "FF Turbo+",
+        "Épaisseur géante"
+      ]
+    },
+    "Metaspeed": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 6,
+      "cushion": "Réactif",
+      "weight": "185g",
+      "drop": 5,
+      "expertVibe": "Alternative de très haut vol pour records.",
+      "pros": [
+        "Carbone",
+        "Optimisé foulée"
+      ]
+    },
+    "FujiSpeed": {
+      "type": "Trail",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "240g",
+      "drop": 5,
+      "expertVibe": "Taillée pour exploser les chronos en trail.",
+      "pros": [
+        "Plaque carbone",
+        "Accroche"
+      ]
+    },
+    "Megablast": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Polyvalente",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "260g",
+      "drop": 8,
+      "expertVibe": "Le super-trainer à tout faire.",
+      "pros": [
+        "Polyvalence",
+        "Géométrie"
+      ]
+    },
+    "Gel-Cumulus": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 6,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "255g",
+      "drop": 8,
+      "expertVibe": "L'amorti classique et efficace.",
+      "pros": [
+        "Fiabilité",
+        "Confort"
+      ]
+    },
+    "Gel-Kayano": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Stabilité",
+      "amorti": 10,
+      "dynamisme": 5,
+      "stabilite": 10,
+      "cushion": "Moelleux",
+      "weight": "300g",
+      "drop": 10,
+      "expertVibe": "La reine mondiale du maintien structuré.",
+      "pros": [
+        "4D Guidance",
+        "Stabilité"
+      ]
+    },
+    "Gel-Trabuco": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "300g",
+      "drop": 8,
+      "expertVibe": "Le grand classique, stable et robuste.",
+      "pros": [
+        "Grip",
+        "Protection"
+      ]
+    },
+    "Noosa Tri": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "220g",
+      "drop": 5,
+      "expertVibe": "Taillée pour attaquer sur l'avant du pied.",
+      "pros": [
+        "Transition rapide",
+        "Légèreté"
+      ]
+    },
+    "Clifton 10": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "245g",
+      "drop": 5,
+      "expertVibe": "La nouvelle référence du confort quotidien.",
+      "pros": [
+        "Légèreté",
+        "Amorti amélioré"
+      ]
+    },
+    "Clifton": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "248g",
+      "drop": 5,
+      "expertVibe": "Idéale pour débuter tout en douceur.",
+      "pros": [
+        "Légèreté",
+        "Protection"
+      ]
+    },
+    "Speedgoat 6": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "270g",
+      "drop": 5,
+      "expertVibe": "Plus légère et plus accrocheuse que jamais.",
+      "pros": [
+        "Vibram Megagrip",
+        "Légèreté"
+      ]
+    },
+    "Speedgoat": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "278g",
+      "drop": 5,
+      "expertVibe": "La référence absolue pour l'ultra.",
+      "pros": [
+        "Vibram Megagrip",
+        "Amorti"
+      ]
+    },
+    "Bondi": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Récupération",
+      "amorti": 10,
+      "dynamisme": 5,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "305g",
+      "drop": 4,
+      "expertVibe": "Filtre presque toutes les vibrations.",
+      "pros": [
+        "Maximalisme",
+        "Santé"
+      ]
+    },
+    "Mach 6": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "230g",
+      "drop": 5,
+      "expertVibe": "Réactivité nitro pour vos entraînements rapides.",
+      "pros": [
+        "Super critital foam",
+        "Rebond"
+      ]
+    },
+    "Mach": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "232g",
+      "drop": 5,
+      "expertVibe": "Pousse naturellement à l'attaque médio-pied.",
+      "pros": [
+        "Drop faible",
+        "Légèreté"
+      ]
+    },
+    "Mach X": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Pebax",
+      "usage": "Intervalles",
+      "amorti": 9,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "260g",
+      "drop": 5,
+      "expertVibe": "Une approche plus douce de la plaque.",
+      "pros": [
+        "Plaque Pebax",
+        "Dynamisme"
+      ]
+    },
+    "Challenger": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Mixte",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "252g",
+      "drop": 5,
+      "expertVibe": "Parfaite pour alterner asphalte et sentiers.",
+      "pros": [
+        "Polyvalence"
+      ]
+    },
+    "Zinal": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 6,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "242g",
+      "drop": 4,
+      "expertVibe": "Un véritable karting pour les sentiers.",
+      "pros": [
+        "Précision",
+        "Relance"
+      ]
+    },
+    "Mafate": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Ferme",
+      "weight": "295g",
+      "drop": 4,
+      "expertVibe": "Maintien et grip supérieurs sur terrains techniques.",
+      "pros": [
+        "Accroche",
+        "Maintien"
+      ]
+    },
+    "Tecton X": {
+      "type": "Trail",
+      "hasPlate": true,
+      "plateType": "Carbone Parallel",
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "250g",
+      "drop": 5,
+      "expertVibe": "Dynamisme fou sans perdre en stabilité.",
+      "pros": [
+        "Double plaque carbone",
+        "Vitesse"
+      ]
+    },
+    "Gaviota": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Stabilité",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 10,
+      "cushion": "Moelleux",
+      "weight": "310g",
+      "drop": 5,
+      "expertVibe": "Amorti généreux avec châssis renforcé H-Frame.",
+      "pros": [
+        "Stabilité max",
+        "H-Frame"
+      ]
+    },
+    "Rebel": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Moelleux",
+      "weight": "210g",
+      "drop": 6,
+      "expertVibe": "Souplesse et flexibilité extrême.",
+      "pros": [
+        "FuelCell",
+        "Naturelle"
+      ]
+    },
+    "More Trail": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "310g",
+      "drop": 4,
+      "expertVibe": "Le maximalisme ultime pour ne plus sentir les cailloux.",
+      "pros": [
+        "Confort max",
+        "Protection"
+      ]
+    },
+    "More": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Récupération",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "295g",
+      "drop": 4,
+      "expertVibe": "Encore plus épaisse que la 1080.",
+      "pros": [
+        "Amorti max",
+        "Protection"
+      ]
+    },
+    "Hierro": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "300g",
+      "drop": 8,
+      "expertVibe": "Grand confort et grip Vibram redoutable.",
+      "pros": [
+        "Vibram",
+        "Confort"
+      ]
+    },
+    "SuperComp Trainer": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Polyvalente",
+      "amorti": 10,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "280g",
+      "drop": 6,
+      "expertVibe": "Le confort pour le long, la plaque pour le rythme.",
+      "pros": [
+        "Plaque carbone",
+        "Épaisseur"
+      ]
+    },
+    "SuperComp Pacer": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 6,
+      "dynamisme": 10,
+      "stabilite": 6,
+      "cushion": "Réactif",
+      "weight": "200g",
+      "drop": 8,
+      "expertVibe": "Pour les 5km explosifs au plus près du bitume.",
+      "pros": [
+        "Légèreté",
+        "Propulsion"
+      ]
+    },
+    "Azura": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Polyvalente",
+      "amorti": 7,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "240g",
+      "drop": 8,
+      "expertVibe": "Équilibre parfait confort/relance.",
+      "pros": [
+        "Polyvalence",
+        "Réponse"
+      ]
+    },
+    "Triumph": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "270g",
+      "drop": 10,
+      "expertVibe": "L'amorti luxueux parfait pour engloutir les km.",
+      "pros": [
+        "PWRRUN+",
+        "Luxe"
+      ]
+    },
+    "Endorphin Speed": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Nylon",
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "230g",
+      "drop": 8,
+      "expertVibe": "La plaque en nylon offre un excellent compromis.",
+      "pros": [
+        "Polyvalence",
+        "Dynamisme"
+      ]
+    },
+    "Endorphin Pro": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 10,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "210g",
+      "drop": 8,
+      "expertVibe": "Un rebond fabuleux et un grand confort.",
+      "pros": [
+        "Plaque carbone",
+        "Vitesse"
+      ]
+    },
+    "Peregrine 16": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "240g",
+      "drop": 4,
+      "expertVibe": "L'évolution de la vitesse en trail.",
+      "pros": [
+        "Accroche",
+        "Agilité",
+        "Version 16"
+      ]
+    },
+    "Peregrine": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "245g",
+      "drop": 4,
+      "expertVibe": "Poids plume, accroche de folie et agilité.",
+      "pros": [
+        "Accroche",
+        "Agilité"
+      ]
+    },
+    "Kinvara": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "200g",
+      "drop": 4,
+      "expertVibe": "La reine des chaussures légères et souples.",
+      "pros": [
+        "Légèreté",
+        "Sensation sol"
+      ]
+    },
+    "Genesis": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "270g",
+      "drop": 8,
+      "expertVibe": "Le confort et la durabilité pour tous les sentiers.",
+      "pros": [
+        "Polyvalence",
+        "Matryx résistante"
+      ]
+    },
+    "Aero Glide GRVL": {
+      "type": "Mixte",
+      "hasPlate": false,
+      "usage": "Mixte",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "270g",
+      "drop": 10,
+      "expertVibe": "L'arme ultime pour passer de la route au gravel.",
+      "pros": [
+        "Polyvalence",
+        "Fluidité"
+      ]
+    },
+    "Phantasm": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Energy Blade",
+      "usage": "Performance",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "235g",
+      "drop": 9,
+      "expertVibe": "Dynamisme naturel et grande légèreté.",
+      "pros": [
+        "Energy Blade",
+        "Relance"
+      ]
+    },
+    "Speedcross": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 7,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "300g",
+      "drop": 10,
+      "expertVibe": "Crampons agressifs pour ne jamais glisser.",
+      "pros": [
+        "Accroche boue",
+        "Maintien"
+      ]
+    },
+    "Ultra Glide": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "260g",
+      "drop": 6,
+      "expertVibe": "Gros amorti et profil rocker pour avancer sans forcer.",
+      "pros": [
+        "Confort",
+        "Rocker"
+      ]
+    },
+    "Cloudmonster": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "245g",
+      "drop": 6,
+      "expertVibe": "Amorti ludique sur nuages.",
+      "pros": [
+        "CloudTec"
+      ]
+    },
+    "Cloudboom Echo": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "220g",
+      "drop": 9,
+      "expertVibe": "Transition avec plaque très réactive.",
+      "pros": [
+        "Carbon Speedboard"
+      ]
+    },
+    "Cloudsurfer": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 7,
+      "cushion": "Moelleux",
+      "weight": "245g",
+      "drop": 10,
+      "expertVibe": "Fluidité exceptionnelle grâce au CloudTec Phase.",
+      "pros": [
+        "CloudTec Phase",
+        "Fluidité"
+      ]
+    },
+    "Cloudsurfer Trail": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Mixte",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "270g",
+      "drop": 7,
+      "expertVibe": "Fluidité exceptionnelle sur sentiers roulants.",
+      "pros": [
+        "CloudTec Phase",
+        "Trail léger"
+      ]
+    },
+    "Cloudultra": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "295g",
+      "drop": 5,
+      "expertVibe": "Conception pour les gonflements de pieds en fin d'ultra.",
+      "pros": [
+        "FlipRelease",
+        "Double CloudTec"
+      ]
+    },
+    "Cloudstratus": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "290g",
+      "drop": 8,
+      "expertVibe": "Double couche d'amorti pour un soutien massif.",
+      "pros": [
+        "Double CloudTec",
+        "Soutien"
+      ]
+    },
+    "Cloudflow": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "235g",
+      "drop": 9,
+      "expertVibe": "Chaussure ferme et directe.",
+      "pros": [
+        "Légèreté",
+        "Relance"
+      ]
+    },
+    "Ghost": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 6,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "280g",
+      "drop": 12,
+      "expertVibe": "La valeur sûre pour commencer sereinement.",
+      "pros": [
+        "Durabilité"
+      ]
+    },
+    "Adrenaline GTS": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 6,
+      "stabilite": 10,
+      "cushion": "Équilibré",
+      "weight": "290g",
+      "drop": 12,
+      "expertVibe": "GuideRails pour maintenir l'axe de la jambe.",
+      "pros": [
+        "Stabilité"
+      ]
+    },
+    "Cascadia": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Équilibré",
+      "weight": "300g",
+      "drop": 8,
+      "expertVibe": "Le grand classique qui pardonne les erreurs.",
+      "pros": [
+        "Robustesse",
+        "Polyvalence"
+      ]
+    },
+    "Cascadia Elite": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "290g",
+      "drop": 8,
+      "expertVibe": "Déclinaison performance agressive et réactive.",
+      "pros": [
+        "Accroche",
+        "Vitesse"
+      ]
+    },
+    "Hyperion Elite": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 10,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "230g",
+      "drop": 8,
+      "expertVibe": "Grande stabilité dans la relance carbone.",
+      "pros": [
+        "Plaque carbone",
+        "Stabilité"
+      ]
+    },
+    "Hyperion Tempo": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Intervalles",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Ferme",
+      "weight": "200g",
+      "drop": 8,
+      "expertVibe": "Légère et simple pour les premières séances.",
+      "pros": [
+        "Légèreté",
+        "DNA Flash"
+      ]
+    },
+    "Ghost Max": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "285g",
+      "drop": 6,
+      "expertVibe": "Pointe de rocker pour fluidifier la transition.",
+      "pros": [
+        "Rocker",
+        "Protection"
+      ]
+    },
+    "Glycerin": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "280g",
+      "drop": 10,
+      "expertVibe": "Le confort premium chez Brooks.",
+      "pros": [
+        "DNA Loft v3"
+      ]
+    },
+    "Hyperion": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "215g",
+      "drop": 8,
+      "expertVibe": "Proche du sol, légère et sans artifice.",
+      "pros": [
+        "Simplicité",
+        "Vitesse"
+      ]
+    },
+    "Wave Sky": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 10,
+      "dynamisme": 6,
+      "stabilite": 9,
+      "cushion": "Moelleux",
+      "weight": "300g",
+      "drop": 8,
+      "expertVibe": "Amorti massif pour gabarits forts.",
+      "pros": [
+        "Base large",
+        "Stabilité"
+      ]
+    },
+    "Wave Rider": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "280g",
+      "drop": 12,
+      "expertVibe": "Robuste, passe-partout et fiable.",
+      "pros": [
+        "Durabilité",
+        "Plaque Wave"
+      ]
+    },
+    "Wave Inspire": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Stabilité",
+      "amorti": 8,
+      "dynamisme": 7,
+      "stabilite": 10,
+      "cushion": "Équilibré",
+      "weight": "290g",
+      "drop": 12,
+      "expertVibe": "Corrige en douceur la pronation de fatigue.",
+      "pros": [
+        "Maintien",
+        "Stabilité"
+      ]
+    },
+    "Wave Mujin": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 9,
+      "cushion": "Ferme",
+      "weight": "310g",
+      "drop": 10,
+      "expertVibe": "Protection et traction rassurante.",
+      "pros": [
+        "Protection",
+        "Grip"
+      ]
+    },
+    "Wave Rebellion Flash": {
+      "type": "Route",
+      "hasPlate": true,
+      "plateType": "Fibre de verre",
+      "usage": "Intervalles",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Réactif",
+      "weight": "250g",
+      "drop": 8,
+      "expertVibe": "Plaque en fibre de verre pour le tempo.",
+      "pros": [
+        "Réactivité",
+        "Souplesse"
+      ]
+    },
+    "Skyrise": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 9,
+      "dynamisme": 7,
+      "stabilite": 8,
+      "cushion": "Moelleux",
+      "weight": "270g",
+      "drop": 8,
+      "expertVibe": "Sensation de flottement et souplesse d'accueil.",
+      "pros": [
+        "Flottement",
+        "Confort"
+      ]
+    },
+    "Prodigio": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "270g",
+      "drop": 6,
+      "expertVibe": "Rebond nécessaire tout en restant accessible.",
+      "pros": [
+        "Mousse XFlow"
+      ]
+    },
+    "Bushido": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 6,
+      "dynamisme": 8,
+      "stabilite": 9,
+      "cushion": "Ferme",
+      "weight": "250g",
+      "drop": 6,
+      "expertVibe": "Un chausson d'escalade précis pour la caillasse.",
+      "pros": [
+        "Précision",
+        "Accroche"
+      ]
+    },
+    "Prodigio Pro": {
+      "type": "Trail",
+      "hasPlate": false,
+      "usage": "Course",
+      "amorti": 8,
+      "dynamisme": 9,
+      "stabilite": 8,
+      "cushion": "Réactif",
+      "weight": "260g",
+      "drop": 6,
+      "expertVibe": "Mousse supercritique ultra-réactive.",
+      "pros": [
+        "XFlow+",
+        "Vitesse"
+      ]
+    },
+    "Fast-R": {
+      "type": "Performance",
+      "hasPlate": true,
+      "plateType": "Carbone",
+      "usage": "Course",
+      "amorti": 9,
+      "dynamisme": 10,
+      "stabilite": 6,
+      "cushion": "Réactif",
+      "weight": "220g",
+      "drop": 8,
+      "expertVibe": "Propulsion explosive et retour d'énergie phénoménal.",
+      "pros": [
+        "Design radical",
+        "Nitro Elite"
+      ]
+    },
+    "Velocity Nitro": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Quotidien",
+      "amorti": 8,
+      "dynamisme": 8,
+      "stabilite": 8,
+      "cushion": "Équilibré",
+      "weight": "260g",
+      "drop": 10,
+      "expertVibe": "Le rapport qualité/prix exceptionnel.",
+      "pros": [
+        "Nitro Foam",
+        "Fiabilité"
+      ]
+    },
+    "Liberate Nitro": {
+      "type": "Route",
+      "hasPlate": false,
+      "usage": "Performance",
+      "amorti": 7,
+      "dynamisme": 9,
+      "stabilite": 7,
+      "cushion": "Ferme",
+      "weight": "190g",
+      "drop": 8,
+      "expertVibe": "Extrêmement souple et basse.",
+      "pros": [
+        "Légèreté",
+        "Flexibilité"
+      ]
+    },
+    "Sonic Blast": {
+      "usage": "Compétition & Tempo",
+      "cushion": "Dynamique",
+      "hasPlate": true,
+      "plateType": "Plaque PEBAX",
+      "weight": "225g",
+      "drop": 8,
+      "stack": "38/30mm",
+      "amorti": 85,
+      "dynamisme": 90,
+      "stabilite": 80,
+      "pros": [
+        "Propulsion accessible",
+        "Légèreté",
+        "Dynamisme FF BLAST+"
+      ]
+    }
+  }
+}

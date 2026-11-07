@@ -52,7 +52,7 @@ export default function ShoeFinderPage() {
           </Link>
         </div>
 
-        <ShoeFinder startInWizardMode={true} raceSlug="page_shoe_finder" />
+        <ShoeFinder startInWizardMode={true} showCatalog={true} raceSlug="page_shoe_finder" />
 
         <div style={{ marginTop: '2.5rem' }}>
           <NutripurePartnerCard />
