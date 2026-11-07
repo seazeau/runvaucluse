@@ -5,7 +5,7 @@ import shoesData from '@/data/shoes.json';
 import configData from '@/data/shoeFinderConfig.json';
 import styles from './ShoeFinder.module.css';
 import {
-  Dna,
+  Sparkles,
   Target,
   Activity,
   Zap,
@@ -81,38 +81,63 @@ const TECH_SPECS: Record<string, Partial<ShoeModel>> = (
 const QUIZ_QUESTIONS = [
   {
     id: 'terrain',
-    question: 'SURFACE DE PRÉDILECTION ?',
-    options: ['ROUTE', 'MIXTE', 'TRAIL'],
+    question: 'Sur quel terrain courez-vous principalement ?',
+    options: [
+      { value: 'ROUTE', label: '🛣️ Route & Bitume' },
+      { value: 'MIXTE', label: '🌲 Chemins & Mixte' },
+      { value: 'TRAIL', label: '⛰️ Trail & Montagne' },
+    ],
     icon: Target,
   },
   {
     id: 'weight',
-    question: 'CATÉGORIE DE POIDS ?',
-    options: ['< 75KG', '75-85KG', '> 85KG'],
+    question: 'Quel est votre gabarit ?',
+    options: [
+      { value: '< 75KG', label: 'Moins de 75 kg' },
+      { value: '75-85KG', label: '75 à 85 kg' },
+      { value: '> 85KG', label: 'Plus de 85 kg' },
+    ],
     icon: Activity,
   },
   {
     id: 'experience',
-    question: "NIVEAU D'EXPERTISE ?",
-    options: ['DÉBUTANT', 'INTERMÉDIAIRE', 'PRO'],
+    question: 'Quel est votre niveau de pratique ?',
+    options: [
+      { value: 'DÉBUTANT', label: '🌱 Débutant / Loisir' },
+      { value: 'INTERMÉDIAIRE', label: '🏃 Régulier / Confirmé' },
+      { value: 'PRO', label: '⚡ Compétiteur / Intensif' },
+    ],
     icon: Award,
   },
   {
     id: 'volume',
-    question: 'DISTANCE HEBDO ?',
-    options: ['< 20KM', '20-50KM', '> 50KM'],
+    question: 'Quelle est votre distance hebdomadaire ?',
+    options: [
+      { value: '< 20KM', label: 'Moins de 20 km / sem' },
+      { value: '20-50KM', label: '20 à 50 km / sem' },
+      { value: '> 50KM', label: 'Plus de 50 km / sem' },
+    ],
     icon: TrendingUp,
   },
   {
     id: 'injury',
-    question: 'POINTS DE FRAGILITÉ ?',
-    options: ['AUCUNE', 'ARTICULATIONS', 'PIEDS'],
+    question: 'Avez-vous une sensibilité particulière ?',
+    options: [
+      { value: 'AUCUNE', label: 'Aucune fragilité' },
+      { value: 'ARTICULATIONS', label: 'Genoux / Articulations' },
+      { value: 'PIEDS', label: 'Pieds / Tendons' },
+    ],
     icon: Shield,
   },
   {
     id: 'priority',
-    question: 'OBJECTIF PRIORITAIRE ?',
-    options: ['VITESSE', 'CONFORT', 'PROTECTION', 'POLYVALENCE'],
+    question: 'Quel est votre objectif prioritaire ?',
+    options: [
+      { value: 'VITESSE', label: '🏁 Vitesse & Chrono' },
+      { value: 'CONFORT', label: '☁️ Confort & Plaisir' },
+      { value: 'PROTECTION', label: '🛡️ Protection & Stabilité' },
+      { value: 'POLYVALENCE', label: '🔄 Polyvalence (Tout-en-un)' },
+    ],
     icon: Zap,
   },
 ] as const;
@@ -128,7 +153,11 @@ export function ensureTop4RunningAffiliateUrl(url?: string, fallbackQuery?: stri
   return `${url}${separator}a_box=sc3esau3`;
 }
 
-function detectInitialProfileForRace(raceType?: string, raceName?: string, raceDistances?: string): {
+function detectInitialProfileForRace(
+  raceType?: string,
+  raceName?: string,
+  raceDistances?: string
+): {
   profileId: string;
   terrain: 'ROUTE' | 'MIXTE' | 'TRAIL';
 } {
@@ -141,15 +170,31 @@ function detectInitialProfileForRace(raceType?: string, raceName?: string, raceD
     hay.includes('ventouret') ||
     hay.includes('mont')
   ) {
-    if (hay.includes('ultra') || hay.includes('42') || hay.includes('50') || hay.includes('60') || hay.includes('80')) {
+    if (
+      hay.includes('ultra') ||
+      hay.includes('42') ||
+      hay.includes('50') ||
+      hay.includes('60') ||
+      hay.includes('80')
+    ) {
       return { profileId: 'ultra', terrain: 'TRAIL' };
     }
     return { profileId: 'trail-poly', terrain: 'TRAIL' };
   }
-  if (hay.includes('nature') || hay.includes('chemin') || hay.includes('vigne') || hay.includes('cross')) {
+  if (
+    hay.includes('nature') ||
+    hay.includes('chemin') ||
+    hay.includes('vigne') ||
+    hay.includes('cross')
+  ) {
     return { profileId: 'trail-poly', terrain: 'MIXTE' };
   }
-  if (hay.includes('marathon') || hay.includes('semi') || hay.includes('10 km') || hay.includes('10km')) {
+  if (
+    hay.includes('marathon') ||
+    hay.includes('semi') ||
+    hay.includes('10 km') ||
+    hay.includes('10km')
+  ) {
     return { profileId: 'records', terrain: 'ROUTE' };
   }
   return { profileId: 'polyvalent', terrain: 'ROUTE' };
@@ -221,7 +266,10 @@ async function fetchLiveTop4RunningFeed(fallbackShoes: ShoeModel[]): Promise<Sho
       const rawUrl = getTag(itemXml, 'url');
       const externalUrl = ensureTop4RunningAffiliateUrl(rawUrl, `${manufacturer} ${shortTitle}`);
       const imgurl = getTag(itemXml, 'imgurl');
-      const id = getTag(itemXml, 'itemgroup_id') || getTag(itemXml, 'item_id') || `${manufacturer}-${modelKey}`;
+      const id =
+        getTag(itemXml, 'itemgroup_id') ||
+        getTag(itemXml, 'item_id') ||
+        `${manufacturer}-${modelKey}`;
 
       const isWomen =
         fullCat.toLowerCase().includes('femme') ||
@@ -251,7 +299,8 @@ async function fetchLiveTop4RunningFeed(fallbackShoes: ShoeModel[]): Promise<Sho
         dynamisme: spec.dynamisme ?? 85,
         stabilite: spec.stabilite ?? 85,
         description:
-          spec.expertVibe || `Expertise RunVaucluse : ${spec.usage || 'Running'} • Amorti ${spec.cushion || 'Pro'}.`,
+          spec.expertVibe ||
+          `Expertise RunVaucluse : ${spec.usage || 'Running'} • Amorti ${spec.cushion || 'Pro'}.`,
         expertVibe: spec.expertVibe,
         pros: spec.pros || ['Performance validée', 'Valeur sûre'],
         cons: spec.cons || [],
@@ -262,7 +311,9 @@ async function fetchLiveTop4RunningFeed(fallbackShoes: ShoeModel[]): Promise<Sho
     if (matched.length === 0) return fallbackShoes;
 
     // Rule: Always sort by name descending to favor latest model versions
-    matched.sort((a, b) => b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }));
+    matched.sort((a, b) =>
+      b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
 
     const map = new Map<string, ShoeModel & { _penalty: number }>();
     const getVer = (name: string, mKey: string) => {
@@ -316,7 +367,6 @@ export default function ShoeFinder({
   const [shoes, setShoes] = useState<ShoeModel[]>(() => shoesData as unknown as ShoeModel[]);
   const [quizActive, setQuizActive] = useState<boolean>(startInWizardMode);
   const [step, setStep] = useState<number>(0);
-  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [answers, setAnswers] = useState<Record<string, string>>({
     terrain: initialCalibration.terrain,
     experience: 'INTERMÉDIAIRE',
@@ -369,9 +419,12 @@ export default function ShoeFinder({
       if (match) {
         return {
           ...match,
-          externalUrl: ensureTop4RunningAffiliateUrl(match.externalUrl, `${match.brand} ${match.name}`),
+          externalUrl: ensureTop4RunningAffiliateUrl(
+            match.externalUrl,
+            `${match.brand} ${match.name}`
+          ),
           expertReason: rec.why,
-          matchScore: 98 - idx * 5,
+          matchScore: 98 - idx * 4,
         };
       }
 
@@ -395,8 +448,8 @@ export default function ShoeFinder({
         stabilite: 85,
         description: rec.why,
         expertReason: rec.why,
-        pros: ['Sélection Expert', 'Dernière Génération'],
-        matchScore: 95 - idx * 5,
+        pros: ['Sélection Coach', 'Dernière Génération'],
+        matchScore: 95 - idx * 4,
       } as ShoeModel;
     });
   }, [activeProfile, selectedLevel, shoes]);
@@ -413,22 +466,17 @@ export default function ShoeFinder({
     if (step < QUIZ_QUESTIONS.length - 1) {
       setStep(step + 1);
     } else {
-      setIsAnalyzing(true);
       const matchedProf = computeProfileFromAnswers(nextAnswers);
       setSelectedProfileId(matchedProf.id);
       if (nextAnswers.experience) {
         setSelectedLevel(nextAnswers.experience as LevelKey);
       }
-      setTimeout(() => {
-        setIsAnalyzing(false);
-        setQuizActive(false);
-      }, 1100);
+      setQuizActive(false);
     }
   };
 
-  const startFullBiometricScan = () => {
+  const startDiagnostic = () => {
     setStep(0);
-    setIsAnalyzing(false);
     setQuizActive(true);
   };
 
@@ -450,7 +498,6 @@ export default function ShoeFinder({
     }
   };
 
-  // Catalog filtering & sorting
   const brandsList = useMemo(
     () => Array.from(new Set(shoes.map((s) => s.brand))).sort(),
     [shoes]
@@ -486,30 +533,19 @@ export default function ShoeFinder({
 
   return (
     <section
-      className={styles.scannerWrapper}
-      aria-label="Scanner Biométrique Chaussures Running & Trail"
+      className={styles.finderWrapper}
+      aria-label="Conseiller Chaussures Running & Trail RunVaucluse"
     >
-      {/* MAIN CYBER DNA SCANNER CARD */}
-      <div className={styles.cyberCard}>
-        <div className={`${styles.techCorner} ${styles.tcTl}`} />
-        <div className={`${styles.techCorner} ${styles.tcTr}`} />
-        <div className={`${styles.techCorner} ${styles.tcBl}`} />
-        <div className={`${styles.techCorner} ${styles.tcBr}`} />
-
-        {/* Subtle Radar Background */}
-        <div className={styles.radarBg}>
-          <div className={styles.radarCircleOuter} />
-        </div>
-
-        {/* TOP HUD BAR */}
+      <div className={styles.mainContainer}>
+        {/* Top Bar */}
         <div className={styles.topBar}>
-          <div className={styles.badgeRow}>
-            <span className={styles.dnaBadge}>
-              <Dna size={14} /> MAPPAGE_DNA v4.2 • 11 PROFILS × 3 NIVEAUX
+          <div className={styles.badgeGroup}>
+            <span className={styles.sunBadge}>
+              <Sparkles size={13} /> CONSEILLER CHAUSSURES 2026 • 11 PROFILS × 3 NIVEAUX
             </span>
             {raceName && (
-              <span className={styles.raceCalibratedBadge}>
-                <Compass size={13} /> CALIBRÉ : {raceName.toUpperCase()}
+              <span className={styles.raceBadge}>
+                <Compass size={13} /> Spécial {raceName}
               </span>
             )}
           </div>
@@ -517,154 +553,123 @@ export default function ShoeFinder({
           {quizActive ? (
             <button
               type="button"
-              onClick={() => {
-                setIsAnalyzing(false);
-                setQuizActive(false);
-              }}
-              className={styles.actionSwitchBtn}
+              onClick={() => setQuizActive(false)}
+              className={styles.modeBtn}
             >
-              <SlidersHorizontal size={14} /> [ MATRICE 11×3 DIRECTE ]
+              <SlidersHorizontal size={14} /> Voir la sélection par profil
             </button>
           ) : (
             <button
               type="button"
-              onClick={startFullBiometricScan}
-              className={styles.actionSwitchBtn}
+              onClick={startDiagnostic}
+              className={styles.modeBtn}
             >
-              <RotateCcw size={14} /> [ LANCER LE SCAN BIOMÉTRIQUE 6 ÉTAPES ]
+              <RotateCcw size={14} /> Faire le test en 6 questions
             </button>
           )}
         </div>
 
-        {/* HEADER TITLE */}
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          <h2 className={styles.heroTitle}>
+        {/* Title & Subtitle */}
+        <div className={styles.headerBlock}>
+          <h2 className={styles.mainTitle}>
             {raceName ? (
               <>
-                SÉLECTION DNA POUR{' '}
-                <span className={styles.heroTitleAccent}>{raceName}</span>
+                QUELLES CHAUSSURES POUR{' '}
+                <span className={styles.mainTitleAccent}>{raceName} ?</span>
               </>
             ) : (
               <>
-                ANALYSE TECH.{' '}
-                <span className={styles.heroTitleAccent}>SHOE SCANNER IA.</span>
+                TROUVEZ VOS 3 PAIRES{' '}
+                <span className={styles.mainTitleAccent}>IDÉALES EN 30 SECONDES</span>
               </>
             )}
           </h2>
-          <p className={styles.heroSubtitle}>
+          <p className={styles.subTitle}>
             {raceName
-              ? `Rayon X sur les exigences du parcours (${raceType || 'Course'}${
+              ? `Sélection calibrée pour le terrain de l'épreuve (${raceType || 'Course'}${
                   raceDistances ? ` • ${raceDistances}` : ''
-                }) croisé avec le flux live Top4Running 2026 pour extraire vos 3 paires idéales.`
-              : 'Rayon X sur votre profil biomécanique (surface, gabarit, volume hebdo, articulations et objectif) pour extraire vos 3 chaussures 2026 idéales.'}
+                }), mise à jour avec les derniers modèles 2026 sur Top4Running.`
+              : 'Sélectionnez directement votre profil parmi nos 11 profils types (Débutant, Régulier, Pro) ou répondez à 6 questions rapides pour obtenir votre recommandation sur-mesure.'}
           </p>
         </div>
 
-        {/* MODE A: 6-STEP BIOMETRIC QUIZ */}
-        {quizActive && !isAnalyzing && (
-          <div style={{ position: 'relative', zIndex: 2, marginTop: '1rem' }}>
-            <div className={styles.quizProgressHeader}>
-              <div>
-                <div className={styles.hudDataLight}>SÉQUENCE_CHARGEMENT</div>
-                <div className={styles.quizStepNum}>
-                  ÉTAPE_{step + 1} / {QUIZ_QUESTIONS.length}
-                </div>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div className={styles.hudDataLight}>PROGRESSION</div>
-                <div className={styles.quizStepNum} style={{ color: '#ffffff' }}>
-                  {Math.round(((step + 1) / QUIZ_QUESTIONS.length) * 100)}%
-                </div>
-              </div>
+        {/* MODE A: 6-QUESTION RUNNER DIAGNOSTIC */}
+        {quizActive && (
+          <div className={styles.quizBox}>
+            <div className={styles.quizHeaderRow}>
+              <span className={styles.quizStepLabel}>
+                Question {step + 1} sur {QUIZ_QUESTIONS.length}
+              </span>
+              <span className={styles.quizPctLabel}>
+                {Math.round(((step + 1) / QUIZ_QUESTIONS.length) * 100)}% complété
+              </span>
             </div>
 
-            <div className={styles.quizSegments}>
+            <div className={styles.progressTrack}>
               {QUIZ_QUESTIONS.map((q, idx) => (
                 <div
                   key={q.id}
-                  className={`${styles.quizSegment} ${
-                    idx <= step ? styles.quizSegmentActive : ''
+                  className={`${styles.progressSegment} ${
+                    idx <= step ? styles.progressSegmentActive : ''
                   }`}
                 />
               ))}
             </div>
 
-            <div className={styles.questionHeader}>
-              <div className={styles.questionIconRing}>
-                <CurrentQuestionIcon size={22} />
+            <div className={styles.questionTitleRow}>
+              <div className={styles.questionIconCircle}>
+                <CurrentQuestionIcon size={20} />
               </div>
-              <h3 className={styles.questionTitle}>{QUIZ_QUESTIONS[step].question}</h3>
+              <h3 className={styles.questionHeading}>{QUIZ_QUESTIONS[step].question}</h3>
             </div>
 
             <div className={styles.optionsGrid}>
               {QUIZ_QUESTIONS[step].options.map((option) => (
                 <button
-                  key={option}
+                  key={option.value}
                   type="button"
-                  onClick={() => handleQuizOptionSelect(option)}
-                  className={styles.quizOptionBtn}
+                  onClick={() => handleQuizOptionSelect(option.value)}
+                  className={styles.optionCardBtn}
                 >
-                  <div className={`${styles.techCorner} ${styles.tcTl}`} style={{ width: 8, height: 8 }} />
-                  <div className={`${styles.techCorner} ${styles.tcBr}`} style={{ width: 8, height: 8 }} />
-                  <span className={styles.quizOptionText}>{option}</span>
-                  <ChevronRight size={18} color="#fcb900" />
+                  <span>{option.label}</span>
+                  <ChevronRight size={18} color="#ea580c" />
                 </button>
               ))}
             </div>
 
             {step > 0 && (
-              <div style={{ marginTop: '1.5rem' }}>
-                <button
-                  type="button"
-                  onClick={() => setStep(step - 1)}
-                  className={styles.detailsBtn}
-                  style={{ width: 'auto', padding: '0.55rem 1rem' }}
-                >
-                  ← ÉTAPE PRÉCÉDENTE
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setStep(step - 1)}
+                className={styles.backStepBtn}
+              >
+                ← Revenir à la question précédente
+              </button>
             )}
           </div>
         )}
 
-        {/* MODE B: DNA RADAR ANALYZING ANIMATION */}
-        {quizActive && isAnalyzing && (
-          <div className={styles.analyzingBox}>
-            <div className={styles.dnaRadarSpinner}>
-              <div className={styles.dnaSpinnerRing} />
-              <Dna size={52} color="#fcb900" />
-            </div>
-            <h3 className={styles.questionTitle} style={{ marginBottom: '0.6rem' }}>
-              ANALYSE_DNA EN COURS...
-            </h3>
-            <p className={styles.hudData}>
-              CROISEMENT BIOMÉTRIQUE × FLUX LIVE TOP4RUNNING ({shoes.length} MODÈLES 2026)
-            </p>
-          </div>
-        )}
-
-        {/* MODE C: RESULTS + 11x3 EXPERT MATRIX SWITCHER */}
+        {/* MODE B: RESULTS + 11 PROFILES x 3 LEVELS SELECTOR */}
         {!quizActive && (
           <div>
-            {/* Detected Profile Banner */}
+            {/* Active Profile Banner */}
             <div className={styles.profileBanner}>
               <div>
-                <div className={styles.hudData}>PROFIL_DÉTECTÉ // SÉQUENÇAGE_TERMINÉ</div>
-                <h3 className={styles.profileBannerTitle}>{activeProfile.title}</h3>
-                <p className={styles.profileBannerDesc}>{activeProfile.description}</p>
+                <div className={styles.profileLabelSmall}>Profil sélectionné</div>
+                <h3 className={styles.profileTitle}>{activeProfile.title}</h3>
+                <p className={styles.profileDesc}>{activeProfile.description}</p>
               </div>
-              <div className={styles.inventoryCountBadge}>
-                <span className={styles.liveDot} />
-                FLUX LIVE 2026 : {shoes.length} MODÈLES SYNCHRONISÉS
-              </div>
+              <span className={styles.sunBadge} style={{ background: '#ffffff' }}>
+                ✓ {shoes.length} modèles 2026 synchronisés
+              </span>
             </div>
 
-            {/* Direct 11 Profiles x 3 Levels Switcher */}
-            <div className={styles.matrixControls}>
+            {/* 11 Profiles x 3 Levels Filter Bar */}
+            <div className={styles.controlsBar}>
               <div className={styles.controlRow}>
-                <span className={styles.controlLabel}>PROFIL (11 PROFILS) :</span>
+                <span className={styles.controlLabel}>1. Votre profil :</span>
                 <select
-                  aria-label="Sélectionner un des 11 profils de coureur"
+                  aria-label="Choisir parmi les 11 profils de coureur"
                   value={selectedProfileId}
                   onChange={(e) => setSelectedProfileId(e.target.value)}
                   className={styles.profileSelect}
@@ -678,7 +683,7 @@ export default function ShoeFinder({
               </div>
 
               <div className={styles.controlRow}>
-                <span className={styles.controlLabel}>NIVEAU (3 NIVEAUX) :</span>
+                <span className={styles.controlLabel}>2. Votre niveau :</span>
                 <div className={styles.levelPills}>
                   {(['DÉBUTANT', 'INTERMÉDIAIRE', 'PRO'] as LevelKey[]).map((lvl) => (
                     <button
@@ -690,60 +695,43 @@ export default function ShoeFinder({
                       }`}
                     >
                       {lvl === 'DÉBUTANT'
-                        ? '⚡ DÉBUTANT / LOISIR'
+                        ? '🌱 Débutant / Loisir'
                         : lvl === 'INTERMÉDIAIRE'
-                        ? '🔥 INTERMÉDIAIRE / RÉGULIER'
-                        : '🏆 PRO / PERFORMANCE'}
+                        ? '🏃 Intermédiaire / Régulier'
+                        : '⚡ Pro / Compétition'}
                     </button>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* 3 RECOMMENDED SHOES */}
+            {/* 3 Recommended Shoes */}
             <div className={styles.resultsGrid}>
               {recommendedShoes.map((shoe, idx) => (
                 <article
                   key={`${shoe.id}-${idx}`}
-                  className={`${styles.resultShoeCard} ${
-                    idx === 0 ? styles.resultShoeCardFeatured : ''
+                  className={`${styles.shoeCard} ${
+                    idx === 0 ? styles.shoeCardFeatured : ''
                   }`}
                 >
-                  <div className={`${styles.techCorner} ${styles.tcTl}`} style={{ opacity: 0.45 }} />
-                  <div className={`${styles.techCorner} ${styles.tcTr}`} style={{ opacity: 0.45 }} />
-                  <div className={`${styles.techCorner} ${styles.tcBl}`} style={{ opacity: 0.45 }} />
-                  <div className={`${styles.techCorner} ${styles.tcBr}`} style={{ opacity: 0.45 }} />
-
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '0.75rem',
-                    }}
-                  >
-                    <span className={styles.affinityBadge} style={{ marginBottom: 0 }}>
-                      AFFINITÉ_PROFIL : {shoe.matchScore || 98 - idx * 5}%
-                    </span>
+                  <div className={styles.cardTopMeta}>
                     <span
-                      className={styles.hudDataLight}
-                      style={{ color: '#34d399', fontSize: '0.6rem' }}
+                      className={`${styles.matchBadge} ${
+                        idx === 0 ? styles.matchBadgeFeatured : ''
+                      }`}
                     >
-                      ● EN_STOCK
+                      {idx === 0
+                        ? `★ Choix #1 (${shoe.matchScore || 98}%)`
+                        : `Affinité ${shoe.matchScore || 94 - idx * 4}%`}
                     </span>
+                    <span className={styles.stockTag}>● En stock</span>
                   </div>
 
-                  {/* Image Stage with Scan Line */}
                   <div
-                    className={styles.shoeImageStage}
+                    className={styles.imageBox}
                     onClick={() => setDetailShoe(shoe)}
-                    title="Voir la fiche technique complète"
+                    title="Voir la fiche détaillée"
                   >
-                    <div className={styles.dataGridOverlay} />
-                    <div
-                      className={styles.scanLine}
-                      style={{ animationDelay: `${idx * 0.6}s` }}
-                    />
                     <img
                       src={shoe.image || '/chaussure_jaune.svg'}
                       alt={`${shoe.brand} ${shoe.name}`}
@@ -752,41 +740,36 @@ export default function ShoeFinder({
                     />
                   </div>
 
-                  <div className={styles.shoeBrandLabel}>{shoe.brand}</div>
-                  <h4 className={styles.shoeModelTitle}>{shoe.name}</h4>
+                  <div className={styles.brandLabel}>{shoe.brand}</div>
+                  <h4 className={styles.shoeTitle}>{shoe.name}</h4>
 
-                  {/* Expert Reason */}
-                  <div className={styles.expertReasonBox}>
-                    <div className={styles.expertReasonLabel}>ANALYSE_EXPERT :</div>
-                    <p className={styles.expertReasonText}>
+                  <div className={styles.coachAdviceBox}>
+                    <div className={styles.coachAdviceLabel}>L&apos;avis du coach :</div>
+                    <p className={styles.coachAdviceText}>
                       {shoe.expertReason || shoe.description}
                     </p>
                   </div>
 
-                  {/* Weight / Drop / Price Triplet */}
-                  <div className={styles.specsTriplet}>
-                    <div className={styles.specCell}>
-                      <div className={styles.specCellLabel}>POIDS</div>
-                      <div className={styles.specCellVal}>{shoe.weight || '260g'}</div>
+                  <div className={styles.specsRow}>
+                    <div className={styles.specPill}>
+                      <div className={styles.specLabel}>Poids</div>
+                      <div className={styles.specValue}>{shoe.weight || '260g'}</div>
                     </div>
-                    <div className={styles.specCell}>
-                      <div className={styles.specCellLabel}>DROP</div>
-                      <div className={styles.specCellVal}>{shoe.drop ?? 8}MM</div>
+                    <div className={styles.specPill}>
+                      <div className={styles.specLabel}>Drop</div>
+                      <div className={styles.specValue}>{shoe.drop ?? 8} mm</div>
                     </div>
-                    <div className={styles.specCellPrice}>
-                      <div className={styles.specCellLabel} style={{ color: '#fcb900' }}>
-                        PRIX LIVE
-                      </div>
-                      <div className={styles.specCellPriceVal}>
-                        {shoe.price > 0 ? `${shoe.price}€` : 'VOIR'}
+                    <div className={styles.specPillPrice}>
+                      <div className={styles.specLabel}>Meilleur prix</div>
+                      <div className={styles.specValue}>
+                        {shoe.price > 0 ? `${shoe.price} €` : 'Voir'}
                       </div>
                     </div>
                   </div>
 
-                  {/* Biomechanical Gauges */}
-                  <div className={styles.gaugesBox}>
+                  <div className={styles.gaugesGroup}>
                     <div className={styles.gaugeRow}>
-                      <span className={styles.gaugeLabel}>AMORTI</span>
+                      <span className={styles.gaugeName}>Amorti</span>
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
@@ -795,7 +778,7 @@ export default function ShoeFinder({
                       </div>
                     </div>
                     <div className={styles.gaugeRow}>
-                      <span className={styles.gaugeLabel}>DYNAMISME</span>
+                      <span className={styles.gaugeName}>Dynamisme</span>
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
@@ -804,7 +787,7 @@ export default function ShoeFinder({
                       </div>
                     </div>
                     <div className={styles.gaugeRow}>
-                      <span className={styles.gaugeLabel}>STABILITÉ</span>
+                      <span className={styles.gaugeName}>Stabilité</span>
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
@@ -814,14 +797,13 @@ export default function ShoeFinder({
                     </div>
                   </div>
 
-                  {/* CTA Buttons */}
                   <div className={styles.cardActions}>
                     <button
                       type="button"
                       onClick={() => setDetailShoe(shoe)}
                       className={styles.detailsBtn}
                     >
-                      [ DÉTAILS ]
+                      Fiche complète
                     </button>
                     <a
                       href={ensureTop4RunningAffiliateUrl(
@@ -833,7 +815,7 @@ export default function ShoeFinder({
                       onClick={() => trackAffiliateClick(shoe)}
                       className={styles.buyBtn}
                     >
-                      VOIR L&apos;OFFRE <ArrowUpRight size={15} />
+                      Voir l&apos;offre <ArrowUpRight size={15} />
                     </a>
                   </div>
                 </article>
@@ -843,133 +825,99 @@ export default function ShoeFinder({
         )}
       </div>
 
-      {/* FULL LIVE INVENTORY EXPLORER (shown on /shoe-finder page) */}
+      {/* FULL 2026 CATALOG EXPLORER (shown on /shoe-finder page) */}
       {showCatalog && (
         <div id="shoe-list" className={styles.catalogSection}>
           <div className={styles.catalogHeader}>
-            <div className={styles.hudData} style={{ color: '#0f172a' }}>
-              BASE_DE_DONNÉES_BIOMÉCANIQUE // TOP4RUNNING 2026
-            </div>
-            <h2 className={styles.catalogTitle}>SÉLECTION_DNA ({filteredCatalog.length} MODÈLES)</h2>
+            <span className={styles.sunBadge}>CATALOGUE COMPLET 2026</span>
+            <h2 className={styles.catalogTitle}>
+              EXPLORER LES {filteredCatalog.length} MODÈLES DE RÉFÉRENCE
+            </h2>
+            <p className={styles.subTitle} style={{ margin: '0 auto' }}>
+              Comparez les dernières versions sorties (poids, drop, plaque carbone et tarifs en direct chez notre partenaire Top4Running).
+            </p>
           </div>
 
-          <div className={styles.searchBarContainer}>
-            <div className={styles.searchBox}>
-              <div className={`${styles.techCorner} ${styles.tcTl}`} />
-              <div className={`${styles.techCorner} ${styles.tcTr}`} />
-              <div className={`${styles.techCorner} ${styles.tcBl}`} />
-              <div className={`${styles.techCorner} ${styles.tcBr}`} />
-              <Search size={18} color="#fcb900" style={{ marginRight: '1rem', flexShrink: 0 }} />
+          <div className={styles.catalogFilterPanel}>
+            <div className={styles.searchBar}>
+              <Search size={18} color="#5E6973" style={{ marginRight: '0.75rem', flexShrink: 0 }} />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="RECHERCHER UN MODÈLE 2026 (EX: CLIFTON 11, PEGASUS 42, SPEEDGOAT 7, ADIOS PRO 5)..."
+                placeholder="Rechercher un modèle ou une marque (ex: Clifton 11, Pegasus 42, Speedgoat 7, Adios Pro 5)..."
                 className={styles.searchInput}
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#fcb900',
-                    cursor: 'pointer',
-                  }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#5E6973' }}
                 >
                   <X size={16} />
                 </button>
               )}
             </div>
 
-            <div className={styles.catalogFiltersRow}>
-              <select
-                aria-label="Filtrer par surface"
-                value={selectedSurfaceFilter}
-                onChange={(e) =>
-                  setSelectedSurfaceFilter(e.target.value as 'ALL' | 'ROUTE' | 'TRAIL')
-                }
-                className={styles.catalogSelect}
-              >
-                <option value="ALL">SURFACE : TOUTES ({shoes.length})</option>
-                <option value="ROUTE">🛣️ ROUTE & COMPÉTITION</option>
-                <option value="TRAIL">⛰️ TRAIL & ULTRA</option>
-              </select>
+            <div className={styles.catalogSelectRow}>
+              <div className={styles.catalogSelectGroup}>
+                <select
+                  aria-label="Filtrer par terrain"
+                  value={selectedSurfaceFilter}
+                  onChange={(e) =>
+                    setSelectedSurfaceFilter(e.target.value as 'ALL' | 'ROUTE' | 'TRAIL')
+                  }
+                  className={styles.catalogSelect}
+                >
+                  <option value="ALL">Tous les terrains ({shoes.length})</option>
+                  <option value="ROUTE">🛣️ Route & Compétition</option>
+                  <option value="TRAIL">⛰️ Trail & Chemins</option>
+                </select>
 
-              <select
-                aria-label="Filtrer par marque"
-                value={selectedBrand}
-                onChange={(e) => setSelectedBrand(e.target.value)}
-                className={styles.catalogSelect}
-              >
-                <option value="ALL">MARQUES : TOUTES ({brandsList.length})</option>
-                {brandsList.map((b) => (
-                  <option key={b} value={b}>
-                    {b.toUpperCase()}
-                  </option>
-                ))}
-              </select>
+                <select
+                  aria-label="Filtrer par marque"
+                  value={selectedBrand}
+                  onChange={(e) => setSelectedBrand(e.target.value)}
+                  className={styles.catalogSelect}
+                >
+                  <option value="ALL">Toutes les marques ({brandsList.length})</option>
+                  {brandsList.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
 
-              <select
-                aria-label="Trier par prix"
-                value={priceSort}
-                onChange={(e) => setPriceSort(e.target.value as 'NONE' | 'ASC' | 'DESC')}
-                className={styles.catalogSelect}
-              >
-                <option value="NONE">TRI : DERNIÈRES VERSIONS (A-Z)</option>
-                <option value="ASC">PRIX : CROISSANT (MOINS CHER)</option>
-                <option value="DESC">PRIX : DÉCROISSANT</option>
-              </select>
-
-              <div className={styles.inventoryCountBadge}>
-                <span className={styles.liveDot} />
-                LIVE_INVENTORY : {filteredCatalog.length} UNITS
+                <select
+                  aria-label="Trier par prix"
+                  value={priceSort}
+                  onChange={(e) => setPriceSort(e.target.value as 'NONE' | 'ASC' | 'DESC')}
+                  className={styles.catalogSelect}
+                >
+                  <option value="NONE">Tri : Dernières versions</option>
+                  <option value="ASC">Prix : du - cher au + cher</option>
+                  <option value="DESC">Prix : du + cher au - cher</option>
+                </select>
               </div>
+
+              <span className={styles.sunBadge}>
+                {filteredCatalog.length} modèles affichés
+              </span>
             </div>
           </div>
 
           <div className={styles.catalogGrid}>
             {filteredCatalog.map((shoe) => (
-              <article key={shoe.id} className={styles.resultShoeCard}>
-                <div className={`${styles.techCorner} ${styles.tcTl}`} style={{ opacity: 0.3 }} />
-                <div className={`${styles.techCorner} ${styles.tcTr}`} style={{ opacity: 0.3 }} />
-                <div className={`${styles.techCorner} ${styles.tcBl}`} style={{ opacity: 0.3 }} />
-                <div className={`${styles.techCorner} ${styles.tcBr}`} style={{ opacity: 0.3 }} />
-
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginBottom: '0.85rem',
-                  }}
-                >
-                  <div>
-                    <div className={styles.hudDataLight} style={{ fontSize: '0.48rem' }}>
-                      USAGE_CIBLE
-                    </div>
-                    <div className={styles.hudData} style={{ fontSize: '0.62rem' }}>
-                      {shoe.usage}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div className={styles.hudDataLight} style={{ fontSize: '0.48rem' }}>
-                      DISPONIBILITÉ
-                    </div>
-                    <div
-                      className={styles.hudData}
-                      style={{ fontSize: '0.62rem', color: '#34d399' }}
-                    >
-                      EN_STOCK
-                    </div>
-                  </div>
+              <article key={shoe.id} className={styles.shoeCard}>
+                <div className={styles.cardTopMeta}>
+                  <span className={styles.matchBadge}>{shoe.usage}</span>
+                  <span className={styles.stockTag}>● En stock</span>
                 </div>
 
                 <div
-                  className={styles.shoeImageStage}
+                  className={styles.imageBox}
                   onClick={() => setDetailShoe(shoe)}
                 >
-                  <div className={styles.dataGridOverlay} />
                   <img
                     src={shoe.image || '/chaussure_jaune.svg'}
                     alt={`${shoe.brand} ${shoe.name}`}
@@ -978,24 +926,22 @@ export default function ShoeFinder({
                   />
                 </div>
 
-                <div className={styles.shoeBrandLabel}>{shoe.brand}</div>
-                <h3 className={styles.shoeModelTitle}>{shoe.name}</h3>
+                <div className={styles.brandLabel}>{shoe.brand}</div>
+                <h3 className={styles.shoeTitle}>{shoe.name}</h3>
 
-                <div className={styles.specsTriplet}>
-                  <div className={styles.specCell}>
-                    <div className={styles.specCellLabel}>POIDS</div>
-                    <div className={styles.specCellVal}>{shoe.weight}</div>
+                <div className={styles.specsRow}>
+                  <div className={styles.specPill}>
+                    <div className={styles.specLabel}>Poids</div>
+                    <div className={styles.specValue}>{shoe.weight}</div>
                   </div>
-                  <div className={styles.specCell}>
-                    <div className={styles.specCellLabel}>DROP</div>
-                    <div className={styles.specCellVal}>{shoe.drop}MM</div>
+                  <div className={styles.specPill}>
+                    <div className={styles.specLabel}>Drop</div>
+                    <div className={styles.specValue}>{shoe.drop} mm</div>
                   </div>
-                  <div className={styles.specCellPrice}>
-                    <div className={styles.specCellLabel} style={{ color: '#fcb900' }}>
-                      PRIX
-                    </div>
-                    <div className={styles.specCellPriceVal}>
-                      {shoe.price > 0 ? `${shoe.price}€` : 'TBC'}
+                  <div className={styles.specPillPrice}>
+                    <div className={styles.specLabel}>Prix</div>
+                    <div className={styles.specValue}>
+                      {shoe.price > 0 ? `${shoe.price} €` : 'Voir'}
                     </div>
                   </div>
                 </div>
@@ -1006,7 +952,7 @@ export default function ShoeFinder({
                     onClick={() => setDetailShoe(shoe)}
                     className={styles.detailsBtn}
                   >
-                    [ DÉTAILS ]
+                    Détails
                   </button>
                   <a
                     href={ensureTop4RunningAffiliateUrl(
@@ -1018,7 +964,7 @@ export default function ShoeFinder({
                     onClick={() => trackAffiliateClick(shoe)}
                     className={styles.buyBtn}
                   >
-                    ACHETER <ArrowUpRight size={14} />
+                    Voir l&apos;offre <ArrowUpRight size={14} />
                   </a>
                 </div>
               </article>
@@ -1027,7 +973,7 @@ export default function ShoeFinder({
         </div>
       )}
 
-      {/* TECHNICAL DETAILS MODAL */}
+      {/* MODAL FICHE TECHNIQUE */}
       {detailShoe && (
         <div
           className={styles.modalBackdrop}
@@ -1036,95 +982,69 @@ export default function ShoeFinder({
           aria-modal="true"
         >
           <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-            <div className={`${styles.techCorner} ${styles.tcTl}`} />
-            <div className={`${styles.techCorner} ${styles.tcTr}`} />
-            <div className={`${styles.techCorner} ${styles.tcBl}`} />
-            <div className={`${styles.techCorner} ${styles.tcBr}`} />
-
             <button
               type="button"
               onClick={() => setDetailShoe(null)}
               className={styles.modalCloseBtn}
               aria-label="Fermer"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
 
-            <div className={styles.modalImageCol}>
-              <div className={styles.dataGridOverlay} />
-              <div className={styles.scanLine} />
+            <div className={styles.modalImageSide}>
               <img
                 src={detailShoe.image || '/chaussure_jaune.svg'}
                 alt={`${detailShoe.brand} ${detailShoe.name}`}
                 style={{
                   maxWidth: '88%',
-                  maxHeight: '280px',
+                  maxHeight: '260px',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 20px 35px rgba(0,0,0,0.75))',
-                  position: 'relative',
-                  zIndex: 2,
+                  filter: 'drop-shadow(0 16px 28px rgba(17,20,23,0.16))',
                 }}
               />
             </div>
 
-            <div className={styles.modalInfoCol}>
-              <div className={styles.hudData} style={{ marginBottom: '0.35rem' }}>
-                FLUX_DONNÉES // {detailShoe.brand.toUpperCase()}
-              </div>
-              <h2
-                className={styles.heroTitle}
-                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', marginBottom: '1.5rem' }}
-              >
+            <div className={styles.modalContentSide}>
+              <div className={styles.brandLabel}>{detailShoe.brand}</div>
+              <h2 className={styles.mainTitle} style={{ fontSize: '2.4rem', marginBottom: '1.25rem' }}>
                 {detailShoe.name}
               </h2>
 
               <div className={styles.modalSpecsGrid}>
                 <div>
-                  <div className={styles.hudDataLight} style={{ fontSize: '0.52rem' }}>
-                    USAGE RECOMMANDÉ
-                  </div>
-                  <div style={{ fontWeight: 900, fontSize: '0.95rem', color: '#ffffff' }}>
-                    {detailShoe.usage}
-                  </div>
+                  <div className={styles.specLabel}>Usage idéal</div>
+                  <div className={styles.specValue}>{detailShoe.usage}</div>
                 </div>
                 <div>
-                  <div className={styles.hudDataLight} style={{ fontSize: '0.52rem' }}>
-                    SYSTÈME D&apos;AMORTI
-                  </div>
-                  <div style={{ fontWeight: 900, fontSize: '0.95rem', color: '#ffffff' }}>
+                  <div className={styles.specLabel}>Type d&apos;amorti</div>
+                  <div className={styles.specValue}>
                     {detailShoe.cushionType || detailShoe.cushion || 'Dynamique'}
                   </div>
                 </div>
                 <div>
-                  <div className={styles.hudDataLight} style={{ fontSize: '0.52rem' }}>
-                    PLAQUE / PROPULSION
-                  </div>
-                  <div style={{ fontWeight: 900, fontSize: '0.95rem', color: '#ffffff' }}>
+                  <div className={styles.specLabel}>Plaque de propulsion</div>
+                  <div className={styles.specValue}>
                     {detailShoe.hasPlate
-                      ? (detailShoe.plateType || 'Plaque Carbone').toUpperCase()
-                      : 'SANS PLAQUE (FLEXIBLE)'}
+                      ? detailShoe.plateType || 'Plaque Carbone'
+                      : 'Sans plaque (souple)'}
                   </div>
                 </div>
                 <div>
-                  <div className={styles.hudDataLight} style={{ fontSize: '0.52rem' }}>
-                    POIDS / DROP / PROFIL
-                  </div>
-                  <div style={{ fontWeight: 900, fontSize: '0.95rem', color: '#fcb900' }}>
-                    {detailShoe.weight} • Drop {detailShoe.drop}mm ({detailShoe.stackHeight || detailShoe.stack || '36/28mm'})
+                  <div className={styles.specLabel}>Poids / Drop / Profil</div>
+                  <div className={styles.specValue}>
+                    {detailShoe.weight} • Drop {detailShoe.drop} mm (
+                    {detailShoe.stackHeight || detailShoe.stack || '36/28mm'})
                   </div>
                 </div>
               </div>
 
               <div style={{ marginBottom: '1.5rem' }}>
-                <div
-                  className={styles.hudDataLight}
-                  style={{ fontSize: '0.52rem', marginBottom: '0.6rem' }}
-                >
-                  POINTS FORTS VALIDÉS
+                <div className={styles.specLabel} style={{ marginBottom: '0.5rem' }}>
+                  Points forts du modèle
                 </div>
-                <div className={styles.prosTagList} style={{ marginBottom: 0 }}>
+                <div className={styles.prosList} style={{ marginBottom: 0 }}>
                   {(detailShoe.pros || ['Performance validée', 'Valeur sûre']).map((p) => (
-                    <span key={p} className={styles.proTag}>
+                    <span key={p} className={styles.proBadge}>
                       ✓ {p}
                     </span>
                   ))}
@@ -1140,9 +1060,9 @@ export default function ShoeFinder({
                 rel="noopener noreferrer sponsored"
                 onClick={() => trackAffiliateClick(detailShoe)}
                 className={styles.buyBtn}
-                style={{ padding: '1.1rem', fontSize: '0.85rem' }}
+                style={{ padding: '1rem', fontSize: '0.88rem', marginTop: 'auto' }}
               >
-                COMMANDER SUR TOP4RUNNING ({detailShoe.price}€) <ArrowUpRight size={18} />
+                Commander sur Top4Running ({detailShoe.price} €) <ArrowUpRight size={17} />
               </a>
             </div>
           </div>
