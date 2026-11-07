@@ -4,6 +4,7 @@ import { MapPin, Zap, Mountain, ChevronLeft, Download, Info, Lightbulb, Trophy }
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import GPXViewer from '@/components/GPXViewer';
+import ShoeFinder from '@/components/ShoeFinder';
 import { getResultsBySlug } from '@/lib/db';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -122,6 +123,13 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
                   <p>{route.advice}</p>
                 </div>
               )}
+
+              <ShoeFinder
+                raceName={route.title}
+                raceType="Trail"
+                raceDistances={`${route.distance} • ${route.elevation}`}
+                raceSlug={`explorer_${route.slug}`}
+              />
             </div>
 
             {/* Right Column: Stats & Action */}

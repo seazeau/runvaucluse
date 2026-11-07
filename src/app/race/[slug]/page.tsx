@@ -10,6 +10,7 @@ import CyberCardGenerator from '@/components/CyberCardGenerator';
 import AvignonMarathonDossier from '@/components/AvignonMarathonDossier';
 import TerroirsMarathonDossier from '@/components/TerroirsMarathonDossier';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
+import ShoeFinder from '@/components/ShoeFinder';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -522,6 +523,13 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
           </section>
 
           <NutripurePartnerCard />
+
+          <ShoeFinder
+            raceName={race.name}
+            raceType={race.type}
+            raceDistances={race.distances}
+            raceSlug={race.slug}
+          />
 
           <div className={styles.mapContainer}>
             <div className={styles.mapHeader}>

@@ -34,9 +34,9 @@ export default function Navbar() {
         <div className={`${styles.links} ${isMobileMenuOpen ? styles.linksVisible : ''}`}>
           <Link href={isHome ? "#accueil" : "/"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Accueil</Link>
           <Link href={isHome ? "#calendrier" : "/#calendrier"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Calendrier</Link>
-          {/* <Link href="/explorer" className={`${styles.navLink} ${pathname.startsWith('/explorer') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Explorer</Link> */}
           <Link href="/resultats" className={`${styles.navLink} ${pathname.startsWith('/resultats') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>RÉSULTATS</Link>
           <Link href="/records" className={`${styles.navLink} ${pathname.startsWith('/records') || pathname.startsWith('/wall-of-fame') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>RECORDS</Link>
+          <Link href="/shoe-finder" className={`${styles.navLink} ${pathname.startsWith('/shoe-finder') ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>SHOE FINDER</Link>
           <Link href={isHome ? "#clubs" : "/#clubs"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Clubs</Link>
           <Link href={isHome ? "#a-propos" : "/#a-propos"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>À propos</Link>
           <Link href={isHome ? "#contact" : "/#contact"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>

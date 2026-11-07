@@ -6,6 +6,7 @@ import FAQSection from '@/components/FAQSection';
 import AboutSection from '@/components/AboutSection';
 import SEOSection from '@/components/SEOSection';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
+import ShoeFinder from '@/components/ShoeFinder';
 import { Race } from '@/lib/types';
 import styles from './page.module.css';
 import { Plus, AlertCircle, Calendar } from 'lucide-react';
@@ -49,6 +50,10 @@ export default async function Home() {
           </header>
           
           <RaceList initialRaces={racesData as Race[]} />
+
+          <div style={{ marginTop: '3.5rem' }}>
+            <ShoeFinder startInWizardMode={true} raceSlug="homepage_scanner" />
+          </div>
         </div>
       </section>
 
