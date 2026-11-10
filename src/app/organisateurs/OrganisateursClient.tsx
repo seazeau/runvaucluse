@@ -47,8 +47,8 @@ export default function OrganisateursClient() {
 
     const packLabels: { [k: string]: string } = {
       'pack-gratuit': 'Pack 1 : Référencement Gratuit (Mise à jour / Inscription)',
-      'pack-visibilite': 'Pack 2 : Visibilité & Course Vedette',
-      'pack-site': 'Pack 3 : Création de Site Internet Dédié pour la Course',
+      'pack-visibilite': 'Pack 2 : Visibilité & Course Vedette (149 €)',
+      'pack-site': 'Pack 3 : Création de Site Internet Dédié (490 € + 190 €/an)',
       'studio-graphique': 'Studio Graphique : Affiche Collector & Vidéo GPX'
     };
 
@@ -229,14 +229,19 @@ export default function OrganisateursClient() {
                 </p>
 
                 <div className={styles.priceTag}>
-                  <span className={styles.priceAmount}>Dès 690 €</span>
-                  <span className={styles.pricePeriod}>Sur devis</span>
+                  <div>
+                    <span className={styles.priceAmount}>490 €</span>
+                    <div style={{ fontSize: '0.75rem', color: '#5E6973', fontFamily: 'var(--font-mono, monospace)', marginTop: '0.2rem' }}>
+                      puis 190 € / an ensuite
+                    </div>
+                  </div>
+                  <span className={styles.pricePeriod}>Création + Suivi Annuel</span>
                 </div>
 
                 <ul className={styles.featuresList}>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
-                    <span><strong>Site vitrine moderne & ultra-rapide</strong> pensé pour mobile</span>
+                    <span><strong>Site vitrine moderne & ultra-rapide</strong> conçu pour mobile</span>
                   </li>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
@@ -244,7 +249,7 @@ export default function OrganisateursClient() {
                   </li>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
-                    <span>Bouton d&apos;inscription pro relié à votre chronométreur</span>
+                    <span>Bouton d&apos;inscription pro relié à votre chronométreur (KMS, Nikrome, Njuko...)</span>
                   </li>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
@@ -252,11 +257,19 @@ export default function OrganisateursClient() {
                   </li>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
-                    <span><strong>Mur valorisant pour vos sponsors</strong> et collectivités locales</span>
+                    <span><strong>Mur valorisant pour vos sponsors</strong> et partenaires locaux</span>
                   </li>
                   <li className={styles.featureItem}>
                     <Check size={18} className={styles.featureIcon} />
-                    <span>Nom de domaine personnalisé (.fr / .com) et hébergement inclus</span>
+                    <span><strong>Édition annuelle garantie (190 €/an)</strong> : mise à jour complète (parcours, dates, sponsors, résultats) à chaque nouvelle édition</span>
+                  </li>
+                  <li className={styles.featureItem}>
+                    <Check size={18} className={styles.featureIcon} />
+                    <span>Nom de domaine personnalisé (.fr / .com), hébergement haute performance & SSL inclus</span>
+                  </li>
+                  <li className={styles.featureItem}>
+                    <Check size={18} className={styles.featureIcon} />
+                    <span><strong>Zéro tracas technique</strong> pour les bénévoles de votre association</span>
                   </li>
                 </ul>
               </div>
@@ -338,7 +351,7 @@ export default function OrganisateursClient() {
                   onChange={handleChange}
                   required
                 >
-                  <option value="pack-site">🌟 Pack 3 : Création de Site Internet Dédié (Dès 690 €)</option>
+                  <option value="pack-site">🌟 Pack 3 : Création de Site Dédié (490 € puis 190 €/an)</option>
                   <option value="pack-visibilite">🚀 Pack 2 : Visibilité & Course Vedette (149 €)</option>
                   <option value="pack-gratuit">✅ Pack 1 : Référencement Gratuit (0 €)</option>
                   <option value="studio-graphique">🎨 Studio : Affiche Collector ou Vidéo GPX</option>
