@@ -52,8 +52,8 @@ export default function AboutSection() {
               {/* Technical athletic credentials grid */}
               <div className={styles.telemetryGrid}>
                 <div className={styles.telemetryCell}>
-                  <span className={styles.telemetryLabel}>RECORD 10 KM</span>
-                  <span className={styles.telemetryValue}>34&apos;48&quot; (SUB-35&apos;)</span>
+                  <span className={styles.telemetryLabel}>PERFORMANCE</span>
+                  <span className={styles.telemetryValue}>SUB-3H MARATHON</span>
                 </div>
                 <div className={styles.telemetryCell}>
                   <span className={styles.telemetryLabel}>FORMATION</span>
@@ -84,7 +84,7 @@ export default function AboutSection() {
               </p>
 
               <p className={styles.storyParagraph}>
-                Derrière ce projet, je suis <strong><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener" className={styles.storyLink}>Vincent Buisson</a></strong>, coureur passionné sur route (sub-35&apos; au 10 km) et <strong>entraîneur course à pied diplômé STAPS (Sciences et Techniques des Activités Physiques et Sportives)</strong>. 
+                Derrière ce projet, je suis <strong><a href="https://vincentbuisson.fr/" target="_blank" rel="noopener" className={styles.storyLink}>Vincent Buisson</a></strong>, coureur passionné sur route (sub-3h au marathon) et <strong>entraîneur course à pied diplômé STAPS (Sciences et Techniques des Activités Physiques et Sportives)</strong>. 
                 Au quotidien, j&apos;accompagne à distance des coureurs et coureuses de tous niveaux — du premier dossard aux quêtes de records personnels en{' '}
                 <a href="https://vincentbuisson.fr/coaching-10km/" target="_blank" rel="noopener" className={styles.storyLink}>coaching 10 km</a>,{' '}
                 <a href="https://vincentbuisson.fr/coaching-semi-marathon/" target="_blank" rel="noopener" className={styles.storyLink}>préparation semi-marathon</a> et{' '}
