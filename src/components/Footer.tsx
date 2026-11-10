@@ -50,7 +50,6 @@ export default function Footer() {
               <li><Link href="/resultats"><Trophy size={14} /> Résultats Officiels</Link></li>
               <li><Link href="/#clubs"><Users size={14} /> Clubs & Associations</Link></li>
               <li><Link href="/#a-propos"><UserCheck size={14} /> À propos & Fondateur</Link></li>
-              <li><Link href="/organisateurs"><Globe size={14} /> Espace Organisateurs & Sites</Link></li>
             </ul>
           </div>
 
