@@ -20,12 +20,12 @@ export default function AboutSection() {
           {/* Header Badge */}
           <div className={styles.headerBadge}>
             <span className={styles.badgeDot}></span>
-            <span>// FONDATEUR & COACHING ATHLÈTES</span>
+            <span>À PROPOS • QUI EST DERRIÈRE RUNVAUCLUSE ?</span>
           </div>
 
           <div className={styles.mainGrid}>
             
-            {/* LEFT: ATHLETE & COACH PROFILE CARD */}
+            {/* LEFT: ATHLETE TRADING CARD */}
             <div className={styles.athleteCard}>
               <div className={styles.imageWrapper}>
                 <Image
@@ -39,8 +39,8 @@ export default function AboutSection() {
                 <div className={styles.imageGradient} />
                 
                 <div className={styles.imageOverlayBadge}>
-                  <Sparkles size={12} color="#F6C83B" />
-                  <span>FONDATEUR & COACH ATHLÈTES</span>
+                  <Sparkles size={11} color="#F6C83B" />
+                  <span>FONDATEUR & COACH RUNNING</span>
                 </div>
 
                 <div className={styles.coachIdentity}>
@@ -70,12 +70,12 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* RIGHT: EDITORIAL STORY & COACHING APPROACH */}
+            {/* RIGHT: EDITORIAL STORY & SCIENCE */}
             <div className={styles.contentCol}>
               <div>
                 <h2 className={styles.title}>
                   PASSION DU BITUME, <br />
-                  <span className={styles.titleHighlight}>SCIENCE DE L&apos;ENTRAÎNEMENT.</span>
+                  <span className={styles.titleHighlight}>SCIENCE DU MOUVEMENT.</span>
                 </h2>
               </div>
 
@@ -165,7 +165,7 @@ export default function AboutSection() {
               </div>
 
               <p className={styles.guaranteeNote}>
-                <ShieldCheck size={14} color="#10b981" />
+                <ShieldCheck size={14} color="#059669" />
                 <span>// SUIVI DIRECT ET PERSONNALISÉ PAR VINCENT BUISSON • RÉPONSE EN MOINS DE 24H</span>
               </p>
 
