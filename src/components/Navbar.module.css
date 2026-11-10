@@ -89,6 +89,34 @@
   background: var(--dark-ink);
 }
 
+.organizerLink {
+  background: var(--dark-ink);
+  color: #FAF1D6 !important;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.organizerLink:hover {
+  background: #000000;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.organizerLink.active {
+  background: var(--accent-yellow);
+  color: #000000 !important;
+}
+
+.organizerLink.active::after {
+  display: none;
+}
+
 .actions {
   display: none;
 }

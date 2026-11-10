@@ -40,6 +40,7 @@ export default function Navbar() {
           <Link href={isHome ? "#clubs" : "/#clubs"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Clubs</Link>
           <Link href={isHome ? "#a-propos" : "/#a-propos"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>À propos</Link>
           <Link href={isHome ? "#contact" : "/#contact"} className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          <Link href="/organisateurs" className={`${styles.navLink} ${styles.organizerLink} ${pathname === '/organisateurs' ? styles.active : ''}`} onClick={() => setIsMobileMenuOpen(false)}>ORGANISATEURS</Link>
         </div>
 
         <button className={styles.mobileToggle} onClick={toggleMobileMenu} aria-label="Toggle menu">
