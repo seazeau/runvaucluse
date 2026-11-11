@@ -233,7 +233,14 @@ export default function StudioClient({ races, latestWinners }: Props) {
   });
   const [openingHookBadge, setOpeningHookBadge] = useState<string>('TOP DÉPART AUJOURD\'HUI 🔔');
   const [openingPosterImg, setOpeningPosterImg] = useState<HTMLImageElement | null>(null);
+  const [fontsReady, setFontsReady] = useState(false);
   const openingPreviewCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => setFontsReady(true));
+    }
+  }, []);
 
   const activeOpeningRace = races.find(r => r.slug === selectedOpeningRaceSlug) || races[0];
 
@@ -377,10 +384,10 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // Preload race poster image for Race Opening Reel
   useEffect(() => {
+    setOpeningPosterImg(null);
     if (!activeOpeningRace) return;
     const imgUrl = (activeOpeningRace && customImages[activeOpeningRace.slug]) || activeOpeningRace?.image_url;
     if (!imgUrl) {
-      setOpeningPosterImg(null);
       return;
     }
     let cancelled = false;
@@ -415,7 +422,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
       openingRaceData,
       openingPosterImg
     );
-  }, [mode, reelTemplate, reelTime, openingRaceData, openingPosterImg]);
+  }, [mode, reelTemplate, reelTime, openingRaceData, openingPosterImg, fontsReady]);
 
   const handleSelectGpxPreset = (presetId: string) => {
     const preset = GPX_PRESETS.find((p) => p.id === presetId);
@@ -527,6 +534,23 @@ export default function StudioClient({ races, latestWinners }: Props) {
         }
       }
 
+      let safeOpeningImg: HTMLImageElement | null = openingPosterImg;
+      if (reelTemplate === 'opening' && openingPosterImg) {
+        const testCanvas = document.createElement('canvas');
+        testCanvas.width = 64;
+        testCanvas.height = 64;
+        const testCtx = testCanvas.getContext('2d');
+        if (testCtx) {
+          try {
+            testCtx.drawImage(openingPosterImg, 0, 0, 64, 64);
+            testCtx.getImageData(0, 0, 1, 1);
+          } catch {
+            console.warn('Tainted poster image detected, falling back to clean vector card');
+            safeOpeningImg = null;
+          }
+        }
+      }
+
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
@@ -554,7 +578,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
             height,
             t,
             openingRaceData,
-            openingPosterImg
+            safeOpeningImg
           );
         } else {
           drawReelFrame(ctx, width, height, t, currentRunner);

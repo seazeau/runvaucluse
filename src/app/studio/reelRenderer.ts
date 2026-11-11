@@ -1,3 +1,5 @@
+import { parseDistanceList } from '@/lib/utils';
+
 export interface ReelRunnerData {
   name: string;
   club: string;
@@ -499,6 +501,214 @@ export interface ReelRaceOpeningData {
   customSubtitle?: string;
 }
 
+function easeOutCubic(x: number): number {
+  const c = Math.max(0, Math.min(1, x));
+  return 1 - Math.pow(1 - c, 3);
+}
+
+function drawImageContained(
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  radius: number
+) {
+  ctx.save();
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.clip();
+
+  // Ambient subtle backdrop (dimmed cover) - zero ctx.filter overhead for fast MP4 export
+  const imgRatio = img.naturalWidth / Math.max(1, img.naturalHeight);
+  const boxRatio = w / Math.max(1, h);
+
+  let bgW = w, bgH = h, bgX = x, bgY = y;
+  if (imgRatio > boxRatio) {
+    bgH = h;
+    bgW = h * imgRatio;
+    bgX = x - (bgW - w) / 2;
+  } else {
+    bgW = w;
+    bgH = w / imgRatio;
+    bgY = y - (bgH - h) / 2;
+  }
+
+  ctx.fillStyle = '#0D1013';
+  ctx.fillRect(x, y, w, h);
+
+  ctx.save();
+  ctx.globalAlpha = 0.24;
+  ctx.drawImage(img, bgX, bgY, bgW, bgH);
+  ctx.restore();
+
+  // Contained crisp image (exact aspect ratio preserved, never stretched or cropped)
+  let drawW = w, drawH = h, drawX = x, drawY = y;
+  if (imgRatio > boxRatio) {
+    drawW = w;
+    drawH = w / imgRatio;
+    drawY = y + (h - drawH) / 2;
+  } else {
+    drawH = h;
+    drawW = h * imgRatio;
+    drawX = x + (w - drawW) / 2;
+  }
+  ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+  ctx.restore();
+}
+
+function drawAutoSizedSingleLine(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  startSize: number,
+  minSize: number,
+  fontWeight: number | string,
+  fontFamily: string
+) {
+  let size = startSize;
+  ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+  while (ctx.measureText(text).width > maxWidth && size > minSize) {
+    size -= 2;
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+  }
+
+  let output = text;
+  if (ctx.measureText(output).width > maxWidth) {
+    while (output.length > 3 && ctx.measureText(output + '…').width > maxWidth) {
+      output = output.slice(0, -1);
+    }
+    output = output.trim() + '…';
+  }
+  ctx.fillText(output, x, y);
+}
+
+function drawMultiLineCenteredText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  firstLineY: number,
+  maxWidth: number,
+  startSize: number,
+  minSize: number,
+  fontWeight: number | string,
+  fontFamily: string,
+  maxLines = 2
+): number {
+  let size = startSize;
+  ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+
+  // 1. If it fits comfortably on 1 line down to 76% of startSize, render single line
+  while (size >= Math.max(minSize, Math.round(startSize * 0.76))) {
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    if (ctx.measureText(text).width <= maxWidth) {
+      ctx.fillText(text, x, firstLineY);
+      return firstLineY;
+    }
+    size -= 2;
+  }
+
+  // 2. Otherwise split cleanly across up to maxLines balanced lines
+  const words = text.split(/\s+/).filter(Boolean);
+  let lines: string[] = [];
+
+  if (maxLines === 2 && words.length > 1) {
+    // Find best split point near the middle so lines are balanced
+    let bestSplit = 1;
+    let bestDiff = Infinity;
+    for (let i = 1; i < words.length; i++) {
+      const l1 = words.slice(0, i).join(' ');
+      const l2 = words.slice(i).join(' ');
+      const diff = Math.abs(l1.length - l2.length);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestSplit = i;
+      }
+    }
+    lines = [words.slice(0, bestSplit).join(' '), words.slice(bestSplit).join(' ')];
+  } else {
+    lines = [text];
+  }
+
+  // Shrink font until all lines fit inside maxWidth
+  size = Math.min(startSize, Math.round(startSize * 0.85));
+  while (size > minSize) {
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    const widest = Math.max(...lines.map(l => ctx.measureText(l).width));
+    if (widest <= maxWidth) break;
+    size -= 2;
+  }
+
+  ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+  const lineStep = Math.round(size * 0.96);
+
+  lines.forEach((line, idx) => {
+    let out = line;
+    if (ctx.measureText(out).width > maxWidth) {
+      while (out.length > 3 && ctx.measureText(out + '…').width > maxWidth) {
+        out = out.slice(0, -1);
+      }
+      out = out.trim() + '…';
+    }
+    ctx.fillText(out, x, firstLineY + idx * lineStep);
+  });
+
+  return firstLineY + (lines.length - 1) * lineStep;
+}
+
+function drawWrappedParagraph(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  startY: number,
+  maxWidth: number,
+  lineHeight: number,
+  maxLines: number
+): number {
+  const words = text.split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = '';
+
+  for (let i = 0; i < words.length; i++) {
+    const testLine = current ? `${current} ${words[i]}` : words[i];
+    if (ctx.measureText(testLine).width <= maxWidth) {
+      current = testLine;
+    } else {
+      if (current) {
+        lines.push(current);
+        current = words[i];
+      } else {
+        // Single extra-long word
+        lines.push(words[i]);
+        current = '';
+      }
+      if (lines.length >= maxLines) break;
+    }
+  }
+  if (current && lines.length < maxLines) {
+    lines.push(current);
+  }
+
+  // Add ellipsis on last line if truncated
+  const consumedWords = lines.join(' ').split(/\s+/).filter(Boolean).length;
+  if (consumedWords < words.length && lines.length > 0) {
+    let last = lines[lines.length - 1];
+    while (last.length > 3 && ctx.measureText(last + '…').width > maxWidth) {
+      last = last.slice(0, -1);
+    }
+    lines[lines.length - 1] = last.trim() + '…';
+  }
+
+  lines.forEach((line, idx) => {
+    ctx.fillText(line, x, startY + idx * lineHeight);
+  });
+
+  return startY + (lines.length - 1) * lineHeight;
+}
+
 export function drawOpeningReelFrame(
   ctx: CanvasRenderingContext2D,
   w: number,
@@ -554,9 +764,10 @@ export function drawOpeningReelFrame(
 
   // Brand Header
   ctx.save();
+  ctx.textAlign = 'left';
   ctx.fillStyle = '#FAF7F2';
   ctx.font = '900 48px "Bebas Neue", system-ui, sans-serif';
-  ctx.fillText('⚡ RUNVAUCLUSE', 80, 110);
+  ctx.fillText('⚡ RUNVAUCLUSE', 72, 110);
 
   // Dynamic Scene Badge on top-right
   let badgeText = '🚨 OUVERTURE DOSSARDS';
@@ -568,7 +779,7 @@ export function drawOpeningReelFrame(
   ctx.lineWidth = 2;
   const badgeW = 340;
   const badgeH = 48;
-  const badgeX = w - 80 - badgeW;
+  const badgeX = w - 72 - badgeW;
   const badgeY = 74;
   roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 24);
   ctx.fill();
@@ -582,41 +793,56 @@ export function drawOpeningReelFrame(
 
   // SCENE 1: HOOK & BIG OPENING ANNOUNCEMENT (0.0s to 3.2s)
   if (t < 3.2) {
+    const enterP = easeOutCubic(t / 0.45);
+    const slideOffset = (1 - enterP) * 35;
+
     ctx.save();
+    ctx.globalAlpha = enterP;
     ctx.textAlign = 'center';
 
     // Hook Pill
     const hookText = race.hookBadge || 'TOP DÉPART AUJOURD\'HUI 🔔';
+    ctx.font = '800 24px system-ui, sans-serif';
+    const hookW = Math.min(900, Math.max(460, ctx.measureText(hookText).width + 90));
+    const hookY = 260 + slideOffset;
+
     ctx.fillStyle = '#EB5E28';
-    const pillW = Math.max(460, hookText.length * 16 + 80);
-    roundRect(ctx, (w - pillW) / 2, h * 0.18, pillW, 54, 27);
+    roundRect(ctx, (w - hookW) / 2, hookY, hookW, 56, 28);
     ctx.fill();
 
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '800 24px system-ui, sans-serif';
-    ctx.fillText(hookText, w / 2, h * 0.18 + 36);
+    drawAutoSizedSingleLine(ctx, hookText, w / 2, hookY + 37, hookW - 40, 24, 18, 800, 'system-ui, sans-serif');
 
     // Big Headline
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '900 86px "Bebas Neue", system-ui, sans-serif';
-    ctx.fillText('INSCRIPTIONS', w / 2, h * 0.28);
+    ctx.font = '900 88px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('INSCRIPTIONS', w / 2, 420 + slideOffset);
 
     ctx.fillStyle = '#F6C83B';
-    ctx.font = '900 112px "Bebas Neue", system-ui, sans-serif';
+    ctx.font = '900 116px "Bebas Neue", system-ui, sans-serif';
     ctx.shadowColor = 'rgba(246, 200, 59, 0.55)';
     ctx.shadowBlur = 35;
-    ctx.fillText('OUVERTES !', w / 2, h * 0.355);
+    ctx.fillText('OUVERTES !', w / 2, 535 + slideOffset);
     ctx.shadowBlur = 0;
 
-    // Poster Card Frame in center
-    const cardW = 620;
-    const cardH = 740;
+    // Poster Card Frame in center (with pop animation)
+    const cardPop = 0.94 + 0.06 * easeOutCubic(t / 0.55);
+    const cardW = 700;
+    const cardH = 870;
+    const cardCx = w / 2;
+    const cardCy = 580 + cardH / 2;
+
+    ctx.save();
+    ctx.translate(cardCx, cardCy);
+    ctx.scale(cardPop, cardPop);
+    ctx.translate(-cardCx, -cardCy);
+
     const cardX = (w - cardW) / 2;
-    const cardY = h * 0.39;
+    const cardY = 580;
 
     // Glowing border
-    ctx.fillStyle = 'rgba(17, 20, 23, 0.9)';
-    ctx.strokeStyle = 'rgba(246, 200, 59, 0.4)';
+    ctx.fillStyle = 'rgba(17, 20, 23, 0.94)';
+    ctx.strokeStyle = 'rgba(246, 200, 59, 0.45)';
     ctx.lineWidth = 3;
     ctx.shadowColor = 'rgba(235, 94, 40, 0.35)';
     ctx.shadowBlur = 40;
@@ -625,64 +851,114 @@ export function drawOpeningReelFrame(
     ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // Render Poster image inside card if available
+    // Render Poster image cleanly preserved inside card
+    const imgPad = 18;
+    const footerAreaH = 155;
+    const imgW = cardW - imgPad * 2;
+    const imgH = cardH - imgPad * 2 - footerAreaH;
+
     if (posterImg && posterImg.complete && posterImg.naturalWidth > 0) {
-      ctx.save();
-      roundRect(ctx, cardX + 16, cardY + 16, cardW - 32, cardH - 120, 20);
-      ctx.clip();
-      ctx.drawImage(posterImg, cardX + 16, cardY + 16, cardW - 32, cardH - 120);
-      ctx.restore();
+      drawImageContained(ctx, posterImg, cardX + imgPad, cardY + imgPad, imgW, imgH, 20);
     } else {
-      // Fallback graphic box
       ctx.save();
       ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
-      roundRect(ctx, cardX + 16, cardY + 16, cardW - 32, cardH - 120, 20);
+      roundRect(ctx, cardX + imgPad, cardY + imgPad, imgW, imgH, 20);
       ctx.fill();
       ctx.fillStyle = '#F6C83B';
-      ctx.font = '900 64px "Bebas Neue", system-ui, sans-serif';
-      ctx.fillText(race.name.toUpperCase(), w / 2, cardY + cardH / 2 - 40);
+      drawMultiLineCenteredText(
+        ctx,
+        race.name.toUpperCase(),
+        w / 2,
+        cardY + imgPad + imgH / 2 - 20,
+        imgW - 40,
+        58,
+        36,
+        900,
+        '"Bebas Neue", system-ui, sans-serif',
+        2
+      );
       ctx.restore();
     }
 
-    // Card label at bottom
+    // Card Title Footer (wraps cleanly on 1-2 lines so zero clipping)
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '900 40px "Bebas Neue", system-ui, sans-serif';
-    ctx.fillText(race.name.toUpperCase(), w / 2, cardY + cardH - 60);
+    const titleStartY = cardY + cardH - footerAreaH + 46;
+    const titleEndY = drawMultiLineCenteredText(
+      ctx,
+      race.name.toUpperCase(),
+      w / 2,
+      titleStartY,
+      cardW - 60,
+      44,
+      28,
+      900,
+      '"Bebas Neue", system-ui, sans-serif',
+      2
+    );
 
     ctx.fillStyle = '#EB5E28';
-    ctx.font = '800 22px system-ui, sans-serif';
-    ctx.fillText(`📍 ${race.city.toUpperCase()} • VAUCLUSE`, w / 2, cardY + cardH - 25);
+    drawAutoSizedSingleLine(
+      ctx,
+      `📍 ${race.city.toUpperCase()} • VAUCLUSE`,
+      w / 2,
+      Math.min(cardY + cardH - 22, titleEndY + 38),
+      cardW - 60,
+      22,
+      16,
+      800,
+      'system-ui, sans-serif'
+    );
+
+    ctx.restore();
 
     // Bottom action hint
-    ctx.fillStyle = 'rgba(250, 247, 242, 0.8)';
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.85)';
     ctx.font = '700 24px system-ui, sans-serif';
-    ctx.fillText('⚡ DÉCOUVRE LES DISTANCES AU PROGRAMME ⚡', w / 2, h * 0.84);
+    ctx.fillText('⚡ DÉCOUVRE LES DISTANCES AU PROGRAMME ⚡', w / 2, 1555);
 
     ctx.restore();
   }
 
   // SCENE 2: RACE DETAILS & DISTANCES (3.2s to 7.0s)
   else if (t >= 3.2 && t < 7.0) {
+    const st = t - 3.2;
+    const enterP = easeOutCubic(st / 0.45);
+    const slideY = (1 - enterP) * 30;
+
     ctx.save();
+    ctx.globalAlpha = enterP;
     ctx.textAlign = 'center';
 
     // Location tag
     ctx.fillStyle = '#F6C83B';
-    ctx.font = '800 24px system-ui, sans-serif';
-    ctx.letterSpacing = '1px';
-    ctx.fillText(`📍 ${race.city.toUpperCase()} • VAUCLUSE`, w / 2, h * 0.175);
+    drawAutoSizedSingleLine(
+      ctx,
+      `📍 ${race.city.toUpperCase()} • VAUCLUSE`,
+      w / 2,
+      245 + slideY,
+      920,
+      26,
+      18,
+      800,
+      'system-ui, sans-serif'
+    );
 
-    // Big Race Title (wrap if too long)
+    // Big Race Title (auto-wrapped 1-2 balanced lines, zero horizontal clipping)
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '900 80px "Bebas Neue", system-ui, sans-serif';
-    const maxTitleW = w - 160;
-    const titleText = race.name.toUpperCase();
-    if (ctx.measureText(titleText).width > maxTitleW) {
-      ctx.font = '900 64px "Bebas Neue", system-ui, sans-serif';
-    }
-    ctx.fillText(titleText, w / 2, h * 0.235);
+    const titleBottomY = drawMultiLineCenteredText(
+      ctx,
+      race.name.toUpperCase(),
+      w / 2,
+      325 + slideY,
+      920,
+      78,
+      46,
+      900,
+      '"Bebas Neue", system-ui, sans-serif',
+      2
+    );
 
-    // Date Pill
+    // Date Pill cleanly anchored right below title
     const dateFormatted = race.date ? new Date(race.date).toLocaleDateString('fr-FR', {
       weekday: 'long',
       day: 'numeric',
@@ -690,187 +966,258 @@ export function drawOpeningReelFrame(
       year: 'numeric'
     }).toUpperCase() : 'DATE OFFICIELLE EN VAUCLUSE';
 
+    const dateLabel = `📅 ${dateFormatted}`;
+    ctx.font = '800 21px system-ui, sans-serif';
+    const datePillW = Math.min(900, Math.max(520, ctx.measureText(dateLabel).width + 80));
+    const datePillY = titleBottomY + 26;
+
     ctx.fillStyle = 'rgba(250, 247, 242, 0.12)';
     ctx.strokeStyle = 'rgba(250, 247, 242, 0.3)';
     ctx.lineWidth = 1.5;
-    const dateW = 600;
-    roundRect(ctx, (w - dateW) / 2, h * 0.265, dateW, 46, 23);
+    roundRect(ctx, (w - datePillW) / 2, datePillY, datePillW, 48, 24);
     ctx.fill();
     ctx.stroke();
 
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '800 20px system-ui, sans-serif';
-    ctx.fillText(`📅 ${dateFormatted}`, w / 2, h * 0.265 + 30);
+    drawAutoSizedSingleLine(ctx, dateLabel, w / 2, datePillY + 31, datePillW - 40, 21, 16, 800, 'system-ui, sans-serif');
 
-    // Middle: Mini poster + Distance Cards
-    const posterThumbW = 340;
-    const posterThumbH = 430;
-    const posterThumbX = 80;
-    const posterThumbY = h * 0.32;
+    // Middle Grid: Contained Poster Left + Formats Right
+    const gridY = datePillY + 84;
+    const posterThumbW = 360;
+    const posterThumbH = 470;
+    const posterThumbX = 72;
 
     if (posterImg && posterImg.complete && posterImg.naturalWidth > 0) {
       ctx.save();
-      ctx.shadowColor = 'rgba(246, 200, 59, 0.3)';
+      ctx.shadowColor = 'rgba(246, 200, 59, 0.25)';
       ctx.shadowBlur = 30;
-      roundRect(ctx, posterThumbX, posterThumbY, posterThumbW, posterThumbH, 20);
+      roundRect(ctx, posterThumbX, gridY, posterThumbW, posterThumbH, 22);
       ctx.fillStyle = '#111417';
       ctx.fill();
       ctx.shadowBlur = 0;
-      ctx.clip();
-      ctx.drawImage(posterImg, posterThumbX, posterThumbY, posterThumbW, posterThumbH);
+      ctx.restore();
+
+      drawImageContained(ctx, posterImg, posterThumbX, gridY, posterThumbW, posterThumbH, 22);
+
+      // Clean border around poster frame
+      ctx.save();
+      ctx.strokeStyle = 'rgba(246, 200, 59, 0.35)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, posterThumbX, gridY, posterThumbW, posterThumbH, 22);
+      ctx.stroke();
       ctx.restore();
     } else {
       ctx.save();
       ctx.fillStyle = 'rgba(246, 200, 59, 0.1)';
       ctx.strokeStyle = 'rgba(246, 200, 59, 0.3)';
       ctx.lineWidth = 2;
-      roundRect(ctx, posterThumbX, posterThumbY, posterThumbW, posterThumbH, 20);
+      roundRect(ctx, posterThumbX, gridY, posterThumbW, posterThumbH, 22);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = '#F6C83B';
-      ctx.font = '900 48px "Bebas Neue", system-ui, sans-serif';
-      ctx.fillText(race.city.toUpperCase(), posterThumbX + posterThumbW / 2, posterThumbY + posterThumbH / 2);
+      drawMultiLineCenteredText(
+        ctx,
+        race.city.toUpperCase(),
+        posterThumbX + posterThumbW / 2,
+        gridY + posterThumbH / 2,
+        posterThumbW - 40,
+        48,
+        30,
+        900,
+        '"Bebas Neue", system-ui, sans-serif',
+        2
+      );
       ctx.restore();
     }
 
-    // Right Column: Formats & Distances
-    const distColX = 460;
-    const distColW = w - distColX - 80;
-    const distList = race.distances
-      ? race.distances.split(',').map(s => s.trim()).filter(Boolean)
-      : ['Course Nature', 'Rando'];
+    // Right Column: Formats & Distances (properly parsed for French commas)
+    const distColX = 468;
+    const distColW = w - distColX - 72;
+    const parsedDistances = parseDistanceList(race.distances);
+    const distList = parsedDistances.length > 0 ? parsedDistances : ['Course Nature', 'Rando'];
 
     ctx.textAlign = 'left';
     ctx.fillStyle = '#EB5E28';
     ctx.font = '800 22px system-ui, sans-serif';
-    ctx.fillText('FORMATS AU CHOIX :', distColX, posterThumbY + 30);
+    ctx.fillText('FORMATS AU CHOIX :', distColX, gridY + 26);
 
-    let distY = posterThumbY + 55;
-    distList.slice(0, 4).forEach((dist, idx) => {
-      // Staggered reveal based on time
-      const delay = 3.3 + idx * 0.35;
-      if (t >= delay) {
+    const visibleItems = distList.length > 4
+      ? [...distList.slice(0, 3), `+ ${distList.length - 3} autres parcours`]
+      : distList;
+
+    const cardGap = 16;
+    const cardH = visibleItems.length <= 3 ? 112 : 90;
+    let distY = gridY + 48;
+
+    visibleItems.forEach((dist, idx) => {
+      const cardDelay = idx * 0.25;
+      if (st >= cardDelay) {
+        const itemP = easeOutCubic((st - cardDelay) / 0.35);
+        const slideX = (1 - itemP) * 40;
+
+        ctx.save();
+        ctx.globalAlpha = enterP * itemP;
+
         ctx.fillStyle = 'rgba(250, 247, 242, 0.08)';
         ctx.strokeStyle = '#F6C83B';
         ctx.lineWidth = 2;
-        roundRect(ctx, distColX, distY, distColW, 82, 16);
+        roundRect(ctx, distColX + slideX, distY, distColW, cardH, 18);
         ctx.fill();
         ctx.stroke();
 
         ctx.fillStyle = '#FAF7F2';
-        ctx.font = '900 32px "Bebas Neue", system-ui, sans-serif';
-        ctx.fillText(`⚡ ${dist}`, distColX + 24, distY + 52);
+        drawAutoSizedSingleLine(
+          ctx,
+          `⚡ ${dist}`,
+          distColX + 24 + slideX,
+          distY + cardH / 2 + 11,
+          distColW - 48,
+          36,
+          20,
+          900,
+          '"Bebas Neue", system-ui, sans-serif'
+        );
+
+        ctx.restore();
       }
-      distY += 98;
+      distY += cardH + cardGap;
     });
 
-    // Highlights Banner below
+    // Bottom Highlight Box with properly wrapped text (no edge overflow!)
     ctx.textAlign = 'center';
-    const bannerY = h * 0.60;
+    const bannerY = gridY + posterThumbH + 45;
+    const bannerW = w - 144;
+    const bannerH = 265;
+
     ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
-    ctx.strokeStyle = 'rgba(246, 200, 59, 0.25)';
+    ctx.strokeStyle = 'rgba(246, 200, 59, 0.3)';
     ctx.lineWidth = 2;
-    roundRect(ctx, 80, bannerY, w - 160, 150, 20);
+    roundRect(ctx, 72, bannerY, bannerW, bannerH, 24);
     ctx.fill();
     ctx.stroke();
 
     ctx.fillStyle = '#F6C83B';
     ctx.font = '900 36px "Bebas Neue", system-ui, sans-serif';
-    ctx.fillText('LE DÉCOR & L\'ESPRIT DU PARCOURS', w / 2, bannerY + 45);
+    ctx.fillText('LE DÉCOR & L\'ESPRIT DU PARCOURS', w / 2, bannerY + 48);
 
-    ctx.fillStyle = 'rgba(250, 247, 242, 0.85)';
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.88)';
     ctx.font = '500 24px system-ui, sans-serif';
-    const descText = race.description
-      ? (race.description.length > 95 ? race.description.slice(0, 95) + '...' : race.description)
-      : `Sentiers provençaux et panoramas exceptionnels au cœur du Vaucluse.`;
-    ctx.fillText(descText, w / 2, bannerY + 85);
+    const rawDesc = race.description || `Sentiers provençaux et panoramas exceptionnels au cœur du Vaucluse.`;
+    drawWrappedParagraph(ctx, rawDesc, w / 2, bannerY + 96, bannerW - 70, 35, 3);
 
     ctx.fillStyle = '#EB5E28';
     ctx.font = '800 22px system-ui, sans-serif';
-    ctx.fillText('⚠️ PLACES LIMITÉES • NE TARDE PAS À T\'INSCRIRE !', w / 2, bannerY + 124);
+    ctx.fillText('⚠️ PLACES LIMITÉES • NE TARDE PAS À T\'INSCRIRE !', w / 2, bannerY + bannerH - 28);
 
     ctx.restore();
   }
 
   // SCENE 3: FINAL CALL TO ACTION (7.0s to 10.0s)
   else {
+    const st = t - 7.0;
+    const enterP = easeOutCubic(st / 0.45);
+    const slideY = (1 - enterP) * 35;
+
     ctx.save();
+    ctx.globalAlpha = enterP;
     ctx.textAlign = 'center';
 
-    // Hook
+    // Top Hook Pill
+    const topHookY = 270 + slideY;
     ctx.fillStyle = '#EB5E28';
-    roundRect(ctx, w / 2 - 250, h * 0.19, 500, 52, 26);
+    roundRect(ctx, w / 2 - 260, topHookY, 520, 56, 28);
     ctx.fill();
 
     ctx.fillStyle = '#FAF7F2';
     ctx.font = '800 24px system-ui, sans-serif';
-    ctx.fillText('RÉSERVE TON DOSSARD MAINTENANT', w / 2, h * 0.19 + 35);
+    ctx.fillText('RÉSERVE TON DOSSARD MAINTENANT', w / 2, topHookY + 37);
 
-    // Main punchline
+    // Punchline Intro
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '900 86px "Bebas Neue", system-ui, sans-serif';
-    ctx.fillText('PRÊT POUR', w / 2, h * 0.285);
+    ctx.font = '900 84px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('PRÊT POUR', w / 2, 435 + slideY);
 
+    // Big Gold Race Title (wrapped cleanly across 1-2 lines within 920px safe zone)
     ctx.fillStyle = '#F6C83B';
-    ctx.font = '900 108px "Bebas Neue", system-ui, sans-serif';
     ctx.shadowColor = 'rgba(246, 200, 59, 0.45)';
     ctx.shadowBlur = 40;
-    ctx.fillText(race.name.toUpperCase(), w / 2, h * 0.365);
+    const titleBottomY = drawMultiLineCenteredText(
+      ctx,
+      race.name.toUpperCase(),
+      w / 2,
+      535 + slideY,
+      920,
+      98,
+      52,
+      900,
+      '"Bebas Neue", system-ui, sans-serif',
+      2
+    );
     ctx.shadowBlur = 0;
 
-    // Mini preview pill
-    ctx.fillStyle = 'rgba(250, 247, 242, 0.1)';
-    roundRect(ctx, w / 2 - 280, h * 0.40, 560, 50, 25);
-    ctx.fill();
-    ctx.fillStyle = '#FAF7F2';
+    // Mini Summary Pill (dynamic width + auto-sized text so zero overflow!)
+    const summaryText = `📍 ${race.city} • ${race.distances || 'Vaucluse'}`;
     ctx.font = '700 22px system-ui, sans-serif';
-    ctx.fillText(`📍 ${race.city} • ${race.distances}`, w / 2, h * 0.40 + 33);
+    const summaryPillW = Math.min(936, Math.max(560, ctx.measureText(summaryText).width + 80));
+    const summaryPillY = titleBottomY + 38;
 
-    // Big Primary CTA Button
-    const ctaW = 760;
-    const ctaH = 110;
-    const ctaX = (w - ctaW) / 2;
-    const ctaY = h * 0.50;
-    const ctaGrad = ctx.createLinearGradient(ctaX, 0, ctaX + ctaW, 0);
-    ctaGrad.addColorStop(0, '#F6C83B');
-    ctaGrad.addColorStop(1, '#EB5E28');
-    ctx.fillStyle = ctaGrad;
-    ctx.shadowColor = 'rgba(246, 200, 59, 0.45)';
-    ctx.shadowBlur = 35;
-    roundRect(ctx, ctaX, ctaY, ctaW, ctaH, 24);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-
-    ctx.fillStyle = '#0D1013';
-    ctx.font = '900 52px "Bebas Neue", system-ui, sans-serif';
-    ctx.fillText('🔗 WWW.RUNVAUCLUSE.FR', w / 2, ctaY + 70);
-
-    // Secondary bio pill
-    const bioY = ctaY + ctaH + 30;
-    ctx.fillStyle = 'rgba(250, 247, 242, 0.08)';
-    ctx.strokeStyle = 'rgba(250, 247, 242, 0.25)';
-    ctx.lineWidth = 2;
-    roundRect(ctx, (w - 700) / 2, bioY, 700, 70, 35);
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.1)';
+    ctx.strokeStyle = 'rgba(250, 247, 242, 0.2)';
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, (w - summaryPillW) / 2, summaryPillY, summaryPillW, 54, 27);
     ctx.fill();
     ctx.stroke();
 
     ctx.fillStyle = '#FAF7F2';
-    ctx.font = '800 26px system-ui, sans-serif';
+    drawAutoSizedSingleLine(ctx, summaryText, w / 2, summaryPillY + 35, summaryPillW - 50, 22, 16, 700, 'system-ui, sans-serif');
+
+    // Big Primary CTA Button with gentle glow pulse
+    const ctaW = 780;
+    const ctaH = 114;
+    const ctaX = (w - ctaW) / 2;
+    const ctaY = Math.max(890, summaryPillY + 100);
+    const pulse = 0.8 + 0.2 * Math.sin(st * 5);
+
+    const ctaGrad = ctx.createLinearGradient(ctaX, 0, ctaX + ctaW, 0);
+    ctaGrad.addColorStop(0, '#F6C83B');
+    ctaGrad.addColorStop(1, '#EB5E28');
+    ctx.fillStyle = ctaGrad;
+    ctx.shadowColor = `rgba(246, 200, 59, ${0.45 * pulse})`;
+    ctx.shadowBlur = 35 * pulse;
+    roundRect(ctx, ctaX, ctaY, ctaW, ctaH, 26);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = '#0D1013';
+    ctx.font = '900 54px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('🔗 WWW.RUNVAUCLUSE.FR', w / 2, ctaY + 73);
+
+    // Secondary Bio Link Pill
+    const bioY = ctaY + ctaH + 34;
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.08)';
+    ctx.strokeStyle = 'rgba(250, 247, 242, 0.25)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, (w - 720) / 2, bioY, 720, 72, 36);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '800 25px system-ui, sans-serif';
     ctx.fillText('LIEN DIRECT D\'INSCRIPTION EN BIO INSTAGRAM ↗️', w / 2, bioY + 45);
 
     // Community engagement callout
-    const commY = bioY + 110;
+    const commY = bioY + 108;
     ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
-    roundRect(ctx, 100, commY, w - 200, 100, 20);
+    roundRect(ctx, 100, commY, w - 200, 114, 22);
     ctx.fill();
 
     ctx.fillStyle = '#F6C83B';
-    ctx.font = '800 24px system-ui, sans-serif';
-    ctx.fillText('💬 Tague ton binôme de trail en commentaire ! 👇', w / 2, commY + 45);
+    ctx.font = '800 25px system-ui, sans-serif';
+    ctx.fillText('💬 Tague ton binôme de trail en commentaire ! 👇', w / 2, commY + 48);
 
-    ctx.fillStyle = 'rgba(250, 247, 242, 0.7)';
-    ctx.font = '500 20px system-ui, sans-serif';
-    ctx.fillText('Qui vient relever le défi cette année ?', w / 2, commY + 78);
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.72)';
+    ctx.font = '500 21px system-ui, sans-serif';
+    ctx.fillText('Qui vient relever le défi cette année ?', w / 2, commY + 86);
 
     ctx.restore();
   }
@@ -878,16 +1225,16 @@ export function drawOpeningReelFrame(
   // Persistent Footer URL
   ctx.save();
   ctx.fillStyle = 'rgba(250, 247, 242, 0.15)';
-  ctx.fillRect(80, h - 140, w - 160, 2);
+  ctx.fillRect(72, h - 140, w - 144, 2);
 
   ctx.fillStyle = 'rgba(250, 247, 242, 0.7)';
   ctx.font = '700 24px system-ui, sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('📍 RUNVAUCLUSE.FR • CALENDRIER 84', 80, h - 80);
+  ctx.fillText('📍 RUNVAUCLUSE.FR • CALENDRIER 84', 72, h - 80);
 
   ctx.fillStyle = '#F6C83B';
   ctx.font = '800 26px system-ui, sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText('LIEN EN BIO 🔗', w - 80, h - 80);
+  ctx.fillText('LIEN EN BIO 🔗', w - 72, h - 80);
   ctx.restore();
 }
