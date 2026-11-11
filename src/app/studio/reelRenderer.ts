@@ -485,3 +485,409 @@ function roundRect(
   ctx.quadraticCurveTo(x, y, x + radius, y);
   ctx.closePath();
 }
+
+export interface ReelRaceOpeningData {
+  name: string;
+  city: string;
+  date: string;
+  distances: string;
+  description?: string;
+  image_url?: string;
+  slug: string;
+  hookBadge?: string;
+  hookTitle?: string;
+  customSubtitle?: string;
+}
+
+export function drawOpeningReelFrame(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  t: number, // 0.0 to 10.0 seconds
+  race: ReelRaceOpeningData,
+  posterImg: HTMLImageElement | null
+) {
+  // 1. Dark Gradient Background
+  const bgGrad = ctx.createRadialGradient(w / 2, h * 0.35, 120, w / 2, h / 2, h * 0.85);
+  bgGrad.addColorStop(0, '#1C2329');
+  bgGrad.addColorStop(0.5, '#101417');
+  bgGrad.addColorStop(1, '#090B0D');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Subtle glowing ambient orbs (Warm Ocre / Yellow & Orange)
+  ctx.save();
+  const orb1Grad = ctx.createRadialGradient(w * 0.82, h * 0.18, 30, w * 0.82, h * 0.18, 520);
+  orb1Grad.addColorStop(0, 'rgba(235, 94, 40, 0.28)');
+  orb1Grad.addColorStop(1, 'rgba(235, 94, 40, 0)');
+  ctx.fillStyle = orb1Grad;
+  ctx.fillRect(0, 0, w, h);
+
+  const orb2Grad = ctx.createRadialGradient(w * 0.18, h * 0.78, 30, w * 0.18, h * 0.78, 550);
+  orb2Grad.addColorStop(0, 'rgba(246, 200, 59, 0.24)');
+  orb2Grad.addColorStop(1, 'rgba(246, 200, 59, 0)');
+  ctx.fillStyle = orb2Grad;
+  ctx.fillRect(0, 0, w, h);
+  ctx.restore();
+
+  // Grid pattern dots
+  ctx.save();
+  ctx.fillStyle = 'rgba(250, 247, 242, 0.04)';
+  const step = 60;
+  for (let x = step / 2; x < w; x += step) {
+    for (let y = step / 2; y < h; y += step) {
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+
+  // Top Progress Bar (0 to 10s)
+  const maxDur = 10.0;
+  const progress = Math.min(1, t / maxDur);
+  const pGrad = ctx.createLinearGradient(0, 0, w, 0);
+  pGrad.addColorStop(0, '#EB5E28');
+  pGrad.addColorStop(1, '#F6C83B');
+  ctx.fillStyle = pGrad;
+  ctx.fillRect(0, 0, w * progress, 14);
+
+  // Brand Header
+  ctx.save();
+  ctx.fillStyle = '#FAF7F2';
+  ctx.font = '900 48px "Bebas Neue", system-ui, sans-serif';
+  ctx.fillText('⚡ RUNVAUCLUSE', 80, 110);
+
+  // Dynamic Scene Badge on top-right
+  let badgeText = '🚨 OUVERTURE DOSSARDS';
+  if (t >= 3.2 && t < 7.0) badgeText = '🏃 LES PARCOURS';
+  else if (t >= 7.0) badgeText = '🎟️ PRENDS TA PLACE';
+
+  ctx.fillStyle = 'rgba(246, 200, 59, 0.15)';
+  ctx.strokeStyle = 'rgba(246, 200, 59, 0.5)';
+  ctx.lineWidth = 2;
+  const badgeW = 340;
+  const badgeH = 48;
+  const badgeX = w - 80 - badgeW;
+  const badgeY = 74;
+  roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 24);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = '#F6C83B';
+  ctx.font = '800 22px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 32);
+  ctx.restore();
+
+  // SCENE 1: HOOK & BIG OPENING ANNOUNCEMENT (0.0s to 3.2s)
+  if (t < 3.2) {
+    ctx.save();
+    ctx.textAlign = 'center';
+
+    // Hook Pill
+    const hookText = race.hookBadge || 'TOP DÉPART AUJOURD\'HUI 🔔';
+    ctx.fillStyle = '#EB5E28';
+    const pillW = Math.max(460, hookText.length * 16 + 80);
+    roundRect(ctx, (w - pillW) / 2, h * 0.18, pillW, 54, 27);
+    ctx.fill();
+
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '800 24px system-ui, sans-serif';
+    ctx.fillText(hookText, w / 2, h * 0.18 + 36);
+
+    // Big Headline
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '900 86px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('INSCRIPTIONS', w / 2, h * 0.28);
+
+    ctx.fillStyle = '#F6C83B';
+    ctx.font = '900 112px "Bebas Neue", system-ui, sans-serif';
+    ctx.shadowColor = 'rgba(246, 200, 59, 0.55)';
+    ctx.shadowBlur = 35;
+    ctx.fillText('OUVERTES !', w / 2, h * 0.355);
+    ctx.shadowBlur = 0;
+
+    // Poster Card Frame in center
+    const cardW = 620;
+    const cardH = 740;
+    const cardX = (w - cardW) / 2;
+    const cardY = h * 0.39;
+
+    // Glowing border
+    ctx.fillStyle = 'rgba(17, 20, 23, 0.9)';
+    ctx.strokeStyle = 'rgba(246, 200, 59, 0.4)';
+    ctx.lineWidth = 3;
+    ctx.shadowColor = 'rgba(235, 94, 40, 0.35)';
+    ctx.shadowBlur = 40;
+    roundRect(ctx, cardX, cardY, cardW, cardH, 28);
+    ctx.fill();
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Render Poster image inside card if available
+    if (posterImg && posterImg.complete && posterImg.naturalWidth > 0) {
+      ctx.save();
+      roundRect(ctx, cardX + 16, cardY + 16, cardW - 32, cardH - 120, 20);
+      ctx.clip();
+      ctx.drawImage(posterImg, cardX + 16, cardY + 16, cardW - 32, cardH - 120);
+      ctx.restore();
+    } else {
+      // Fallback graphic box
+      ctx.save();
+      ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
+      roundRect(ctx, cardX + 16, cardY + 16, cardW - 32, cardH - 120, 20);
+      ctx.fill();
+      ctx.fillStyle = '#F6C83B';
+      ctx.font = '900 64px "Bebas Neue", system-ui, sans-serif';
+      ctx.fillText(race.name.toUpperCase(), w / 2, cardY + cardH / 2 - 40);
+      ctx.restore();
+    }
+
+    // Card label at bottom
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '900 40px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText(race.name.toUpperCase(), w / 2, cardY + cardH - 60);
+
+    ctx.fillStyle = '#EB5E28';
+    ctx.font = '800 22px system-ui, sans-serif';
+    ctx.fillText(`📍 ${race.city.toUpperCase()} • VAUCLUSE`, w / 2, cardY + cardH - 25);
+
+    // Bottom action hint
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.8)';
+    ctx.font = '700 24px system-ui, sans-serif';
+    ctx.fillText('⚡ DÉCOUVRE LES DISTANCES AU PROGRAMME ⚡', w / 2, h * 0.84);
+
+    ctx.restore();
+  }
+
+  // SCENE 2: RACE DETAILS & DISTANCES (3.2s to 7.0s)
+  else if (t >= 3.2 && t < 7.0) {
+    ctx.save();
+    ctx.textAlign = 'center';
+
+    // Location tag
+    ctx.fillStyle = '#F6C83B';
+    ctx.font = '800 24px system-ui, sans-serif';
+    ctx.letterSpacing = '1px';
+    ctx.fillText(`📍 ${race.city.toUpperCase()} • VAUCLUSE`, w / 2, h * 0.175);
+
+    // Big Race Title (wrap if too long)
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '900 80px "Bebas Neue", system-ui, sans-serif';
+    const maxTitleW = w - 160;
+    const titleText = race.name.toUpperCase();
+    if (ctx.measureText(titleText).width > maxTitleW) {
+      ctx.font = '900 64px "Bebas Neue", system-ui, sans-serif';
+    }
+    ctx.fillText(titleText, w / 2, h * 0.235);
+
+    // Date Pill
+    const dateFormatted = race.date ? new Date(race.date).toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).toUpperCase() : 'DATE OFFICIELLE EN VAUCLUSE';
+
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.12)';
+    ctx.strokeStyle = 'rgba(250, 247, 242, 0.3)';
+    ctx.lineWidth = 1.5;
+    const dateW = 600;
+    roundRect(ctx, (w - dateW) / 2, h * 0.265, dateW, 46, 23);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '800 20px system-ui, sans-serif';
+    ctx.fillText(`📅 ${dateFormatted}`, w / 2, h * 0.265 + 30);
+
+    // Middle: Mini poster + Distance Cards
+    const posterThumbW = 340;
+    const posterThumbH = 430;
+    const posterThumbX = 80;
+    const posterThumbY = h * 0.32;
+
+    if (posterImg && posterImg.complete && posterImg.naturalWidth > 0) {
+      ctx.save();
+      ctx.shadowColor = 'rgba(246, 200, 59, 0.3)';
+      ctx.shadowBlur = 30;
+      roundRect(ctx, posterThumbX, posterThumbY, posterThumbW, posterThumbH, 20);
+      ctx.fillStyle = '#111417';
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.clip();
+      ctx.drawImage(posterImg, posterThumbX, posterThumbY, posterThumbW, posterThumbH);
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.fillStyle = 'rgba(246, 200, 59, 0.1)';
+      ctx.strokeStyle = 'rgba(246, 200, 59, 0.3)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, posterThumbX, posterThumbY, posterThumbW, posterThumbH, 20);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = '#F6C83B';
+      ctx.font = '900 48px "Bebas Neue", system-ui, sans-serif';
+      ctx.fillText(race.city.toUpperCase(), posterThumbX + posterThumbW / 2, posterThumbY + posterThumbH / 2);
+      ctx.restore();
+    }
+
+    // Right Column: Formats & Distances
+    const distColX = 460;
+    const distColW = w - distColX - 80;
+    const distList = race.distances
+      ? race.distances.split(',').map(s => s.trim()).filter(Boolean)
+      : ['Course Nature', 'Rando'];
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#EB5E28';
+    ctx.font = '800 22px system-ui, sans-serif';
+    ctx.fillText('FORMATS AU CHOIX :', distColX, posterThumbY + 30);
+
+    let distY = posterThumbY + 55;
+    distList.slice(0, 4).forEach((dist, idx) => {
+      // Staggered reveal based on time
+      const delay = 3.3 + idx * 0.35;
+      if (t >= delay) {
+        ctx.fillStyle = 'rgba(250, 247, 242, 0.08)';
+        ctx.strokeStyle = '#F6C83B';
+        ctx.lineWidth = 2;
+        roundRect(ctx, distColX, distY, distColW, 82, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#FAF7F2';
+        ctx.font = '900 32px "Bebas Neue", system-ui, sans-serif';
+        ctx.fillText(`⚡ ${dist}`, distColX + 24, distY + 52);
+      }
+      distY += 98;
+    });
+
+    // Highlights Banner below
+    ctx.textAlign = 'center';
+    const bannerY = h * 0.60;
+    ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
+    ctx.strokeStyle = 'rgba(246, 200, 59, 0.25)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, 80, bannerY, w - 160, 150, 20);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#F6C83B';
+    ctx.font = '900 36px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('LE DÉCOR & L\'ESPRIT DU PARCOURS', w / 2, bannerY + 45);
+
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.85)';
+    ctx.font = '500 24px system-ui, sans-serif';
+    const descText = race.description
+      ? (race.description.length > 95 ? race.description.slice(0, 95) + '...' : race.description)
+      : `Sentiers provençaux et panoramas exceptionnels au cœur du Vaucluse.`;
+    ctx.fillText(descText, w / 2, bannerY + 85);
+
+    ctx.fillStyle = '#EB5E28';
+    ctx.font = '800 22px system-ui, sans-serif';
+    ctx.fillText('⚠️ PLACES LIMITÉES • NE TARDE PAS À T\'INSCRIRE !', w / 2, bannerY + 124);
+
+    ctx.restore();
+  }
+
+  // SCENE 3: FINAL CALL TO ACTION (7.0s to 10.0s)
+  else {
+    ctx.save();
+    ctx.textAlign = 'center';
+
+    // Hook
+    ctx.fillStyle = '#EB5E28';
+    roundRect(ctx, w / 2 - 250, h * 0.19, 500, 52, 26);
+    ctx.fill();
+
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '800 24px system-ui, sans-serif';
+    ctx.fillText('RÉSERVE TON DOSSARD MAINTENANT', w / 2, h * 0.19 + 35);
+
+    // Main punchline
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '900 86px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('PRÊT POUR', w / 2, h * 0.285);
+
+    ctx.fillStyle = '#F6C83B';
+    ctx.font = '900 108px "Bebas Neue", system-ui, sans-serif';
+    ctx.shadowColor = 'rgba(246, 200, 59, 0.45)';
+    ctx.shadowBlur = 40;
+    ctx.fillText(race.name.toUpperCase(), w / 2, h * 0.365);
+    ctx.shadowBlur = 0;
+
+    // Mini preview pill
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.1)';
+    roundRect(ctx, w / 2 - 280, h * 0.40, 560, 50, 25);
+    ctx.fill();
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '700 22px system-ui, sans-serif';
+    ctx.fillText(`📍 ${race.city} • ${race.distances}`, w / 2, h * 0.40 + 33);
+
+    // Big Primary CTA Button
+    const ctaW = 760;
+    const ctaH = 110;
+    const ctaX = (w - ctaW) / 2;
+    const ctaY = h * 0.50;
+    const ctaGrad = ctx.createLinearGradient(ctaX, 0, ctaX + ctaW, 0);
+    ctaGrad.addColorStop(0, '#F6C83B');
+    ctaGrad.addColorStop(1, '#EB5E28');
+    ctx.fillStyle = ctaGrad;
+    ctx.shadowColor = 'rgba(246, 200, 59, 0.45)';
+    ctx.shadowBlur = 35;
+    roundRect(ctx, ctaX, ctaY, ctaW, ctaH, 24);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = '#0D1013';
+    ctx.font = '900 52px "Bebas Neue", system-ui, sans-serif';
+    ctx.fillText('🔗 WWW.RUNVAUCLUSE.FR', w / 2, ctaY + 70);
+
+    // Secondary bio pill
+    const bioY = ctaY + ctaH + 30;
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.08)';
+    ctx.strokeStyle = 'rgba(250, 247, 242, 0.25)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, (w - 700) / 2, bioY, 700, 70, 35);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '800 26px system-ui, sans-serif';
+    ctx.fillText('LIEN DIRECT D\'INSCRIPTION EN BIO INSTAGRAM ↗️', w / 2, bioY + 45);
+
+    // Community engagement callout
+    const commY = bioY + 110;
+    ctx.fillStyle = 'rgba(246, 200, 59, 0.08)';
+    roundRect(ctx, 100, commY, w - 200, 100, 20);
+    ctx.fill();
+
+    ctx.fillStyle = '#F6C83B';
+    ctx.font = '800 24px system-ui, sans-serif';
+    ctx.fillText('💬 Tague ton binôme de trail en commentaire ! 👇', w / 2, commY + 45);
+
+    ctx.fillStyle = 'rgba(250, 247, 242, 0.7)';
+    ctx.font = '500 20px system-ui, sans-serif';
+    ctx.fillText('Qui vient relever le défi cette année ?', w / 2, commY + 78);
+
+    ctx.restore();
+  }
+
+  // Persistent Footer URL
+  ctx.save();
+  ctx.fillStyle = 'rgba(250, 247, 242, 0.15)';
+  ctx.fillRect(80, h - 140, w - 160, 2);
+
+  ctx.fillStyle = 'rgba(250, 247, 242, 0.7)';
+  ctx.font = '700 24px system-ui, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('📍 RUNVAUCLUSE.FR • CALENDRIER 84', 80, h - 80);
+
+  ctx.fillStyle = '#F6C83B';
+  ctx.font = '800 26px system-ui, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText('LIEN EN BIO 🔗', w - 80, h - 80);
+  ctx.restore();
+}

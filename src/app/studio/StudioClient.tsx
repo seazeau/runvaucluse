@@ -31,7 +31,7 @@ import { toPng } from 'html-to-image';
 import LogoIcon from '@/components/LogoIcon';
 import clubsData from '@/data/clubs.json';
 import recordsData from '@/data/vaucluse-records.json';
-import { drawReelFrame, ReelRunnerData } from './reelRenderer';
+import { drawReelFrame, ReelRunnerData, drawOpeningReelFrame, ReelRaceOpeningData } from './reelRenderer';
 import {
   GPX_PRESETS,
   ParsedGpxTrack,
@@ -211,8 +211,8 @@ interface Props {
 export default function StudioClient({ races, latestWinners }: Props) {
   const [mode, setMode] = useState<'weekend' | 'podiums' | 'new_race' | 'clubs' | 'story' | 'reel'>('reel');
 
-  // Reel Motion State (GPX Trace & Runner Card)
-  const [reelTemplate, setReelTemplate] = useState<'gpx' | 'runner'>('gpx');
+  // Reel Motion State (GPX Trace, Race Opening & Runner Card)
+  const [reelTemplate, setReelTemplate] = useState<'gpx' | 'runner' | 'opening'>('opening');
   const [reelTime, setReelTime] = useState(0);
   const [reelPlaying, setReelPlaying] = useState(true);
   const [selectedRunnerIndex, setSelectedRunnerIndex] = useState(0);
@@ -223,6 +223,30 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [customRunnerKm, setCustomRunnerKm] = useState<number>(155);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
+
+  // Custom uploaded images for races
+  const [customImages, setCustomImages] = useState<{ [slug: string]: string }>({});
+
+  // Race Opening Reel Specific State
+  const [selectedOpeningRaceSlug, setSelectedOpeningRaceSlug] = useState<string>(() => {
+    return races.find(r => r.slug === 'trail-in-ocre-gargas')?.slug || races[0]?.slug || '';
+  });
+  const [openingHookBadge, setOpeningHookBadge] = useState<string>('TOP DÉPART AUJOURD\'HUI 🔔');
+  const [openingPosterImg, setOpeningPosterImg] = useState<HTMLImageElement | null>(null);
+  const openingPreviewCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const activeOpeningRace = races.find(r => r.slug === selectedOpeningRaceSlug) || races[0];
+
+  const openingRaceData: ReelRaceOpeningData = {
+    name: activeOpeningRace?.name || 'Trail in Ocre',
+    city: activeOpeningRace?.city || 'Gargas',
+    date: activeOpeningRace?.date || '2027-09-26',
+    distances: activeOpeningRace?.distances || '21 km (600D+), 13,5 km (250D+), 7 km (120D+)',
+    description: activeOpeningRace?.description || '',
+    image_url: (activeOpeningRace && customImages[activeOpeningRace.slug]) || activeOpeningRace?.image_url || '/images/rideandtrailinocre.png',
+    slug: activeOpeningRace?.slug || 'trail-in-ocre-gargas',
+    hookBadge: openingHookBadge
+  };
 
   // GPX Reel Specific State
   const [selectedGpxPresetId, setSelectedGpxPresetId] = useState<string>(GPX_PRESETS[0].id);
@@ -240,7 +264,7 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [gpxCustomBgImg, setGpxCustomBgImg] = useState<HTMLImageElement | null>(null);
   const gpxPreviewCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const reelMaxDuration = reelTemplate === 'gpx' ? 10.0 : 12.0;
+  const reelMaxDuration = reelTemplate === 'runner' ? 12.0 : 10.0;
 
   const currentRunner: ReelRunnerData = customRunnerName.trim()
     ? {
@@ -351,6 +375,48 @@ export default function StudioClient({ races, latestWinners }: Props) {
     gpxCustomBgImg
   ]);
 
+  // Preload race poster image for Race Opening Reel
+  useEffect(() => {
+    if (!activeOpeningRace) return;
+    const imgUrl = (activeOpeningRace && customImages[activeOpeningRace.slug]) || activeOpeningRace?.image_url;
+    if (!imgUrl) {
+      setOpeningPosterImg(null);
+      return;
+    }
+    let cancelled = false;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      if (!cancelled) setOpeningPosterImg(img);
+    };
+    img.onerror = () => {
+      if (!cancelled) setOpeningPosterImg(null);
+    };
+    img.src = imgUrl;
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeOpeningRace, customImages]);
+
+  // Draw live Race Opening Reel frame onto preview canvas
+  useEffect(() => {
+    if (mode !== 'reel' || reelTemplate !== 'opening') return;
+    const canvas = openingPreviewCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    drawOpeningReelFrame(
+      ctx,
+      1080,
+      1920,
+      reelTime,
+      openingRaceData,
+      openingPosterImg
+    );
+  }, [mode, reelTemplate, reelTime, openingRaceData, openingPosterImg]);
+
   const handleSelectGpxPreset = (presetId: string) => {
     const preset = GPX_PRESETS.find((p) => p.id === presetId);
     if (!preset) return;
@@ -420,12 +486,14 @@ export default function StudioClient({ races, latestWinners }: Props) {
       const width = 1080;
       const height = 1920;
       const fps = 30;
-      const duration = reelTemplate === 'gpx' ? 10 : 12;
+      const duration = reelTemplate === 'runner' ? 12 : 10;
       const totalFrames = fps * duration;
       const frameDurationMicros = Math.round(1_000_000 / fps);
       const fileSlug =
         reelTemplate === 'gpx'
           ? `trace-gpx-${gpxTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+          : reelTemplate === 'opening'
+          ? `inscriptions-ouvertes-${openingRaceData.slug}`
           : `carte-coureur-${currentRunner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
 
       // Ensure GPX track is loaded if user exports immediately
@@ -478,6 +546,15 @@ export default function StudioClient({ races, latestWinners }: Props) {
             activeTrack,
             safeConfig,
             safeTileCanvas
+          );
+        } else if (reelTemplate === 'opening') {
+          drawOpeningReelFrame(
+            ctx,
+            width,
+            height,
+            t,
+            openingRaceData,
+            openingPosterImg
           );
         } else {
           drawReelFrame(ctx, width, height, t, currentRunner);
@@ -715,7 +792,6 @@ export default function StudioClient({ races, latestWinners }: Props) {
   const [isExporting, setIsExporting] = useState(false);
   const [copiedCaption, setCopiedCaption] = useState(false);
   const [imageDisplayMode, setImageDisplayMode] = useState<'poster' | 'banner'>('poster');
-  const [customImages, setCustomImages] = useState<{ [slug: string]: string }>({});
   type DossardStatus = 'open' | 'sold_out' | 'last_spots';
   const [raceStatuses, setRaceStatuses] = useState<{ [slug: string]: DossardStatus }>({});
 
@@ -820,6 +896,36 @@ export default function StudioClient({ races, latestWinners }: Props) {
 
   // Download active slide as PNG
   const downloadCurrentSlide = async () => {
+    if (mode === 'reel' && reelTemplate === 'opening') {
+      try {
+        let dataUrl = '';
+        if (openingPreviewCanvasRef.current) {
+          try {
+            dataUrl = openingPreviewCanvasRef.current.toDataURL('image/png');
+          } catch {
+            const tmp = document.createElement('canvas');
+            tmp.width = 1080;
+            tmp.height = 1920;
+            const tCtx = tmp.getContext('2d');
+            if (tCtx) {
+              drawOpeningReelFrame(tCtx, 1080, 1920, reelTime, openingRaceData, null);
+              dataUrl = tmp.toDataURL('image/png');
+            }
+          }
+        }
+        if (dataUrl) {
+          const link = document.createElement('a');
+          link.download = `runvaucluse-reel-ouverture-${openingRaceData.slug}.png`;
+          link.href = dataUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (err) {
+        console.error('PNG capture failed:', err);
+      }
+      return;
+    }
     if (mode === 'reel' && reelTemplate === 'gpx') {
       try {
         let dataUrl = '';
@@ -1000,6 +1106,11 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
       }
       return `⚡ J - 7 AVANT LE DÉPART : ${activeStoryRace.name.toUpperCase()} !\n\nLes inscriptions approchent de la clôture à ${activeStoryRace.city}. Format : ${activeStoryRace.distances}.\n\n👉 Réservez votre dossard directement sur RUNVAUCLUSE.FR (Lien en bio) !\n\n#runvaucluse #courseapied #${activeStoryRace.city.toLowerCase().replace(/[^a-z]/g, '')}`;
     } else if (mode === 'reel') {
+      if (reelTemplate === 'opening') {
+        const race = activeOpeningRace || races[0];
+        const dateFormatted = race?.date ? new Date(race.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '';
+        return `🚨 OFFICIEL // LES INSCRIPTIONS SONT OUVERTES POUR ${race?.name.toUpperCase()} ! 🏃‍♂️🔥\n\nC’est le moment d’épingler votre dossard : les inscriptions pour ${race?.name} viennent tout juste d’ouvrir leurs portes !\n\n📅 Date : ${dateFormatted}\n📍 Lieu : ${race?.city} (Vaucluse)\n📏 Formats au choix : ${race?.distances}\n${race?.label ? `🏷️ Label : ${race.label}\n` : ''}\n${race?.description ? `🌿 Au programme : ${race.description}\n\n` : ''}⚠️ Attention : les dossards sont limités et partent très vite chaque saison. Ne tardez pas à réserver votre place sur la ligne de départ !\n\n👉 LIEN D'INSCRIPTION DIRECTE & INFOS OFFICIELLES :\n🔗 Retrouvez le lien vers la billetterie et la fiche complète sur WWW.RUNVAUCLUSE.FR (Lien direct en bio ↗️)\n\n💬 Tague ton partenaire de trail qui doit t'accompagner en commentaire ! 👇\n\n#runvaucluse #runningvaucluse #trailvaucluse #${race?.slug.replace(/-/g, '')} #trailfrance #instarunfrance #vaucluse #luberon #courseapied #dossard #inscriptionsouvertes #runningfrance`;
+      }
       if (reelTemplate === 'gpx') {
         const minEle = parsedGpxTrack?.minEle ?? 100;
         const maxEle = parsedGpxTrack?.maxEle ?? 1900;
@@ -1349,41 +1460,154 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
 
                 {/* Template Switcher */}
                 <div className={styles.formGroup}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
+                    <button
+                      type="button"
+                      onClick={() => { setReelTemplate('opening'); setReelTime(0); setReelPlaying(true); }}
+                      className={styles.actionBtn}
+                      style={{
+                        padding: '0.65rem 0.25rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 800,
+                        background: reelTemplate === 'opening' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
+                        color: reelTemplate === 'opening' ? '#0D1013' : '#FAF7F2',
+                        borderColor: reelTemplate === 'opening' ? '#F6C83B' : 'rgba(255,255,255,0.15)'
+                      }}
+                    >
+                      🔔 Inscriptions
+                    </button>
                     <button
                       type="button"
                       onClick={() => { setReelTemplate('gpx'); setReelTime(0); setReelPlaying(true); }}
                       className={styles.actionBtn}
                       style={{
-                        padding: '0.65rem 0.4rem',
-                        fontSize: '0.78rem',
+                        padding: '0.65rem 0.25rem',
+                        fontSize: '0.74rem',
                         fontWeight: 800,
                         background: reelTemplate === 'gpx' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
                         color: reelTemplate === 'gpx' ? '#0D1013' : '#FAF7F2',
                         borderColor: reelTemplate === 'gpx' ? '#F6C83B' : 'rgba(255,255,255,0.15)'
                       }}
                     >
-                      🗺️ Reel Tracé GPX & D+
+                      🗺️ Tracé GPX
                     </button>
                     <button
                       type="button"
                       onClick={() => { setReelTemplate('runner'); setReelTime(0); setReelPlaying(true); }}
                       className={styles.actionBtn}
                       style={{
-                        padding: '0.65rem 0.4rem',
-                        fontSize: '0.78rem',
+                        padding: '0.65rem 0.25rem',
+                        fontSize: '0.74rem',
                         fontWeight: 800,
                         background: reelTemplate === 'runner' ? '#F6C83B' : 'rgba(255,255,255,0.06)',
                         color: reelTemplate === 'runner' ? '#0D1013' : '#FAF7F2',
                         borderColor: reelTemplate === 'runner' ? '#F6C83B' : 'rgba(255,255,255,0.15)'
                       }}
                     >
-                      🪪 Reel Carte Coureur
+                      🪪 Carte Coureur
                     </button>
                   </div>
                 </div>
 
-                {reelTemplate === 'gpx' ? (
+                {reelTemplate === 'opening' ? (
+                  <>
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>
+                        1. Choisir la Course du Calendrier
+                      </label>
+                      <select
+                        className={styles.selectInput}
+                        value={selectedOpeningRaceSlug}
+                        onChange={(e) => {
+                          setSelectedOpeningRaceSlug(e.target.value);
+                          setReelTime(0);
+                          setReelPlaying(true);
+                        }}
+                      >
+                        {races.map((r) => (
+                          <option key={r.slug} value={r.slug}>
+                            {r.name} ({r.city}) — {r.date}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>2. Badge d&apos;Accroche Alerte</label>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem', marginBottom: '0.45rem' }}>
+                        {[
+                          'TOP DÉPART AUJOURD\'HUI 🔔',
+                          'INSCRIPTIONS OUVERTES ⚡',
+                          'ALERTE DOSSARDS 🚨',
+                          'PLACES LIMITÉES ⚠️'
+                        ].map((bText) => (
+                          <button
+                            key={bText}
+                            type="button"
+                            onClick={() => setOpeningHookBadge(bText)}
+                            className={styles.actionBtn}
+                            style={{
+                              padding: '0.45rem 0.35rem',
+                              fontSize: '0.72rem',
+                              fontWeight: 700,
+                              background: openingHookBadge === bText ? '#F6C83B' : 'rgba(255,255,255,0.05)',
+                              color: openingHookBadge === bText ? '#0D1013' : '#FAF7F2',
+                              borderColor: openingHookBadge === bText ? '#F6C83B' : 'rgba(255,255,255,0.12)'
+                            }}
+                          >
+                            {bText}
+                          </button>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        className={styles.textInput}
+                        value={openingHookBadge}
+                        onChange={(e) => setOpeningHookBadge(e.target.value)}
+                        placeholder="Texte personnalisé du badge"
+                      />
+                    </div>
+
+                    {/* Quick Race Info Preview */}
+                    <div className={styles.formGroup}>
+                      <label className={styles.label}>3. Synthèse de la Course Sélectionnée</label>
+                      <div style={{
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '10px',
+                        padding: '0.75rem',
+                        display: 'flex',
+                        gap: '0.75rem',
+                        alignItems: 'center'
+                      }}>
+                        {openingRaceData.image_url && (
+                          <img
+                            src={openingRaceData.image_url}
+                            alt={openingRaceData.name}
+                            style={{
+                              width: '54px',
+                              height: '70px',
+                              objectFit: 'cover',
+                              borderRadius: '6px',
+                              border: '1px solid rgba(246, 200, 59, 0.3)'
+                            }}
+                          />
+                        )}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#FAF7F2', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {openingRaceData.name}
+                          </div>
+                          <div style={{ fontSize: '0.76rem', color: '#F6C83B', marginTop: '2px' }}>
+                            📍 {openingRaceData.city} • 📅 {openingRaceData.date}
+                          </div>
+                          <div style={{ fontSize: '0.72rem', color: 'rgba(250, 247, 242, 0.7)', marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {openingRaceData.distances}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : reelTemplate === 'gpx' ? (
                   <>
                     <div className={styles.formGroup}>
                       <label className={styles.label}>
@@ -1665,6 +1889,30 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                         style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime >= 8.0 ? 1 : 0.7 }}
                       >
                         🏁 Arrivée (100%)
+                      </button>
+                    </div>
+                  ) : reelTemplate === 'opening' ? (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+                      <button 
+                        onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime < 3.2 ? 1 : 0.7 }}
+                      >
+                        🚨 Alerte (0s)
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(4.8); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime >= 3.2 && reelTime < 7.0 ? 1 : 0.7 }}
+                      >
+                        🏃 Parcours (4s)
+                      </button>
+                      <button 
+                        onClick={() => { setReelTime(8.5); setReelPlaying(false); }}
+                        className={styles.actionBtn}
+                        style={{ fontSize: '0.74rem', padding: '0.4rem 0.3rem', opacity: reelTime >= 7.0 ? 1 : 0.7 }}
+                      >
+                        🎟️ Inscription (8s)
                       </button>
                     </div>
                   ) : (
@@ -1978,6 +2226,13 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                       height={1920}
                       style={{ width: '100%', height: '100%', display: 'block' }}
                     />
+                  ) : reelTemplate === 'opening' ? (
+                    <canvas
+                      ref={openingPreviewCanvasRef}
+                      width={1080}
+                      height={1920}
+                      style={{ width: '100%', height: '100%', display: 'block' }}
+                    />
                   ) : (
                     <>
                       <div className={styles.reelBackgroundOverlay} />
@@ -2207,6 +2462,27 @@ Tous les jours d'entraînement, lieux de rendez-vous (stades / collines), tarifs
                           className={`${styles.reelSceneBtn} ${reelTime >= 8.0 ? styles.reelSceneBtnActive : ''}`}
                         >
                           Arrivée
+                        </button>
+                      </div>
+                    ) : reelTemplate === 'opening' ? (
+                      <div className={styles.reelScenesNav}>
+                        <button 
+                          onClick={() => { setReelTime(1.0); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime < 3.2 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          🚨 Alerte
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(4.8); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 3.2 && reelTime < 7.0 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          🏃 Parcours
+                        </button>
+                        <button 
+                          onClick={() => { setReelTime(8.5); setReelPlaying(false); }}
+                          className={`${styles.reelSceneBtn} ${reelTime >= 7.0 ? styles.reelSceneBtnActive : ''}`}
+                        >
+                          🎟️ Inscription
                         </button>
                       </div>
                     ) : (
