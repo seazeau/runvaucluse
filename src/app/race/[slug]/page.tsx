@@ -312,28 +312,34 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {!isDentelles && !isGRV && !isAvignon && (race.pdf_link || race.parcours_link || race.gpx_link) && (
-                <div className={styles.gpxContainer}>
-                  <span className={styles.gpxLabel}>PLAN & TRACÉ DU PARCOURS</span>
-                  <div className={styles.gpxGrid}>
-                    {race.gpx_link && (
-                      <a href={race.gpx_link} download className={styles.gpxBtn}>
-                        <Download size={16} /> TÉLÉCHARGER LE TRACÉ GPX
-                      </a>
-                    )}
-                    {race.pdf_link && (
-                      <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
-                        <FileText size={16} /> VOIR LE PLAN DU PARCOURS (PDF)
-                      </a>
-                    )}
-                    {race.parcours_link && (
-                      <a href={race.parcours_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
-                        <FileText size={16} /> VOIR LE PLAN & PROFIL DU PARCOURS
-                      </a>
-                    )}
+              {!isDentelles && !isGRV && !isAvignon && (race.pdf_link || race.parcours_link || race.gpx_link) && (() => {
+                const isReglementPdf = race.pdf_link?.toLowerCase().includes('reglement');
+                const hasParcoursDocument = Boolean(race.gpx_link || race.parcours_link || (race.pdf_link && !isReglementPdf));
+                return (
+                  <div className={styles.gpxContainer}>
+                    <span className={styles.gpxLabel}>
+                      {hasParcoursDocument ? 'PLAN & TRACÉ DU PARCOURS' : 'RÈGLEMENT OFFICIEL'}
+                    </span>
+                    <div className={styles.gpxGrid}>
+                      {race.gpx_link && (
+                        <a href={race.gpx_link} download className={styles.gpxBtn}>
+                          <Download size={16} /> TÉLÉCHARGER LE TRACÉ GPX
+                        </a>
+                      )}
+                      {race.pdf_link && (
+                        <a href={race.pdf_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
+                          <FileText size={16} /> {isReglementPdf ? 'VOIR LE RÈGLEMENT OFFICIEL (PDF)' : 'VOIR LE PLAN DU PARCOURS (PDF)'}
+                        </a>
+                      )}
+                      {race.parcours_link && (
+                        <a href={race.parcours_link} target="_blank" rel="noopener noreferrer" className={styles.gpxBtn}>
+                          <FileText size={16} /> VOIR LE PLAN & PROFIL DU PARCOURS
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               <div className={styles.description}>
                 <h3>À PROPOS DE L&apos;ÉVÈNEMENT</h3>
