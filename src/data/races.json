@@ -552,7 +552,7 @@
     "city": "Travaillan",
     "distances": "MN 18 km, MNC 14 km, MN 9 km, MN 6 km, MN enfants",
     "type": "Course nature",
-    "image_url": "/images/hero-ventoux-vignoble.jpg",
+    "image_url": "/images/poster-la-nordique-vauclusienne-travaillan.jpg",
     "description": "Samedi 6 mars 2027 à Travaillan (départs de 9h à 14h). Grand rendez-vous dédié à la Marche Nordique en Vaucluse : Marche Nordique Compétition (14 km), épreuves Open de 18 km, 9 km, 6 km et formats enfants.",
     "slug": "la-nordique-vauclusienne-travaillan"
   },
@@ -563,7 +563,7 @@
     "city": "Travaillan",
     "distances": "10 km, 5 km",
     "type": "Course nature",
-    "image_url": "/images/hero-ventoux-vignoble.jpg",
+    "image_url": "/images/poster-la-foulee-du-plan-de-dieu-travaillan.jpg",
     "description": "Samedi 6 mars 2027 après-midi à Travaillan (départs 15h35 pour le 5 km et 16h30 pour le 10 km). Course nature rapide au cœur du célèbre terroir viticole du Plan de Dieu.",
     "slug": "la-foulee-du-plan-de-dieu-travaillan"
   },
@@ -693,7 +693,7 @@
     "city": "Cairanne",
     "distances": "13,5 km (280D+), 6,6 km (170D+)",
     "type": "Course nature",
-    "image_url": "/images/hero-ventoux-dentelles.jpg",
+    "image_url": "/images/poster-la-cairannaise-cairanne.jpg",
     "description": "Dimanche 21 mars 2027 à 9h30 à Cairanne. Deux parcours nature vallonnés de 13,5 km (280m D+) et 6,6 km (170m D+) à travers les coteaux et le vieux village perché de Cairanne.",
     "slug": "la-cairannaise-cairanne"
   },
@@ -704,7 +704,7 @@
     "city": "Courthézon",
     "distances": "Parcours Urban Trail",
     "type": "Course nature",
-    "image_url": "/images/route-ffa.jpg",
+    "image_url": "/images/poster-urban-trail-de-courthezon-courthezon.jpg",
     "description": "Dimanche 21 mars 2027 à Courthézon. Découverte sportive et ludique du patrimoine historique, des remparts et des parcs de Courthézon.",
     "slug": "urban-trail-de-courthezon-courthezon"
   },
@@ -715,7 +715,7 @@
     "city": "Lagnes",
     "distances": "24 km (1300D+), 15 km (700D+), 9 km (300D+)",
     "type": "Course sur route FFA",
-    "image_url": "/images/hero-ventoux-trail.jpg",
+    "image_url": "/images/poster-run-lagnes-lagnes.jpg",
     "contact": "Andy Symonds (trailvaucluse@gmail.com)",
     "link": "https://www.nikrome.com",
     "registration_platform": "Nikrome",
@@ -1030,7 +1030,7 @@
     "city": "Velleron",
     "distances": "250 km (10000D+)",
     "type": "Trail",
-    "image_url": "/images/hero-ventoux-trail.jpg",
+    "image_url": "/images/poster-la-grande-viree-en-vaucluse-velleron.jpg",
     "description": "Du jeudi 13 au dimanche 16 mai 2027 au départ de Velleron. Ultra-aventure exceptionnelle de 250 km et 10 000 m de dénivelé positif à travers les plus beaux massifs du Vaucluse.",
     "slug": "la-grande-viree-en-vaucluse-velleron"
   },
@@ -1371,7 +1371,7 @@
     "city": "Sault",
     "distances": "26 km (1250D+)",
     "type": "Trail",
-    "image_url": "/images/hero-sault-ventoux.jpg",
+    "image_url": "/images/poster-lascension-du-geant-de-provence-sault.jpg",
     "description": "Dimanche 26 septembre 2027 au départ de Sault. Épreuve d’ascension de 26 km pour 1250m D+ sur le versant est du Mont Ventoux.",
     "slug": "lascension-du-geant-de-provence-sault"
   },
@@ -1419,7 +1419,7 @@
     "city": "Vaugines",
     "distances": "23 km (1100D+), 12,5 km (550D+)",
     "type": "Trail",
-    "image_url": "/images/hero-ocres.jpg",
+    "image_url": "/images/poster-calades-de-vaugines-vaugines.jpg",
     "description": "Dimanche 3 octobre 2027 à Vaugines (départs 8h et 9h). Deux parcours exigeants de 23 km (1100m D+) et 12,5 km (550m D+) sur les sentiers et calades du Sud Luberon.",
     "slug": "calades-de-vaugines-vaugines"
   },
@@ -1465,7 +1465,7 @@
     "city": "Saint-Saturnin-lès-Avignon",
     "distances": "12 km, 7 km",
     "type": "Course nature",
-    "image_url": "/images/hero-ocres.jpg",
+    "image_url": "/images/poster-virade-de-piecaoux-saint-saturnin-les-avignon.jpg",
     "description": "Dimanche 10 octobre 2027 à 9h30 à Saint-Saturnin-lès-Avignon. Courses nature de 12 km et 7 km sur les sentiers de la colline de Piecaoux.",
     "slug": "virade-de-piecaoux-saint-saturnin-les-avignon"
   },
