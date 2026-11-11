@@ -421,11 +421,13 @@
     "type": "Trail",
     "contact": "Alexandre Salmeron (06 11 73 45 76 / ocresetlimons@gmail.com)",
     "image_url": "/images/poster-terra-ventoux-ocres-et-limons-mormoiron.png",
-    "link": "https://www.jf-chronotrail.fr/pages/mormoiron_2026.html",
+    "link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_mormoiron.php",
     "facebook": "https://www.facebook.com/ocresetlimons/",
     "instagram": "https://www.instagram.com/ocresetlimons/",
     "slug": "terra-ventoux-ocres-et-limons-mormoiron",
-    "description": "Édition 2027 le dimanche 17 janvier à Mormoiron (départs 9h et 9h30). Épreuves trail de 24 km (900m D+) et 13 km (400m D+) entre ocres et limons au pied du Ventoux."
+    "description": "Édition 2027 le dimanche 17 janvier à Mormoiron (départs 9h et 9h30). Épreuves trail de 24 km (900m D+) et 13 km (400m D+) entre ocres et limons au pied du Ventoux.",
+    "registration_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_mormoiron.php",
+    "registration_platform": "JF Chronotrail"
   },
   {
     "id": 3,
