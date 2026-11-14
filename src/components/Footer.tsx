@@ -70,6 +70,21 @@ export default function Footer() {
             <h4 className={styles.colTitle}>RESSOURCES</h4>
             <ul className={styles.linksList}>
               <li>
+                <a href="https://runpassion.fr/" target="_blank" rel="noopener" className={styles.affiliateLink}>
+                  RunPassion.fr — Tests &amp; Actu Running <ExternalLink size={12} />
+                </a>
+              </li>
+              <li>
+                <a href="https://runpassion.fr/les-4-meilleures-chaussures-pour-marathon" target="_blank" rel="noopener">
+                  Meilleures Chaussures Marathon 2026 <ExternalLink size={12} />
+                </a>
+              </li>
+              <li>
+                <a href="https://runpassion.fr/gamme-nike-running-2026-guide-complet" target="_blank" rel="noopener">
+                  Guide Chaussures Nike Running 2026 <ExternalLink size={12} />
+                </a>
+              </li>
+              <li>
                 <a href="https://top4running.fr/?a_box=sc3esau3" target="_blank" rel="noopener noreferrer" className={styles.affiliateLink}>
                   Boutique Top4Running <ExternalLink size={12} />
                 </a>
@@ -97,7 +112,7 @@ export default function Footer() {
             <strong>RunVaucluse</strong> est votre portail dédié au <strong>running en Vaucluse</strong>. 
             Nous référençons chaque <strong>course à pied en Vaucluse</strong>, du petit trail de village aux grands marathons nationaux. 
             Que vous cherchiez un <strong>trail en Vaucluse</strong> ou une <strong>course sur route</strong>, notre calendrier 2026 
-            est mis à jour quotidiennement pour vous offrir les meilleures épreuves de Provence. Pour préparer vos courses, consultez nos guides sur l&apos;<a href="https://vincentbuisson.fr/blog/endurance-fondamentale-zone-2-running/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>endurance fondamentale (Zone 2)</a>, le <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>seuil ventilatoire SV1 et SV2</a> et la <a href="https://vincentbuisson.fr/blog/calculer-zones-frequence-cardiaque-running-karvonen/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>formule de Karvonen</a>.
+            est mis à jour quotidiennement pour vous offrir les meilleures épreuves de Provence. Pour préparer vos courses, consultez nos guides sur l&apos;<a href="https://vincentbuisson.fr/blog/endurance-fondamentale-zone-2-running/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>endurance fondamentale (Zone 2)</a>, le <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>seuil ventilatoire SV1 et SV2</a> et la <a href="https://vincentbuisson.fr/blog/calculer-zones-frequence-cardiaque-running-karvonen/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>formule de Karvonen</a>. Découvrez également nos <a href="https://runpassion.fr/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>tests de chaussures de running et trail sur RunPassion.fr</a> ainsi que notre comparatif <a href="https://runpassion.fr/adidas-adios-pro-4-vs-adios-pro-5" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>Adidas Adios Pro 4 vs Adios Pro 5</a>.
           </p>
         </div>
 

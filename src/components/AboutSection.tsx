@@ -88,7 +88,8 @@ export default function AboutSection() {
                 Au quotidien, j&apos;accompagne à distance des coureurs et coureuses de tous niveaux — du premier dossard aux quêtes de records personnels en{' '}
                 <a href="https://vincentbuisson.fr/coaching-10km/" target="_blank" rel="noopener" className={styles.storyLink}>coaching 10 km</a>,{' '}
                 <a href="https://vincentbuisson.fr/coaching-semi-marathon/" target="_blank" rel="noopener" className={styles.storyLink}>préparation semi-marathon</a> et{' '}
-                <a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener" className={styles.storyLink}>coaching marathon en ligne</a>.
+                <a href="https://vincentbuisson.fr/coaching-marathon/" target="_blank" rel="noopener" className={styles.storyLink}>coaching marathon en ligne</a>. J&apos;édite également le média indépendant{' '}
+                <a href="https://runpassion.fr/" target="_blank" rel="noopener" className={styles.storyLink}>RunPassion.fr</a>, dédié aux tests de chaussures de running, comparatifs carbone et actualités course à pied.
               </p>
 
               {/* 4 Pillars */}
@@ -156,6 +157,16 @@ export default function AboutSection() {
                 >
                   <span>Découvrir le coaching sur vincentbuisson.fr</span>
                   <ExternalLink size={16} />
+                </a>
+
+                <a 
+                  href="https://runpassion.fr/" 
+                  target="_blank" 
+                  rel="noopener" 
+                  className={styles.secondaryCta}
+                >
+                  <span>Lire nos tests sur RunPassion.fr</span>
+                  <ExternalLink size={14} />
                 </a>
 
                 <a href="#contact" className={styles.secondaryCta}>

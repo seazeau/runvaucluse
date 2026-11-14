@@ -517,6 +517,12 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
                   <a href="https://vincentbuisson.fr/blog/seuil-lactique-course-a-pied-sv1-sv2/" target="_blank" rel="noopener" className={styles.coachPill}>
                     Seuils SV1 &amp; SV2 →
                   </a>
+                  <a href="https://runpassion.fr/" target="_blank" rel="noopener" className={styles.coachPill}>
+                    Tests Chaussures &amp; Actu (RunPassion.fr) →
+                  </a>
+                  <a href="https://runpassion.fr/les-4-meilleures-chaussures-pour-marathon" target="_blank" rel="noopener" className={styles.coachPill}>
+                    Guide Chaussures Marathon 2026 →
+                  </a>
                 </div>
               </div>
             </div>

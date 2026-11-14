@@ -768,3 +768,94 @@
   font-size: 0.72rem;
   font-weight: 800;
 }
+
+.runpassionTestLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #b45309;
+  text-decoration: underline;
+  text-decoration-color: rgba(180, 83, 9, 0.35);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.runpassionTestLink:hover {
+  color: #ea580c;
+  text-decoration-color: #ea580c;
+}
+
+.runpassionFooterBar {
+  margin-top: 1.75rem;
+  padding: 1rem 1.35rem;
+  background: var(--bg-vanilla, #FAF1D6);
+  border: 1px solid rgba(246, 200, 59, 0.45);
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.runpassionFooterText {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.84rem;
+  color: var(--dark-ink, #111417);
+  line-height: 1.45;
+}
+
+.runpassionFooterLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 1.05rem;
+  background: var(--dark-pill, #13171B);
+  color: #fcb900;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.runpassionFooterLink:hover {
+  background: #000000;
+  transform: translateY(-1px);
+}
+
+.modalActionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.modalTestBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: var(--bg-vanilla, #FAF1D6);
+  border: 1px solid rgba(246, 200, 59, 0.55);
+  color: var(--dark-ink, #111417);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.modalTestBtn:hover {
+  background: var(--accent-yellow, #F6C83B);
+  transform: translateY(-1px);
+}

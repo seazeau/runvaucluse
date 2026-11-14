@@ -16,6 +16,7 @@ import {
   X,
   ChevronRight,
   Compass,
+  BookOpen,
 } from 'lucide-react';
 
 export interface ShoeModel {
@@ -749,6 +750,89 @@ const QUIZ_STEPS = [
   },
 ] as const;
 
+// Curated RunPassion.fr full field reviews & guides mapped by modelKey
+const RUNPASSION_TEST_URLS: Record<string, string> = {
+  '1080': 'https://runpassion.fr/new-balance-1080-v15',
+  Vaporfly: 'https://runpassion.fr/nike-vaporfly-4',
+  Alphafly: 'https://runpassion.fr/nike-alphafly-4-vs-adidas-adios-pro-5-2026',
+  Pegasus: 'https://runpassion.fr/nike-pegasus-41',
+  Vomero: 'https://runpassion.fr/nike-vomero-18',
+  'Vomero Plus': 'https://runpassion.fr/nike-vomero-18',
+  'Vomero Premium': 'https://runpassion.fr/nike-vomero-18',
+  'Pegasus Trail': 'https://runpassion.fr/nike-pegasus-trail-5',
+  Ultrafly: 'https://runpassion.fr/nike-ultrafly-trail',
+  'Adios Pro': 'https://runpassion.fr/adidas-adios-pro-4-vs-adios-pro-5',
+  'Takumi Sen': 'https://runpassion.fr/adidas-takumi-sen-10',
+  'Evo SL': 'https://runpassion.fr/adidas-adizero-evo-sl',
+  'Hyperboost Edge': 'https://runpassion.fr/adidas-hyperboost-edge',
+  Boston: 'https://runpassion.fr/adidas-adizero-boston-13',
+  'Supernova Rise': 'https://runpassion.fr/adidas-supernova-rise',
+  'Gel-Nimbus': 'https://runpassion.fr/asics-nimbus-26',
+  Novablast: 'https://runpassion.fr/asics-novablast-4',
+  Superblast: 'https://runpassion.fr/asics-superblast-2',
+  Megablast: 'https://runpassion.fr/asics-superblast-2',
+  Metaspeed: 'https://runpassion.fr/asics-metaspeed-ray-2',
+  'Sonic Blast': 'https://runpassion.fr/asics-sonicblast',
+  'Gel-Cumulus': 'https://runpassion.fr/asics-gel-cumulus-28',
+  'Gel-Kayano': 'https://runpassion.fr/asics-gel-kayano-31',
+  'Clifton 10': 'https://runpassion.fr/hoka-clifton-10',
+  Clifton: 'https://runpassion.fr/hoka-clifton-10',
+  'Speedgoat 6': 'https://runpassion.fr/hoka-speedgoat-6',
+  Speedgoat: 'https://runpassion.fr/hoka-speedgoat-6',
+  Bondi: 'https://runpassion.fr/hoka-bondi-9',
+  'Mach 6': 'https://runpassion.fr/hoka-mach-6',
+  Mach: 'https://runpassion.fr/hoka-mach-6',
+  'Mach X': 'https://runpassion.fr/hoka-mach-x',
+  Mafate: 'https://runpassion.fr/hoka-mafate-x',
+  'Tecton X': 'https://runpassion.fr/hoka-tecton-x3',
+  Rebel: 'https://runpassion.fr/new-balance-rebel-v5',
+  Hierro: 'https://runpassion.fr/new-balance-fresh-foam-x-hierro-v8',
+  'SuperComp Trainer': 'https://runpassion.fr/new-balance-fuelcell-supercomp-elite-v4',
+  'SuperComp Pacer': 'https://runpassion.fr/new-balance-fuelcell-supercomp-elite-v4',
+  Azura: 'https://runpassion.fr/saucony-endorphin-azura',
+  Triumph: 'https://runpassion.fr/saucony-triumph-22',
+  'Endorphin Speed': 'https://runpassion.fr/saucony-endorphin-speed-5',
+  'Endorphin Pro': 'https://runpassion.fr/saucony-endorphin-pro-4',
+  Kinvara: 'https://runpassion.fr/saucony-kinvara-pro',
+  Phantasm: 'https://runpassion.fr/salomon-s-lab-phantasm-3',
+  'Aero Glide GRVL': 'https://runpassion.fr/salomon-aero-glide-3',
+  'Ultra Glide': 'https://runpassion.fr/salomon-s-lab-ultra-glide',
+  Cloudmonster: 'https://runpassion.fr/on-cloudmonster-hyper',
+  'Cloudboom Echo': 'https://runpassion.fr/on-cloudboom-echo-3',
+  Cloudsurfer: 'https://runpassion.fr/on-cloudsurfer-next',
+  'Cloudsurfer Trail': 'https://runpassion.fr/on-cloudsurfer-trail',
+  Cloudflow: 'https://runpassion.fr/on-cloudflow-4',
+  'Adrenaline GTS': 'https://runpassion.fr/brooks-adrenaline-gts-25',
+  Glycerin: 'https://runpassion.fr/brooks-glycerin-max',
+  'Hyperion Elite': 'https://runpassion.fr/brooks-hyperion-max',
+  'Hyperion Tempo': 'https://runpassion.fr/brooks-hyperion-max',
+  Hyperion: 'https://runpassion.fr/brooks-hyperion-max',
+  'Wave Sky': 'https://runpassion.fr/mizuno-wave-skyrise-6',
+  Skyrise: 'https://runpassion.fr/mizuno-wave-skyrise-6',
+  'Wave Rebellion Flash': 'https://runpassion.fr/mizuno-wave-rebellion-pro-3',
+  Prodigio: 'https://runpassion.fr/la-sportiva-prodigio-pro',
+  'Prodigio Pro': 'https://runpassion.fr/la-sportiva-prodigio-pro',
+  'Fast-R': 'https://runpassion.fr/puma-fast-r-nitro-elite-2',
+  'Velocity Nitro': 'https://runpassion.fr/puma-deviate-nitro-3',
+  'Liberate Nitro': 'https://runpassion.fr/puma-deviate-nitro-3',
+};
+
+function getRunPassionTestUrl(shoe: ShoeModel): { url: string; hasExactTest: boolean; label: string } {
+  const matchedUrl = RUNPASSION_TEST_URLS[shoe.modelKey];
+  if (matchedUrl) {
+    return {
+      url: matchedUrl,
+      hasExactTest: true,
+      label: '📖 Lire notre test terrain sur RunPassion.fr →',
+    };
+  }
+  return {
+    url: 'https://runpassion.fr/#tests-materiel',
+    hasExactTest: false,
+    label: `📖 Voir nos tests ${shoe.brand} sur RunPassion.fr →`,
+  };
+}
+
 // Rule: Ensure affiliate links always contain 'a_box=sc3esau3'
 export function ensureTop4RunningAffiliateUrl(url?: string, fallbackQuery?: string): string {
   if (!url || url === '#') {
@@ -1276,7 +1360,9 @@ export default function ShoeFinder({
 
             {/* 3 Recommended Shoes */}
             <div className={styles.resultsGrid}>
-              {recommendedShoes.map((shoe, idx) => (
+              {recommendedShoes.map((shoe, idx) => {
+                const runPassionTest = getRunPassionTestUrl(shoe);
+                return (
                 <article
                   key={`${shoe.id}-${idx}`}
                   className={`${styles.shoeCard} ${
@@ -1318,6 +1404,15 @@ export default function ShoeFinder({
                       {shoe.expertReason || shoe.description}
                     </p>
                   </div>
+
+                  <a
+                    href={runPassionTest.url}
+                    target="_blank"
+                    rel="noopener"
+                    className={styles.runpassionTestLink}
+                  >
+                    {runPassionTest.label}
+                  </a>
 
                   <div className={styles.specsRow}>
                     <div className={styles.specPill}>
@@ -1388,10 +1483,28 @@ export default function ShoeFinder({
                     </a>
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
+
+        <div className={styles.runpassionFooterBar}>
+          <div className={styles.runpassionFooterText}>
+            <BookOpen size={16} color="#b45309" style={{ flexShrink: 0 }} />
+            <span>
+              <strong>Tests terrain indépendants, comparatifs plaques carbone &amp; guides d&apos;achat 2026</strong> rédigés par notre rédaction.
+            </span>
+          </div>
+          <a
+            href="https://runpassion.fr/"
+            target="_blank"
+            rel="noopener"
+            className={styles.runpassionFooterLink}
+          >
+            Découvrir sur RunPassion.fr <ArrowUpRight size={14} />
+          </a>
+        </div>
       </div>
 
       {/* FULL 2026 CATALOG EXPLORER (shown on /shoe-finder page) */}
@@ -1620,19 +1733,30 @@ export default function ShoeFinder({
                 </div>
               </div>
 
-              <a
-                href={ensureTop4RunningAffiliateUrl(
-                  detailShoe.externalUrl,
-                  `${detailShoe.brand} ${detailShoe.name}`
-                )}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                onClick={() => trackAffiliateClick(detailShoe)}
-                className={styles.buyBtn}
-                style={{ padding: '1rem', fontSize: '0.88rem', marginTop: 'auto' }}
-              >
-                Commander sur Top4Running ({detailShoe.price} €) <ArrowUpRight size={17} />
-              </a>
+              <div className={styles.modalActionsGroup}>
+                <a
+                  href={getRunPassionTestUrl(detailShoe).url}
+                  target="_blank"
+                  rel="noopener"
+                  className={styles.modalTestBtn}
+                >
+                  <BookOpen size={16} /> Lire le test sur RunPassion.fr <ArrowUpRight size={15} />
+                </a>
+
+                <a
+                  href={ensureTop4RunningAffiliateUrl(
+                    detailShoe.externalUrl,
+                    `${detailShoe.brand} ${detailShoe.name}`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  onClick={() => trackAffiliateClick(detailShoe)}
+                  className={styles.buyBtn}
+                  style={{ padding: '1rem', fontSize: '0.88rem' }}
+                >
+                  Commander sur Top4Running ({detailShoe.price} €) <ArrowUpRight size={17} />
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import ShoeFinder from '@/components/ShoeFinder';
+import RunPassionMediaBanner from '@/components/RunPassionMediaBanner';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
 
 export const metadata: Metadata = {
@@ -53,6 +54,8 @@ export default function ShoeFinderPage() {
         </div>
 
         <ShoeFinder startInWizardMode={true} showCatalog={true} raceSlug="page_shoe_finder" />
+
+        <RunPassionMediaBanner />
 
         <div style={{ marginTop: '2.5rem' }}>
           <NutripurePartnerCard />

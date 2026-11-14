@@ -28,7 +28,8 @@ export default function SEOSection() {
               et générez votre carte finisher personnalisée sur votre <Link href="/coureur" style={{ color: '#c05621', fontWeight: 700 }}>Fiche Coureur</Link>.
             </p>
             <p className={styles.seoText}>
-              Consultez également notre <a href="#clubs" style={{ color: '#c05621', fontWeight: 700 }}>annuaire des clubs d&apos;athlétisme et associations running</a>{' '}pour trouver un groupe d&apos;entraînement près de chez vous.
+              Consultez également notre <a href="#clubs" style={{ color: '#c05621', fontWeight: 700 }}>annuaire des clubs d&apos;athlétisme et associations running</a>{' '}pour trouver un groupe d&apos;entraînement près de chez vous, et retrouvez{' '}
+              <a href="https://runpassion.fr/" target="_blank" rel="noopener" style={{ color: '#c05621', fontWeight: 700 }}>nos tests indépendants de chaussures de running et trail sur RunPassion.fr</a>.
             </p>
           </div>
         </div>
