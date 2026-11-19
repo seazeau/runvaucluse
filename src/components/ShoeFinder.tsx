@@ -70,6 +70,14 @@ const TECH_SPECS: Record<string, Partial<ShoeModel>> = (
   configData as unknown as { techSpecs: Record<string, Partial<ShoeModel>> }
 ).techSpecs;
 
+function normalizeGaugePercent(value: number | undefined, fallback: number): number {
+  if (typeof value !== 'number' || Number.isNaN(value) || value <= 0) {
+    return fallback;
+  }
+  const scaled = value <= 10 ? value * 10 : value;
+  return Math.max(0, Math.min(100, Math.round(scaled)));
+}
+
 // Curated 2026 matrix mapped by Terrain x Goal x Level (using the 11x3 expert recommendations)
 const MATRIX_2026: Record<TerrainType, Record<GoalType, Record<LevelKey, RecSlot[]>>> = {
   Route: {
@@ -941,9 +949,9 @@ async function fetchLiveTop4RunningFeed(fallbackShoes: ShoeModel[]): Promise<Sho
         drop: spec.drop ?? 8,
         stack: spec.stack || '36/28mm',
         stackHeight: spec.stack || '36/28mm',
-        amorti: spec.amorti ?? 85,
-        dynamisme: spec.dynamisme ?? 85,
-        stabilite: spec.stabilite ?? 85,
+        amorti: normalizeGaugePercent(spec.amorti, 85),
+        dynamisme: normalizeGaugePercent(spec.dynamisme, 85),
+        stabilite: normalizeGaugePercent(spec.stabilite, 85),
         description:
           spec.expertVibe ||
           `Expertise RunVaucluse : ${spec.usage || 'Running'} • Amorti ${spec.cushion || 'Pro'}.`,
@@ -1437,7 +1445,7 @@ export default function ShoeFinder({
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
-                          style={{ width: `${shoe.amorti || 85}%` }}
+                          style={{ width: `${normalizeGaugePercent(shoe.amorti, 85)}%` }}
                         />
                       </div>
                     </div>
@@ -1446,7 +1454,7 @@ export default function ShoeFinder({
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
-                          style={{ width: `${shoe.dynamisme || 82}%` }}
+                          style={{ width: `${normalizeGaugePercent(shoe.dynamisme, 82)}%` }}
                         />
                       </div>
                     </div>
@@ -1455,7 +1463,7 @@ export default function ShoeFinder({
                       <div className={styles.gaugeTrack}>
                         <div
                           className={styles.gaugeFill}
-                          style={{ width: `${shoe.stabilite || 85}%` }}
+                          style={{ width: `${normalizeGaugePercent(shoe.stabilite, 85)}%` }}
                         />
                       </div>
                     </div>
