@@ -236,6 +236,7 @@
   line-height: 1.65;
   font-size: 1rem;
   font-weight: 500;
+  white-space: pre-line;
 }
 
 .contactItem {
