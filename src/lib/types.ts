@@ -21,6 +21,7 @@ export interface Race {
   parcours_link?: string;
   gpx_link?: string;
   is_cancelled?: boolean | number;
+  updated_at?: string;
 }
 
 export interface RaceResult {

@@ -147,9 +147,11 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
     ? race.facebook 
     : `https://www.facebook.com/search/top/?q=${encodeURIComponent(race.name)}`;
 
-  // Related races for internal SEO linking
-  const relatedRaces = (racesData as Race[])
-    .filter(r => r.slug !== slug)
+  // Related races for internal SEO linking:
+  // 3 closest races of the same type + 3 deterministic cross-season picks so every 2027 race gets inbound links
+  const allRaces = racesData as Race[];
+  const otherRaces = allRaces.filter(r => r.slug !== slug);
+  const closeRelated = [...otherRaces]
     .sort((a, b) => {
       const sameTypeA = a.type === race.type ? 1 : 0;
       const sameTypeB = b.type === race.type ? 1 : 0;
@@ -157,6 +159,23 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
       return Math.abs(new Date(a.date).getTime() - raceDate.getTime()) - Math.abs(new Date(b.date).getTime() - raceDate.getTime());
     })
     .slice(0, 3);
+
+  const usedSlugs = new Set([slug, ...closeRelated.map(r => r.slug)]);
+  const chronological = [...allRaces].sort((a, b) => a.date.localeCompare(b.date));
+  const currentIdx = Math.max(0, chronological.findIndex(r => r.slug === slug));
+  const crossSeason: Race[] = [];
+  const total = chronological.length;
+  for (const step of [Math.floor(total / 3), Math.floor((2 * total) / 3), Math.floor(total / 2)]) {
+    for (let offset = 0; offset < total; offset++) {
+      const candidate = chronological[(currentIdx + step + offset) % total];
+      if (!usedSlugs.has(candidate.slug)) {
+        usedSlugs.add(candidate.slug);
+        crossSeason.push(candidate);
+        break;
+      }
+    }
+  }
+  const relatedRaces = [...closeRelated, ...crossSeason];
 
   // GPX for GRV
   const isGRV = slug === 'grand-raid-ventoux-by-utmb-malaucene';

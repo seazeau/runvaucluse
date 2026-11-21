@@ -8,17 +8,19 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://runvaucluse.fr';
+  const baselineDate = new Date('2026-11-01');
+  const today = new Date();
 
   const raceUrls = (racesData as Race[]).map((race) => ({
     url: `${baseUrl}/race/${race.slug}/`,
-    lastModified: new Date(),
+    lastModified: race.updated_at ? new Date(race.updated_at) : baselineDate,
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }));
 
   const explorerUrls = (itinerairesData as { slug: string }[]).map((itinaire) => ({
     url: `${baseUrl}/explorer/${itinaire.slug}/`,
-    lastModified: new Date(),
+    lastModified: baselineDate,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
@@ -26,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const resultsData = getRacesWithResults();
   const resultsUrls = resultsData.map((race) => ({
     url: `${baseUrl}/resultats/${race.slug}/`,
-    lastModified: new Date(),
+    lastModified: baselineDate,
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
@@ -34,37 +36,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date(),
+      lastModified: today,
       changeFrequency: 'daily',
       priority: 1,
     },
     {
       url: `${baseUrl}/explorer/`,
-      lastModified: new Date(),
+      lastModified: baselineDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/resultats/`,
-      lastModified: new Date(),
+      lastModified: today,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/records/`,
-      lastModified: new Date(),
+      lastModified: baselineDate,
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
       url: `${baseUrl}/coureur/`,
-      lastModified: new Date(),
+      lastModified: baselineDate,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/shoe-finder/`,
-      lastModified: new Date(),
+      lastModified: new Date('2026-11-19'),
       changeFrequency: 'weekly',
       priority: 0.85,
     },

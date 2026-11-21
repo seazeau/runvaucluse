@@ -16,6 +16,14 @@
   border-color: rgba(17, 20, 23, 0.25);
 }
 
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 .imageSection {
   height: 420px;
   position: relative;
