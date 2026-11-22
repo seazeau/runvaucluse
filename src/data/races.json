@@ -746,15 +746,20 @@
     "date": "2027-04-04",
     "name": "Trail des Sentiers du Paty",
     "city": "Caromb",
-    "distances": "25 km (1000D+), 13 km (450D+), 7 km (250D+)",
+    "distances": "25 km (1000D+), 13 km (450D+), 7 km (250D+), Parcours enfants",
     "type": "Trail",
     "contact": "Thomas Richard (06 35 04 56 60 / lessentiersdupaty@gmail.com)",
     "image_url": "/images/poster-sentiers-du-paty.jpg",
-    "link": "https://lessentiersdupaty.fr",
+    "link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_sentiersdupaty.php",
+    "website": "https://lessentiersdupaty.fr",
+    "registration_platform": "JF-Chronotrail",
+    "registration_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/page_sentiersdupaty.php",
+    "pdf_link": "https://www.jf-chronotrail.fr/jf_chrono_pages/documents/reglement_sentiersdupaty.php",
     "facebook": "https://www.facebook.com/people/Trail-Les-Sentiers-du-Paty/100057443637745/",
     "instagram": "https://www.instagram.com/lessentiersdupaty/",
     "slug": "trail-des-sentiers-du-paty-caromb",
-    "description": "Dimanche 4 avril 2027 à Caromb (départs 8h30, 9h15 et 9h45). Trails de 25 km (1000m D+), 13 km (450m D+) et 7 km (250m D+) autour du Lac du Paty et sur les contreforts du Ventoux."
+    "updated_at": "2026-11-22",
+    "description": "🌲 Préparez vos foulées et sortez vos plus beaux sourires, Les Sentiers du Paty vous donnent rendez-vous au pied du Ventoux, à Caromb, le dimanche 4 avril 2027 !\n\nEntre monotraces ombragés, pistes vallonnées et passage au bord du lac, venez vibrer sur nos parcours authentiques taillés pour le trail et l'amour de la nature. ✨\nVenez vous surpasser, respirer un grand bol d'air et partager un moment inoubliable avec notre équipe de passionnés. On vous attend nombreux ! 🎯💪\n\n📅 Programme :\nRetrait des dossards :\n· Samedi : 16h00 - 18h00\n· Dimanche : à partir de 7h00\n\nDéparts :\n· 08h30 : 25 km (1 000 m D+)\n· 08h45 : Parcours enfants\n· 09h15 : 13 km (450 m D+)\n· 09h45 : 7 km (250 m D+)\n· 10h30 : Arrivée des 1ers coureurs\n· 11h00 : Début des podiums"
   },
   {
     "id": 20,
