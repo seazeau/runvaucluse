@@ -9,6 +9,7 @@ import StructuredData from '@/components/StructuredData';
 import CyberCardGenerator from '@/components/CyberCardGenerator';
 import TerroirsMarathonDossier from '@/components/TerroirsMarathonDossier';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
+import BlackFridayTop4Banner from '@/components/BlackFridayTop4Banner';
 import ShoeFinder from '@/components/ShoeFinder';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -491,6 +492,8 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ slu
               <span className={styles.coachSubCta}>Visio de 15 min • Sans engagement</span>
             </div>
           </section>
+
+          <BlackFridayTop4Banner />
 
           <NutripurePartnerCard />
 

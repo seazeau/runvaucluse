@@ -6,6 +6,7 @@ import FAQSection from '@/components/FAQSection';
 import AboutSection from '@/components/AboutSection';
 import SEOSection from '@/components/SEOSection';
 import NutripurePartnerCard from '@/components/NutripurePartnerCard';
+import BlackFridayTop4Banner from '@/components/BlackFridayTop4Banner';
 import ShoeFinder from '@/components/ShoeFinder';
 import RunPassionMediaBanner from '@/components/RunPassionMediaBanner';
 import { Race } from '@/lib/types';
@@ -36,6 +37,7 @@ export default async function Home() {
       {/* FULL CALENDAR SECTION */}
       <section id="calendrier" className={styles.calendarSection}>
         <div className="container">
+          <BlackFridayTop4Banner />
           <NutripurePartnerCard />
           <header className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
