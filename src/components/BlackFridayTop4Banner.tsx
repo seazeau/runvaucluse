@@ -16,13 +16,13 @@ export default function BlackFridayTop4Banner() {
   return (
     <div
       style={{
-        margin: '1.5rem auto 2rem',
-        maxWidth: '1100px',
-        borderRadius: '20px',
+        margin: '1rem auto 1.5rem',
+        maxWidth: '720px',
+        borderRadius: '16px',
         overflow: 'hidden',
         border: '1px solid rgba(59, 130, 246, 0.35)',
         backgroundColor: '#040a17',
-        boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.45)',
+        boxShadow: '0 14px 28px -12px rgba(0, 0, 0, 0.45)',
       }}
     >
       <a
@@ -34,20 +34,20 @@ export default function BlackFridayTop4Banner() {
         <img
           src="/images/bf-top4running-wide.webp"
           alt="Black Friday Top4Running : -15% supplémentaires avec le code EXTRA15"
-          style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+          style={{ width: '100%', height: 'auto', maxHeight: '190px', display: 'block', objectFit: 'cover', objectPosition: 'center top' }}
           loading="lazy"
         />
       </a>
       <div
         style={{
-          padding: '0.85rem 1.25rem',
+          padding: '0.65rem 1rem',
           background: 'linear-gradient(90deg, #071329 0%, #0a1a3a 50%, #071329 100%)',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '0.75rem',
+          gap: '0.6rem',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
